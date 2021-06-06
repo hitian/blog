@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>game on 不折腾不舒服</title><link>https://hitian.info/tags/game/</link><description>Recent content in game on 不折腾不舒服</description><generator>Hugo -- gohugo.io</generator><language>zh-cn</language><lastBuildDate>Thu, 22 Jan 2015 00:00:00 +0000</lastBuildDate><atom:link href="https://hitian.info/tags/game/index.xml" rel="self" type="application/rss+xml"/><item><title>我的第一个游戏开发历程</title><link>https://hitian.info/post/my-first-game/</link><pubDate>Thu, 22 Jan 2015 00:00:00 +0000</pubDate><guid>https://hitian.info/post/my-first-game/</guid><description>到今天为止, 折腾了10个月的游戏终于结束了, 虽然google play store的版本已经上架有一段时间了, iOS的还正在审核中, 不过后续的版本应该已经不会再开发了. 也算是这10个月的努力没有白费.
+###2013年3月###
+正在维护后端的游戏进入了最后阶段, 虽然每天都还有不少的收入, 但对于一个不算小的游戏公司来说跨国的运营已经太费力了. 于是决定一段时间后就不在进行更新了, 等玩家流失,然后关服. 项目组的人员开始慢慢的调到其他的项目组. 然后, leader问我愿不愿意跟他去开发个新游戏, 然后就去了.
+话说从大三起就一直在进行web开发, 毕业后的3年也是, 对手机端游戏开发毫无概念, 老大们决定要用js作为主要的开发语言, 然后就突然想换一下口味, 正好公司也允许我们边学边做, 然后就开始转到客户端开发了.
+###cocos2d-x + javascript###
+做web时也一直在接触js, 这方面不算陌生. cocos2d-x游戏引擎对我来说是个新的事物, 但是学习新的事物如果有一套自己的学习方式其实也是很快的, 游戏ui画面的组织其实和大学时课设做的java图形界面有点类似, 把所有的元素添加到一个树状的UI树上去, 然后在scene上显示出来, 不同的是游戏有一个主循环, 在里面进行必要的动画操作, 响应用户的操作或者是服务器的返回值对UI树进行更改.
+从0开始, 在伟大的google的帮助下, 仅仅第10天第一个demo就出来了, 虽然只有一个场景, 但是核心的消除逻辑已经可以初步使用了. 然后就立即有信心了. 项目也就正式开始了.
+###坑的开始…###
+Facebook, 因为是要在台湾发行的游戏, 决定深度整合Facebook. 由于某些原因, 即使有专线,和Facebook服务的通讯通畅度也根本就是个悲剧, 开发和测试过程中各种调用异常, 一句话, 不要在国内做这方面的开发.
+js作为开发语言是很方便, 但是如果和第三方sdk的交互比较多, 想象一下操作链: js =&amp;gt; js解释器 =&amp;gt; c++ =&amp;gt; jni =&amp;gt; java, 特别是js和c++ 是完全不同的语言类型, 我们需要做好多的接口和回调, 又是在android上运行, 互相调用时会发生各种各样的崩溃问题.</description></item><item><title>cocos2d-x 入门笔记</title><link>https://hitian.info/post/cocos2d-x-note/</link><pubDate>Thu, 13 Mar 2014 00:00:00 +0000</pubDate><guid>https://hitian.info/post/cocos2d-x-note/</guid><description>首先cocos2d-x开发游戏确实还是比较简单的. 因为可以使用js作为开发语言, 本来就会js的人入门会更快, 不过市面上的书和网上的各种教程基本都是用c++的, 所以学习过程中还是走了不少弯路.
+目前使用js作为开发语言的话, 可以在iOS, Android, Windows 上运行, 开发环境可以是MacOS+Xcode 或者Windows+VS, 不过Windows上那是非常的慢. 所以下面的都是在Mac下的.
+开始了&amp;hellip;
+官网: http://www.cocos2d-x.org/ 如果很慢请尝试使用代理
+##api文档##
+官方api文档地址&amp;raquo;
+对api的使用建议: 如果是使用js开发手机native的游戏的话, 可以使用Cocos2d-html5 的api文档配合Cocos2d-X的文档看, 因为Cocos2d-x的文档主要以c++的为主, 看js的话用起来非常的不方便, 所以我平时都是直接看html5的, 有问题的话再查一下c++的.
+##创建项目##
+这是第一个坑, 目前的稳定版本是2.2.2. 大部分书还是2.2的版本, 书里介绍的导入xcode模板的脚本现在已经没有了, 现在需要执行脚本直接生成工程.
+脚本地址 cocos2d-x-2.2.2/tools/project-creator/create_project.py
+建议使用 python2.7 来执行, 最新版的python貌似有问题
+直接执行会有参数的提示, 把参数都补上再执行一遍项目就应该创建好了.
+生成的项目会放在 cocos2d-x-2.2.2/projects/ 目录下. iOS的xcode工程在 proj.ios 下面. 要运行非常简单, 直接在Xcode里点运行就可以直接在模拟器上运行自带的HelloWorld程序了. android的运行可能要稍微麻烦一点, 可以自行Google.
+##学习##
+因为这方面的资料大部分都是c++的, 所以学习也基本是从看c++的书开始, 其实也不用会c++, 看书主要是为了大概知道cocos2d-x是如何工作的, 都有什么样的方法或者工具可以使用, 接下来就是看源代码包里提供的js的示例项目, 看一下js是怎么实现各种功能的.
+官方给了5个js的示例项目, 在目录: cocos2d-x-2.2.2/samples/Javascript/ 下, 注意js的源代码放在公用的 cocos2d-x-2.2.2/samples/Javascript/Shared/games 目录下. 认真研究一下这些代码, 在配合api文档基本上就可以开始尝试着开发自己的游戏了. 入门还是比较简单的.</description></item></channel></rss>

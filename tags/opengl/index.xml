@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>opengl on 不折腾不舒服</title><link>https://hitian.info/tags/opengl/</link><description>Recent content in opengl on 不折腾不舒服</description><generator>Hugo -- gohugo.io</generator><language>zh-cn</language><lastBuildDate>Fri, 05 Sep 2014 00:00:00 +0000</lastBuildDate><atom:link href="https://hitian.info/tags/opengl/index.xml" rel="self" type="application/rss+xml"/><item><title>cocos2d-x 出现 call to OpenGL ES API with no current context</title><link>https://hitian.info/post/cocos2d-x-android-call-to-opengl-es-api-with-no-current-context/</link><pubDate>Fri, 05 Sep 2014 00:00:00 +0000</pubDate><guid>https://hitian.info/post/cocos2d-x-android-call-to-opengl-es-api-with-no-current-context/</guid><description>环境 cocos2d-x 2.2.2 + js
+游戏的某些功能界面在Android出现了很奇怪的黑块, LOG记录到
+E/libEGL (30687): call to OpenGL ES API with no current context (logged once per thread)
+google一下, 大概的原因可能是在非UI线程上操作场景上的图片资源导致的. 但是网上的情况绝大多数情况出现在 java 操作 c++ 层时出现的, 而我们是直接出现在js的回调方法中.
+回调是由某sdk执行的, 通过 java -&amp;gt; c++ -&amp;gt; js 一层层回来的.
+也就是说最终js的回调有可能是执行在非ui线程里的, 所以在这里更新界面有可能会出现问题.
+囧&amp;hellip;
+推测
+js无法决定自己运行在什么线程里, 但是可以控制界面更新在UI线程里操作.
+我们的流程是这样的.
+sdk -&amp;gt; someService -&amp;gt; controller -&amp;gt; view
+那其实我们可以打断someService 和 controller 之间的直接调用关系. 分成两步来执行.
+sdk -&amp;gt; someService -&amp;gt; [write status mark &amp;amp; store params]
+写完状态就可以直接返回了. 剩下的事情由游戏的循环来做. 游戏的循环本来就是负责界面更新的, 所以肯定不会有问题.</description></item></channel></rss>

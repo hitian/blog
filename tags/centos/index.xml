@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>centos on 不折腾不舒服</title><link>https://hitian.info/tags/centos/</link><description>Recent content in centos on 不折腾不舒服</description><generator>Hugo -- gohugo.io</generator><language>zh-cn</language><lastBuildDate>Tue, 13 Dec 2011 00:00:00 +0000</lastBuildDate><atom:link href="https://hitian.info/tags/centos/index.xml" rel="self" type="application/rss+xml"/><item><title>关于(13) phpmyadmin Permission denied</title><link>https://hitian.info/post/permission-denied-access-to-phpmyadmin/</link><pubDate>Tue, 13 Dec 2011 00:00:00 +0000</pubDate><guid>https://hitian.info/post/permission-denied-access-to-phpmyadmin/</guid><description>centos5.4 配置完apache+php+mysql 环境后出现了一个很棘手的问题
+使用 Alias /phpmyadmin &amp;ldquo;/var/www/html/phpmyadmin/&amp;rdquo;
+之后访问 http://localhost/phpmyadmin/index.php 一直出403
+/var/www/html/phpmyadmin/ 目录的owner 改为apache
+并给了整个目录755的权限
+在访问的时候仍然出现了403
+解决方案:
+#chcon -R -h -t httpd_sys_content_t /var/www/html/phpmyadmin/
+本来一直使用ubuntu server 的, 没有用过centos, 为了明天的考核不得不试了下centos , 结果就出现这样纠结的问题, 翻了好久的英文网页才找到解决办法, 感谢google&amp;hellip;</description></item></channel></rss>

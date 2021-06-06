@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>other on 不折腾不舒服</title><link>https://hitian.info/categories/other/</link><description>Recent content in other on 不折腾不舒服</description><generator>Hugo -- gohugo.io</generator><language>zh-cn</language><lastBuildDate>Fri, 20 Sep 2013 00:00:00 +0000</lastBuildDate><atom:link href="https://hitian.info/categories/other/index.xml" rel="self" type="application/rss+xml"/><item><title>virtualbox 禁止时间同步</title><link>https://hitian.info/post/virtualbox-disable-time-sync/</link><pubDate>Fri, 20 Sep 2013 00:00:00 +0000</pubDate><guid>https://hitian.info/post/virtualbox-disable-time-sync/</guid><description>&lt;p>virtualbox 会自动同步虚拟机的时间, 看起来很方便, 却给开发造成了不小的麻烦.&lt;/p></description></item><item><title>设置git忽略服务器证书校验错误</title><link>https://hitian.info/post/git-ignore-certificate-check/</link><pubDate>Sun, 23 Jun 2013 00:00:00 +0000</pubDate><guid>https://hitian.info/post/git-ignore-certificate-check/</guid><description>将自己的git服务器切换到https后clone时发生错误
+error: SSL certificate problem, verify that the CA cert is OK. Details: error:14090086:SSL routines:SSL3_GET_SERVER_CERTIFICATE:certificate verify failed while accessing https://... 因为证书是自己颁发的无法通过CA的校验
+git config --global http.sslVerify false
+这样就可以忽略校验了.
+话说gitlab版本从5.2升级到5.3还真顺利, 升级文档: https://github.com/gitlabhq/gitlabhq/blob/master/doc/update/5.2-to-5.3.md</description></item><item><title>为DiffMerge创建finder右键菜单</title><link>https://hitian.info/post/diffmerge/</link><pubDate>Sat, 01 Dec 2012 00:00:00 +0000</pubDate><guid>https://hitian.info/post/diffmerge/</guid><description>&lt;p>习惯了win下直接选中文件右键对比， 在mac下找了好久，要么贵的要死，要么没有，所以决定自己创建一个。&lt;/p></description></item><item><title>推荐一个zendstudio调样式的新方式</title><link>https://hitian.info/post/zendstudio-install-theme/</link><pubDate>Sat, 01 Dec 2012 00:00:00 +0000</pubDate><guid>https://hitian.info/post/zendstudio-install-theme/</guid><description>&lt;p>默认的白底黑字其实看久了也挺烦， 无奈审美太差， 自己调颜色只会越弄越差。&lt;/p></description></item><item><title>mac下安装dnsmasq笔记</title><link>https://hitian.info/post/macos-install-dnsmasq/</link><pubDate>Sun, 25 Nov 2012 00:00:00 +0000</pubDate><guid>https://hitian.info/post/macos-install-dnsmasq/</guid><description>安装
+brew update &amp;amp;&amp;amp; brew install dnsmasq
+ 配置
+#从模板创建配置文件
+cp /usr/local/Cellar/dnsmasq/2.63/dnsmasq.conf.example /usr/local/etc/dnsmasq.conf
+#开机自启动
+sudo cp /usr/local/Cellar/dnsmasq/2.63/homebrew.mxcl.dnsmasq.plist /Library/LaunchDaemons/
+sudo launchctl load -w /Library/LaunchDaemons/homebrew.mxcl.dnsmasq.plist 
+ 编辑 /usr/local/etc/dnsmasq.conf
+修改 resolv-file=/etc/resolv.dnsmasq.conf
+如果只想本机使用 这里也修改一下
+listen-address=127.0.0.1
+ 修改maxos的配置使用本地的dnsmasq
+编辑 /etc/resolv.conf
+修改 nameserver 127.0.0.1
+ 参考原始页面 http://blog.philippklaus.de/2012/02/install-dnsmasq-locally-on-mac-os-x-via-homebrew/
+  </description></item><item><title>openwrt dns配置</title><link>https://hitian.info/post/openwrt-dns-configuration/</link><pubDate>Sun, 25 Nov 2012 00:00:00 +0000</pubDate><guid>https://hitian.info/post/openwrt-dns-configuration/</guid><description>想使用v2ex的dns来加速app store， 又不想因为dns的原因导致某些网站的区域性cdn加速失效
+其实用dnsmasq很容易解决这个问题
+给路由器刷个openwrt， 然后设置就简单多了
+打开 网络 =》 DHCP/DNS 页面
+设置一下里面的DNS转发， 把v2ex的两个ip加进去, 将苹果的二级域名使用v2ex进行解析， 而其他域名还是通过本地isp的dns解析。
+/.apple.com/199.91.73.222
+/.apple.com/178.79.131.110
+保存， 大功告成
+ </description></item><item><title>推荐个win下面好用的文件对比软件WinMerge</title><link>https://hitian.info/post/winmerge/</link><pubDate>Fri, 12 Oct 2012 00:00:00 +0000</pubDate><guid>https://hitian.info/post/winmerge/</guid><description>WinMerge
+官网：http://winmerge.org/
+一款 Windows 下的开源免费文件比较/合并工具，支持文件/文件夹比较，可以处理DOS、UNIX 和 MAC 中的文本文件，支持 Unicode 标准万国码，可以对文本文档的可视化编辑以及合并，也有语法高亮和支持压缩包功能（通过7-Zip支持）。
+之前文件对比一直用的TortoiseSVN自带的diff, 不过不是很直观, WinMerge 用起来更方便一点, 可以直接显示不同的位置, 可以直接替换掉TortoiseSVN里的.</description></item><item><title>mac上最简单的代理方式</title><link>https://hitian.info/post/macos-simple-proxy/</link><pubDate>Mon, 01 Oct 2012 00:00:00 +0000</pubDate><guid>https://hitian.info/post/macos-simple-proxy/</guid><description>在mac上使用ssh代理其实很方便
+前提是有一个ssh账号
+命令
+$ ssh -D 1089 tian@domain.com
+会打开端口1089 监听
+查看端口可以发现
+Active Internet connections (including servers) Proto Recv-Q Send-Q Local Address Foreign Address (state) tcp6 0 0 ::1.1089 *.* LISTEN tcp4 0 0 127.0.0.1.1089 *.* LISTEN 这样连接就建立好了， 然后配置一下
+进入网络偏好设置， 选自己正在用的网络连接 -》点高级-》选择代理标签
+使用socks代理， 填上刚才的端口号
+确实非常方便。</description></item><item><title>blog评论反垃圾</title><link>https://hitian.info/post/blog-comments/</link><pubDate>Mon, 10 Sep 2012 00:00:00 +0000</pubDate><guid>https://hitian.info/post/blog-comments/</guid><description>近几天博客的垃圾评论越来越多， 一天甚至好几十个。 迫不得已装个插件来防垃圾。
+由于空间禁用了php 的fsockopen 函数导致Akismet 无法连接到服务器。
+测试一下发现pfsockopen 没有被禁用， 进入akismet的目录批量替换所有fsockopen为pfsockopen。
+然后就检测正常了
+具体的功能好不好使得观察一段时间再看了。</description></item><item><title>我自己的年度总结(2011)</title><link>https://hitian.info/post/annual-summary-2011/</link><pubDate>Fri, 30 Dec 2011 00:00:00 +0000</pubDate><guid>https://hitian.info/post/annual-summary-2011/</guid><description>2010年11月15日来上海的, 已经一年多了, 在这一年忙碌的工作中成长了不少，得到了很多, 也失去了很多。 这一年中，工作上倒是参与了不少项目的开发，学习到了很多, 然后就是这种各样的无奈.
+1.首页个性设置的前端开发： 这是我第一次使用js开发了一个较复杂的完整功能模块， 也是进公司之后完成的第二个比较大的项目，开发和测试修改历时一个多月，由于不熟悉开发流程， 需求一再更改，开发周期也被迫延长， 算是一个教训吧。 不过js功力大幅增长，特别是浏览器兼容性和浏览器本地存储积累了不少实用经验。
+2.移动导航第二版的前台开发： 由于是一个触屏手机版的网站，可以使用一些前沿的技术， 让我有幸接触到了html5，还有强大的jquery-mobile框架。毕竟是新接触的东西， 由于前期的框架学习和可行性分析不够导致了开发中遇到了很多棘手的问题，让我充分了解了新技术应用可能给项目带来的风险，不过还好项目顺利完工并上线。
+3.网址导航高级版开发： 完整参与了前期的需求和开发和维护，吸取前几次的教训，在项目前期做了大量的技术测试， 包括需要用到的js拖动框架， 本地存储， 以及缓存技术， 但是对开发周期的盲目乐观导致到最后不得不加班加点才能按时完成项目，还有未整理详细的开发文档导致后面的维护遇到了很多问题。这个项目涉及从前台js一直到后台数据库设计的一整套的东西，积累了很多网站性能方面的知识，也让我明白了牵头做一个项目有多么不容易。
+4.积分系统维护：后半年正式开始专职维护积分系统，对我来说这是一个新的挑战，之前从来没有接触过这么大量的数据需要运算、存储，需要关心的不只是功能能不能实现，数据量大了之后， 性能的重要性越来越突出，可能只是很小的改动都可以让运算时间大幅减小，当然也必须非常小心，因为任何的小失误都可能导致严重的问题。
+流水帐写完了, 然后就是一些感受和吐槽:
+1.毕竟是第一份正式的工作, 我不知道100多人的公司算大还是小, 不过快速发展导致管理跟不上确实是一件严重的事情.
+2.高层的目标是宏伟的, 中层只想尽快有业绩, 作为底层员工就只是无奈.
+3.我们用一成不变的技术来应对产品策划日益更新的需求, 这样真会死人的.
+4.初期赶进度导致的考虑和设计不足将在一段时间后大规模扩大.
+5.如果所有产品策划未经任何审核的想法都提交给开发人员必须实现, 没有规划,没有长远的考虑, 甚至隔几天就要改数据结构, 改业务逻辑, 那么系统崩溃是迟早的事, 这绝对不是危言耸听.
+6.小的逻辑错误自己是很难发现的, 这就是为什么我们需要代码审查机制和专业的测试人员.
+7.没有规范的代码、架构、 注释是很可怕的，等到开始维护的时候就知道了。
+8.到一定规模时，内部自己进行一些研发是必要的，把别人的最好的东西堆起来不一定是适合自己的最优解 就写这么多了。。。
+晚安 2011-12-30</description></item><item><title>chrome 最新版下载地址(win)</title><link>https://hitian.info/post/chrome-installer-downloads-for-win/</link><pubDate>Wed, 28 Dec 2011 00:00:00 +0000</pubDate><guid>https://hitian.info/post/chrome-installer-downloads-for-win/</guid><description>在线安装: 稳定版 测试版 开发版 chromium
+ 离线安装包: 稳定版 测试版 开发版</description></item><item><title>win7安装完成后将硬盘从ATA模式切换到AHCI</title><link>https://hitian.info/post/win7-hd-ata-to-ahci/</link><pubDate>Sat, 03 Dec 2011 00:00:00 +0000</pubDate><guid>https://hitian.info/post/win7-hd-ata-to-ahci/</guid><description>ahci模式包含了ncq等高级模式, 可以提高硬盘的性能, 而且win7内置了驱动, 不必担心像xp会蓝屏.
+但是如果是在ata模式下安装完成的win7, 再修改bios 切换到ahci模式还是会导致重新启动时蓝屏.
+解决:
+在ata模式下进入系统
+打开注册表编辑器
+修改 HKEY_LOCAL_MACHINE\System\CurrentControlSet\Services\Msahci 中 Start 的值为0
+重启电脑 进bios 切换到ahci模式
+启动系统
+进入桌面后会显示有驱动正在安装.
+再手动下载安装一下intel的快速存储技术驱动就好了&amp;hellip;</description></item><item><title>thinkpad ubuntu 11.10 暂时禁用触控板</title><link>https://hitian.info/post/thinkpad-ubuntu-disable-touchpad/</link><pubDate>Sun, 27 Nov 2011 00:00:00 +0000</pubDate><guid>https://hitian.info/post/thinkpad-ubuntu-disable-touchpad/</guid><description>打字的时候经常碰到触控板很郁闷, 在使用usb鼠标的时候可以暂时禁用触控板和小红点
+sudo modprobe -r psmouse
+重新启用
+sudo modprobe -i psmouse</description></item><item><title>重装系统后恢复开发环境</title><link>https://hitian.info/post/restore-development-environment/</link><pubDate>Tue, 22 Nov 2011 00:00:00 +0000</pubDate><guid>https://hitian.info/post/restore-development-environment/</guid><description>每次做系统都很愁, 因为有一大堆软件需要重新安装, 尽管尽量都用绿色的还是有一大推需要安装的, 尝试着列个表, 简化一下流程&amp;hellip;
+个人文件夹迁移 将个人文件夹中的 我的视频 我的音乐 我的图片 移动到原来非系统盘的位置去 (一直很纳闷为什么这些需要大量占用磁盘空间的东西不一开始就放在非系统盘) 恢复apache和php环境 之前的都装在d盘了  以管理员运行cmd 进入D:\lamp\apache\bin
+httpd.exe -k install 将apache安装为系统服务
+httpd.exe -k start 启动apache
+mysql 一直使用的远程的, 跳过
+将备份的host 文件覆盖 顺便调整一下修改的权限
+运行环境搞定
+ 安装firefox 然后安装插件 firebug;
+firecookie;
+web developer;
+dns flusher;
+advanced cookie manager;
+再安装一下chrome 使用google帐号将之前的插件都同步回来
+ok 调试环境也搞定
+ 安装 jre ; Dreamweaver ; mysql workbench; eclipse pdt; editplus ok 开发环境搞定</description></item><item><title>gmail 在 ie9中乱版</title><link>https://hitian.info/post/gmail-ie9/</link><pubDate>Sat, 22 Oct 2011 00:00:00 +0000</pubDate><guid>https://hitian.info/post/gmail-ie9/</guid><description>在ie9 中打开gmail页面全乱 并提示ie使用了兼容性视图.并且给了修复方式:
+右键点击右上角的齿轮图标。
+选择命令栏。
+打开浏览器顶部的工具菜单，然后选择兼容性视图设置。
+在“已添加到兼容性视图中的网站”下，选择“google.com”。
+点击删除。但是在我的已添加列表中并没有google.com
+解决方法很简单, 按&amp;rsquo;F12' 打开开发人员工具, 切换一下浏览器模式然后关掉就好了</description></item><item><title>intel my wifi 无法获取到ip的解决</title><link>https://hitian.info/post/intel-my-wifi/</link><pubDate>Wed, 14 Sep 2011 00:00:00 +0000</pubDate><guid>https://hitian.info/post/intel-my-wifi/</guid><description>平时都使用脚本来共享wifi给手机
+start_wifi.bat&amp;gt;
+netsh wlan set hostednetwork mode=allow ssid=TIANap key=21345678 netsh wlan start hostednetwork pause 今天更新驱动时发现了intel的my wifi便试了下, 可以实时显示都有哪些设备使用了.但是有个问题就是其他设备一直不能正常获取到ip地址.
+打开my wifi创建的无线网络连接属性, 尝试着将除了internet 协议版本4 之外的其他项全取消了就好了,不知道什么原因导致的.</description></item><item><title>Hello world!</title><link>https://hitian.info/post/hello-world/</link><pubDate>Thu, 07 Jul 2011 00:00:00 +0000</pubDate><guid>https://hitian.info/post/hello-world/</guid><description>从今天起就在这里安家了。以前也在其它地方开过博客，但是都没过多久就半途而废了，希望这次可以坚持下去。
+tian2011.07.08于地铁四号线</description></item></channel></rss>

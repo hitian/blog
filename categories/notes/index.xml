@@ -1,0 +1,222 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>notes on 不折腾不舒服</title><link>https://hitian.info/categories/notes/</link><description>Recent content in notes on 不折腾不舒服</description><generator>Hugo -- gohugo.io</generator><language>zh-cn</language><lastBuildDate>Sat, 01 Aug 2020 00:00:00 +0000</lastBuildDate><atom:link href="https://hitian.info/categories/notes/index.xml" rel="self" type="application/rss+xml"/><item><title>修复macOS上的Firefox在全屏时会隐藏所有屏幕菜单栏的问题</title><link>https://hitian.info/post/fix-firefox-macos-full-sceen/</link><pubDate>Sat, 01 Aug 2020 00:00:00 +0000</pubDate><guid>https://hitian.info/post/fix-firefox-macos-full-sceen/</guid><description>针对Firefox for macOS 79.0 (64-bit)
+如果macOS有多块屏幕， 在默认配置下 firefox 全屏时会隐藏所有屏幕的菜单栏，需要手动改配置修复。
+地址栏输入并打开 about:config 忽略风险提示并搜索 full-screen-api 双击 full-screen-api.macos-native-full-screen 将配置更改为 true</description></item><item><title>Raspberry Pi note</title><link>https://hitian.info/post/raspberry-pi-note/</link><pubDate>Sun, 25 Aug 2019 00:00:00 +0000</pubDate><guid>https://hitian.info/post/raspberry-pi-note/</guid><description>Raspberry Pi 笔记 B系列硬件参数 Version CPU Arch RAM USB Boot from USB Ethernet Wireless Release 1 B BCM2835 700MHz 32-bit ARM1176JZFS 256/512MB USB2 * 2 No 10/100 Mbit/s - 2012 Apr~Jun 1 B+ BCM2835 700MHz 32-bit ARM1176JZFS 256/512MB USB2 * 4 No 10/100 Mbit/s - 2014 Jul 2 B v1.1 BCM2836 900MHz 32-bit quad-core ARM Cortex-A7 1GB USB2 * 4 No 10/100 Mbit/s - 2015 Feb 2 B v1.</description></item><item><title>在docker中编译openwrt</title><link>https://hitian.info/post/openwrt-build-docker/</link><pubDate>Sat, 10 Aug 2019 00:00:00 +0000</pubDate><guid>https://hitian.info/post/openwrt-build-docker/</guid><description>在docker中编译openwrt build docker image Docker file
+{% gist 88ff8a7cad5deffad51d8c29d5c47d75 Dockerfile %}
+docker build --no-cache -t ubuntu-openwrt-build .
+build clone openwrt source code
+git clone https://git.openwrt.org/openwrt/openwrt.git
+# 更新软件包 docker run -it --rm -v $PWD:/build ubuntu-openwrt-build ./scripts/feeds update -a # 使用 menuconfig 设置编译目标、内核信息、以及需要安装的包 docker run -it --rm -v $PWD:/build ubuntu-openwrt-build make menuconfig # 编译 docker run -it --rm -v $PWD:/build ubuntu-openwrt-build make -j4 生成的文件会放置在bin目录下, 例如 MT7621 放在 bin/targets/ramips/mt7621
+#配置文件，同运行 make menuconfig 后生成的.config 文件，可以用于备份和还原配置 config.</description></item><item><title>ssh 代理和转发那些事</title><link>https://hitian.info/post/ssh-proxy-forward/</link><pubDate>Sat, 05 Jan 2019 00:00:00 +0000</pubDate><guid>https://hitian.info/post/ssh-proxy-forward/</guid><description>配置ssh客户端的行为 配置文件路径 ~/.ssh/config
+针对目标主机的配置块示例
+Host deploy-gw HostName [__target_hostname_or_ip__] User game IdentityFile ~/.ssh/deploy_private_key ProxyCommand [__connect_command__] 配置解释 除了Host之外， 其它的都是可选的 Host deploy-gw 定义使用时的名字，之后使用 ssh deploy-gw 登录目标，这个只是别名，当然这里也可以直接写hostname 或者IP地址; 当使用 Hostname 时可以进行匹配， 例如 Host *.hitian.info 可以匹配到 a.hitian.info.
+HostName [__target_hostname_or_ip__] 目标的主机名或者IP地址
+User tian 用户名
+IdentityFile ~/.ssh/deploy_private_key 指定使用的private key路径。 替代ssh的 -i 参数一样效果
+ProxyCommand ssh -q [__local_gw__] nc [__target_addr__] 22 连接目标主机时使用的命令
+ssh via [http or socks proxy] 使用场景: 由于不可抗拒的因素无法直接ssh 到远程主机，或者链接过程中会被异常阻断时</description></item><item><title>新年快乐</title><link>https://hitian.info/post/happy-new-year/</link><pubDate>Tue, 01 Jan 2019 00:00:00 +0000</pubDate><guid>https://hitian.info/post/happy-new-year/</guid><description>新年快乐！ 🎊🎉</description></item><item><title>vmware esxi install update patch</title><link>https://hitian.info/post/vmware-esxi-upgrade/</link><pubDate>Sun, 30 Dec 2018 00:00:00 +0000</pubDate><guid>https://hitian.info/post/vmware-esxi-upgrade/</guid><description>Check the latest version Vmware Official https://my.vmware.com/group/vmware/patch#search
+or
+VMware ESXi Patch Tracker https://esxi-patches.v-front.de/ESXi-6.7.0.html
+Install # From https://esxi-patches.v-front.de/ESXi-6.7.0.html # Cut and paste these commands into an ESXi shell to update your host with this Imageprofile # See the Help page for more instructions # esxcli network firewall ruleset set -e true -r httpClient esxcli software profile update -p ESXi-6.7.0-20181104001-standard \ -d https://hostupdate.vmware.com/software/VUM/PRODUCTION/main/vmw-depot-index.xml esxcli network firewall ruleset set -e false -r httpClient # # Reboot to complete the upgrade IF Errno 28 No space left on device!</description></item><item><title>在Ubuntu Server上搭建Kubernetes cluster</title><link>https://hitian.info/post/kubernetes-cluster-setup-on-ubuntu-server/</link><pubDate>Thu, 12 Jul 2018 00:00:00 +0000</pubDate><guid>https://hitian.info/post/kubernetes-cluster-setup-on-ubuntu-server/</guid><description>&lt;h1 id="准备ubuntu-server">准备Ubuntu Server&lt;/h1>
+&lt;p>安装最新版本的 ubuntu server, 可以使用网易开源镜像站加速下载&lt;/p>
+&lt;p>&lt;a class="link" href="http://mirrors.163.com/ubuntu-releases/18.04/ubuntu-18.04-live-server-amd64.iso" target="_blank" rel="noopener"
+>http://mirrors.163.com/ubuntu-releases/18.04/ubuntu-18.04-live-server-amd64.iso&lt;/a>&lt;/p>
+&lt;h2 id="在3台主机上安装系统">在3台主机上安装系统&lt;/h2>
+&lt;p>物理机或者虚拟机都可以，要求互相之前可以直连，内存建议在2G以上， 如果不跑什么大型系统的话硬盘15G就差不多了&lt;/p>
+&lt;p>这里直接在VMware Esxi 上启动3个实例安装系统并指定IP地址&lt;/p>
+&lt;p>&lt;img src="https://hitian.info/assets/images/201807/Kubernetes-vmware-exsi.png" alt="Kubernetes-vmware-exsi" />&lt;/p>
+&lt;table>
+&lt;thead>
+&lt;tr>
+&lt;th>主机&lt;/th>
+&lt;th>IP&lt;/th>
+&lt;th>hostname&lt;/th>
+&lt;th>说明&lt;/th>
+&lt;/tr>
+&lt;/thead>
+&lt;tbody>
+&lt;tr>
+&lt;td>c-1&lt;/td>
+&lt;td>192.168.5.191&lt;/td>
+&lt;td>c1&lt;/td>
+&lt;td>Master&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>c-2&lt;/td>
+&lt;td>192.168.5.192&lt;/td>
+&lt;td>c2&lt;/td>
+&lt;td>Node&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>c-3&lt;/td>
+&lt;td>192.168.5.193&lt;/td>
+&lt;td>c3&lt;/td>
+&lt;td>Node&lt;/td>
+&lt;/tr>
+&lt;/tbody>
+&lt;/table>
+&lt;h2 id="准备环境">准备环境&lt;/h2>
+&lt;p>&lt;strong>下面的步骤需要在3台主机上全部执行, 注意使用root用户&lt;/strong>&lt;/p>
+&lt;h3 id="可选-更换apt的更新源为国内的地址加速安装过程">(可选) 更换apt的更新源为国内的地址，加速安装过程&lt;/h3>
+&lt;p>&lt;code>sed -i -- 's/archive.ubuntu.com/mirrors.163.com/g' /etc/apt/sources.list&lt;/code>&lt;/p>
+&lt;h3 id="更新-apt">更新 APT&lt;/h3>
+&lt;p>&lt;code>apt update -y &amp;amp;&amp;amp; apt upgrade -y&lt;/code>&lt;/p>
+&lt;h3 id="安装-docker-ce">安装 Docker CE&lt;/h3>
+&lt;p>以下可以参照Docker 官网的文档
+&lt;a class="link" href="https://docs.docker.com/install/linux/docker-ce/ubuntu/" target="_blank" rel="noopener"
+>https://docs.docker.com/install/linux/docker-ce/ubuntu/&lt;/a>&lt;/p>
+&lt;div class="highlight">&lt;pre class="chroma">&lt;code class="language-bash" data-lang="bash">
+&lt;span class="c1"># 安装依赖&lt;/span>
+apt-get install -y &lt;span class="se">\
+&lt;/span>&lt;span class="se">&lt;/span> apt-transport-https &lt;span class="se">\
+&lt;/span>&lt;span class="se">&lt;/span> ca-certificates &lt;span class="se">\
+&lt;/span>&lt;span class="se">&lt;/span> curl &lt;span class="se">\
+&lt;/span>&lt;span class="se">&lt;/span> software-properties-common
+&lt;span class="c1"># Add Docker’s official GPG key:&lt;/span>
+curl -fsSL https://download.docker.com/linux/ubuntu/gpg &lt;span class="p">|&lt;/span> sudo apt-key add -
+&lt;span class="c1"># 添加Docker 的 apt repository.&lt;/span>
+add-apt-repository &lt;span class="se">\
+&lt;/span>&lt;span class="se">&lt;/span> &lt;span class="s2">&amp;#34;deb [arch=amd64] https://download.docker.com/linux/ubuntu \
+&lt;/span>&lt;span class="s2"> &lt;/span>&lt;span class="k">$(&lt;/span>lsb_release -cs&lt;span class="k">)&lt;/span>&lt;span class="s2"> \
+&lt;/span>&lt;span class="s2"> stable&amp;#34;&lt;/span>
+&lt;span class="c1"># 更新APT 并安装Docker&lt;/span>
+apt-get update -y &lt;span class="o">&amp;amp;&amp;amp;&lt;/span> apt-get install -y docker-ce
+&lt;/code>&lt;/pre>&lt;/div>&lt;h3 id="安装-kubernetes-相关的工具">安装 Kubernetes 相关的工具&lt;/h3>
+&lt;div class="highlight">&lt;pre class="chroma">&lt;code class="language-bash" data-lang="bash">
+&lt;span class="c1"># Add Google’s official GPG key:&lt;/span>
+curl -s https://packages.cloud.google.com/apt/doc/apt-key.gpg &lt;span class="p">|&lt;/span> apt-key add -
+&lt;span class="c1"># 添加 APT repository.&lt;/span>
+cat &lt;span class="s">&amp;lt;&amp;lt;EOF &amp;gt;/etc/apt/sources.list.d/kubernetes.list
+&lt;/span>&lt;span class="s">deb http://apt.kubernetes.io/ kubernetes-xenial main
+&lt;/span>&lt;span class="s">EOF&lt;/span>
+&lt;span class="c1"># 更新APT 并安装&lt;/span>
+apt-get update -y &lt;span class="o">&amp;amp;&amp;amp;&lt;/span> apt-get install -y kubelet kubeadm kubectl
+&lt;/code>&lt;/pre>&lt;/div>&lt;p>&lt;em>到这里基础环境就准备好了， 下来开始初始化， 注意下面的部分在Master主机上操作&lt;/em>&lt;/p>
+&lt;h2 id="初始化-kubernetes">初始化 Kubernetes&lt;/h2>
+&lt;h3 id="启动-master">启动 Master&lt;/h3>
+&lt;h3 id="可选-先pull一下初始化过程中需要的docker-image-加速安装过程">(可选) 先pull一下初始化过程中需要的docker image， 加速安装过程&lt;/h3>
+&lt;p>&lt;code>kubeadm config images pull&lt;/code>&lt;/p>
+&lt;h3 id="初始化">初始化&lt;/h3>
+&lt;p>&lt;code>kubeadm init --pod-network-cidr=10.244.0.0/16&lt;/code>&lt;/p>
+&lt;p>&lt;code>pod-network-cidr&lt;/code>参数是之后创建内部网络需要的ip段，选一个没有被占用的内网段就可以了&lt;/p>
+&lt;p>如果报错
+&lt;code>if [ERROR Swap]: running with swap on is not supported. Please disable swap&lt;/code>&lt;/p>
+&lt;p>swap 没有关闭， 使用&lt;code>swapoff -a&lt;/code>命令关闭swap再重新运行init&lt;/p></description></item><item><title>更新vmware esxi ssl证书</title><link>https://hitian.info/post/vmware-esxi-upgrade-ssl-certificate/</link><pubDate>Thu, 12 Jul 2018 00:00:00 +0000</pubDate><guid>https://hitian.info/post/vmware-esxi-upgrade-ssl-certificate/</guid><description>esxi 的证书管理页面貌似有bug一直无法更新证书，这里直接ssh登陆服务器替换
+开启SSH
+Let&amp;rsquo;s Encrypt 签发的证书目录如下
+hitian :: ~ » ls -al .acme.sh/hitian.me/ total 36 drwxr-xr-x 2 tian tian 4096 Mar 20 14:59 . drwx------ 8 tian tian 4096 May 27 15:41 .. -rw-r--r-- 1 tian tian 1648 May 19 00:26 ca.cer -rw-r--r-- 1 tian tian 3803 May 19 00:26 fullchain.cer -rw-r--r-- 1 tian tian 2155 May 19 00:26 hitian.me.cer -rw-r--r-- 1 tian tian 529 May 19 00:26 hitian.me.conf -rw-r--r-- 1 tian tian 980 May 19 00:24 hitian.</description></item><item><title>使用netplan管理ubuntu 的网络配置</title><link>https://hitian.info/post/ubuntu-server-set-network-netplan/</link><pubDate>Tue, 10 Jul 2018 00:00:00 +0000</pubDate><guid>https://hitian.info/post/ubuntu-server-set-network-netplan/</guid><description>最新的ubuntu已经使用netplan来管理网络配置了
+列出当前的配置文件ls -al /etc/netplan/， 注意配置文件为yaml格式， 如果当前没有配置， 可以创建一个例如/etc/netplan/01-netcfg.yaml
+例子 配置为使用DHCP network:version:2renderer:networkdethernets:ens33:dhcp4:yesdhcp6:yes配置为静态ip network:version:2renderer:networkdethernets:ens33:dhcp4:nodhcp6:noaddresses:[192.168.1.2/24]gateway4:192.168.1.1nameservers:addresses:[8.8.8.8,8.8.4.4]配置文件修改好之后使用sudo netplan apply应用配置， 可以加debug参数来查看具体的过程sudo netplan --debug apply</description></item><item><title>常用的 x-callback 链接</title><link>https://hitian.info/post/x-callback-links/</link><pubDate>Mon, 09 Jul 2018 00:00:00 +0000</pubDate><guid>https://hitian.info/post/x-callback-links/</guid><description>OmniFocus change language Reset omnifocus:///change-preference?AppleLanguages= 中文 omnifocus:///change-preference?AppleLanguages=zh Bear Create note bear://x-callback-url/create?title=Title&amp;amp;text=Text&amp;amp;tags=tag1,tag2 Open tag bear://x-callback-url/open-tag?name=tag-name Search note bear://x-callback-url/search?term=keyword Due Add due://x-callback-url/add?title=title</description></item><item><title>Deploying an etcd cluster as a standalone cluster on docker</title><link>https://hitian.info/post/docker-run-etcd/</link><pubDate>Sun, 08 Jul 2018 00:00:00 +0000</pubDate><guid>https://hitian.info/post/docker-run-etcd/</guid><description>&lt;p>docker host ip addr &lt;code>192.168.5.170&lt;/code>&lt;/p>
+&lt;div class="highlight">&lt;pre class="chroma">&lt;code class="language-bash" data-lang="bash">
+docker run &lt;span class="se">\
+&lt;/span>&lt;span class="se">&lt;/span> -p 2379:2379 &lt;span class="se">\
+&lt;/span>&lt;span class="se">&lt;/span> -p 2380:2380 &lt;span class="se">\
+&lt;/span>&lt;span class="se">&lt;/span> --volume&lt;span class="o">=&lt;/span>/dir/for/etcd/data:/etcd-data &lt;span class="se">\
+&lt;/span>&lt;span class="se">&lt;/span> --name etcd --rm -d quay.io/coreos/etcd:latest &lt;span class="se">\
+&lt;/span>&lt;span class="se">&lt;/span> /usr/local/bin/etcd &lt;span class="se">\
+&lt;/span>&lt;span class="se">&lt;/span> --data-dir&lt;span class="o">=&lt;/span>/etcd-data --name node1 &lt;span class="se">\
+&lt;/span>&lt;span class="se">&lt;/span> --initial-advertise-peer-urls http://192.168.5.170:2380 &lt;span class="se">\
+&lt;/span>&lt;span class="se">&lt;/span> --listen-peer-urls http://0.0.0.0:2380 &lt;span class="se">\
+&lt;/span>&lt;span class="se">&lt;/span> --advertise-client-urls http://192.168.5.170:2379 &lt;span class="se">\
+&lt;/span>&lt;span class="se">&lt;/span> --listen-client-urls http://0.0.0.0:2379 &lt;span class="se">\
+&lt;/span>&lt;span class="se">&lt;/span> --initial-cluster &lt;span class="nv">node1&lt;/span>&lt;span class="o">=&lt;/span>http://192.168.5.170:2380
+&lt;/code>&lt;/pre>&lt;/div></description></item><item><title>vmware esxi unregister invalid vm</title><link>https://hitian.info/post/esxi-unregister-invalid-vm/</link><pubDate>Sun, 05 Nov 2017 00:00:00 +0000</pubDate><guid>https://hitian.info/post/esxi-unregister-invalid-vm/</guid><description>*** 以下内容针对 VMware ESXi 6.5.0 build-6765664 ***
+意外删除了esxi 的一个vmfs所在的磁盘，导致vm列表下一直会显示一个invalid状态的VM， 无法进行任何操作，看着非常碍眼。显然通过web界面可能无法处理这个问题了
+开启SSH服务，登录esxi。
+[root@localhost:/vmfs] vim-cmd vmsvc/getallvms Skipping invalid VM &amp;#39;6&amp;#39; Vmid Name File Guest OS Version Annotation 1 ubuntu-desktop [HDD] ubuntu-desktop/ubuntu-desktop.vmx ubuntu64Guest vmx-13 11 ubuntu-server-1710 [HDD] ubuntu-server-1710/ubuntu-server-1710.vmx ubuntu64Guest vmx-13 2 ubuntu-server [HDD] ubuntu-server/ubuntu-server.vmx ubuntu64Guest vmx-13 3 windows-7 [HDD] windows-7/windows-7.vmx windows7_64Guest vmx-13 使用 vim-cmd vmsvc/getallvms 命令可以看到提示出现问题的是 VM 6， 接下来直接删除就好了。
+[root@localhost:/vmfs] vim-cmd vmsvc/unregister 6 刷新web界面， 就可以看到出错的vm已经被删除了。</description></item><item><title>使用ACME Shell script和dnspod的api自动生成Let's Encrypt证书</title><link>https://hitian.info/post/acme-sh-create-letsencrypt-certificates-with-dns-api/</link><pubDate>Thu, 16 Feb 2017 00:00:00 +0000</pubDate><guid>https://hitian.info/post/acme-sh-create-letsencrypt-certificates-with-dns-api/</guid><description>安装 acme.sh curl https://get.acme.sh | sh 参考 https://github.com/Neilpang/acme.sh
+安装完成之后可执行文件位于 ~/.acme.sh/acme.sh
+生成 dnspod 的API Token 地址 https://www.dnspod.cn/console/user/security
+用户中心 &amp;gt; 安全设置 &amp;gt; API Token &amp;gt; 创建 API Token
+注意，Token 只显示一次， 保存下来， 如果忘记了， 就只能删除然后重新生成了。
+还需需要记录下 API Token 的 ID
+开始签发证书 参考 https://github.com/Neilpang/acme.sh/tree/master/dnsapi
+首先设置环境变量
+export DP_Id=&amp;#34;API Token 的 ID&amp;#34; export DP_Key=&amp;#34;API Token&amp;#34; 然后可以开始签发了
+acme.sh --issue --dns dns_dp -d example.com -d www.example.com 每个 -d 参数可以指定一个域名， 可以把需要用到的子域名也全部列出来
+自动运行的流程大概是这样的
+使用dnspod的api 自动生成所有的验证域名txt记录 _acme-challenge.example.com， 每个子域名也会有_acme-challenge.www.example.com 等待dns记录生效，自动脚本会sleep 120 秒 检查验证的dns记录， 没有问题的话签发证书保存到本地， 再次调用api 移除验证的域名 创建crontab 自动更新相关证书。 生成好的证书位于 ~/.</description></item><item><title>Ubuntu Server Install BBR</title><link>https://hitian.info/post/ubuntu-server-install-bbr/</link><pubDate>Tue, 07 Feb 2017 00:00:00 +0000</pubDate><guid>https://hitian.info/post/ubuntu-server-install-bbr/</guid><description>&lt;p>首先需要更新到4.9以上的内核版本， ubuntu和debian可以参考 &lt;a class="link" href="https://hitian.info/notes/2017/02/07/ubuntu-server-install-mainline-kernel/" target="_blank" rel="noopener"
+>这里&lt;/a>&lt;/p>
+&lt;p>重启确认内核版本升级完成继续&lt;/p>
+&lt;p>以root用户执行以下命令&lt;/p></description></item><item><title>Ubuntu Server Install Mainline Kernel</title><link>https://hitian.info/post/ubuntu-server-install-mainline-kernel/</link><pubDate>Tue, 07 Feb 2017 00:00:00 +0000</pubDate><guid>https://hitian.info/post/ubuntu-server-install-mainline-kernel/</guid><description>下载最新的内核 http://kernel.ubuntu.com/~kernel-ppa/mainline/?C=N;O=D进入最新的版本目录
+需要下载4个文件
+linux-headers-XXXXX_XXXXX_all.deb linux-headers-XXXXX-generic_XXXXX_PLATFORM.deb linux-image-unsigned-XXXXX-generic_XXXXX_PLATFORM.deb linux-modules-XXXXX-generic_XXXXX_PLATFORM.deb 例如目前最新的是v4.17.5 (2018-07-09), 下载这4个文件
+linux-headers-4.17.5-041705_4.17.5-041705.201807081431_all.deb linux-headers-4.17.5-041705-generic_4.17.5-041705.201807081431_amd64.deb linux-image-unsigned-4.17.5-041705-generic_4.17.5-041705.201807081431_amd64.deb linux-modules-4.17.5-041705-generic_4.17.5-041705.201807081431_amd64.deb 安装 dpkg -i *.deb 如果安装报错提示libssl1.1没有安装
+Unpacking openssl (1.1.0g-2ubuntu5) over (1.0.2g-1ubuntu4.13) ... dpkg: dependency problems prevent configuration of openssl: openssl depends on libssl1.1 (&amp;gt;= 1.1.0); however: Package libssl1.1 is not installed. dpkg: error processing package openssl (--install): dependency problems - leaving unconfigured 可以从http://security.ubuntu.com/ubuntu/pool/main/o/openssl/ 下载安装
+注意: 如果使用的是linode， 还需要在后台调整 Configuration Profile &amp;gt; Boot Settings &amp;gt; Kernel 为 GRUB 2 才能启动到更新后的内核。</description></item><item><title>Google Compute Engine 简单测试</title><link>https://hitian.info/post/google-compute-engine-simple-test/</link><pubDate>Tue, 17 Jan 2017 00:00:00 +0000</pubDate><guid>https://hitian.info/post/google-compute-engine-simple-test/</guid><description>这几天在试用Google Cloud Platform，觉得Compute Engine的运行速度貌似挺慢的，就测试了一下
+选了距离比较近的区域 asia-east1-a, 貌似是在台湾的。
+创建了3个不同配置的实例
+f1-micro（1 个 vCPU，0.6 GB 内存） $5.00/月 g1-small（1 个 vCPU，1.7 GB 内存） $15.73/月 n1-standard-1（1 个 vCPU，3.75 GB 内存）$28.50/月 系统都选择了 Ubuntu 16.04.1 LTS
+CPU测试 测试方式 Node.js v7.4.0 源代码编译 (时间统计方式 time make)
+f1: 155m35.651s （两个多小时。。） g1: 55m9.996s n1: 28m27.362s 相比之下
+digitalocean $5.00/月 的最低配用时 43m11.467s 本地的笔记本i7-5557m的CPU使用2个核心 27m47.806s 另外f1和g1是共享cpu的 可以看到在cpu负载上升后可以超过限制运行短暂的时间。
+然后测试一下磁盘的IO 测试方式 直接使用 dd if=/dev/zero of=/var/swap.img bs=1024k count=1000 创建一个1G的大文件
+f1: 1048576000 bytes (1.</description></item><item><title>OSX上不正确的字体设置导致部分软件崩溃的问题</title><link>https://hitian.info/post/sourcetree-crash-by-font-osx/</link><pubDate>Sun, 13 Mar 2016 00:00:00 +0000</pubDate><guid>https://hitian.info/post/sourcetree-crash-by-font-osx/</guid><description>SourceTree 和 FontBook 打开就崩溃有一段时间了. 部分crash log 如下;
+Process: SourceTree [555] Path: /Applications/SourceTree.app/Contents/MacOS/SourceTree Identifier: com.torusknot.SourceTreeNotMAS Version: 2.2.2 (51) Code Type: X86-64 (Native) Parent Process: ??? [1] Responsible: SourceTree [555] User ID: 501 Date/Time: 2016-03-13 15:34:07.628 +0800 OS Version: Mac OS X 10.11.3 (15D21) Report Version: 11 Time Awake Since Boot: 550 seconds System Integrity Protection: enabled Crashed Thread: 15 Dispatch queue: com.apple.root.default-qos Exception Type: EXC_BAD_ACCESS (SIGSEGV) Exception Codes: KERN_INVALID_ADDRESS at 0x000007fc4a1f7ab0 Exception Note: EXC_CORPSE_NOTIFY VM Regions Near 0x7fc4a1f7ab0: Process Corpse Info 0000000128acb000-0000000128ccb000 [ 2048K] rw-/rwx SM=COW --&amp;gt; JS JIT generated code 00003a1034000000-00003a1034001000 [ 4K] ---/rwx SM=NUL Application Specific Information: objc_msgSend() selector name: retain Thread 0:: Dispatch queue: com.</description></item><item><title>ubuntu 通过apt 安装 mongodb 3.0</title><link>https://hitian.info/post/ubuntu-install-mongodb-3.0-with-apt/</link><pubDate>Sat, 11 Jul 2015 00:00:00 +0000</pubDate><guid>https://hitian.info/post/ubuntu-install-mongodb-3.0-with-apt/</guid><description>&lt;p>ubuntu version:&lt;/p></description></item><item><title>nodejs 相关的墙内加速</title><link>https://hitian.info/post/nodejs-npm-build-speed-up/</link><pubDate>Mon, 06 Apr 2015 00:00:00 +0000</pubDate><guid>https://hitian.info/post/nodejs-npm-build-speed-up/</guid><description>npm的加速比较简单, 直接使用淘宝的 http://npm.taobao.org/ 就可以了.
+建议直接安装 cnpm, 方便一点
+npm install -g cnpm --registry=https://registry.npm.taobao.org
+使用的时候直接用cnpm替代npm就可以了. 例如:
+cnpm install mongodb
+也可以在使用npm 的时候单独指定
+npm install xxx --registry=https://registry.npm.taobao.org
+这样就快多了.
+另外有时候 node-gyp rebuild 过程中下载相应node版本也很慢.
+看提示去手动下载需要的node版本.
+例如 node-v0.12.2.tar.gz
+tar zcvf node-v0.12.2.tar.gz mv ./node-v0.12.2 ~/.node-gyp/0.12.2 touch ~/.node-gyp/0.12.2/installVersion echo &amp;#34;9&amp;#34; &amp;gt;~/.node-gyp/0.12.2/installVersion</description></item><item><title>TP-LINK TL-WR703N 刷 OpenWRT</title><link>https://hitian.info/post/tp-link-tl-wr703n-v1.7-openwrt/</link><pubDate>Sat, 21 Mar 2015 00:00:00 +0000</pubDate><guid>https://hitian.info/post/tp-link-tl-wr703n-v1.7-openwrt/</guid><description>版本号: ver 1.7
+原始固件版本: 3.17.1 Build 140120 Rel.56593n
+尝试了一下, 这个版本是不能通过web上传非官方的固件, 尝试上传openwrt会报错
+错误代码：18005 上传的文件版本与机型不符。
+评论说是加了签名的的原因.
+google了下找到这篇文章:
+http://www.shadowandy.net/2015/03/flashing-tp-link-tl-wr703n-v1-7-to-openwrt.htm
+大家可以参照做一下.
+严重警告, 刷机需谨慎, 我是准备好TTL线才动手的, 如果没有最好不要冒险, 很容易变砖的&amp;hellip; 先按步骤生成或下载这四个要放在tftp下的文件:
+aa i1 i2 busybox 我使用过的打包共享一下 百度网盘下载
+核心的3条命令:
+curl -o - -b &amp;#34;tLargeScreenP=1; subType=pcSub; Authorization=Basic%20YWRtaW46YWRtaW40Mg%3D%3D; ChgPwdSubTag=true&amp;#34; &amp;#34;http://192.168.1.1/&amp;#34; curl -o - -b &amp;#34;tLargeScreenP=1; subType=pcSub; Authorization=Basic%20YWRtaW46YWRtaW40Mg%3D%3D; ChgPwdSubTag=&amp;#34; --referer &amp;#34;http://192.168.1.1/userRpm/ParentCtrlRpm.htm&amp;#34; &amp;#34;http://192.168.1.1/userRpm/ParentCtrlRpm.htm?ctrl_enable=1&amp;amp;parent_mac_addr=00-00-00-00-00-02&amp;amp;Page=1&amp;#34; curl -o - -b &amp;#34;tLargeScreenP=1; subType=pcSub; Authorization=Basic%20YWRtaW46YWRtaW40Mg%3D%3D; ChgPwdSubTag=&amp;#34; --referer &amp;#34;http://192.168.1.1/userRpm/ParentCtrlRpm.htm?Modify=0&amp;amp;Page=1&amp;#34; &amp;#34;http://192.168.1.1/userRpm/ParentCtrlRpm.htm?child_mac=00-00-00-00-00-01&amp;amp;lan_lists=888&amp;amp;url_comment=test&amp;amp;url_0=;cd%20/tmp;&amp;amp;url_1=;tftp%20-gl%20aa%20192.168.1.9;&amp;amp;url_2=;sh%20aa;&amp;amp;url_3=&amp;amp;url_4=&amp;amp;url_5=&amp;amp;url_6=&amp;amp;url_7=&amp;amp;scheds_lists=255&amp;amp;enable=1&amp;amp;Changed=1&amp;amp;SelIndex=0&amp;amp;Page=1&amp;amp;rule_mode=0&amp;amp;Save=%B1%A3+%B4%E6&amp;#34; 有几点要注意的:
+tftp需要运行在windows上, 而且要使用32位的版本, (Mac上的tftp尝试过无效的). 将ip调整为192.168.1.9 另外执行命令之前需要先在管理界面执行恢复出厂, 重启完不要设置密码, 直接开始.</description></item><item><title>手动从OTA包升级nexus 5</title><link>https://hitian.info/post/manually-update-nexus-5-from-ota/</link><pubDate>Fri, 20 Mar 2015 00:00:00 +0000</pubDate><guid>https://hitian.info/post/manually-update-nexus-5-from-ota/</guid><description>Android 5.1 发布已经有一段时间了, nexus5的ROM出来也有一段时间了, 但是OTA一直不推送, 挺着急的. google了一下, 决定自己升级一下.
+####先去下载OTA的升级包
+nexus5 从5.0.1 到 5.1 的包: 百度网盘
+其他的这里下载: link
+####其他的准备
+没有adb的先去装一下 将手机的开发者模式打开(连按关于手机中的版本号) ####开始了
+先关机 按住 音量下 和 电源键 启动进入FASTBOOT MODE 按音量上下 选择 Recovery mode, 按电源键进入 自动重启后会显示一个感叹号的机器人, 下面显示无命令, 按住音量上和电源键进入recovery 的菜单. 选择apply update from ADB 并确定 连接手机到电脑, 命令行进入下载的包目录, 执行adb sideload update.zip 等待完成, 大概需要6分钟左右, 然后选择 reboot system now 完成了. 升级完成了:
+重新启动过程中会升级已有的App, 这个只能耐心等待了..
+参考: http://www.androidbeat.com/2014/12/manually-sideload-android-lollipop-update-nexus-5/</description></item><item><title>我的第一个游戏开发历程</title><link>https://hitian.info/post/my-first-game/</link><pubDate>Thu, 22 Jan 2015 00:00:00 +0000</pubDate><guid>https://hitian.info/post/my-first-game/</guid><description>到今天为止, 折腾了10个月的游戏终于结束了, 虽然google play store的版本已经上架有一段时间了, iOS的还正在审核中, 不过后续的版本应该已经不会再开发了. 也算是这10个月的努力没有白费.
+###2013年3月###
+正在维护后端的游戏进入了最后阶段, 虽然每天都还有不少的收入, 但对于一个不算小的游戏公司来说跨国的运营已经太费力了. 于是决定一段时间后就不在进行更新了, 等玩家流失,然后关服. 项目组的人员开始慢慢的调到其他的项目组. 然后, leader问我愿不愿意跟他去开发个新游戏, 然后就去了.
+话说从大三起就一直在进行web开发, 毕业后的3年也是, 对手机端游戏开发毫无概念, 老大们决定要用js作为主要的开发语言, 然后就突然想换一下口味, 正好公司也允许我们边学边做, 然后就开始转到客户端开发了.
+###cocos2d-x + javascript###
+做web时也一直在接触js, 这方面不算陌生. cocos2d-x游戏引擎对我来说是个新的事物, 但是学习新的事物如果有一套自己的学习方式其实也是很快的, 游戏ui画面的组织其实和大学时课设做的java图形界面有点类似, 把所有的元素添加到一个树状的UI树上去, 然后在scene上显示出来, 不同的是游戏有一个主循环, 在里面进行必要的动画操作, 响应用户的操作或者是服务器的返回值对UI树进行更改.
+从0开始, 在伟大的google的帮助下, 仅仅第10天第一个demo就出来了, 虽然只有一个场景, 但是核心的消除逻辑已经可以初步使用了. 然后就立即有信心了. 项目也就正式开始了.
+###坑的开始…###
+Facebook, 因为是要在台湾发行的游戏, 决定深度整合Facebook. 由于某些原因, 即使有专线,和Facebook服务的通讯通畅度也根本就是个悲剧, 开发和测试过程中各种调用异常, 一句话, 不要在国内做这方面的开发.
+js作为开发语言是很方便, 但是如果和第三方sdk的交互比较多, 想象一下操作链: js =&amp;gt; js解释器 =&amp;gt; c++ =&amp;gt; jni =&amp;gt; java, 特别是js和c++ 是完全不同的语言类型, 我们需要做好多的接口和回调, 又是在android上运行, 互相调用时会发生各种各样的崩溃问题.</description></item><item><title>cocos2d-x 入门笔记</title><link>https://hitian.info/post/cocos2d-x-note/</link><pubDate>Thu, 13 Mar 2014 00:00:00 +0000</pubDate><guid>https://hitian.info/post/cocos2d-x-note/</guid><description>首先cocos2d-x开发游戏确实还是比较简单的. 因为可以使用js作为开发语言, 本来就会js的人入门会更快, 不过市面上的书和网上的各种教程基本都是用c++的, 所以学习过程中还是走了不少弯路.
+目前使用js作为开发语言的话, 可以在iOS, Android, Windows 上运行, 开发环境可以是MacOS+Xcode 或者Windows+VS, 不过Windows上那是非常的慢. 所以下面的都是在Mac下的.
+开始了&amp;hellip;
+官网: http://www.cocos2d-x.org/ 如果很慢请尝试使用代理
+##api文档##
+官方api文档地址&amp;raquo;
+对api的使用建议: 如果是使用js开发手机native的游戏的话, 可以使用Cocos2d-html5 的api文档配合Cocos2d-X的文档看, 因为Cocos2d-x的文档主要以c++的为主, 看js的话用起来非常的不方便, 所以我平时都是直接看html5的, 有问题的话再查一下c++的.
+##创建项目##
+这是第一个坑, 目前的稳定版本是2.2.2. 大部分书还是2.2的版本, 书里介绍的导入xcode模板的脚本现在已经没有了, 现在需要执行脚本直接生成工程.
+脚本地址 cocos2d-x-2.2.2/tools/project-creator/create_project.py
+建议使用 python2.7 来执行, 最新版的python貌似有问题
+直接执行会有参数的提示, 把参数都补上再执行一遍项目就应该创建好了.
+生成的项目会放在 cocos2d-x-2.2.2/projects/ 目录下. iOS的xcode工程在 proj.ios 下面. 要运行非常简单, 直接在Xcode里点运行就可以直接在模拟器上运行自带的HelloWorld程序了. android的运行可能要稍微麻烦一点, 可以自行Google.
+##学习##
+因为这方面的资料大部分都是c++的, 所以学习也基本是从看c++的书开始, 其实也不用会c++, 看书主要是为了大概知道cocos2d-x是如何工作的, 都有什么样的方法或者工具可以使用, 接下来就是看源代码包里提供的js的示例项目, 看一下js是怎么实现各种功能的.
+官方给了5个js的示例项目, 在目录: cocos2d-x-2.2.2/samples/Javascript/ 下, 注意js的源代码放在公用的 cocos2d-x-2.2.2/samples/Javascript/Shared/games 目录下. 认真研究一下这些代码, 在配合api文档基本上就可以开始尝试着开发自己的游戏了. 入门还是比较简单的.</description></item><item><title>redis使用笔记</title><link>https://hitian.info/post/redis-notes/</link><pubDate>Fri, 12 Apr 2013 00:00:00 +0000</pubDate><guid>https://hitian.info/post/redis-notes/</guid><description>根据 http://redis.io 的说明， redis支持 string， list， set， sorted set 和 hash 这五种数据类型， php中可能经常需要直接把array 直接存起来。
+仔细看了下 https://github.com/nicolasff/phpredis 上的说明， 其实有个方法setOption 可以设置客户端的一些属性
+&amp;lt;?php $redis-&amp;gt;setOption(Redis::OPT_SERIALIZER, Redis::SERIALIZER_PHP); // use built-in serialize/unserialize 这样就可以使用php内置的serialize/unserialize 方法对数据进行处理
+&amp;lt;?php /** * redis test * @author jia.tian@me.com */ $redis = new Redis(); $redis-&amp;gt;connect(&amp;#39;127.0.0.1&amp;#39;, &amp;#39;6379&amp;#39;); $redis-&amp;gt;setOption(Redis::OPT_SERIALIZER, Redis::SERIALIZER_PHP); $redis-&amp;gt;set(&amp;#39;tian&amp;#39;, array(&amp;#39;name&amp;#39; =&amp;gt; &amp;#39;tian&amp;#39;, &amp;#39;passwd&amp;#39; =&amp;gt; &amp;#39;123456&amp;#39;)); var_dump($redis-&amp;gt;get(&amp;#39;tian&amp;#39;)); $redis-&amp;gt;set(&amp;#39;tian&amp;#39;, &amp;#39;test&amp;#39;); var_dump($redis-&amp;gt;get(&amp;#39;tian&amp;#39;)); 运行结果：
+array(2) { [&amp;quot;name&amp;quot;]=&amp;gt; string(4) &amp;quot;tian&amp;quot; [&amp;quot;passwd&amp;quot;]=&amp;gt; string(6) &amp;quot;123456&amp;quot; } string(4) &amp;quot;test&amp;quot;
+可以看到将array存入和取出时会自动进行了处理这是直接在github上下载的zip包在ubuntu上安装的，可以看到版本号是2.2.2</description></item><item><title>nginx 使用笔记</title><link>https://hitian.info/post/nginx-notes/</link><pubDate>Thu, 04 Apr 2013 00:00:00 +0000</pubDate><guid>https://hitian.info/post/nginx-notes/</guid><description>添加phpmyadmin alias
+location /phpmyadmin { root /usr/share/; index index.php index.html index.htm; location ~ ^/phpmyadmin/(.+\.php)$ { try_files $uri =404; root /usr/share/; fastcgi_pass 127.0.0.1:9000; fastcgi_index index.php; fastcgi_param SCRIPT_FILENAME $document_root$fastcgi_script_name; include /etc/nginx/fastcgi_params; } location ~* ^/phpmyadmin/(.+\.(jpg|jpeg|gif|css|png|js|ico|html|xml|txt))$ { root /usr/share/; } } 静态文件缓存， 并且不记录日志
+location ~ \.(jpg|jpeg|gif|css|png|js|ico|xml)$ { access_log off; expires 30d; }</description></item><item><title>adb连接到rk30sdk</title><link>https://hitian.info/post/adb-connect-to-rk30sdk/</link><pubDate>Sun, 24 Feb 2013 00:00:00 +0000</pubDate><guid>https://hitian.info/post/adb-connect-to-rk30sdk/</guid><description>修改 ~/.android/adb_usb.ini 文件
+添加
+0x2207
+注意文件中不能有空行, 否则可能报错:
+* daemon not running. starting it now on port 5037 * ADB server didn&amp;#39;t ACK * failed to start daemon * 文件修改好后重启一下服务
+tianMac:platform-tools tian$ ./adb kill-server tianMac:platform-tools tian$ ./adb start-server * daemon not running. starting it now on port 5037 * * daemon started successfully * 然后应该就可以看见设备了.</description></item><item><title>brew install httpd 发生错误</title><link>https://hitian.info/post/brew-install-httpd/</link><pubDate>Sun, 30 Dec 2012 00:00:00 +0000</pubDate><guid>https://hitian.info/post/brew-install-httpd/</guid><description>今天安装subversion的过程中把httpd卸掉了， 结果重新安装的时候发生错误了
+tian-mac:~ tian$ brew install httpd ==&amp;gt; Downloading http://www.apache.org/dist/httpd/httpd-2.2.22.tar.bz2 Already downloaded: /Library/Caches/Homebrew/httpd-2.2.22.tar.bz2 ==&amp;gt; ./configure --prefix=/usr/local/Cellar/httpd/2.2.22 --mandir=/usr/local/Cellar/httpd/2.2.22/share/man --enable-layout=GNU --enable-mods-shared=all --with-ssl=/usr --wit checking whether to enable mod_substitute... shared (all) checking whether to enable mod_charset_lite... no checking whether to enable mod_deflate... checking dependencies checking for zlib location... not found checking whether to enable mod_deflate... configure: error: mod_deflate has been requested but can not be built due to prerequisite failures READ THIS: https://github.com/mxcl/homebrew/wiki/troubleshooting These open issues may also help: https://github.</description></item></channel></rss>

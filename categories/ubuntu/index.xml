@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>ubuntu on 不折腾不舒服</title><link>https://hitian.info/categories/ubuntu/</link><description>Recent content in ubuntu on 不折腾不舒服</description><generator>Hugo -- gohugo.io</generator><language>zh-cn</language><lastBuildDate>Wed, 09 Nov 2011 00:00:00 +0000</lastBuildDate><atom:link href="https://hitian.info/categories/ubuntu/index.xml" rel="self" type="application/rss+xml"/><item><title>ubuntu-server 版本升级</title><link>https://hitian.info/post/ubuntu-server-upgrade/</link><pubDate>Wed, 09 Nov 2011 00:00:00 +0000</pubDate><guid>https://hitian.info/post/ubuntu-server-upgrade/</guid><description>一直以来虚拟机里测试用的ubuntu server 都是在出新版本后直接重新安装的, 但是现在东西实在太多了, 懒得再重装了, 网上查了一下升级的过程作下记录:
+升级之前重要的配置文件最好先备份一下, 对于测试服务器, 我选择直接跳过
+修改一下/etc/apt/sources.list 找个快点的源, 不然会很郁闷的. 网易的就不错 mirrors.163.com
+开始升级
+$sudo apt-get install update-manager-core
+显示已经安装了最新版本
+接着
+$sudo do-release-upgrade
+因为我是ssh上去的, 系统会提示如果发生意外可以使用1022端口登录上去
+一路 y
+可以看到其实已经在get新版本的包了
+接下来漫长的半个小时等待..zzzZZ
+网速严重不给力啊
+安装新的, 有一部分老的会被删除
+接着自动重启
+看来升级成功了
+看来mysql没起来, 其他都是正常的
+(完)&amp;hellip;</description></item></channel></rss>

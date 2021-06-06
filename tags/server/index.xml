@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>server on 不折腾不舒服</title><link>https://hitian.info/tags/server/</link><description>Recent content in server on 不折腾不舒服</description><generator>Hugo -- gohugo.io</generator><language>zh-cn</language><lastBuildDate>Tue, 07 Feb 2017 00:00:00 +0000</lastBuildDate><atom:link href="https://hitian.info/tags/server/index.xml" rel="self" type="application/rss+xml"/><item><title>Ubuntu Server Install BBR</title><link>https://hitian.info/post/ubuntu-server-install-bbr/</link><pubDate>Tue, 07 Feb 2017 00:00:00 +0000</pubDate><guid>https://hitian.info/post/ubuntu-server-install-bbr/</guid><description>&lt;p>首先需要更新到4.9以上的内核版本， ubuntu和debian可以参考 &lt;a class="link" href="https://hitian.info/notes/2017/02/07/ubuntu-server-install-mainline-kernel/" target="_blank" rel="noopener"
+>这里&lt;/a>&lt;/p>
+&lt;p>重启确认内核版本升级完成继续&lt;/p>
+&lt;p>以root用户执行以下命令&lt;/p></description></item><item><title>Ubuntu Server Install Mainline Kernel</title><link>https://hitian.info/post/ubuntu-server-install-mainline-kernel/</link><pubDate>Tue, 07 Feb 2017 00:00:00 +0000</pubDate><guid>https://hitian.info/post/ubuntu-server-install-mainline-kernel/</guid><description>下载最新的内核 http://kernel.ubuntu.com/~kernel-ppa/mainline/?C=N;O=D进入最新的版本目录
+需要下载4个文件
+linux-headers-XXXXX_XXXXX_all.deb linux-headers-XXXXX-generic_XXXXX_PLATFORM.deb linux-image-unsigned-XXXXX-generic_XXXXX_PLATFORM.deb linux-modules-XXXXX-generic_XXXXX_PLATFORM.deb 例如目前最新的是v4.17.5 (2018-07-09), 下载这4个文件
+linux-headers-4.17.5-041705_4.17.5-041705.201807081431_all.deb linux-headers-4.17.5-041705-generic_4.17.5-041705.201807081431_amd64.deb linux-image-unsigned-4.17.5-041705-generic_4.17.5-041705.201807081431_amd64.deb linux-modules-4.17.5-041705-generic_4.17.5-041705.201807081431_amd64.deb 安装 dpkg -i *.deb 如果安装报错提示libssl1.1没有安装
+Unpacking openssl (1.1.0g-2ubuntu5) over (1.0.2g-1ubuntu4.13) ... dpkg: dependency problems prevent configuration of openssl: openssl depends on libssl1.1 (&amp;gt;= 1.1.0); however: Package libssl1.1 is not installed. dpkg: error processing package openssl (--install): dependency problems - leaving unconfigured 可以从http://security.ubuntu.com/ubuntu/pool/main/o/openssl/ 下载安装
+注意: 如果使用的是linode， 还需要在后台调整 Configuration Profile &amp;gt; Boot Settings &amp;gt; Kernel 为 GRUB 2 才能启动到更新后的内核。</description></item><item><title>ubuntu-server 版本升级</title><link>https://hitian.info/post/ubuntu-server-upgrade/</link><pubDate>Wed, 09 Nov 2011 00:00:00 +0000</pubDate><guid>https://hitian.info/post/ubuntu-server-upgrade/</guid><description>一直以来虚拟机里测试用的ubuntu server 都是在出新版本后直接重新安装的, 但是现在东西实在太多了, 懒得再重装了, 网上查了一下升级的过程作下记录:
+升级之前重要的配置文件最好先备份一下, 对于测试服务器, 我选择直接跳过
+修改一下/etc/apt/sources.list 找个快点的源, 不然会很郁闷的. 网易的就不错 mirrors.163.com
+开始升级
+$sudo apt-get install update-manager-core
+显示已经安装了最新版本
+接着
+$sudo do-release-upgrade
+因为我是ssh上去的, 系统会提示如果发生意外可以使用1022端口登录上去
+一路 y
+可以看到其实已经在get新版本的包了
+接下来漫长的半个小时等待..zzzZZ
+网速严重不给力啊
+安装新的, 有一部分老的会被删除
+接着自动重启
+看来升级成功了
+看来mysql没起来, 其他都是正常的
+(完)&amp;hellip;</description></item><item><title>php执行服务器脚本</title><link>https://hitian.info/post/php-exec/</link><pubDate>Thu, 20 Oct 2011 00:00:00 +0000</pubDate><guid>https://hitian.info/post/php-exec/</guid><description>php执行服务器上的脚本进行一些操作不是什么难事.
+exec system passthru 这几个函数都可以调用外部的命令. 只要有权限就完全没有问题.
+例如
+exec('/home/tian/bin/trytodosomething -h');
+命令执行后php会挂起直到命令运行完毕. 有时候脚本运行的时间也许很长, 我们需要让php继续执行及时反馈给用户我们已经开始操作了.
+$cmd = '/home/tian/bin/trytodosomething -h &amp;gt; /tmp/null &amp;amp;'; $result = system($cmd); 这样修改之后, php就会继续执行, 不会等待命令执行完这样也存在一个问题, 用户不断的刷新网页可以能造成一些麻烦, 使用文件锁就可以解决这个问题.</description></item></channel></rss>

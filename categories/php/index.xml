@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>php on 不折腾不舒服</title><link>https://hitian.info/categories/php/</link><description>Recent content in php on 不折腾不舒服</description><generator>Hugo -- gohugo.io</generator><language>zh-cn</language><lastBuildDate>Sun, 29 Apr 2012 00:00:00 +0000</lastBuildDate><atom:link href="https://hitian.info/categories/php/index.xml" rel="self" type="application/rss+xml"/><item><title>注入风险提醒</title><link>https://hitian.info/post/sql-injection-risk/</link><pubDate>Sun, 29 Apr 2012 00:00:00 +0000</pubDate><guid>https://hitian.info/post/sql-injection-risk/</guid><description>前几天发现的数据库注入总结一下
+发生问题的过滤:
+&amp;lt;?php $type = ( in_array($_GET[&amp;#39;t&amp;#39;],array(1,2,3)) )?$_GET[&amp;#39;t&amp;#39;]:0; 这个过滤实际不严格, 当传进来的变量以 1,2,3中的任意数字开头时过滤将失败
+当用户 传 t=1' or '1'='1 时, $type获取到的变量将维持原样, 直接传到数据库进行查询时会有注入危险
+总结和建议:所有由用户传入int 值 必须使用 intval() 进行过滤
+字符串必须使用mysql_real_escape_string() 进行过滤
+在读取 $_GET $_REQUEST $_POST $_COOKIE 时 必须进行过滤, 一般认为用户传入的数据都是不安全的.</description></item><item><title>php 文件下载 header 设置</title><link>https://hitian.info/post/php-file-download-set-header/</link><pubDate>Tue, 20 Dec 2011 00:00:00 +0000</pubDate><guid>https://hitian.info/post/php-file-download-set-header/</guid><description>&lt;p>读取文件, 强制浏览器进行下载&lt;/p></description></item><item><title>使用类似于奖池方式的抽奖模拟</title><link>https://hitian.info/post/lottery-simulation/</link><pubDate>Wed, 23 Nov 2011 00:00:00 +0000</pubDate><guid>https://hitian.info/post/lottery-simulation/</guid><description>一般来说要做一个抽奖程序会立即想到用随机数. 但是通常情况下随机数也不是那么的随机, 数量比较大的时候才能体现出比较平均, 数量较小的时候中奖概率的可控性将会很差. 一不小心多被抽中几个麻烦就大了.
+&amp;lt;?php class T_prize{ var $item; var $table; /** * 抽奖主程序 外部调用入口 * @param unknown_type $db 数据库链接 * @param unknown_type $id 抽奖类型 */ function prize($db, $id){ global $prize_set; // if(!isset($prize_set[$id])){ return false; } $this-&amp;gt;item = $prize_set[$id]; $table = &amp;#39;my_prize_store_table_&amp;#39; . $id; //抽奖并发较大时可以进行分表, 多生成几个奖池 //$table = &amp;#39;my_prize_store_table_&amp;#39; . $id . &amp;#39;_&amp;#39; . rand(0, 4); $this-&amp;gt;table = $table; //防止多个用户抽到同一个条目, 进行锁表 $db-&amp;gt;query(&amp;#34;lock table &amp;#34; . $table .</description></item><item><title>win7 x64 运行x86的zend studio 9.0</title><link>https://hitian.info/post/win7-x64-zend-studio-x86/</link><pubDate>Sat, 05 Nov 2011 00:00:00 +0000</pubDate><guid>https://hitian.info/post/win7-x64-zend-studio-x86/</guid><description>x64的win8 安装了x64 的jdk 再运行zendstudio时就会出错
+解决:
+再安装一下x86 的jre
+打开 C:\Program Files (x86)\Zend\Zend Studio 9.0.0\ZendStudio.ini
+添加 -vm
+C:\Program Files (x86)\Java\jre6\bin\javaw.exe
+-name Zend Studio -vm C:\Program Files (x86)\Java\jre6\bin\javaw.exe -vmargs</description></item><item><title>php执行服务器脚本</title><link>https://hitian.info/post/php-exec/</link><pubDate>Thu, 20 Oct 2011 00:00:00 +0000</pubDate><guid>https://hitian.info/post/php-exec/</guid><description>php执行服务器上的脚本进行一些操作不是什么难事.
+exec system passthru 这几个函数都可以调用外部的命令. 只要有权限就完全没有问题.
+例如
+exec('/home/tian/bin/trytodosomething -h');
+命令执行后php会挂起直到命令运行完毕. 有时候脚本运行的时间也许很长, 我们需要让php继续执行及时反馈给用户我们已经开始操作了.
+$cmd = '/home/tian/bin/trytodosomething -h &amp;gt; /tmp/null &amp;amp;'; $result = system($cmd); 这样修改之后, php就会继续执行, 不会等待命令执行完这样也存在一个问题, 用户不断的刷新网页可以能造成一些麻烦, 使用文件锁就可以解决这个问题.</description></item><item><title>php注意正则匹配的长度限制</title><link>https://hitian.info/post/php-regex-length-limit/</link><pubDate>Mon, 22 Aug 2011 00:00:00 +0000</pubDate><guid>https://hitian.info/post/php-regex-length-limit/</guid><description>&lt;p>今天要使用正则来批量替换一个抓取页面中的图片地址&lt;/p></description></item></channel></rss>

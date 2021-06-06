@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>blog on 不折腾不舒服</title><link>https://hitian.info/tags/blog/</link><description>Recent content in blog on 不折腾不舒服</description><generator>Hugo -- gohugo.io</generator><language>zh-cn</language><lastBuildDate>Mon, 10 Sep 2012 00:00:00 +0000</lastBuildDate><atom:link href="https://hitian.info/tags/blog/index.xml" rel="self" type="application/rss+xml"/><item><title>blog评论反垃圾</title><link>https://hitian.info/post/blog-comments/</link><pubDate>Mon, 10 Sep 2012 00:00:00 +0000</pubDate><guid>https://hitian.info/post/blog-comments/</guid><description>近几天博客的垃圾评论越来越多， 一天甚至好几十个。 迫不得已装个插件来防垃圾。
+由于空间禁用了php 的fsockopen 函数导致Akismet 无法连接到服务器。
+测试一下发现pfsockopen 没有被禁用， 进入akismet的目录批量替换所有fsockopen为pfsockopen。
+然后就检测正常了
+具体的功能好不好使得观察一段时间再看了。</description></item></channel></rss>

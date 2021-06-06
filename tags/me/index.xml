@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>me on 不折腾不舒服</title><link>https://hitian.info/tags/me/</link><description>Recent content in me on 不折腾不舒服</description><generator>Hugo -- gohugo.io</generator><language>zh-cn</language><lastBuildDate>Thu, 22 Jan 2015 00:00:00 +0000</lastBuildDate><atom:link href="https://hitian.info/tags/me/index.xml" rel="self" type="application/rss+xml"/><item><title>我的第一个游戏开发历程</title><link>https://hitian.info/post/my-first-game/</link><pubDate>Thu, 22 Jan 2015 00:00:00 +0000</pubDate><guid>https://hitian.info/post/my-first-game/</guid><description>到今天为止, 折腾了10个月的游戏终于结束了, 虽然google play store的版本已经上架有一段时间了, iOS的还正在审核中, 不过后续的版本应该已经不会再开发了. 也算是这10个月的努力没有白费.
+###2013年3月###
+正在维护后端的游戏进入了最后阶段, 虽然每天都还有不少的收入, 但对于一个不算小的游戏公司来说跨国的运营已经太费力了. 于是决定一段时间后就不在进行更新了, 等玩家流失,然后关服. 项目组的人员开始慢慢的调到其他的项目组. 然后, leader问我愿不愿意跟他去开发个新游戏, 然后就去了.
+话说从大三起就一直在进行web开发, 毕业后的3年也是, 对手机端游戏开发毫无概念, 老大们决定要用js作为主要的开发语言, 然后就突然想换一下口味, 正好公司也允许我们边学边做, 然后就开始转到客户端开发了.
+###cocos2d-x + javascript###
+做web时也一直在接触js, 这方面不算陌生. cocos2d-x游戏引擎对我来说是个新的事物, 但是学习新的事物如果有一套自己的学习方式其实也是很快的, 游戏ui画面的组织其实和大学时课设做的java图形界面有点类似, 把所有的元素添加到一个树状的UI树上去, 然后在scene上显示出来, 不同的是游戏有一个主循环, 在里面进行必要的动画操作, 响应用户的操作或者是服务器的返回值对UI树进行更改.
+从0开始, 在伟大的google的帮助下, 仅仅第10天第一个demo就出来了, 虽然只有一个场景, 但是核心的消除逻辑已经可以初步使用了. 然后就立即有信心了. 项目也就正式开始了.
+###坑的开始…###
+Facebook, 因为是要在台湾发行的游戏, 决定深度整合Facebook. 由于某些原因, 即使有专线,和Facebook服务的通讯通畅度也根本就是个悲剧, 开发和测试过程中各种调用异常, 一句话, 不要在国内做这方面的开发.
+js作为开发语言是很方便, 但是如果和第三方sdk的交互比较多, 想象一下操作链: js =&amp;gt; js解释器 =&amp;gt; c++ =&amp;gt; jni =&amp;gt; java, 特别是js和c++ 是完全不同的语言类型, 我们需要做好多的接口和回调, 又是在android上运行, 互相调用时会发生各种各样的崩溃问题.</description></item></channel></rss>

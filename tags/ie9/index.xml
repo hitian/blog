@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>ie9 on 不折腾不舒服</title><link>https://hitian.info/tags/ie9/</link><description>Recent content in ie9 on 不折腾不舒服</description><generator>Hugo -- gohugo.io</generator><language>zh-cn</language><lastBuildDate>Sat, 22 Oct 2011 00:00:00 +0000</lastBuildDate><atom:link href="https://hitian.info/tags/ie9/index.xml" rel="self" type="application/rss+xml"/><item><title>gmail 在 ie9中乱版</title><link>https://hitian.info/post/gmail-ie9/</link><pubDate>Sat, 22 Oct 2011 00:00:00 +0000</pubDate><guid>https://hitian.info/post/gmail-ie9/</guid><description>在ie9 中打开gmail页面全乱 并提示ie使用了兼容性视图.并且给了修复方式:
+右键点击右上角的齿轮图标。
+选择命令栏。
+打开浏览器顶部的工具菜单，然后选择兼容性视图设置。
+在“已添加到兼容性视图中的网站”下，选择“google.com”。
+点击删除。但是在我的已添加列表中并没有google.com
+解决方法很简单, 按&amp;rsquo;F12' 打开开发人员工具, 切换一下浏览器模式然后关掉就好了</description></item></channel></rss>

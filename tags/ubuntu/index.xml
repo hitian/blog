@@ -1,0 +1,121 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>ubuntu on 不折腾不舒服</title><link>https://hitian.info/tags/ubuntu/</link><description>Recent content in ubuntu on 不折腾不舒服</description><generator>Hugo -- gohugo.io</generator><language>zh-cn</language><lastBuildDate>Sat, 10 Aug 2019 00:00:00 +0000</lastBuildDate><atom:link href="https://hitian.info/tags/ubuntu/index.xml" rel="self" type="application/rss+xml"/><item><title>在docker中编译openwrt</title><link>https://hitian.info/post/openwrt-build-docker/</link><pubDate>Sat, 10 Aug 2019 00:00:00 +0000</pubDate><guid>https://hitian.info/post/openwrt-build-docker/</guid><description>在docker中编译openwrt build docker image Docker file
+{% gist 88ff8a7cad5deffad51d8c29d5c47d75 Dockerfile %}
+docker build --no-cache -t ubuntu-openwrt-build .
+build clone openwrt source code
+git clone https://git.openwrt.org/openwrt/openwrt.git
+# 更新软件包 docker run -it --rm -v $PWD:/build ubuntu-openwrt-build ./scripts/feeds update -a # 使用 menuconfig 设置编译目标、内核信息、以及需要安装的包 docker run -it --rm -v $PWD:/build ubuntu-openwrt-build make menuconfig # 编译 docker run -it --rm -v $PWD:/build ubuntu-openwrt-build make -j4 生成的文件会放置在bin目录下, 例如 MT7621 放在 bin/targets/ramips/mt7621
+#配置文件，同运行 make menuconfig 后生成的.config 文件，可以用于备份和还原配置 config.</description></item><item><title>在Ubuntu Server上搭建Kubernetes cluster</title><link>https://hitian.info/post/kubernetes-cluster-setup-on-ubuntu-server/</link><pubDate>Thu, 12 Jul 2018 00:00:00 +0000</pubDate><guid>https://hitian.info/post/kubernetes-cluster-setup-on-ubuntu-server/</guid><description>&lt;h1 id="准备ubuntu-server">准备Ubuntu Server&lt;/h1>
+&lt;p>安装最新版本的 ubuntu server, 可以使用网易开源镜像站加速下载&lt;/p>
+&lt;p>&lt;a class="link" href="http://mirrors.163.com/ubuntu-releases/18.04/ubuntu-18.04-live-server-amd64.iso" target="_blank" rel="noopener"
+>http://mirrors.163.com/ubuntu-releases/18.04/ubuntu-18.04-live-server-amd64.iso&lt;/a>&lt;/p>
+&lt;h2 id="在3台主机上安装系统">在3台主机上安装系统&lt;/h2>
+&lt;p>物理机或者虚拟机都可以，要求互相之前可以直连，内存建议在2G以上， 如果不跑什么大型系统的话硬盘15G就差不多了&lt;/p>
+&lt;p>这里直接在VMware Esxi 上启动3个实例安装系统并指定IP地址&lt;/p>
+&lt;p>&lt;img src="https://hitian.info/assets/images/201807/Kubernetes-vmware-exsi.png" alt="Kubernetes-vmware-exsi" />&lt;/p>
+&lt;table>
+&lt;thead>
+&lt;tr>
+&lt;th>主机&lt;/th>
+&lt;th>IP&lt;/th>
+&lt;th>hostname&lt;/th>
+&lt;th>说明&lt;/th>
+&lt;/tr>
+&lt;/thead>
+&lt;tbody>
+&lt;tr>
+&lt;td>c-1&lt;/td>
+&lt;td>192.168.5.191&lt;/td>
+&lt;td>c1&lt;/td>
+&lt;td>Master&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>c-2&lt;/td>
+&lt;td>192.168.5.192&lt;/td>
+&lt;td>c2&lt;/td>
+&lt;td>Node&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>c-3&lt;/td>
+&lt;td>192.168.5.193&lt;/td>
+&lt;td>c3&lt;/td>
+&lt;td>Node&lt;/td>
+&lt;/tr>
+&lt;/tbody>
+&lt;/table>
+&lt;h2 id="准备环境">准备环境&lt;/h2>
+&lt;p>&lt;strong>下面的步骤需要在3台主机上全部执行, 注意使用root用户&lt;/strong>&lt;/p>
+&lt;h3 id="可选-更换apt的更新源为国内的地址加速安装过程">(可选) 更换apt的更新源为国内的地址，加速安装过程&lt;/h3>
+&lt;p>&lt;code>sed -i -- 's/archive.ubuntu.com/mirrors.163.com/g' /etc/apt/sources.list&lt;/code>&lt;/p>
+&lt;h3 id="更新-apt">更新 APT&lt;/h3>
+&lt;p>&lt;code>apt update -y &amp;amp;&amp;amp; apt upgrade -y&lt;/code>&lt;/p>
+&lt;h3 id="安装-docker-ce">安装 Docker CE&lt;/h3>
+&lt;p>以下可以参照Docker 官网的文档
+&lt;a class="link" href="https://docs.docker.com/install/linux/docker-ce/ubuntu/" target="_blank" rel="noopener"
+>https://docs.docker.com/install/linux/docker-ce/ubuntu/&lt;/a>&lt;/p>
+&lt;div class="highlight">&lt;pre class="chroma">&lt;code class="language-bash" data-lang="bash">
+&lt;span class="c1"># 安装依赖&lt;/span>
+apt-get install -y &lt;span class="se">\
+&lt;/span>&lt;span class="se">&lt;/span> apt-transport-https &lt;span class="se">\
+&lt;/span>&lt;span class="se">&lt;/span> ca-certificates &lt;span class="se">\
+&lt;/span>&lt;span class="se">&lt;/span> curl &lt;span class="se">\
+&lt;/span>&lt;span class="se">&lt;/span> software-properties-common
+&lt;span class="c1"># Add Docker’s official GPG key:&lt;/span>
+curl -fsSL https://download.docker.com/linux/ubuntu/gpg &lt;span class="p">|&lt;/span> sudo apt-key add -
+&lt;span class="c1"># 添加Docker 的 apt repository.&lt;/span>
+add-apt-repository &lt;span class="se">\
+&lt;/span>&lt;span class="se">&lt;/span> &lt;span class="s2">&amp;#34;deb [arch=amd64] https://download.docker.com/linux/ubuntu \
+&lt;/span>&lt;span class="s2"> &lt;/span>&lt;span class="k">$(&lt;/span>lsb_release -cs&lt;span class="k">)&lt;/span>&lt;span class="s2"> \
+&lt;/span>&lt;span class="s2"> stable&amp;#34;&lt;/span>
+&lt;span class="c1"># 更新APT 并安装Docker&lt;/span>
+apt-get update -y &lt;span class="o">&amp;amp;&amp;amp;&lt;/span> apt-get install -y docker-ce
+&lt;/code>&lt;/pre>&lt;/div>&lt;h3 id="安装-kubernetes-相关的工具">安装 Kubernetes 相关的工具&lt;/h3>
+&lt;div class="highlight">&lt;pre class="chroma">&lt;code class="language-bash" data-lang="bash">
+&lt;span class="c1"># Add Google’s official GPG key:&lt;/span>
+curl -s https://packages.cloud.google.com/apt/doc/apt-key.gpg &lt;span class="p">|&lt;/span> apt-key add -
+&lt;span class="c1"># 添加 APT repository.&lt;/span>
+cat &lt;span class="s">&amp;lt;&amp;lt;EOF &amp;gt;/etc/apt/sources.list.d/kubernetes.list
+&lt;/span>&lt;span class="s">deb http://apt.kubernetes.io/ kubernetes-xenial main
+&lt;/span>&lt;span class="s">EOF&lt;/span>
+&lt;span class="c1"># 更新APT 并安装&lt;/span>
+apt-get update -y &lt;span class="o">&amp;amp;&amp;amp;&lt;/span> apt-get install -y kubelet kubeadm kubectl
+&lt;/code>&lt;/pre>&lt;/div>&lt;p>&lt;em>到这里基础环境就准备好了， 下来开始初始化， 注意下面的部分在Master主机上操作&lt;/em>&lt;/p>
+&lt;h2 id="初始化-kubernetes">初始化 Kubernetes&lt;/h2>
+&lt;h3 id="启动-master">启动 Master&lt;/h3>
+&lt;h3 id="可选-先pull一下初始化过程中需要的docker-image-加速安装过程">(可选) 先pull一下初始化过程中需要的docker image， 加速安装过程&lt;/h3>
+&lt;p>&lt;code>kubeadm config images pull&lt;/code>&lt;/p>
+&lt;h3 id="初始化">初始化&lt;/h3>
+&lt;p>&lt;code>kubeadm init --pod-network-cidr=10.244.0.0/16&lt;/code>&lt;/p>
+&lt;p>&lt;code>pod-network-cidr&lt;/code>参数是之后创建内部网络需要的ip段，选一个没有被占用的内网段就可以了&lt;/p>
+&lt;p>如果报错
+&lt;code>if [ERROR Swap]: running with swap on is not supported. Please disable swap&lt;/code>&lt;/p>
+&lt;p>swap 没有关闭， 使用&lt;code>swapoff -a&lt;/code>命令关闭swap再重新运行init&lt;/p></description></item><item><title>使用netplan管理ubuntu 的网络配置</title><link>https://hitian.info/post/ubuntu-server-set-network-netplan/</link><pubDate>Tue, 10 Jul 2018 00:00:00 +0000</pubDate><guid>https://hitian.info/post/ubuntu-server-set-network-netplan/</guid><description>最新的ubuntu已经使用netplan来管理网络配置了
+列出当前的配置文件ls -al /etc/netplan/， 注意配置文件为yaml格式， 如果当前没有配置， 可以创建一个例如/etc/netplan/01-netcfg.yaml
+例子 配置为使用DHCP network:version:2renderer:networkdethernets:ens33:dhcp4:yesdhcp6:yes配置为静态ip network:version:2renderer:networkdethernets:ens33:dhcp4:nodhcp6:noaddresses:[192.168.1.2/24]gateway4:192.168.1.1nameservers:addresses:[8.8.8.8,8.8.4.4]配置文件修改好之后使用sudo netplan apply应用配置， 可以加debug参数来查看具体的过程sudo netplan --debug apply</description></item><item><title>Ubuntu Server Install BBR</title><link>https://hitian.info/post/ubuntu-server-install-bbr/</link><pubDate>Tue, 07 Feb 2017 00:00:00 +0000</pubDate><guid>https://hitian.info/post/ubuntu-server-install-bbr/</guid><description>&lt;p>首先需要更新到4.9以上的内核版本， ubuntu和debian可以参考 &lt;a class="link" href="https://hitian.info/notes/2017/02/07/ubuntu-server-install-mainline-kernel/" target="_blank" rel="noopener"
+>这里&lt;/a>&lt;/p>
+&lt;p>重启确认内核版本升级完成继续&lt;/p>
+&lt;p>以root用户执行以下命令&lt;/p></description></item><item><title>Ubuntu Server Install Mainline Kernel</title><link>https://hitian.info/post/ubuntu-server-install-mainline-kernel/</link><pubDate>Tue, 07 Feb 2017 00:00:00 +0000</pubDate><guid>https://hitian.info/post/ubuntu-server-install-mainline-kernel/</guid><description>下载最新的内核 http://kernel.ubuntu.com/~kernel-ppa/mainline/?C=N;O=D进入最新的版本目录
+需要下载4个文件
+linux-headers-XXXXX_XXXXX_all.deb linux-headers-XXXXX-generic_XXXXX_PLATFORM.deb linux-image-unsigned-XXXXX-generic_XXXXX_PLATFORM.deb linux-modules-XXXXX-generic_XXXXX_PLATFORM.deb 例如目前最新的是v4.17.5 (2018-07-09), 下载这4个文件
+linux-headers-4.17.5-041705_4.17.5-041705.201807081431_all.deb linux-headers-4.17.5-041705-generic_4.17.5-041705.201807081431_amd64.deb linux-image-unsigned-4.17.5-041705-generic_4.17.5-041705.201807081431_amd64.deb linux-modules-4.17.5-041705-generic_4.17.5-041705.201807081431_amd64.deb 安装 dpkg -i *.deb 如果安装报错提示libssl1.1没有安装
+Unpacking openssl (1.1.0g-2ubuntu5) over (1.0.2g-1ubuntu4.13) ... dpkg: dependency problems prevent configuration of openssl: openssl depends on libssl1.1 (&amp;gt;= 1.1.0); however: Package libssl1.1 is not installed. dpkg: error processing package openssl (--install): dependency problems - leaving unconfigured 可以从http://security.ubuntu.com/ubuntu/pool/main/o/openssl/ 下载安装
+注意: 如果使用的是linode， 还需要在后台调整 Configuration Profile &amp;gt; Boot Settings &amp;gt; Kernel 为 GRUB 2 才能启动到更新后的内核。</description></item><item><title>ubuntu 通过apt 安装 mongodb 3.0</title><link>https://hitian.info/post/ubuntu-install-mongodb-3.0-with-apt/</link><pubDate>Sat, 11 Jul 2015 00:00:00 +0000</pubDate><guid>https://hitian.info/post/ubuntu-install-mongodb-3.0-with-apt/</guid><description>&lt;p>ubuntu version:&lt;/p></description></item><item><title>thinkpad ubuntu 11.10 暂时禁用触控板</title><link>https://hitian.info/post/thinkpad-ubuntu-disable-touchpad/</link><pubDate>Sun, 27 Nov 2011 00:00:00 +0000</pubDate><guid>https://hitian.info/post/thinkpad-ubuntu-disable-touchpad/</guid><description>打字的时候经常碰到触控板很郁闷, 在使用usb鼠标的时候可以暂时禁用触控板和小红点
+sudo modprobe -r psmouse
+重新启用
+sudo modprobe -i psmouse</description></item><item><title>ubuntu-server 版本升级</title><link>https://hitian.info/post/ubuntu-server-upgrade/</link><pubDate>Wed, 09 Nov 2011 00:00:00 +0000</pubDate><guid>https://hitian.info/post/ubuntu-server-upgrade/</guid><description>一直以来虚拟机里测试用的ubuntu server 都是在出新版本后直接重新安装的, 但是现在东西实在太多了, 懒得再重装了, 网上查了一下升级的过程作下记录:
+升级之前重要的配置文件最好先备份一下, 对于测试服务器, 我选择直接跳过
+修改一下/etc/apt/sources.list 找个快点的源, 不然会很郁闷的. 网易的就不错 mirrors.163.com
+开始升级
+$sudo apt-get install update-manager-core
+显示已经安装了最新版本
+接着
+$sudo do-release-upgrade
+因为我是ssh上去的, 系统会提示如果发生意外可以使用1022端口登录上去
+一路 y
+可以看到其实已经在get新版本的包了
+接下来漫长的半个小时等待..zzzZZ
+网速严重不给力啊
+安装新的, 有一部分老的会被删除
+接着自动重启
+看来升级成功了
+看来mysql没起来, 其他都是正常的
+(完)&amp;hellip;</description></item></channel></rss>

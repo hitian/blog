@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>ota on 不折腾不舒服</title><link>https://hitian.info/tags/ota/</link><description>Recent content in ota on 不折腾不舒服</description><generator>Hugo -- gohugo.io</generator><language>zh-cn</language><lastBuildDate>Fri, 20 Mar 2015 00:00:00 +0000</lastBuildDate><atom:link href="https://hitian.info/tags/ota/index.xml" rel="self" type="application/rss+xml"/><item><title>手动从OTA包升级nexus 5</title><link>https://hitian.info/post/manually-update-nexus-5-from-ota/</link><pubDate>Fri, 20 Mar 2015 00:00:00 +0000</pubDate><guid>https://hitian.info/post/manually-update-nexus-5-from-ota/</guid><description>Android 5.1 发布已经有一段时间了, nexus5的ROM出来也有一段时间了, 但是OTA一直不推送, 挺着急的. google了一下, 决定自己升级一下.
+####先去下载OTA的升级包
+nexus5 从5.0.1 到 5.1 的包: 百度网盘
+其他的这里下载: link
+####其他的准备
+没有adb的先去装一下 将手机的开发者模式打开(连按关于手机中的版本号) ####开始了
+先关机 按住 音量下 和 电源键 启动进入FASTBOOT MODE 按音量上下 选择 Recovery mode, 按电源键进入 自动重启后会显示一个感叹号的机器人, 下面显示无命令, 按住音量上和电源键进入recovery 的菜单. 选择apply update from ADB 并确定 连接手机到电脑, 命令行进入下载的包目录, 执行adb sideload update.zip 等待完成, 大概需要6分钟左右, 然后选择 reboot system now 完成了. 升级完成了:
+重新启动过程中会升级已有的App, 这个只能耐心等待了..
+参考: http://www.androidbeat.com/2014/12/manually-sideload-android-lollipop-update-nexus-5/</description></item></channel></rss>

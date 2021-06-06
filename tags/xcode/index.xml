@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>xcode on 不折腾不舒服</title><link>https://hitian.info/tags/xcode/</link><description>Recent content in xcode on 不折腾不舒服</description><generator>Hugo -- gohugo.io</generator><language>zh-cn</language><lastBuildDate>Sat, 15 Mar 2014 00:00:00 +0000</lastBuildDate><atom:link href="https://hitian.info/tags/xcode/index.xml" rel="self" type="application/rss+xml"/><item><title>cocos2d-x2.2.2在xcode5.1下编译问题临时解决</title><link>https://hitian.info/post/xcode5.1-cocos2d-x-error/</link><pubDate>Sat, 15 Mar 2014 00:00:00 +0000</pubDate><guid>https://hitian.info/post/xcode5.1-cocos2d-x-error/</guid><description>iOS7.1发布之后Xcode也更新到5.1了, 然后之前的程序就跑不起来了. 网上找的解决.
+如果出现
+Unknown register name 'q0' in asm
+请参照 http://stackoverflow.com/questions/21510187/unknown-register-name-q0-in-asm
+将 neon_matrix_impl.c 中的 #if defined(ARM_NEON) 修改为 #if defined(_ARM_ARCH_7)
+另外出现的
+EAGLView.mm:408:18: Cast from pointer to smaller type 'int' loses information
+可以参照 http://www.cocoachina.com/bbs/read.php?tid=193991#902811 5楼给出的方案修改 Targets—&amp;gt;Build Settings—&amp;gt;Architectures 的配置, 将64bit的给去掉.
+PS. 突然觉得作为刚开始入门的新手, 还是得谨慎升级. 特别是解释型脚本语言用习惯, 处理编译问题真头大.</description></item></channel></rss>

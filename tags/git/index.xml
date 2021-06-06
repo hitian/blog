@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>git on 不折腾不舒服</title><link>https://hitian.info/tags/git/</link><description>Recent content in git on 不折腾不舒服</description><generator>Hugo -- gohugo.io</generator><language>zh-cn</language><lastBuildDate>Sun, 23 Jun 2013 00:00:00 +0000</lastBuildDate><atom:link href="https://hitian.info/tags/git/index.xml" rel="self" type="application/rss+xml"/><item><title>设置git忽略服务器证书校验错误</title><link>https://hitian.info/post/git-ignore-certificate-check/</link><pubDate>Sun, 23 Jun 2013 00:00:00 +0000</pubDate><guid>https://hitian.info/post/git-ignore-certificate-check/</guid><description>将自己的git服务器切换到https后clone时发生错误
+error: SSL certificate problem, verify that the CA cert is OK. Details: error:14090086:SSL routines:SSL3_GET_SERVER_CERTIFICATE:certificate verify failed while accessing https://... 因为证书是自己颁发的无法通过CA的校验
+git config --global http.sslVerify false
+这样就可以忽略校验了.
+话说gitlab版本从5.2升级到5.3还真顺利, 升级文档: https://github.com/gitlabhq/gitlabhq/blob/master/doc/update/5.2-to-5.3.md</description></item></channel></rss>

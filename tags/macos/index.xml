@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>macos on 不折腾不舒服</title><link>https://hitian.info/tags/macos/</link><description>Recent content in macos on 不折腾不舒服</description><generator>Hugo -- gohugo.io</generator><language>zh-cn</language><lastBuildDate>Sat, 01 Aug 2020 00:00:00 +0000</lastBuildDate><atom:link href="https://hitian.info/tags/macos/index.xml" rel="self" type="application/rss+xml"/><item><title>修复macOS上的Firefox在全屏时会隐藏所有屏幕菜单栏的问题</title><link>https://hitian.info/post/fix-firefox-macos-full-sceen/</link><pubDate>Sat, 01 Aug 2020 00:00:00 +0000</pubDate><guid>https://hitian.info/post/fix-firefox-macos-full-sceen/</guid><description>针对Firefox for macOS 79.0 (64-bit)
+如果macOS有多块屏幕， 在默认配置下 firefox 全屏时会隐藏所有屏幕的菜单栏，需要手动改配置修复。
+地址栏输入并打开 about:config 忽略风险提示并搜索 full-screen-api 双击 full-screen-api.macos-native-full-screen 将配置更改为 true</description></item><item><title>常用的 x-callback 链接</title><link>https://hitian.info/post/x-callback-links/</link><pubDate>Mon, 09 Jul 2018 00:00:00 +0000</pubDate><guid>https://hitian.info/post/x-callback-links/</guid><description>OmniFocus change language Reset omnifocus:///change-preference?AppleLanguages= 中文 omnifocus:///change-preference?AppleLanguages=zh Bear Create note bear://x-callback-url/create?title=Title&amp;amp;text=Text&amp;amp;tags=tag1,tag2 Open tag bear://x-callback-url/open-tag?name=tag-name Search note bear://x-callback-url/search?term=keyword Due Add due://x-callback-url/add?title=title</description></item><item><title>brew install httpd 发生错误</title><link>https://hitian.info/post/brew-install-httpd/</link><pubDate>Sun, 30 Dec 2012 00:00:00 +0000</pubDate><guid>https://hitian.info/post/brew-install-httpd/</guid><description>今天安装subversion的过程中把httpd卸掉了， 结果重新安装的时候发生错误了
+tian-mac:~ tian$ brew install httpd ==&amp;gt; Downloading http://www.apache.org/dist/httpd/httpd-2.2.22.tar.bz2 Already downloaded: /Library/Caches/Homebrew/httpd-2.2.22.tar.bz2 ==&amp;gt; ./configure --prefix=/usr/local/Cellar/httpd/2.2.22 --mandir=/usr/local/Cellar/httpd/2.2.22/share/man --enable-layout=GNU --enable-mods-shared=all --with-ssl=/usr --wit checking whether to enable mod_substitute... shared (all) checking whether to enable mod_charset_lite... no checking whether to enable mod_deflate... checking dependencies checking for zlib location... not found checking whether to enable mod_deflate... configure: error: mod_deflate has been requested but can not be built due to prerequisite failures READ THIS: https://github.com/mxcl/homebrew/wiki/troubleshooting These open issues may also help: https://github.</description></item><item><title>为DiffMerge创建finder右键菜单</title><link>https://hitian.info/post/diffmerge/</link><pubDate>Sat, 01 Dec 2012 00:00:00 +0000</pubDate><guid>https://hitian.info/post/diffmerge/</guid><description>&lt;p>习惯了win下直接选中文件右键对比， 在mac下找了好久，要么贵的要死，要么没有，所以决定自己创建一个。&lt;/p></description></item><item><title>mac下安装dnsmasq笔记</title><link>https://hitian.info/post/macos-install-dnsmasq/</link><pubDate>Sun, 25 Nov 2012 00:00:00 +0000</pubDate><guid>https://hitian.info/post/macos-install-dnsmasq/</guid><description>安装
+brew update &amp;amp;&amp;amp; brew install dnsmasq
+ 配置
+#从模板创建配置文件
+cp /usr/local/Cellar/dnsmasq/2.63/dnsmasq.conf.example /usr/local/etc/dnsmasq.conf
+#开机自启动
+sudo cp /usr/local/Cellar/dnsmasq/2.63/homebrew.mxcl.dnsmasq.plist /Library/LaunchDaemons/
+sudo launchctl load -w /Library/LaunchDaemons/homebrew.mxcl.dnsmasq.plist 
+ 编辑 /usr/local/etc/dnsmasq.conf
+修改 resolv-file=/etc/resolv.dnsmasq.conf
+如果只想本机使用 这里也修改一下
+listen-address=127.0.0.1
+ 修改maxos的配置使用本地的dnsmasq
+编辑 /etc/resolv.conf
+修改 nameserver 127.0.0.1
+ 参考原始页面 http://blog.philippklaus.de/2012/02/install-dnsmasq-locally-on-mac-os-x-via-homebrew/
+  </description></item><item><title>mac上最简单的代理方式</title><link>https://hitian.info/post/macos-simple-proxy/</link><pubDate>Mon, 01 Oct 2012 00:00:00 +0000</pubDate><guid>https://hitian.info/post/macos-simple-proxy/</guid><description>在mac上使用ssh代理其实很方便
+前提是有一个ssh账号
+命令
+$ ssh -D 1089 tian@domain.com
+会打开端口1089 监听
+查看端口可以发现
+Active Internet connections (including servers) Proto Recv-Q Send-Q Local Address Foreign Address (state) tcp6 0 0 ::1.1089 *.* LISTEN tcp4 0 0 127.0.0.1.1089 *.* LISTEN 这样连接就建立好了， 然后配置一下
+进入网络偏好设置， 选自己正在用的网络连接 -》点高级-》选择代理标签
+使用socks代理， 填上刚才的端口号
+确实非常方便。</description></item></channel></rss>

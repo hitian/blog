@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>cocos2d-x on 不折腾不舒服</title><link>https://hitian.info/tags/cocos2d-x/</link><description>Recent content in cocos2d-x on 不折腾不舒服</description><generator>Hugo -- gohugo.io</generator><language>zh-cn</language><lastBuildDate>Fri, 05 Sep 2014 00:00:00 +0000</lastBuildDate><atom:link href="https://hitian.info/tags/cocos2d-x/index.xml" rel="self" type="application/rss+xml"/><item><title>cocos2d-x 出现 call to OpenGL ES API with no current context</title><link>https://hitian.info/post/cocos2d-x-android-call-to-opengl-es-api-with-no-current-context/</link><pubDate>Fri, 05 Sep 2014 00:00:00 +0000</pubDate><guid>https://hitian.info/post/cocos2d-x-android-call-to-opengl-es-api-with-no-current-context/</guid><description>环境 cocos2d-x 2.2.2 + js
+游戏的某些功能界面在Android出现了很奇怪的黑块, LOG记录到
+E/libEGL (30687): call to OpenGL ES API with no current context (logged once per thread)
+google一下, 大概的原因可能是在非UI线程上操作场景上的图片资源导致的. 但是网上的情况绝大多数情况出现在 java 操作 c++ 层时出现的, 而我们是直接出现在js的回调方法中.
+回调是由某sdk执行的, 通过 java -&amp;gt; c++ -&amp;gt; js 一层层回来的.
+也就是说最终js的回调有可能是执行在非ui线程里的, 所以在这里更新界面有可能会出现问题.
+囧&amp;hellip;
+推测
+js无法决定自己运行在什么线程里, 但是可以控制界面更新在UI线程里操作.
+我们的流程是这样的.
+sdk -&amp;gt; someService -&amp;gt; controller -&amp;gt; view
+那其实我们可以打断someService 和 controller 之间的直接调用关系. 分成两步来执行.
+sdk -&amp;gt; someService -&amp;gt; [write status mark &amp;amp; store params]
+写完状态就可以直接返回了. 剩下的事情由游戏的循环来做. 游戏的循环本来就是负责界面更新的, 所以肯定不会有问题.</description></item><item><title>cocos2d-x2.2.2 触摸事件的遮挡</title><link>https://hitian.info/post/cocos2d-x-touch-layer-block/</link><pubDate>Wed, 02 Apr 2014 00:00:00 +0000</pubDate><guid>https://hitian.info/post/cocos2d-x-touch-layer-block/</guid><description>环境 cocos2d-x 2.2.2 + js
+例如一个这样的界面
+左上角的设置使用 cc.MenuItemSprite, 弹出的遮罩层和上面的按钮需要优先获取touch事件, 并阻止向后继续传播.
+这里需要两个点就可以做到.
+var bgLayer = cc.LayerColor.extend({ ctor: function () { this._super(); cc.associateWithNative(this, cc.LayerColor); cc.registerTargetedDelegate(-129, true, this); //1.设置触摸的优先级 this.setTouchEnabled(true); }, onTouchBegan: function (touches, event) { cc.log(&amp;#34;TouchBegan: &amp;#34;); return true; //2. 在onTouchXXX 回调里返回true来吞噬掉touch事件 }, onTouchesBegan: function (touches, event) { var loc = touches[0].getLocation(); cc.log(&amp;#34;TouchesBegan: &amp;#34; + loc.x + &amp;#34; : &amp;#34; + loc.y); return true; } }); 1.设置触摸的优先级 在layer创建的时候使用 cc.registerTargetedDelegate(-129, true, this); 来设置优先级(第1个参数)</description></item><item><title>cocos2d-x2.2.2在xcode5.1下编译问题临时解决</title><link>https://hitian.info/post/xcode5.1-cocos2d-x-error/</link><pubDate>Sat, 15 Mar 2014 00:00:00 +0000</pubDate><guid>https://hitian.info/post/xcode5.1-cocos2d-x-error/</guid><description>iOS7.1发布之后Xcode也更新到5.1了, 然后之前的程序就跑不起来了. 网上找的解决.
+如果出现
+Unknown register name 'q0' in asm
+请参照 http://stackoverflow.com/questions/21510187/unknown-register-name-q0-in-asm
+将 neon_matrix_impl.c 中的 #if defined(ARM_NEON) 修改为 #if defined(_ARM_ARCH_7)
+另外出现的
+EAGLView.mm:408:18: Cast from pointer to smaller type 'int' loses information
+可以参照 http://www.cocoachina.com/bbs/read.php?tid=193991#902811 5楼给出的方案修改 Targets—&amp;gt;Build Settings—&amp;gt;Architectures 的配置, 将64bit的给去掉.
+PS. 突然觉得作为刚开始入门的新手, 还是得谨慎升级. 特别是解释型脚本语言用习惯, 处理编译问题真头大.</description></item><item><title>cocos2d-x 入门笔记</title><link>https://hitian.info/post/cocos2d-x-note/</link><pubDate>Thu, 13 Mar 2014 00:00:00 +0000</pubDate><guid>https://hitian.info/post/cocos2d-x-note/</guid><description>首先cocos2d-x开发游戏确实还是比较简单的. 因为可以使用js作为开发语言, 本来就会js的人入门会更快, 不过市面上的书和网上的各种教程基本都是用c++的, 所以学习过程中还是走了不少弯路.
+目前使用js作为开发语言的话, 可以在iOS, Android, Windows 上运行, 开发环境可以是MacOS+Xcode 或者Windows+VS, 不过Windows上那是非常的慢. 所以下面的都是在Mac下的.
+开始了&amp;hellip;
+官网: http://www.cocos2d-x.org/ 如果很慢请尝试使用代理
+##api文档##
+官方api文档地址&amp;raquo;
+对api的使用建议: 如果是使用js开发手机native的游戏的话, 可以使用Cocos2d-html5 的api文档配合Cocos2d-X的文档看, 因为Cocos2d-x的文档主要以c++的为主, 看js的话用起来非常的不方便, 所以我平时都是直接看html5的, 有问题的话再查一下c++的.
+##创建项目##
+这是第一个坑, 目前的稳定版本是2.2.2. 大部分书还是2.2的版本, 书里介绍的导入xcode模板的脚本现在已经没有了, 现在需要执行脚本直接生成工程.
+脚本地址 cocos2d-x-2.2.2/tools/project-creator/create_project.py
+建议使用 python2.7 来执行, 最新版的python貌似有问题
+直接执行会有参数的提示, 把参数都补上再执行一遍项目就应该创建好了.
+生成的项目会放在 cocos2d-x-2.2.2/projects/ 目录下. iOS的xcode工程在 proj.ios 下面. 要运行非常简单, 直接在Xcode里点运行就可以直接在模拟器上运行自带的HelloWorld程序了. android的运行可能要稍微麻烦一点, 可以自行Google.
+##学习##
+因为这方面的资料大部分都是c++的, 所以学习也基本是从看c++的书开始, 其实也不用会c++, 看书主要是为了大概知道cocos2d-x是如何工作的, 都有什么样的方法或者工具可以使用, 接下来就是看源代码包里提供的js的示例项目, 看一下js是怎么实现各种功能的.
+官方给了5个js的示例项目, 在目录: cocos2d-x-2.2.2/samples/Javascript/ 下, 注意js的源代码放在公用的 cocos2d-x-2.2.2/samples/Javascript/Shared/games 目录下. 认真研究一下这些代码, 在配合api文档基本上就可以开始尝试着开发自己的游戏了. 入门还是比较简单的.</description></item></channel></rss>

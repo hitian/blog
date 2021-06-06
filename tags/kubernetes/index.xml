@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Kubernetes on 不折腾不舒服</title><link>https://hitian.info/tags/kubernetes/</link><description>Recent content in Kubernetes on 不折腾不舒服</description><generator>Hugo -- gohugo.io</generator><language>zh-cn</language><lastBuildDate>Thu, 12 Jul 2018 00:00:00 +0000</lastBuildDate><atom:link href="https://hitian.info/tags/kubernetes/index.xml" rel="self" type="application/rss+xml"/><item><title>在Ubuntu Server上搭建Kubernetes cluster</title><link>https://hitian.info/post/kubernetes-cluster-setup-on-ubuntu-server/</link><pubDate>Thu, 12 Jul 2018 00:00:00 +0000</pubDate><guid>https://hitian.info/post/kubernetes-cluster-setup-on-ubuntu-server/</guid><description>&lt;h1 id="准备ubuntu-server">准备Ubuntu Server&lt;/h1>
+&lt;p>安装最新版本的 ubuntu server, 可以使用网易开源镜像站加速下载&lt;/p>
+&lt;p>&lt;a class="link" href="http://mirrors.163.com/ubuntu-releases/18.04/ubuntu-18.04-live-server-amd64.iso" target="_blank" rel="noopener"
+>http://mirrors.163.com/ubuntu-releases/18.04/ubuntu-18.04-live-server-amd64.iso&lt;/a>&lt;/p>
+&lt;h2 id="在3台主机上安装系统">在3台主机上安装系统&lt;/h2>
+&lt;p>物理机或者虚拟机都可以，要求互相之前可以直连，内存建议在2G以上， 如果不跑什么大型系统的话硬盘15G就差不多了&lt;/p>
+&lt;p>这里直接在VMware Esxi 上启动3个实例安装系统并指定IP地址&lt;/p>
+&lt;p>&lt;img src="https://hitian.info/assets/images/201807/Kubernetes-vmware-exsi.png" alt="Kubernetes-vmware-exsi" />&lt;/p>
+&lt;table>
+&lt;thead>
+&lt;tr>
+&lt;th>主机&lt;/th>
+&lt;th>IP&lt;/th>
+&lt;th>hostname&lt;/th>
+&lt;th>说明&lt;/th>
+&lt;/tr>
+&lt;/thead>
+&lt;tbody>
+&lt;tr>
+&lt;td>c-1&lt;/td>
+&lt;td>192.168.5.191&lt;/td>
+&lt;td>c1&lt;/td>
+&lt;td>Master&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>c-2&lt;/td>
+&lt;td>192.168.5.192&lt;/td>
+&lt;td>c2&lt;/td>
+&lt;td>Node&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>c-3&lt;/td>
+&lt;td>192.168.5.193&lt;/td>
+&lt;td>c3&lt;/td>
+&lt;td>Node&lt;/td>
+&lt;/tr>
+&lt;/tbody>
+&lt;/table>
+&lt;h2 id="准备环境">准备环境&lt;/h2>
+&lt;p>&lt;strong>下面的步骤需要在3台主机上全部执行, 注意使用root用户&lt;/strong>&lt;/p>
+&lt;h3 id="可选-更换apt的更新源为国内的地址加速安装过程">(可选) 更换apt的更新源为国内的地址，加速安装过程&lt;/h3>
+&lt;p>&lt;code>sed -i -- 's/archive.ubuntu.com/mirrors.163.com/g' /etc/apt/sources.list&lt;/code>&lt;/p>
+&lt;h3 id="更新-apt">更新 APT&lt;/h3>
+&lt;p>&lt;code>apt update -y &amp;amp;&amp;amp; apt upgrade -y&lt;/code>&lt;/p>
+&lt;h3 id="安装-docker-ce">安装 Docker CE&lt;/h3>
+&lt;p>以下可以参照Docker 官网的文档
+&lt;a class="link" href="https://docs.docker.com/install/linux/docker-ce/ubuntu/" target="_blank" rel="noopener"
+>https://docs.docker.com/install/linux/docker-ce/ubuntu/&lt;/a>&lt;/p>
+&lt;div class="highlight">&lt;pre class="chroma">&lt;code class="language-bash" data-lang="bash">
+&lt;span class="c1"># 安装依赖&lt;/span>
+apt-get install -y &lt;span class="se">\
+&lt;/span>&lt;span class="se">&lt;/span> apt-transport-https &lt;span class="se">\
+&lt;/span>&lt;span class="se">&lt;/span> ca-certificates &lt;span class="se">\
+&lt;/span>&lt;span class="se">&lt;/span> curl &lt;span class="se">\
+&lt;/span>&lt;span class="se">&lt;/span> software-properties-common
+&lt;span class="c1"># Add Docker’s official GPG key:&lt;/span>
+curl -fsSL https://download.docker.com/linux/ubuntu/gpg &lt;span class="p">|&lt;/span> sudo apt-key add -
+&lt;span class="c1"># 添加Docker 的 apt repository.&lt;/span>
+add-apt-repository &lt;span class="se">\
+&lt;/span>&lt;span class="se">&lt;/span> &lt;span class="s2">&amp;#34;deb [arch=amd64] https://download.docker.com/linux/ubuntu \
+&lt;/span>&lt;span class="s2"> &lt;/span>&lt;span class="k">$(&lt;/span>lsb_release -cs&lt;span class="k">)&lt;/span>&lt;span class="s2"> \
+&lt;/span>&lt;span class="s2"> stable&amp;#34;&lt;/span>
+&lt;span class="c1"># 更新APT 并安装Docker&lt;/span>
+apt-get update -y &lt;span class="o">&amp;amp;&amp;amp;&lt;/span> apt-get install -y docker-ce
+&lt;/code>&lt;/pre>&lt;/div>&lt;h3 id="安装-kubernetes-相关的工具">安装 Kubernetes 相关的工具&lt;/h3>
+&lt;div class="highlight">&lt;pre class="chroma">&lt;code class="language-bash" data-lang="bash">
+&lt;span class="c1"># Add Google’s official GPG key:&lt;/span>
+curl -s https://packages.cloud.google.com/apt/doc/apt-key.gpg &lt;span class="p">|&lt;/span> apt-key add -
+&lt;span class="c1"># 添加 APT repository.&lt;/span>
+cat &lt;span class="s">&amp;lt;&amp;lt;EOF &amp;gt;/etc/apt/sources.list.d/kubernetes.list
+&lt;/span>&lt;span class="s">deb http://apt.kubernetes.io/ kubernetes-xenial main
+&lt;/span>&lt;span class="s">EOF&lt;/span>
+&lt;span class="c1"># 更新APT 并安装&lt;/span>
+apt-get update -y &lt;span class="o">&amp;amp;&amp;amp;&lt;/span> apt-get install -y kubelet kubeadm kubectl
+&lt;/code>&lt;/pre>&lt;/div>&lt;p>&lt;em>到这里基础环境就准备好了， 下来开始初始化， 注意下面的部分在Master主机上操作&lt;/em>&lt;/p>
+&lt;h2 id="初始化-kubernetes">初始化 Kubernetes&lt;/h2>
+&lt;h3 id="启动-master">启动 Master&lt;/h3>
+&lt;h3 id="可选-先pull一下初始化过程中需要的docker-image-加速安装过程">(可选) 先pull一下初始化过程中需要的docker image， 加速安装过程&lt;/h3>
+&lt;p>&lt;code>kubeadm config images pull&lt;/code>&lt;/p>
+&lt;h3 id="初始化">初始化&lt;/h3>
+&lt;p>&lt;code>kubeadm init --pod-network-cidr=10.244.0.0/16&lt;/code>&lt;/p>
+&lt;p>&lt;code>pod-network-cidr&lt;/code>参数是之后创建内部网络需要的ip段，选一个没有被占用的内网段就可以了&lt;/p>
+&lt;p>如果报错
+&lt;code>if [ERROR Swap]: running with swap on is not supported. Please disable swap&lt;/code>&lt;/p>
+&lt;p>swap 没有关闭， 使用&lt;code>swapoff -a&lt;/code>命令关闭swap再重新运行init&lt;/p></description></item></channel></rss>

@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>adb on 不折腾不舒服</title><link>https://hitian.info/tags/adb/</link><description>Recent content in adb on 不折腾不舒服</description><generator>Hugo -- gohugo.io</generator><language>zh-cn</language><lastBuildDate>Sun, 24 Feb 2013 00:00:00 +0000</lastBuildDate><atom:link href="https://hitian.info/tags/adb/index.xml" rel="self" type="application/rss+xml"/><item><title>adb连接到rk30sdk</title><link>https://hitian.info/post/adb-connect-to-rk30sdk/</link><pubDate>Sun, 24 Feb 2013 00:00:00 +0000</pubDate><guid>https://hitian.info/post/adb-connect-to-rk30sdk/</guid><description>修改 ~/.android/adb_usb.ini 文件
+添加
+0x2207
+注意文件中不能有空行, 否则可能报错:
+* daemon not running. starting it now on port 5037 * ADB server didn&amp;#39;t ACK * failed to start daemon * 文件修改好后重启一下服务
+tianMac:platform-tools tian$ ./adb kill-server tianMac:platform-tools tian$ ./adb start-server * daemon not running. starting it now on port 5037 * * daemon started successfully * 然后应该就可以看见设备了.</description></item></channel></rss>

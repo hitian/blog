@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>php on 不折腾不舒服</title><link>https://hitian.info/tags/php/</link><description>Recent content in php on 不折腾不舒服</description><generator>Hugo -- gohugo.io</generator><language>zh-cn</language><lastBuildDate>Fri, 12 Apr 2013 00:00:00 +0000</lastBuildDate><atom:link href="https://hitian.info/tags/php/index.xml" rel="self" type="application/rss+xml"/><item><title>redis使用笔记</title><link>https://hitian.info/post/redis-notes/</link><pubDate>Fri, 12 Apr 2013 00:00:00 +0000</pubDate><guid>https://hitian.info/post/redis-notes/</guid><description>根据 http://redis.io 的说明， redis支持 string， list， set， sorted set 和 hash 这五种数据类型， php中可能经常需要直接把array 直接存起来。
+仔细看了下 https://github.com/nicolasff/phpredis 上的说明， 其实有个方法setOption 可以设置客户端的一些属性
+&amp;lt;?php $redis-&amp;gt;setOption(Redis::OPT_SERIALIZER, Redis::SERIALIZER_PHP); // use built-in serialize/unserialize 这样就可以使用php内置的serialize/unserialize 方法对数据进行处理
+&amp;lt;?php /** * redis test * @author jia.tian@me.com */ $redis = new Redis(); $redis-&amp;gt;connect(&amp;#39;127.0.0.1&amp;#39;, &amp;#39;6379&amp;#39;); $redis-&amp;gt;setOption(Redis::OPT_SERIALIZER, Redis::SERIALIZER_PHP); $redis-&amp;gt;set(&amp;#39;tian&amp;#39;, array(&amp;#39;name&amp;#39; =&amp;gt; &amp;#39;tian&amp;#39;, &amp;#39;passwd&amp;#39; =&amp;gt; &amp;#39;123456&amp;#39;)); var_dump($redis-&amp;gt;get(&amp;#39;tian&amp;#39;)); $redis-&amp;gt;set(&amp;#39;tian&amp;#39;, &amp;#39;test&amp;#39;); var_dump($redis-&amp;gt;get(&amp;#39;tian&amp;#39;)); 运行结果：
+array(2) { [&amp;quot;name&amp;quot;]=&amp;gt; string(4) &amp;quot;tian&amp;quot; [&amp;quot;passwd&amp;quot;]=&amp;gt; string(6) &amp;quot;123456&amp;quot; } string(4) &amp;quot;test&amp;quot;
+可以看到将array存入和取出时会自动进行了处理这是直接在github上下载的zip包在ubuntu上安装的，可以看到版本号是2.2.2</description></item><item><title>注入风险提醒</title><link>https://hitian.info/post/sql-injection-risk/</link><pubDate>Sun, 29 Apr 2012 00:00:00 +0000</pubDate><guid>https://hitian.info/post/sql-injection-risk/</guid><description>前几天发现的数据库注入总结一下
+发生问题的过滤:
+&amp;lt;?php $type = ( in_array($_GET[&amp;#39;t&amp;#39;],array(1,2,3)) )?$_GET[&amp;#39;t&amp;#39;]:0; 这个过滤实际不严格, 当传进来的变量以 1,2,3中的任意数字开头时过滤将失败
+当用户 传 t=1' or '1'='1 时, $type获取到的变量将维持原样, 直接传到数据库进行查询时会有注入危险
+总结和建议:所有由用户传入int 值 必须使用 intval() 进行过滤
+字符串必须使用mysql_real_escape_string() 进行过滤
+在读取 $_GET $_REQUEST $_POST $_COOKIE 时 必须进行过滤, 一般认为用户传入的数据都是不安全的.</description></item><item><title>php 文件下载 header 设置</title><link>https://hitian.info/post/php-file-download-set-header/</link><pubDate>Tue, 20 Dec 2011 00:00:00 +0000</pubDate><guid>https://hitian.info/post/php-file-download-set-header/</guid><description>&lt;p>读取文件, 强制浏览器进行下载&lt;/p></description></item><item><title>使用类似于奖池方式的抽奖模拟</title><link>https://hitian.info/post/lottery-simulation/</link><pubDate>Wed, 23 Nov 2011 00:00:00 +0000</pubDate><guid>https://hitian.info/post/lottery-simulation/</guid><description>一般来说要做一个抽奖程序会立即想到用随机数. 但是通常情况下随机数也不是那么的随机, 数量比较大的时候才能体现出比较平均, 数量较小的时候中奖概率的可控性将会很差. 一不小心多被抽中几个麻烦就大了.
+&amp;lt;?php class T_prize{ var $item; var $table; /** * 抽奖主程序 外部调用入口 * @param unknown_type $db 数据库链接 * @param unknown_type $id 抽奖类型 */ function prize($db, $id){ global $prize_set; // if(!isset($prize_set[$id])){ return false; } $this-&amp;gt;item = $prize_set[$id]; $table = &amp;#39;my_prize_store_table_&amp;#39; . $id; //抽奖并发较大时可以进行分表, 多生成几个奖池 //$table = &amp;#39;my_prize_store_table_&amp;#39; . $id . &amp;#39;_&amp;#39; . rand(0, 4); $this-&amp;gt;table = $table; //防止多个用户抽到同一个条目, 进行锁表 $db-&amp;gt;query(&amp;#34;lock table &amp;#34; . $table .</description></item><item><title>重装系统后恢复开发环境</title><link>https://hitian.info/post/restore-development-environment/</link><pubDate>Tue, 22 Nov 2011 00:00:00 +0000</pubDate><guid>https://hitian.info/post/restore-development-environment/</guid><description>每次做系统都很愁, 因为有一大堆软件需要重新安装, 尽管尽量都用绿色的还是有一大推需要安装的, 尝试着列个表, 简化一下流程&amp;hellip;
+个人文件夹迁移 将个人文件夹中的 我的视频 我的音乐 我的图片 移动到原来非系统盘的位置去 (一直很纳闷为什么这些需要大量占用磁盘空间的东西不一开始就放在非系统盘) 恢复apache和php环境 之前的都装在d盘了  以管理员运行cmd 进入D:\lamp\apache\bin
+httpd.exe -k install 将apache安装为系统服务
+httpd.exe -k start 启动apache
+mysql 一直使用的远程的, 跳过
+将备份的host 文件覆盖 顺便调整一下修改的权限
+运行环境搞定
+ 安装firefox 然后安装插件 firebug;
+firecookie;
+web developer;
+dns flusher;
+advanced cookie manager;
+再安装一下chrome 使用google帐号将之前的插件都同步回来
+ok 调试环境也搞定
+ 安装 jre ; Dreamweaver ; mysql workbench; eclipse pdt; editplus ok 开发环境搞定</description></item><item><title>win7 x64 运行x86的zend studio 9.0</title><link>https://hitian.info/post/win7-x64-zend-studio-x86/</link><pubDate>Sat, 05 Nov 2011 00:00:00 +0000</pubDate><guid>https://hitian.info/post/win7-x64-zend-studio-x86/</guid><description>x64的win8 安装了x64 的jdk 再运行zendstudio时就会出错
+解决:
+再安装一下x86 的jre
+打开 C:\Program Files (x86)\Zend\Zend Studio 9.0.0\ZendStudio.ini
+添加 -vm
+C:\Program Files (x86)\Java\jre6\bin\javaw.exe
+-name Zend Studio -vm C:\Program Files (x86)\Java\jre6\bin\javaw.exe -vmargs</description></item><item><title>php执行服务器脚本</title><link>https://hitian.info/post/php-exec/</link><pubDate>Thu, 20 Oct 2011 00:00:00 +0000</pubDate><guid>https://hitian.info/post/php-exec/</guid><description>php执行服务器上的脚本进行一些操作不是什么难事.
+exec system passthru 这几个函数都可以调用外部的命令. 只要有权限就完全没有问题.
+例如
+exec('/home/tian/bin/trytodosomething -h');
+命令执行后php会挂起直到命令运行完毕. 有时候脚本运行的时间也许很长, 我们需要让php继续执行及时反馈给用户我们已经开始操作了.
+$cmd = '/home/tian/bin/trytodosomething -h &amp;gt; /tmp/null &amp;amp;'; $result = system($cmd); 这样修改之后, php就会继续执行, 不会等待命令执行完这样也存在一个问题, 用户不断的刷新网页可以能造成一些麻烦, 使用文件锁就可以解决这个问题.</description></item><item><title>php注意正则匹配的长度限制</title><link>https://hitian.info/post/php-regex-length-limit/</link><pubDate>Mon, 22 Aug 2011 00:00:00 +0000</pubDate><guid>https://hitian.info/post/php-regex-length-limit/</guid><description>&lt;p>今天要使用正则来批量替换一个抓取页面中的图片地址&lt;/p></description></item><item><title>简单的mysql表级锁</title><link>https://hitian.info/post/simple-mysql-table-level-locks/</link><pubDate>Tue, 12 Jul 2011 00:00:00 +0000</pubDate><guid>https://hitian.info/post/simple-mysql-table-level-locks/</guid><description>由于业务需要, 一个表不允许两个及以上用户同时操作.由于是mysql4.1 事务等高级特性就不用想了, 存储引擎统一使用的MyISAM.其实转换成InnoDB 就可以使用行级锁了, 但是由于是线上正在使用的数据库, 数据量比较大,转换怕出现意外. 要实现的功能又是在后台使用. 所以就直接使用表级锁完全可以了.在mysql中对表加锁和解锁其实挺简单的
+LOCKTABLEtable_name;UNLOCKTABLE;demo
+&amp;lt;?php $db = new Mysql(); $db-&amp;gt;open(); $db-&amp;gt;query(&amp;#34;lock table &amp;#34; . $table); $sql = &amp;#34;SELECT * FROM ${table}WHERE gid=&amp;#39;${gid}&amp;#39; AND sid IS NULL LIMIT 1&amp;#34;; $row = $db-&amp;gt;fetch($db-&amp;gt;query($sql)); $success = false; $re = array(); if($row){ $id = $row[&amp;#39;id&amp;#39;]; $update_data = array( &amp;#39;udate&amp;#39; =&amp;gt; date(&amp;#39;Y-m-d H:i:s&amp;#39;), &amp;#39;tuid&amp;#39; =&amp;gt; $uid, &amp;#39;operator&amp;#39; =&amp;gt; $_COOKIE[&amp;#39;admin_name&amp;#39;], &amp;#39;sid&amp;#39; =&amp;gt; $sid, ); $db-&amp;gt;update($this-&amp;gt;table, $update_data, &amp;#34;id=&amp;#39;$id&amp;#39;&amp;#34;); $result = $db-&amp;gt;getAffectedRows(); if($result &amp;gt; 0){ $success = true; $re = $row; }else{ $msg = &amp;#39;发生错误: 物品库存修改失败!</description></item></channel></rss>

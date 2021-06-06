@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>linux on 不折腾不舒服</title><link>https://hitian.info/tags/linux/</link><description>Recent content in linux on 不折腾不舒服</description><generator>Hugo -- gohugo.io</generator><language>zh-cn</language><lastBuildDate>Thu, 04 Apr 2013 00:00:00 +0000</lastBuildDate><atom:link href="https://hitian.info/tags/linux/index.xml" rel="self" type="application/rss+xml"/><item><title>nginx 使用笔记</title><link>https://hitian.info/post/nginx-notes/</link><pubDate>Thu, 04 Apr 2013 00:00:00 +0000</pubDate><guid>https://hitian.info/post/nginx-notes/</guid><description>添加phpmyadmin alias
+location /phpmyadmin { root /usr/share/; index index.php index.html index.htm; location ~ ^/phpmyadmin/(.+\.php)$ { try_files $uri =404; root /usr/share/; fastcgi_pass 127.0.0.1:9000; fastcgi_index index.php; fastcgi_param SCRIPT_FILENAME $document_root$fastcgi_script_name; include /etc/nginx/fastcgi_params; } location ~* ^/phpmyadmin/(.+\.(jpg|jpeg|gif|css|png|js|ico|html|xml|txt))$ { root /usr/share/; } } 静态文件缓存， 并且不记录日志
+location ~ \.(jpg|jpeg|gif|css|png|js|ico|xml)$ { access_log off; expires 30d; }</description></item><item><title>关于(13) phpmyadmin Permission denied</title><link>https://hitian.info/post/permission-denied-access-to-phpmyadmin/</link><pubDate>Tue, 13 Dec 2011 00:00:00 +0000</pubDate><guid>https://hitian.info/post/permission-denied-access-to-phpmyadmin/</guid><description>centos5.4 配置完apache+php+mysql 环境后出现了一个很棘手的问题
+使用 Alias /phpmyadmin &amp;ldquo;/var/www/html/phpmyadmin/&amp;rdquo;
+之后访问 http://localhost/phpmyadmin/index.php 一直出403
+/var/www/html/phpmyadmin/ 目录的owner 改为apache
+并给了整个目录755的权限
+在访问的时候仍然出现了403
+解决方案:
+#chcon -R -h -t httpd_sys_content_t /var/www/html/phpmyadmin/
+本来一直使用ubuntu server 的, 没有用过centos, 为了明天的考核不得不试了下centos , 结果就出现这样纠结的问题, 翻了好久的英文网页才找到解决办法, 感谢google&amp;hellip;</description></item><item><title>ubuntu-server 版本升级</title><link>https://hitian.info/post/ubuntu-server-upgrade/</link><pubDate>Wed, 09 Nov 2011 00:00:00 +0000</pubDate><guid>https://hitian.info/post/ubuntu-server-upgrade/</guid><description>一直以来虚拟机里测试用的ubuntu server 都是在出新版本后直接重新安装的, 但是现在东西实在太多了, 懒得再重装了, 网上查了一下升级的过程作下记录:
+升级之前重要的配置文件最好先备份一下, 对于测试服务器, 我选择直接跳过
+修改一下/etc/apt/sources.list 找个快点的源, 不然会很郁闷的. 网易的就不错 mirrors.163.com
+开始升级
+$sudo apt-get install update-manager-core
+显示已经安装了最新版本
+接着
+$sudo do-release-upgrade
+因为我是ssh上去的, 系统会提示如果发生意外可以使用1022端口登录上去
+一路 y
+可以看到其实已经在get新版本的包了
+接下来漫长的半个小时等待..zzzZZ
+网速严重不给力啊
+安装新的, 有一部分老的会被删除
+接着自动重启
+看来升级成功了
+看来mysql没起来, 其他都是正常的
+(完)&amp;hellip;</description></item></channel></rss>

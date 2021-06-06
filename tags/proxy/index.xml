@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>proxy on 不折腾不舒服</title><link>https://hitian.info/tags/proxy/</link><description>Recent content in proxy on 不折腾不舒服</description><generator>Hugo -- gohugo.io</generator><language>zh-cn</language><lastBuildDate>Sat, 05 Jan 2019 00:00:00 +0000</lastBuildDate><atom:link href="https://hitian.info/tags/proxy/index.xml" rel="self" type="application/rss+xml"/><item><title>ssh 代理和转发那些事</title><link>https://hitian.info/post/ssh-proxy-forward/</link><pubDate>Sat, 05 Jan 2019 00:00:00 +0000</pubDate><guid>https://hitian.info/post/ssh-proxy-forward/</guid><description>配置ssh客户端的行为 配置文件路径 ~/.ssh/config
+针对目标主机的配置块示例
+Host deploy-gw HostName [__target_hostname_or_ip__] User game IdentityFile ~/.ssh/deploy_private_key ProxyCommand [__connect_command__] 配置解释 除了Host之外， 其它的都是可选的 Host deploy-gw 定义使用时的名字，之后使用 ssh deploy-gw 登录目标，这个只是别名，当然这里也可以直接写hostname 或者IP地址; 当使用 Hostname 时可以进行匹配， 例如 Host *.hitian.info 可以匹配到 a.hitian.info.
+HostName [__target_hostname_or_ip__] 目标的主机名或者IP地址
+User tian 用户名
+IdentityFile ~/.ssh/deploy_private_key 指定使用的private key路径。 替代ssh的 -i 参数一样效果
+ProxyCommand ssh -q [__local_gw__] nc [__target_addr__] 22 连接目标主机时使用的命令
+ssh via [http or socks proxy] 使用场景: 由于不可抗拒的因素无法直接ssh 到远程主机，或者链接过程中会被异常阻断时</description></item><item><title>mac上最简单的代理方式</title><link>https://hitian.info/post/macos-simple-proxy/</link><pubDate>Mon, 01 Oct 2012 00:00:00 +0000</pubDate><guid>https://hitian.info/post/macos-simple-proxy/</guid><description>在mac上使用ssh代理其实很方便
+前提是有一个ssh账号
+命令
+$ ssh -D 1089 tian@domain.com
+会打开端口1089 监听
+查看端口可以发现
+Active Internet connections (including servers) Proto Recv-Q Send-Q Local Address Foreign Address (state) tcp6 0 0 ::1.1089 *.* LISTEN tcp4 0 0 127.0.0.1.1089 *.* LISTEN 这样连接就建立好了， 然后配置一下
+进入网络偏好设置， 选自己正在用的网络连接 -》点高级-》选择代理标签
+使用socks代理， 填上刚才的端口号
+确实非常方便。</description></item></channel></rss>
