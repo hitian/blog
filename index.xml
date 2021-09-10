@@ -208,7 +208,7 @@
 &lt;h2 id="build">build&lt;/h2>
 &lt;p>clone openwrt source code&lt;/p>
 &lt;p>&lt;code>git clone https://git.openwrt.org/openwrt/openwrt.git&lt;/code>&lt;/p>
-&lt;div class="highlight">&lt;pre class="chroma">&lt;code class="language-shell" data-lang="shell">
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-shell" data-lang="shell">
 &lt;span class="c1"># 更新软件包&lt;/span>
 docker run -it --rm -v &lt;span class="nv">$PWD&lt;/span>:/build ubuntu-openwrt-build ./scripts/feeds update -a
 &lt;span class="c1"># 使用 menuconfig 设置编译目标、内核信息、以及需要安装的包&lt;/span>
@@ -217,7 +217,7 @@ docker run -it --rm -v &lt;span class="nv">$PWD&lt;/span>:/build ubuntu-openwrt-
 docker run -it --rm -v &lt;span class="nv">$PWD&lt;/span>:/build ubuntu-openwrt-build make -j4
 &lt;/code>&lt;/pre>&lt;/div>&lt;p>&lt;img src="https://hitian.info/assets/images/201908/docker-openwrt-build-menuconfig.png" alt="menuconfig" />&lt;/p>
 &lt;p>生成的文件会放置在&lt;code>bin&lt;/code>目录下, 例如 MT7621 放在 &lt;code>bin/targets/ramips/mt7621&lt;/code>&lt;/p>
-&lt;div class="highlight">&lt;pre class="chroma">&lt;code class="language-shell" data-lang="shell">
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-shell" data-lang="shell">
 &lt;span class="c1">#配置文件，同运行 make menuconfig 后生成的.config 文件，可以用于备份和还原配置&lt;/span>
 config.seed
 openwrt-ramips-mt7621-device-pbr-m1-t.manifest
@@ -229,7 +229,7 @@ packages &lt;span class="c1">#编译好的设置为编译但是不安装的包&l
 >https://github.com/hitian/openwrt/commit/22df459310836b92caa8fb1796885f670214d25a#diff-8dabb1882176c362bafecc664a7af2ee&lt;/a>&lt;/p></description></item><item><title>ssh 代理和转发那些事</title><link>https://hitian.info/post/ssh-proxy-forward/</link><pubDate>Sat, 05 Jan 2019 00:00:00 +0000</pubDate><guid>https://hitian.info/post/ssh-proxy-forward/</guid><description>&lt;h1 id="配置ssh客户端的行为">配置ssh客户端的行为&lt;/h1>
 &lt;p>配置文件路径 &lt;code>~/.ssh/config&lt;/code>&lt;/p>
 &lt;p>针对目标主机的配置块示例&lt;/p>
-&lt;div class="highlight">&lt;pre class="chroma">&lt;code class="language-bash" data-lang="bash">Host deploy-gw
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">Host deploy-gw
 HostName &lt;span class="o">[&lt;/span>__target_hostname_or_ip__&lt;span class="o">]&lt;/span>
 User game
 IdentityFile ~/.ssh/deploy_private_key
@@ -259,10 +259,10 @@ ProxyCommand &lt;span class="o">[&lt;/span>__connect_command__&lt;span class="o"
 &lt;h1 id="ssh-via-http-or-socks-proxy">ssh via [http or socks proxy]&lt;/h1>
 &lt;p>使用场景: 由于不可抗拒的因素无法直接ssh 到远程主机，或者链接过程中会被异常阻断时&lt;/p>
 &lt;p>这里我们需要一个 connect 命令，需要自行安装一下。&lt;/p>
-&lt;div class="highlight">&lt;pre class="chroma">&lt;code class="language-text" data-lang="text">Provides SOCKS and HTTPS proxy support to SSH
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-text" data-lang="text">Provides SOCKS and HTTPS proxy support to SSH
 https://bitbucket.org/gotoh/connect/wiki/Home
 &lt;/code>&lt;/pre>&lt;/div>&lt;p>macOS 可以利用brew 直接安装, 其它平台可以按说明执行编译安装&lt;/p>
-&lt;div class="highlight">&lt;pre class="chroma">&lt;code class="language-bash" data-lang="bash">brew install connect
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">brew install connect
 &lt;/code>&lt;/pre>&lt;/div>&lt;p>要让ssh使用proxy连接到目标主机，在config 中添加ProxyCommand配置&lt;/p>
 &lt;p>使用 http 代理&lt;/p>
 &lt;p>&lt;code>ProxyCommand connect -H http_proxy_addr:port %h %p&lt;/code>&lt;/p>
@@ -281,20 +281,20 @@ https://bitbucket.org/gotoh/connect/wiki/Home
 &lt;p>这里 gateway_host 为网关， nc 后为目标的主机和sshd的端口号， 首先要保证可以正常ssh 到gateway_host。&lt;/p>
 &lt;p>这种方式可以直接实现更长的转发链&lt;/p>
 &lt;p>例如要直接在local登录target 只需要在本地分别为a, b, target 配置ProxyCommand就可以了，妈妈再也不需要担心我要一层一层ssh到远程机器了:)&lt;/p>
-&lt;div class="highlight">&lt;pre class="chroma">&lt;code class="language-text" data-lang="text">local -&amp;gt; gateway -&amp;gt; a -&amp;gt; b -&amp;gt; target
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-text" data-lang="text">local -&amp;gt; gateway -&amp;gt; a -&amp;gt; b -&amp;gt; target
 &lt;/code>&lt;/pre>&lt;/div>&lt;h1 id="socks-proxy-over-ssh">socks proxy over ssh&lt;/h1>
 &lt;p>使用场景：需要访问目标主机的localhost，或者目标主机内网的资源时， 如果客户端无法使用socks链接需要的资源，请参考下一种方式&lt;/p>
 &lt;p>在本地监听1089端口。将请求通过ssh隧道转发到target_host&lt;/p>
-&lt;div class="highlight">&lt;pre class="chroma">&lt;code class="language-bash" data-lang="bash">ssh -D &lt;span class="m">1089&lt;/span> target_host
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">ssh -D &lt;span class="m">1089&lt;/span> target_host
 &lt;/code>&lt;/pre>&lt;/div>&lt;h1 id="port-forward-via-ssh">port forward via ssh&lt;/h1>
 &lt;p>使用场景： 直接在本地请求目标主机内网的服务时&lt;/p>
 &lt;p>举个例子&lt;/p>
 &lt;p>gateway 服务器的内网有一台mysql服务器运行在 &lt;code>10.0.0.3:3306&lt;/code>， 本地的mysql客户端无法直接链接。 我们可以采用ssh来映射端口到本地&lt;/p>
-&lt;div class="highlight">&lt;pre class="chroma">&lt;code class="language-bash" data-lang="bash">ssh -L localhost:3306:10.0.0.3:3306 target_host
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">ssh -L localhost:3306:10.0.0.3:3306 target_host
 &lt;/code>&lt;/pre>&lt;/div>&lt;p>L参数的格式 &lt;code>本地地址&lt;/code>:&lt;code>本地监听端口&lt;/code>:&lt;code>远程地址&lt;/code>:&lt;code>要映射的远程端口&lt;/code>&lt;/p>
 &lt;p>上面的命令可以直接将远程mysql服务器的3306端口映射到本地的3306端口， 在本地可以直接使用&lt;code>mysql -h localhost&lt;/code>连接。&lt;/p>
 &lt;p>当然也可以使用0.0.0.0，将本地的端口开放给本地的其它主机使用&lt;/p>
-&lt;div class="highlight">&lt;pre class="chroma">&lt;code class="language-bash" data-lang="bash">ssh -L 0.0.0.0:3306:10.0.0.3:3306 target_host
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">ssh -L 0.0.0.0:3306:10.0.0.3:3306 target_host
 &lt;/code>&lt;/pre>&lt;/div>&lt;h1 id="不稳定的网络中使用ssh">不稳定的网络中使用ssh&lt;/h1>
 &lt;p>由于ssh使用的TCP链接，在不稳定的网络中使用ssh会很容易断开，推荐使用 mosh &lt;a class="link" href="https://mosh.org/" target="_blank" rel="noopener"
 >https://mosh.org/&lt;/a>&lt;/p>
@@ -309,7 +309,7 @@ https://bitbucket.org/gotoh/connect/wiki/Home
 &lt;p>VMware ESXi Patch Tracker &lt;a class="link" href="https://esxi-patches.v-front.de/ESXi-6.7.0.html" target="_blank" rel="noopener"
 >https://esxi-patches.v-front.de/ESXi-6.7.0.html&lt;/a>&lt;/p>
 &lt;h1 id="install">Install&lt;/h1>
-&lt;div class="highlight">&lt;pre class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="c1"># From https://esxi-patches.v-front.de/ESXi-6.7.0.html&lt;/span>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="c1"># From https://esxi-patches.v-front.de/ESXi-6.7.0.html&lt;/span>
 &lt;span class="c1"># Cut and paste these commands into an ESXi shell to update your host with this Imageprofile&lt;/span>
 &lt;span class="c1"># See the Help page for more instructions&lt;/span>
 &lt;span class="c1">#&lt;/span>
@@ -328,7 +328,7 @@ esxcli network firewall ruleset &lt;span class="nb">set&lt;/span> -e &lt;span cl
 &lt;h2 id="upload-to-datastores-via-webui">upload to Datastores via webUI&lt;/h2>
 &lt;p>&lt;img src="https://hitian.info/assets/images/201812/20181230-vmware-esxi-upgrade-patch-upload-datastores.png" alt="pload to Datastores via webUI" />&lt;/p>
 &lt;h2 id="install-1">Install&lt;/h2>
-&lt;div class="highlight">&lt;pre class="chroma">&lt;code class="language-bash" data-lang="bash">
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">
 esxcli software profile update -p ESXi-6.7.0-20181104001-standard &lt;span class="se">\
 &lt;/span>&lt;span class="se">&lt;/span>-d update_zip_file_path
 &lt;/code>&lt;/pre>&lt;/div></description></item><item><title>在Ubuntu Server上搭建Kubernetes cluster</title><link>https://hitian.info/post/kubernetes-cluster-setup-on-ubuntu-server/</link><pubDate>Thu, 12 Jul 2018 00:00:00 +0000</pubDate><guid>https://hitian.info/post/kubernetes-cluster-setup-on-ubuntu-server/</guid><description>&lt;h1 id="准备ubuntu-server">准备Ubuntu Server&lt;/h1>
@@ -379,7 +379,7 @@ esxcli software profile update -p ESXi-6.7.0-20181104001-standard &lt;span class
 &lt;p>以下可以参照Docker 官网的文档
 &lt;a class="link" href="https://docs.docker.com/install/linux/docker-ce/ubuntu/" target="_blank" rel="noopener"
 >https://docs.docker.com/install/linux/docker-ce/ubuntu/&lt;/a>&lt;/p>
-&lt;div class="highlight">&lt;pre class="chroma">&lt;code class="language-bash" data-lang="bash">
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">
 &lt;span class="c1"># 安装依赖&lt;/span>
 apt-get install -y &lt;span class="se">\
 &lt;/span>&lt;span class="se">&lt;/span> apt-transport-https &lt;span class="se">\
@@ -396,7 +396,7 @@ add-apt-repository &lt;span class="se">\
 &lt;span class="c1"># 更新APT 并安装Docker&lt;/span>
 apt-get update -y &lt;span class="o">&amp;amp;&amp;amp;&lt;/span> apt-get install -y docker-ce
 &lt;/code>&lt;/pre>&lt;/div>&lt;h3 id="安装-kubernetes-相关的工具">安装 Kubernetes 相关的工具&lt;/h3>
-&lt;div class="highlight">&lt;pre class="chroma">&lt;code class="language-bash" data-lang="bash">
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">
 &lt;span class="c1"># Add Google’s official GPG key:&lt;/span>
 curl -s https://packages.cloud.google.com/apt/doc/apt-key.gpg &lt;span class="p">|&lt;/span> apt-key add -
 &lt;span class="c1"># 添加 APT repository.&lt;/span>
@@ -417,7 +417,7 @@ apt-get update -y &lt;span class="o">&amp;amp;&amp;amp;&lt;/span> apt-get instal
 &lt;code>if [ERROR Swap]: running with swap on is not supported. Please disable swap&lt;/code>&lt;/p>
 &lt;p>swap 没有关闭， 使用&lt;code>swapoff -a&lt;/code>命令关闭swap再重新运行init&lt;/p>
 &lt;p>输出大概如下&lt;/p>
-&lt;div class="highlight">&lt;pre class="chroma">&lt;code class="language-bash" data-lang="bash">
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">
 root@c1:/home/tian# kubeadm init --pod-network-cidr&lt;span class="o">=&lt;/span>10.244.0.0/16
 I0711 03:45:48.345918 &lt;span class="m">2359&lt;/span> feature_gate.go:230&lt;span class="o">]&lt;/span> feature gates: &lt;span class="p">&amp;amp;&lt;/span>&lt;span class="o">{&lt;/span>map&lt;span class="o">[]}&lt;/span>
 &lt;span class="o">[&lt;/span>init&lt;span class="o">]&lt;/span> using Kubernetes version: v1.11.0
@@ -483,13 +483,13 @@ kubeadm join 192.168.5.191:6443 --token xxxxxxxxxxx --discovery-token-ca-cert-ha
 &lt;/code>&lt;/pre>&lt;/div>&lt;h3 id="配置信息拷贝到普通用户">配置信息拷贝到普通用户&lt;/h3>
 &lt;p>上面有两部分是之后需要用到的。&lt;/p>
 &lt;p>首先退出root用户，切换到普通用户执行这一段，目的是将生成的相关配置信息拷贝到普通用户目录下，之后直接使用普通用户操作集群&lt;/p>
-&lt;div class="highlight">&lt;pre class="chroma">&lt;code class="language-bash" data-lang="bash">
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">
 mkdir -p &lt;span class="nv">$HOME&lt;/span>/.kube
 sudo cp -i /etc/kubernetes/admin.conf &lt;span class="nv">$HOME&lt;/span>/.kube/config
 sudo chown &lt;span class="k">$(&lt;/span>id -u&lt;span class="k">)&lt;/span>:&lt;span class="k">$(&lt;/span>id -g&lt;span class="k">)&lt;/span> &lt;span class="nv">$HOME&lt;/span>/.kube/config
 &lt;/code>&lt;/pre>&lt;/div>&lt;p>检查一下节点信息&lt;/p>
 &lt;p>&lt;code>kubectl get nodes --all-namespaces&lt;/code>&lt;/p>
-&lt;div class="highlight">&lt;pre class="chroma">&lt;code class="language-bash" data-lang="bash">
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">
 tian@c1:~$ kubectl get nodes --all-namespaces
 NAME STATUS ROLES AGE VERSION
 c1 NotReady master 1m v1.11.0
@@ -501,11 +501,11 @@ c1 NotReady master 1m v1.11.0
 &lt;p>执行 (For Kubernetes v1.7+)&lt;/p>
 &lt;p>&lt;code>kubectl apply -f https://raw.githubusercontent.com/coreos/flannel/master/Documentation/kube-flannel.yml&lt;/code>&lt;/p>
 &lt;p>注意新版本的ubuntu 需要更改 &lt;code>/etc/sysctl.conf&lt;/code> 添加 &lt;code>net.bridge.bridge-nf-call-iptables=1&lt;/code> 开启桥接网络的流量转发&lt;/p>
-&lt;div class="highlight">&lt;pre class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="nb">echo&lt;/span> &lt;span class="s1">&amp;#39;net.bridge.bridge-nf-call-iptables=1&amp;#39;&lt;/span> &amp;gt;&amp;gt; /etc/sysctl.conf
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="nb">echo&lt;/span> &lt;span class="s1">&amp;#39;net.bridge.bridge-nf-call-iptables=1&amp;#39;&lt;/span> &amp;gt;&amp;gt; /etc/sysctl.conf
 sysctl -p
 &lt;/code>&lt;/pre>&lt;/div>&lt;p>安装完成后使用&lt;code>kubectl get pods --all-namespaces&lt;/code>看下情况，
 因为要下载相关的docker镜像，可能需要一点时间，等到&lt;code>kube-flannel-XXXXXXX&lt;/code> 这个变成&lt;code>Running&lt;/code> 之后就完成了&lt;/p>
-&lt;div class="highlight">&lt;pre class="chroma">&lt;code class="language-bash" data-lang="bash">
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">
 tian@c1:~$ kubectl get pods --all-namespaces
 NAMESPACE NAME READY STATUS RESTARTS AGE
 kube-system coredns-78fcdf6894-8tkzx 1/1 Running &lt;span class="m">0&lt;/span> 2m
@@ -523,7 +523,7 @@ kube-system kube-scheduler-c1 1/1 Running &lt;span class="m">0&lt;/span> 1m
 &lt;p>如果没有报错的话就完成了&lt;/p>
 &lt;p>&lt;strong>接下来回到Master主机&lt;/strong>&lt;/p>
 &lt;p>使用&lt;code>kubectl get nodes&lt;/code>查看节点的状态&lt;/p>
-&lt;div class="highlight">&lt;pre class="chroma">&lt;code class="language-bash" data-lang="bash">
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">
 tian@c1:~$ kubectl get nodes
 NAME STATUS ROLES AGE VERSION
 c1 Ready master 10m v1.11.0
@@ -532,7 +532,7 @@ c3 NotReady &amp;lt;none&amp;gt; 14s v1.11.0
 &lt;/code>&lt;/pre>&lt;/div>&lt;p>到这里就完成了，稍等初始化完成可以正常使用了。&lt;/p>
 &lt;h1 id="安装图形化管理界面">安装图形化管理界面&lt;/h1>
 &lt;h2 id="安装">安装&lt;/h2>
-&lt;div class="highlight">&lt;pre class="chroma">&lt;code class="language-bash" data-lang="bash">
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">
 kubectl apply -f https://raw.githubusercontent.com/kubernetes/dashboard/v2.0.1/aio/deploy/recommended.yaml
 &lt;span class="c1">#开启proxy 方便内网访问&lt;/span>
 kubectl proxy --address&lt;span class="o">=&lt;/span>&lt;span class="s1">&amp;#39;0.0.0.0&amp;#39;&lt;/span>
@@ -544,7 +544,7 @@ TMac :: ~ » ssh -L localhost:8001:192.168.5.191:8001 gateway-server
 &lt;p>&lt;img src="https://hitian.info/assets/images/201807/Kubernetes-dashboard-login.png" alt="Kubernetes-gui-login.png" />&lt;/p>
 &lt;p>接下来要创建可以登陆管理界面的用户&lt;/p>
 &lt;p>创建用户配置 &lt;code>create_account.yaml&lt;/code>, 用户名为admin&lt;/p>
-&lt;div class="highlight">&lt;pre class="chroma">&lt;code class="language-yaml" data-lang="yaml">&lt;span class="w">
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-yaml" data-lang="yaml">&lt;span class="w">
 &lt;/span>&lt;span class="w">&lt;/span>&lt;span class="nt">apiVersion&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="l">v1&lt;/span>&lt;span class="w">
 &lt;/span>&lt;span class="w">&lt;/span>&lt;span class="nt">kind&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="l">ServiceAccount&lt;/span>&lt;span class="w">
 &lt;/span>&lt;span class="w">&lt;/span>&lt;span class="nt">metadata&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w">
@@ -553,7 +553,7 @@ TMac :: ~ » ssh -L localhost:8001:192.168.5.191:8001 gateway-server
 &lt;/span>&lt;span class="w">
 &lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>应用配置&lt;code>kubectl create -f create_account.yaml&lt;/code>&lt;/p>
 &lt;p>创建权限配置 &lt;code>admin_account_role_binding.yaml&lt;/code>&lt;/p>
-&lt;div class="highlight">&lt;pre class="chroma">&lt;code class="language-yaml" data-lang="yaml">&lt;span class="w">
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-yaml" data-lang="yaml">&lt;span class="w">
 &lt;/span>&lt;span class="w">&lt;/span>&lt;span class="nt">apiVersion&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="l">rbac.authorization.k8s.io/v1&lt;/span>&lt;span class="w">
 &lt;/span>&lt;span class="w">&lt;/span>&lt;span class="nt">kind&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="l">ClusterRoleBinding&lt;/span>&lt;span class="w">
 &lt;/span>&lt;span class="w">&lt;/span>&lt;span class="nt">metadata&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w">
@@ -576,7 +576,7 @@ TMac :: ~ » ssh -L localhost:8001:192.168.5.191:8001 gateway-server
 &lt;p>&lt;em>&lt;strong>注意，这里是销毁&lt;/strong>&lt;/em>&lt;/p>
 &lt;h3 id="移除node">移除Node&lt;/h3>
 &lt;p>在Mater 上执行&lt;/p>
-&lt;div class="highlight">&lt;pre class="chroma">&lt;code class="language-bash" data-lang="bash">
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">
 kubectl drain &amp;lt;node name&amp;gt; --delete-local-data --force --ignore-daemonsets
 kubectl delete node &amp;lt;node name&amp;gt;
 &lt;/code>&lt;/pre>&lt;/div>&lt;p>然后在对应的Node 上执行&lt;code>kubeadm reset&lt;/code>&lt;/p>
@@ -586,7 +586,7 @@ kubectl delete node &amp;lt;node name&amp;gt;
 &lt;p>开启SSH&lt;/p>
 &lt;p>&lt;img src="https://hitian.info/assets/images/201807/vmware-exsi-enable-sshd.png" alt="vmware-exsi-enable-sshd" />&lt;/p>
 &lt;p>Let&amp;rsquo;s Encrypt 签发的证书目录如下&lt;/p>
-&lt;div class="highlight">&lt;pre class="chroma">&lt;code class="language-bash" data-lang="bash">
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">
 hitian :: ~ » ls -al .acme.sh/hitian.me/
 total &lt;span class="m">36&lt;/span>
 drwxr-xr-x &lt;span class="m">2&lt;/span> tian tian &lt;span class="m">4096&lt;/span> Mar &lt;span class="m">20&lt;/span> 14:59 .
@@ -599,7 +599,7 @@ drwx------ &lt;span class="m">8&lt;/span> tian tian &lt;span class="m">4096&lt;/
 -rw-r--r-- &lt;span class="m">1&lt;/span> tian tian &lt;span class="m">220&lt;/span> May &lt;span class="m">19&lt;/span> 00:24 hitian.me.csr.conf
 -rw-r--r-- &lt;span class="m">1&lt;/span> tian tian &lt;span class="m">1675&lt;/span> Mar &lt;span class="m">20&lt;/span> 14:55 hitian.me.key
 &lt;/code>&lt;/pre>&lt;/div>&lt;p>exsi 的配置目录如下&lt;/p>
-&lt;div class="highlight">&lt;pre class="chroma">&lt;code class="language-bash" data-lang="bash">
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">
 &lt;span class="o">[&lt;/span>root@localhost:/etc/vmware/ssl&lt;span class="o">]&lt;/span> ls -al
 total &lt;span class="m">36&lt;/span>
 drwxr-xr-x &lt;span class="m">1&lt;/span> root root &lt;span class="m">512&lt;/span> Jun &lt;span class="m">3&lt;/span> 18:34 .
@@ -627,14 +627,14 @@ drwxr-xr-x &lt;span class="m">1&lt;/span> root root &lt;span class="m">512&lt;/s
 &lt;/ul>
 &lt;p>&lt;strong>覆盖前先备份一下，防止发生意外&lt;/strong>&lt;/p>
 &lt;p>接下来需要重启UI让配置生效&lt;/p>
-&lt;div class="highlight">&lt;pre class="chroma">&lt;code class="language-bash" data-lang="bash">
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">
 /etc/init.d/hostd restart
 /etc/init.d/vpxa restart
 &lt;/code>&lt;/pre>&lt;/div></description></item><item><title>使用netplan管理ubuntu 的网络配置</title><link>https://hitian.info/post/ubuntu-server-set-network-netplan/</link><pubDate>Tue, 10 Jul 2018 00:00:00 +0000</pubDate><guid>https://hitian.info/post/ubuntu-server-set-network-netplan/</guid><description>&lt;p>最新的ubuntu已经使用&lt;code>netplan&lt;/code>来管理网络配置了&lt;/p>
 &lt;p>列出当前的配置文件&lt;code>ls -al /etc/netplan/&lt;/code>， 注意配置文件为yaml格式， 如果当前没有配置， 可以创建一个例如&lt;code>/etc/netplan/01-netcfg.yaml&lt;/code>&lt;/p>
 &lt;h2 id="例子">例子&lt;/h2>
 &lt;h3 id="配置为使用dhcp">配置为使用DHCP&lt;/h3>
-&lt;div class="highlight">&lt;pre class="chroma">&lt;code class="language-yaml" data-lang="yaml">&lt;span class="w">
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-yaml" data-lang="yaml">&lt;span class="w">
 &lt;/span>&lt;span class="w">&lt;/span>&lt;span class="nt">network&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w">
 &lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="nt">version&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="m">2&lt;/span>&lt;span class="w">
 &lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="nt">renderer&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="l">networkd&lt;/span>&lt;span class="w">
@@ -644,7 +644,7 @@ drwxr-xr-x &lt;span class="m">1&lt;/span> root root &lt;span class="m">512&lt;/s
 &lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="nt">dhcp6&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="kc">yes&lt;/span>&lt;span class="w">
 &lt;/span>&lt;span class="w">
 &lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;h3 id="配置为静态ip">配置为静态ip&lt;/h3>
-&lt;div class="highlight">&lt;pre class="chroma">&lt;code class="language-yaml" data-lang="yaml">&lt;span class="w">
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-yaml" data-lang="yaml">&lt;span class="w">
 &lt;/span>&lt;span class="w">&lt;/span>&lt;span class="nt">network&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w">
 &lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="nt">version&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="m">2&lt;/span>&lt;span class="w">
 &lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="nt">renderer&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="l">networkd&lt;/span>&lt;span class="w">
@@ -672,7 +672,7 @@ drwxr-xr-x &lt;span class="m">1&lt;/span> root root &lt;span class="m">512&lt;/s
 &lt;ul>
 &lt;li>Add &lt;a class="link" href="due://x-callback-url/add?title=title" >due://x-callback-url/add?title=title&lt;/a>&lt;/li>
 &lt;/ul></description></item><item><title>Deploying an etcd cluster as a standalone cluster on docker</title><link>https://hitian.info/post/docker-run-etcd/</link><pubDate>Sun, 08 Jul 2018 00:00:00 +0000</pubDate><guid>https://hitian.info/post/docker-run-etcd/</guid><description>&lt;p>docker host ip addr &lt;code>192.168.5.170&lt;/code>&lt;/p>
-&lt;div class="highlight">&lt;pre class="chroma">&lt;code class="language-bash" data-lang="bash">
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">
 docker run &lt;span class="se">\
 &lt;/span>&lt;span class="se">&lt;/span> -p 2379:2379 &lt;span class="se">\
 &lt;/span>&lt;span class="se">&lt;/span> -p 2380:2380 &lt;span class="se">\
@@ -686,7 +686,7 @@ docker run &lt;span class="se">\
 &lt;/span>&lt;span class="se">&lt;/span> --listen-client-urls http://0.0.0.0:2379 &lt;span class="se">\
 &lt;/span>&lt;span class="se">&lt;/span> --initial-cluster &lt;span class="nv">node1&lt;/span>&lt;span class="o">=&lt;/span>http://192.168.5.170:2380
 &lt;/code>&lt;/pre>&lt;/div>&lt;p>with tls certificate.&lt;/p>
-&lt;div class="highlight">&lt;pre class="chroma">&lt;code class="language-bash" data-lang="bash">
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">
 docker run --name etcd -d -p 2379:2379 -p 2380:2380 &lt;span class="se">\
 &lt;/span>&lt;span class="se">&lt;/span> -v /home/tian/workspace/certs:/etcd-ssl-certs-dir &lt;span class="se">\
 &lt;/span>&lt;span class="se">&lt;/span> -v /home/tian/workspace/etcd:/etcd-data &lt;span class="se">\
@@ -709,12 +709,12 @@ docker run --name etcd -d -p 2379:2379 -p 2380:2380 &lt;span class="se">\
 &lt;/span>&lt;span class="se">&lt;/span> --peer-cert-file &lt;span class="s2">&amp;#34;/etcd-ssl-certs-dir/server.pem&amp;#34;&lt;/span> &lt;span class="se">\
 &lt;/span>&lt;span class="se">&lt;/span> --peer-key-file &lt;span class="s2">&amp;#34;/etcd-ssl-certs-dir/server-key.pem&amp;#34;&lt;/span>
 &lt;/code>&lt;/pre>&lt;/div>&lt;p>check&lt;/p>
-&lt;div class="highlight">&lt;pre class="chroma">&lt;code class="language-bash" data-lang="bash">
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">
 docker &lt;span class="nb">exec&lt;/span> -it etcd etcdctl member list
 &lt;/code>&lt;/pre>&lt;/div>&lt;p>test with golang&lt;/p>
 &lt;p>{% gist 211bd79f3ce5a6e1fde607086a75c46b %}&lt;/p>
 &lt;p>create golang client with certificate.&lt;/p>
-&lt;div class="highlight">&lt;pre class="chroma">&lt;code class="language-go" data-lang="go">
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-go" data-lang="go">
 &lt;span class="c1">//load client certificate.
 &lt;/span>&lt;span class="c1">&lt;/span>&lt;span class="nx">cert&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="nx">err&lt;/span> &lt;span class="o">:=&lt;/span> &lt;span class="nx">tls&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nf">LoadX509KeyPair&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="s">&amp;#34;./client.pem&amp;#34;&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="s">&amp;#34;./client-key.pem&amp;#34;&lt;/span>&lt;span class="p">)&lt;/span>
 &lt;span class="k">if&lt;/span> &lt;span class="nx">err&lt;/span> &lt;span class="o">!=&lt;/span> &lt;span class="kc">nil&lt;/span> &lt;span class="p">{&lt;/span>
@@ -743,7 +743,7 @@ docker &lt;span class="nb">exec&lt;/span> -it etcd etcdctl member list
 &lt;/code>&lt;/pre>&lt;/div></description></item><item><title>vmware esxi unregister invalid vm</title><link>https://hitian.info/post/esxi-unregister-invalid-vm/</link><pubDate>Sun, 05 Nov 2017 00:00:00 +0000</pubDate><guid>https://hitian.info/post/esxi-unregister-invalid-vm/</guid><description>&lt;p>*** 以下内容针对 VMware ESXi 6.5.0 build-6765664 ***&lt;/p>
 &lt;p>意外删除了esxi 的一个vmfs所在的磁盘，导致vm列表下一直会显示一个invalid状态的VM， 无法进行任何操作，看着非常碍眼。显然通过web界面可能无法处理这个问题了&lt;/p>
 &lt;p>开启SSH服务，登录esxi。&lt;/p>
-&lt;div class="highlight">&lt;pre class="chroma">&lt;code class="language-bash" data-lang="bash">
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">
 &lt;span class="o">[&lt;/span>root@localhost:/vmfs&lt;span class="o">]&lt;/span> vim-cmd vmsvc/getallvms
 Skipping invalid VM &lt;span class="s1">&amp;#39;6&amp;#39;&lt;/span>
 Vmid Name File Guest OS Version Annotation
@@ -752,10 +752,10 @@ Vmid Name File Guest OS Version Annotation
 &lt;span class="m">2&lt;/span> ubuntu-server &lt;span class="o">[&lt;/span>HDD&lt;span class="o">]&lt;/span> ubuntu-server/ubuntu-server.vmx ubuntu64Guest vmx-13
 &lt;span class="m">3&lt;/span> windows-7 &lt;span class="o">[&lt;/span>HDD&lt;span class="o">]&lt;/span> windows-7/windows-7.vmx windows7_64Guest vmx-13
 &lt;/code>&lt;/pre>&lt;/div>&lt;p>使用 &lt;code>vim-cmd vmsvc/getallvms&lt;/code> 命令可以看到提示出现问题的是 VM 6， 接下来直接删除就好了。&lt;/p>
-&lt;div class="highlight">&lt;pre class="chroma">&lt;code class="language-bash" data-lang="bash">
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">
 &lt;span class="o">[&lt;/span>root@localhost:/vmfs&lt;span class="o">]&lt;/span> vim-cmd vmsvc/unregister &lt;span class="m">6&lt;/span>
 &lt;/code>&lt;/pre>&lt;/div>&lt;p>刷新web界面， 就可以看到出错的vm已经被删除了。&lt;/p></description></item><item><title>使用ACME Shell script和dnspod的api自动生成Let's Encrypt证书</title><link>https://hitian.info/post/acme-sh-create-letsencrypt-certificates-with-dns-api/</link><pubDate>Thu, 16 Feb 2017 00:00:00 +0000</pubDate><guid>https://hitian.info/post/acme-sh-create-letsencrypt-certificates-with-dns-api/</guid><description>&lt;h3 id="安装-acmesh">安装 acme.sh&lt;/h3>
-&lt;div class="highlight">&lt;pre class="chroma">&lt;code class="language-bash" data-lang="bash">
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">
 curl https://get.acme.sh &lt;span class="p">|&lt;/span> sh
 &lt;/code>&lt;/pre>&lt;/div>&lt;p>参考 &lt;a class="link" href="https://github.com/Neilpang/acme.sh" target="_blank" rel="noopener"
 >https://github.com/Neilpang/acme.sh&lt;/a>&lt;/p>
@@ -770,11 +770,11 @@ curl https://get.acme.sh &lt;span class="p">|&lt;/span> sh
 &lt;p>参考 &lt;a class="link" href="https://github.com/Neilpang/acme.sh/tree/master/dnsapi" target="_blank" rel="noopener"
 >https://github.com/Neilpang/acme.sh/tree/master/dnsapi&lt;/a>&lt;/p>
 &lt;p>首先设置环境变量&lt;/p>
-&lt;div class="highlight">&lt;pre class="chroma">&lt;code class="language-bash" data-lang="bash">
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">
 &lt;span class="nb">export&lt;/span> &lt;span class="nv">DP_Id&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="s2">&amp;#34;API Token 的 ID&amp;#34;&lt;/span>
 &lt;span class="nb">export&lt;/span> &lt;span class="nv">DP_Key&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="s2">&amp;#34;API Token&amp;#34;&lt;/span>
 &lt;/code>&lt;/pre>&lt;/div>&lt;p>然后可以开始签发了&lt;/p>
-&lt;div class="highlight">&lt;pre class="chroma">&lt;code class="language-bash" data-lang="bash">
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">
 acme.sh --issue --dns dns_dp -d example.com -d www.example.com
 &lt;/code>&lt;/pre>&lt;/div>&lt;p>每个 &lt;code>-d&lt;/code> 参数可以指定一个域名， 可以把需要用到的子域名也全部列出来&lt;/p>
 &lt;p>自动运行的流程大概是这样的&lt;/p>
@@ -791,19 +791,20 @@ acme.sh --issue --dns dns_dp -d example.com -d www.example.com
 >这里&lt;/a>&lt;/p>
 &lt;p>重启确认内核版本升级完成继续&lt;/p>
 &lt;p>以root用户执行以下命令&lt;/p>
-&lt;div class="highlight">&lt;pre class="chroma">&lt;code class="language-bash" data-lang="bash">
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">
 &lt;span class="nb">echo&lt;/span> &lt;span class="s2">&amp;#34;net.core.default_qdisc=fq&amp;#34;&lt;/span> &amp;gt;&amp;gt; /etc/sysctl.conf
 &lt;span class="nb">echo&lt;/span> &lt;span class="s2">&amp;#34;net.ipv4.tcp_congestion_control=bbr&amp;#34;&lt;/span> &amp;gt;&amp;gt; /etc/sysctl.conf
 sysctl -p
 &lt;/code>&lt;/pre>&lt;/div>&lt;p>检查是否修改成功&lt;/p>
-&lt;div class="highlight">&lt;pre class="chroma">&lt;code class="language-bash" data-lang="bash">sysctl net.ipv4.tcp_available_congestion_control
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">sysctl net.ipv4.tcp_available_congestion_control
 &lt;span class="c1">#结果如下， 包含bbr&lt;/span>
 &lt;span class="c1">#net.ipv4.tcp_available_congestion_control = bbr cubic reno&lt;/span>
 lsmod &lt;span class="p">|&lt;/span> grep bbr
 &lt;span class="c1">#结果如下， 包含 tcp_bbr&lt;/span>
 &lt;span class="c1">#tcp_bbr 20480 40&lt;/span>
 &lt;/code>&lt;/pre>&lt;/div></description></item><item><title>Ubuntu Server Install Mainline Kernel</title><link>https://hitian.info/post/ubuntu-server-install-mainline-kernel/</link><pubDate>Tue, 07 Feb 2017 00:00:00 +0000</pubDate><guid>https://hitian.info/post/ubuntu-server-install-mainline-kernel/</guid><description>&lt;h3 id="下载最新的内核">下载最新的内核&lt;/h3>
-&lt;p>&lt;!-- raw HTML omitted -->&lt;a href="http://kernel.ubuntu.com/~kernel-ppa/mainline/?C=N;O=D">http://kernel.ubuntu.com/~kernel-ppa/mainline/?C=N;O=D&lt;/a>&lt;!-- raw HTML omitted -->&lt;/p>
+&lt;p>&lt;!-- raw HTML omitted -->&lt;a class="link" href="http://kernel.ubuntu.com/~kernel-ppa/mainline/?C=N;O=D" target="_blank" rel="noopener"
+>http://kernel.ubuntu.com/~kernel-ppa/mainline/?C=N;O=D&lt;/a>&lt;!-- raw HTML omitted -->&lt;/p>
 &lt;p>进入最新的版本目录&lt;/p>
 &lt;p>需要下载4个文件&lt;/p>
 &lt;ul>
@@ -820,10 +821,10 @@ lsmod &lt;span class="p">|&lt;/span> grep bbr
 &lt;li>linux-modules-4.17.5-041705-generic_4.17.5-041705.201807081431_amd64.deb&lt;/li>
 &lt;/ul>
 &lt;h3 id="安装">安装&lt;/h3>
-&lt;div class="highlight">&lt;pre class="chroma">&lt;code class="language-bash" data-lang="bash">
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">
 dpkg -i *.deb
 &lt;/code>&lt;/pre>&lt;/div>&lt;p>如果安装报错提示&lt;code>libssl1.1&lt;/code>没有安装&lt;/p>
-&lt;pre>&lt;code>Unpacking openssl (1.1.0g-2ubuntu5) over (1.0.2g-1ubuntu4.13) ...
+&lt;pre tabindex="0">&lt;code>Unpacking openssl (1.1.0g-2ubuntu5) over (1.0.2g-1ubuntu4.13) ...
 dpkg: dependency problems prevent configuration of openssl:
 openssl depends on libssl1.1 (&amp;gt;= 1.1.0); however:
 Package libssl1.1 is not installed.
@@ -834,7 +835,7 @@ dependency problems - leaving unconfigured
 &lt;p>注意: 如果使用的是linode， 还需要在后台调整 Configuration Profile &amp;gt; Boot Settings &amp;gt; Kernel 为 &lt;code>GRUB 2&lt;/code> 才能启动到更新后的内核。&lt;/p>
 &lt;h3 id="安装完成后重启一下">安装完成后重启一下&lt;/h3>
 &lt;p>确认一下内核是否升级成功&lt;/p>
-&lt;div class="highlight">&lt;pre class="chroma">&lt;code class="language-bash" data-lang="bash">uname -a
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">uname -a
 &lt;/code>&lt;/pre>&lt;/div></description></item><item><title>Google Compute Engine 简单测试</title><link>https://hitian.info/post/google-compute-engine-simple-test/</link><pubDate>Tue, 17 Jan 2017 00:00:00 +0000</pubDate><guid>https://hitian.info/post/google-compute-engine-simple-test/</guid><description>&lt;p>这几天在试用Google Cloud Platform，觉得Compute Engine的运行速度貌似挺慢的，就测试了一下&lt;/p>
 &lt;p>选了距离比较近的区域 asia-east1-a, 貌似是在台湾的。&lt;/p>
 &lt;p>创建了3个不同配置的实例&lt;/p>
@@ -876,7 +877,7 @@ oc: 1048576000 bytes (1.0 GB, 1000 MiB) copied, 1.71034 s, 613 MB/s&lt;/p>
 &lt;p>&lt;code>dd if=/dev/zero of=/var/swap.img bs=1024k count=1000&lt;/code>&lt;/p>
 &lt;p>&lt;code>mkswap /var/swap.img&lt;/code>&lt;/p>
 &lt;p>&lt;code>swapon /var/swap.img&lt;/code>&lt;/p></description></item><item><title>OSX上不正确的字体设置导致部分软件崩溃的问题</title><link>https://hitian.info/post/sourcetree-crash-by-font-osx/</link><pubDate>Sun, 13 Mar 2016 00:00:00 +0000</pubDate><guid>https://hitian.info/post/sourcetree-crash-by-font-osx/</guid><description>&lt;p>SourceTree 和 FontBook 打开就崩溃有一段时间了. 部分crash log 如下;&lt;/p>
-&lt;div class="highlight">&lt;pre class="chroma">&lt;code class="language-bash" data-lang="bash">Process: SourceTree &lt;span class="o">[&lt;/span>555&lt;span class="o">]&lt;/span>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">Process: SourceTree &lt;span class="o">[&lt;/span>555&lt;span class="o">]&lt;/span>
 Path: /Applications/SourceTree.app/Contents/MacOS/SourceTree
 Identifier: com.torusknot.SourceTreeNotMAS
 Version: 2.2.2 &lt;span class="o">(&lt;/span>51&lt;span class="o">)&lt;/span>
@@ -949,19 +950,19 @@ Thread 0:: Dispatch queue: com.apple.main-thread
 &lt;p>全局搜索&lt;code>NSFont&lt;/code>, 在 &lt;code>Apple Global Domain&lt;/code> 节点下发现了 &lt;code>NSFont = MicrosoftYaHei;&lt;/code>&lt;/p>
 &lt;p>看起来是之前测试MS Office 留下的. 卸载之后估计 MicrosoftYaHei 也没有了.&lt;/p>
 &lt;p>打开 &lt;code>TinkerTool&lt;/code> &amp;raquo; &lt;code>Fonts&lt;/code> 使用 &lt;code>Set to default&lt;/code> 之后崩溃的问题全部解决了.&lt;/p></description></item><item><title>ubuntu 通过apt 安装 mongodb 3.0</title><link>https://hitian.info/post/ubuntu-install-mongodb-3.0-with-apt/</link><pubDate>Sat, 11 Jul 2015 00:00:00 +0000</pubDate><guid>https://hitian.info/post/ubuntu-install-mongodb-3.0-with-apt/</guid><description>&lt;p>ubuntu version:&lt;/p>
-&lt;div class="highlight">&lt;pre class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="nv">DISTRIB_ID&lt;/span>&lt;span class="o">=&lt;/span>Ubuntu
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="nv">DISTRIB_ID&lt;/span>&lt;span class="o">=&lt;/span>Ubuntu
 &lt;span class="nv">DISTRIB_RELEASE&lt;/span>&lt;span class="o">=&lt;/span>15.04
 &lt;span class="nv">DISTRIB_CODENAME&lt;/span>&lt;span class="o">=&lt;/span>vivid
 &lt;span class="nv">DISTRIB_DESCRIPTION&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="s2">&amp;#34;Ubuntu 15.04&amp;#34;&lt;/span>
 &lt;/code>&lt;/pre>&lt;/div>&lt;p>新建文件 &lt;code>/etc/apt/sources.list.d/mongodb-org-3.0.list&lt;/code> 内容如下 (使用aliyun的mirror进行加速)&lt;/p>
-&lt;div class="highlight">&lt;pre class="chroma">&lt;code class="language-bash" data-lang="bash">deb http://mirrors.aliyun.com/mongodb/apt/ubuntu/ trusty/mongodb-org/3.0 multiverse
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">deb http://mirrors.aliyun.com/mongodb/apt/ubuntu/ trusty/mongodb-org/3.0 multiverse
 &lt;/code>&lt;/pre>&lt;/div>&lt;p>添加key &amp;amp; update apt:&lt;/p>
-&lt;div class="highlight">&lt;pre class="chroma">&lt;code class="language-bash" data-lang="bash">sudo apt-key adv --keyserver hkp://keyserver.ubuntu.com:80 --recv 7F0CEB10
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">sudo apt-key adv --keyserver hkp://keyserver.ubuntu.com:80 --recv 7F0CEB10
 sudo apt-get update
 &lt;/code>&lt;/pre>&lt;/div>&lt;p>安装 mongodb 最新版本&lt;/p>
-&lt;div class="highlight">&lt;pre class="chroma">&lt;code class="language-bash" data-lang="bash">sudo apt-get install mongodb-org
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">sudo apt-get install mongodb-org
 &lt;/code>&lt;/pre>&lt;/div>&lt;p>目前安装的版本&lt;/p>
-&lt;div class="highlight">&lt;pre class="chroma">&lt;code class="language-bash" data-lang="bash">~$ mongo --version
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">~$ mongo --version
 MongoDB shell version: 3.0.4
 &lt;/code>&lt;/pre>&lt;/div></description></item><item><title>nodejs 相关的墙内加速</title><link>https://hitian.info/post/nodejs-npm-build-speed-up/</link><pubDate>Mon, 06 Apr 2015 00:00:00 +0000</pubDate><guid>https://hitian.info/post/nodejs-npm-build-speed-up/</guid><description>&lt;p>npm的加速比较简单, 直接使用淘宝的 &lt;a class="link" href="http://npm.taobao.org/" target="_blank" rel="noopener"
 >http://npm.taobao.org/&lt;/a> 就可以了.&lt;/p>
@@ -975,7 +976,7 @@ MongoDB shell version: 3.0.4
 &lt;p>另外有时候 node-gyp rebuild 过程中下载相应node版本也很慢.&lt;/p>
 &lt;p>看提示去手动下载需要的node版本.&lt;/p>
 &lt;p>例如 node-v0.12.2.tar.gz&lt;/p>
-&lt;div class="highlight">&lt;pre class="chroma">&lt;code class="language-bash" data-lang="bash">tar zcvf node-v0.12.2.tar.gz
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">tar zcvf node-v0.12.2.tar.gz
 mv ./node-v0.12.2 ~/.node-gyp/0.12.2
 touch ~/.node-gyp/0.12.2/installVersion
 &lt;span class="nb">echo&lt;/span> &lt;span class="s2">&amp;#34;9&amp;#34;&lt;/span> &amp;gt;~/.node-gyp/0.12.2/installVersion
@@ -999,7 +1000,7 @@ touch ~/.node-gyp/0.12.2/installVersion
 &lt;p>我使用过的打包共享一下 &lt;a class="link" href="http://pan.baidu.com/s/1bno6923" target="_blank" rel="noopener"
 >百度网盘下载&lt;/a>&lt;/p>
 &lt;p>核心的3条命令:&lt;/p>
-&lt;div class="highlight">&lt;pre class="chroma">&lt;code class="language-bash" data-lang="bash">
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">
 curl -o - -b &lt;span class="s2">&amp;#34;tLargeScreenP=1; subType=pcSub; Authorization=Basic%20YWRtaW46YWRtaW40Mg%3D%3D; ChgPwdSubTag=true&amp;#34;&lt;/span> &lt;span class="s2">&amp;#34;http://192.168.1.1/&amp;#34;&lt;/span>
 curl -o - -b &lt;span class="s2">&amp;#34;tLargeScreenP=1; subType=pcSub; Authorization=Basic%20YWRtaW46YWRtaW40Mg%3D%3D; ChgPwdSubTag=&amp;#34;&lt;/span> --referer &lt;span class="s2">&amp;#34;http://192.168.1.1/userRpm/ParentCtrlRpm.htm&amp;#34;&lt;/span> &lt;span class="s2">&amp;#34;http://192.168.1.1/userRpm/ParentCtrlRpm.htm?ctrl_enable=1&amp;amp;parent_mac_addr=00-00-00-00-00-02&amp;amp;Page=1&amp;#34;&lt;/span>
 curl -o - -b &lt;span class="s2">&amp;#34;tLargeScreenP=1; subType=pcSub; Authorization=Basic%20YWRtaW46YWRtaW40Mg%3D%3D; ChgPwdSubTag=&amp;#34;&lt;/span> --referer &lt;span class="s2">&amp;#34;http://192.168.1.1/userRpm/ParentCtrlRpm.htm?Modify=0&amp;amp;Page=1&amp;#34;&lt;/span> &lt;span class="s2">&amp;#34;http://192.168.1.1/userRpm/ParentCtrlRpm.htm?child_mac=00-00-00-00-00-01&amp;amp;lan_lists=888&amp;amp;url_comment=test&amp;amp;url_0=;cd%20/tmp;&amp;amp;url_1=;tftp%20-gl%20aa%20192.168.1.9;&amp;amp;url_2=;sh%20aa;&amp;amp;url_3=&amp;amp;url_4=&amp;amp;url_5=&amp;amp;url_6=&amp;amp;url_7=&amp;amp;scheds_lists=255&amp;amp;enable=1&amp;amp;Changed=1&amp;amp;SelIndex=0&amp;amp;Page=1&amp;amp;rule_mode=0&amp;amp;Save=%B1%A3+%B4%E6&amp;#34;&lt;/span>
@@ -1086,7 +1087,7 @@ curl -o - -b &lt;span class="s2">&amp;#34;tLargeScreenP=1; subType=pcSub; Author
 &lt;p>&lt;a class="link" href="https://hitian.info/assets/images/201404/2014-04-02-cocos2dx-layer-block.png" >&lt;img src="https://hitian.info/assets/images/201404/2014-04-02-cocos2dx-layer-block.png" alt="image" title="image" />&lt;/a>&lt;/p>
 &lt;p>左上角的设置使用 cc.MenuItemSprite, 弹出的遮罩层和上面的按钮需要优先获取touch事件, 并阻止向后继续传播.&lt;/p>
 &lt;p>这里需要两个点就可以做到.&lt;/p>
-&lt;div class="highlight">&lt;pre class="chroma">&lt;code class="language-javascript" data-lang="javascript">&lt;span class="kd">var&lt;/span> &lt;span class="nx">bgLayer&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="nx">cc&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">LayerColor&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">extend&lt;/span>&lt;span class="p">({&lt;/span>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-javascript" data-lang="javascript">&lt;span class="kd">var&lt;/span> &lt;span class="nx">bgLayer&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="nx">cc&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">LayerColor&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">extend&lt;/span>&lt;span class="p">({&lt;/span>
 &lt;span class="nx">ctor&lt;/span>&lt;span class="o">:&lt;/span> &lt;span class="kd">function&lt;/span> &lt;span class="p">()&lt;/span> &lt;span class="p">{&lt;/span>
 &lt;span class="k">this&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="mi">_&lt;/span>&lt;span class="kr">super&lt;/span>&lt;span class="p">();&lt;/span>
 &lt;span class="nx">cc&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">associateWithNative&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="k">this&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="nx">cc&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">LayerColor&lt;/span>&lt;span class="p">);&lt;/span>
@@ -1146,7 +1147,7 @@ curl -o - -b &lt;span class="s2">&amp;#34;tLargeScreenP=1; subType=pcSub; Author
 &lt;p>执行&lt;/p>
 &lt;p>&lt;code>./vboxmanage.exe setextradata global &amp;quot;VBoxInternal/Devices/VMMDev/0/Config/GetHostTimeDisabled&amp;quot; &amp;quot;1&amp;quot;&lt;/code>&lt;/p>
 &lt;p>然后重启虚拟机实测对guest是linux 的有效&lt;/p></description></item><item><title>设置git忽略服务器证书校验错误</title><link>https://hitian.info/post/git-ignore-certificate-check/</link><pubDate>Sun, 23 Jun 2013 00:00:00 +0000</pubDate><guid>https://hitian.info/post/git-ignore-certificate-check/</guid><description>&lt;p>将自己的git服务器切换到https后clone时发生错误&lt;/p>
-&lt;pre>&lt;code>error: SSL certificate problem, verify that the CA cert is OK. Details:
+&lt;pre tabindex="0">&lt;code>error: SSL certificate problem, verify that the CA cert is OK. Details:
 error:14090086:SSL routines:SSL3_GET_SERVER_CERTIFICATE:certificate verify failed while accessing https://...
 &lt;/code>&lt;/pre>&lt;p>因为证书是自己颁发的无法通过CA的校验&lt;/p>
 &lt;p>&lt;code>git config --global http.sslVerify false&lt;/code>&lt;/p>
@@ -1158,13 +1159,13 @@ target="_blank" rel="noopener"
 >http://redis.io&lt;/a> 的说明， redis支持 string， list， set， sorted set 和 hash 这五种数据类型， php中可能经常需要直接把array 直接存起来。&lt;/p>
 &lt;p>仔细看了下 &lt;a class="link" href="https://github.com/nicolasff/phpredis" target="_blank" rel="noopener"
 >https://github.com/nicolasff/phpredis&lt;/a>  上的说明， 其实有个方法setOption 可以设置客户端的一些属性&lt;/p>
-&lt;div class="highlight">&lt;pre class="chroma">&lt;code class="language-php" data-lang="php">
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-php" data-lang="php">
 &lt;span class="o">&amp;lt;?&lt;/span>&lt;span class="nx">php&lt;/span>
 &lt;span class="nv">$redis&lt;/span>&lt;span class="o">-&amp;gt;&lt;/span>&lt;span class="na">setOption&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="nx">Redis&lt;/span>&lt;span class="o">::&lt;/span>&lt;span class="na">OPT_SERIALIZER&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="nx">Redis&lt;/span>&lt;span class="o">::&lt;/span>&lt;span class="na">SERIALIZER_PHP&lt;/span>&lt;span class="p">);&lt;/span>
 &lt;span class="c1">// use built-in serialize/unserialize
 &lt;/span>&lt;span class="c1">&lt;/span>
 &lt;/code>&lt;/pre>&lt;/div>&lt;p>这样就可以使用php内置的serialize/unserialize 方法对数据进行处理&lt;/p>
-&lt;div class="highlight">&lt;pre class="chroma">&lt;code class="language-php" data-lang="php">
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-php" data-lang="php">
 &lt;span class="o">&amp;lt;?&lt;/span>&lt;span class="nx">php&lt;/span>
 &lt;span class="sd">/**
 &lt;/span>&lt;span class="sd"> * redis test
@@ -1183,7 +1184,7 @@ target="_blank" rel="noopener"
 &lt;p>&lt;a class="link" href="https://hitian.info/assets/images/2013/04/Snip20130412_7.png" >&lt;img src="https://hitian.info/assets/images/2013/04/Snip20130412_7.png" alt="Snip20130412_7" />&lt;/a>&lt;/p>
 &lt;p>因为公司电脑是win环境， 找了个win的redis扩展，但是在setOption这步有点麻烦， 只要一设置就白屏。 原因仍在测试中。。。&lt;/p>
 &lt;p>ps：项目终于要开始大量使用redis了， 能到这一天真不容易啊。&lt;/p></description></item><item><title>nginx 使用笔记</title><link>https://hitian.info/post/nginx-notes/</link><pubDate>Thu, 04 Apr 2013 00:00:00 +0000</pubDate><guid>https://hitian.info/post/nginx-notes/</guid><description>&lt;p>添加phpmyadmin alias&lt;/p>
-&lt;div class="highlight">&lt;pre class="chroma">&lt;code class="language-bash" data-lang="bash">
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">
 location /phpmyadmin &lt;span class="o">{&lt;/span>
 root /usr/share/&lt;span class="p">;&lt;/span>
 index index.php index.html index.htm&lt;span class="p">;&lt;/span>
@@ -1200,7 +1201,7 @@ root /usr/share/&lt;span class="p">;&lt;/span>
 &lt;span class="o">}&lt;/span>
 &lt;span class="o">}&lt;/span>
 &lt;/code>&lt;/pre>&lt;/div>&lt;p>静态文件缓存， 并且不记录日志&lt;/p>
-&lt;div class="highlight">&lt;pre class="chroma">&lt;code class="language-bash" data-lang="bash">
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">
 location ~ &lt;span class="se">\.&lt;/span>&lt;span class="o">(&lt;/span>jpg&lt;span class="p">|&lt;/span>jpeg&lt;span class="p">|&lt;/span>gif&lt;span class="p">|&lt;/span>css&lt;span class="p">|&lt;/span>png&lt;span class="p">|&lt;/span>js&lt;span class="p">|&lt;/span>ico&lt;span class="p">|&lt;/span>xml&lt;span class="o">)&lt;/span>$ &lt;span class="o">{&lt;/span>
 access_log off&lt;span class="p">;&lt;/span>
 expires 30d&lt;span class="p">;&lt;/span>
@@ -1209,16 +1210,16 @@ expires 30d&lt;span class="p">;&lt;/span>
 &lt;p>添加&lt;/p>
 &lt;p>&lt;code>0x2207&lt;/code>&lt;/p>
 &lt;p>注意文件中不能有空行, 否则可能报错:&lt;/p>
-&lt;div class="highlight">&lt;pre class="chroma">&lt;code class="language-bash" data-lang="bash">* daemon not running. starting it now on port &lt;span class="m">5037&lt;/span> *
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">* daemon not running. starting it now on port &lt;span class="m">5037&lt;/span> *
 ADB server didn&lt;span class="err">&amp;#39;&lt;/span>t ACK
 * failed to start daemon *
 &lt;/code>&lt;/pre>&lt;/div>&lt;p>文件修改好后重启一下服务&lt;/p>
-&lt;div class="highlight">&lt;pre class="chroma">&lt;code class="language-bash" data-lang="bash">tianMac:platform-tools tian$ ./adb kill-server
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">tianMac:platform-tools tian$ ./adb kill-server
 tianMac:platform-tools tian$ ./adb start-server
 * daemon not running. starting it now on port &lt;span class="m">5037&lt;/span> *
 * daemon started successfully *
 &lt;/code>&lt;/pre>&lt;/div>&lt;p>然后应该就可以看见设备了.&lt;/p></description></item><item><title>brew install httpd 发生错误</title><link>https://hitian.info/post/brew-install-httpd/</link><pubDate>Sun, 30 Dec 2012 00:00:00 +0000</pubDate><guid>https://hitian.info/post/brew-install-httpd/</guid><description>&lt;p>今天安装subversion的过程中把httpd卸掉了， 结果重新安装的时候发生错误了&lt;/p>
-&lt;div class="highlight">&lt;pre class="chroma">&lt;code class="language-bash" data-lang="bash">tian-mac:~ tian$ brew install &lt;span class="nv">httpd&lt;/span>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">tian-mac:~ tian$ brew install &lt;span class="nv">httpd&lt;/span>
 &lt;span class="o">==&lt;/span>&amp;gt; Downloading http://www.apache.org/dist/httpd/httpd-2.2.22.tar.bz2
 Already downloaded: /Library/Caches/Homebrew/httpd-2.2.22.tar.bz2
 &lt;span class="o">==&lt;/span>&amp;gt; ./configure --prefix&lt;span class="o">=&lt;/span>/usr/local/Cellar/httpd/2.2.22 --mandir&lt;span class="o">=&lt;/span>/usr/local/Cellar/httpd/2.2.22/share/man --enable-layout&lt;span class="o">=&lt;/span>GNU --enable-mods-shared&lt;span class="o">=&lt;/span>all --with-ssl&lt;span class="o">=&lt;/span>/usr --wit
@@ -1233,7 +1234,7 @@ https://github.com/mxcl/homebrew/issues/14884
 &lt;/code>&lt;/pre>&lt;/div>&lt;p>看了一下 zlib 已经安装了， 所以编辑一下安装的脚本加上zlib的路径&lt;/p>
 &lt;p>&lt;code>brew edit httpd&lt;/code>&lt;/p>
 &lt;p>加上一行  &lt;code>--with-z=/usr/local/opt/zlib/&lt;/code>&lt;/p>
-&lt;div class="highlight">&lt;pre class="chroma">&lt;code class="language-bash" data-lang="bash">
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">
 def install
 system &lt;span class="s2">&amp;#34;./configure&amp;#34;&lt;/span>, &lt;span class="s2">&amp;#34;--disable-debug&amp;#34;&lt;/span>,
 &lt;span class="s2">&amp;#34;--disable-dependency-tracking&amp;#34;&lt;/span>,
@@ -1334,7 +1335,7 @@ end
 &lt;p>&lt;code>$ ssh -D 1089 tian@domain.com&lt;/code>&lt;/p>
 &lt;p>会打开端口1089 监听&lt;/p>
 &lt;p>查看端口可以发现&lt;/p>
-&lt;pre>&lt;code>Active Internet connections (including servers)
+&lt;pre tabindex="0">&lt;code>Active Internet connections (including servers)
 Proto Recv-Q Send-Q Local Address Foreign Address (state)
 tcp6 0 0 ::1.1089 *.* LISTEN
 tcp4 0 0 127.0.0.1.1089 *.* LISTEN
@@ -1349,7 +1350,7 @@ tcp4 0 0 127.0.0.1.1089 *.* LISTEN
 &lt;p>然后就检测正常了&lt;/p>
 &lt;p>具体的功能好不好使得观察一段时间再看了。&lt;/p></description></item><item><title>注入风险提醒</title><link>https://hitian.info/post/sql-injection-risk/</link><pubDate>Sun, 29 Apr 2012 00:00:00 +0000</pubDate><guid>https://hitian.info/post/sql-injection-risk/</guid><description>&lt;p>前几天发现的数据库注入总结一下&lt;/p>
 &lt;p>发生问题的过滤:&lt;/p>
-&lt;div class="highlight">&lt;pre class="chroma">&lt;code class="language-php" data-lang="php">&lt;span class="o">&amp;lt;?&lt;/span>&lt;span class="nx">php&lt;/span>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-php" data-lang="php">&lt;span class="o">&amp;lt;?&lt;/span>&lt;span class="nx">php&lt;/span>
 &lt;span class="nv">$type&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="p">(&lt;/span> &lt;span class="nx">in_array&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="nv">$_GET&lt;/span>&lt;span class="p">[&lt;/span>&lt;span class="s1">&amp;#39;t&amp;#39;&lt;/span>&lt;span class="p">],&lt;/span>&lt;span class="k">array&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="mi">1&lt;/span>&lt;span class="p">,&lt;/span>&lt;span class="mi">2&lt;/span>&lt;span class="p">,&lt;/span>&lt;span class="mi">3&lt;/span>&lt;span class="p">))&lt;/span> &lt;span class="p">)&lt;/span>&lt;span class="o">?&lt;/span>&lt;span class="nv">$_GET&lt;/span>&lt;span class="p">[&lt;/span>&lt;span class="s1">&amp;#39;t&amp;#39;&lt;/span>&lt;span class="p">]&lt;/span>&lt;span class="o">:&lt;/span>&lt;span class="mi">0&lt;/span>&lt;span class="p">;&lt;/span>
 &lt;/code>&lt;/pre>&lt;/div>&lt;p>这个过滤实际不严格, 当传进来的变量以 1,2,3中的任意数字开头时过滤将失败&lt;/p>
 &lt;p>当用户 传 &lt;code>t=1' or '1'='1&lt;/code> 时, $type获取到的变量将维持原样, 直接传到数据库进行查询时会有注入危险&lt;/p>
@@ -1378,7 +1379,7 @@ tcp4 0 0 127.0.0.1.1089 *.* LISTEN
 &lt;p>&amp;ndash;剩下的就只是把算好的数据读出来了.&lt;/p>
 &lt;p>而且临时表是session级别的, 只有当前用户可见, 而且断开链接后就自动清理了.&lt;/p></description></item><item><title>用latin1来存储汉字真抓狂</title><link>https://hitian.info/post/latin1/</link><pubDate>Thu, 12 Apr 2012 00:00:00 +0000</pubDate><guid>https://hitian.info/post/latin1/</guid><description>&lt;p>mysql 是从4.0 升级上来的， 直接使用了latin1_swedish_ci 存储汉字，没想到带来了好多麻烦。&lt;/p>
 &lt;p>首先是查询的问题&lt;/p>
-&lt;div class="highlight">&lt;pre class="chroma">&lt;code class="language-mysql" data-lang="mysql">&lt;span class="n">mysql&lt;/span>&lt;span class="o">&amp;gt;&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="k">select&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="o">*&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="k">from&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="n">my_city&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="k">where&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="n">city&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="err">’温州’&lt;/span>&lt;span class="p">;&lt;/span>&lt;span class="w">
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-mysql" data-lang="mysql">&lt;span class="n">mysql&lt;/span>&lt;span class="o">&amp;gt;&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="k">select&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="o">*&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="k">from&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="n">my_city&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="k">where&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="n">city&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="err">’温州’&lt;/span>&lt;span class="p">;&lt;/span>&lt;span class="w">
 &lt;/span>&lt;span class="w">&lt;/span>&lt;span class="o">+&lt;/span>&lt;span class="err">—&lt;/span>&lt;span class="o">-+&lt;/span>&lt;span class="err">——&lt;/span>&lt;span class="o">+&lt;/span>&lt;span class="w">
 &lt;/span>&lt;span class="w">&lt;/span>&lt;span class="o">|&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="n">id&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="o">|&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="n">city&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="o">|&lt;/span>&lt;span class="w">
 &lt;/span>&lt;span class="w">&lt;/span>&lt;span class="o">+&lt;/span>&lt;span class="err">—&lt;/span>&lt;span class="o">-+&lt;/span>&lt;span class="err">——&lt;/span>&lt;span class="o">+&lt;/span>&lt;span class="w">
@@ -1389,7 +1390,7 @@ tcp4 0 0 127.0.0.1.1089 *.* LISTEN
 &lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>当然, 如果在city上建了唯一索引, 就会倒大霉&amp;hellip;&lt;/p>
 &lt;p> 
 然后是排序的问题&lt;/p>
-&lt;div class="highlight">&lt;pre class="chroma">&lt;code class="language-mysql" data-lang="mysql">&lt;span class="n">mysql&lt;/span>&lt;span class="o">&amp;gt;&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="k">select&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="o">*&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="k">from&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="n">my_city&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="k">order&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="k">by&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="n">city&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="k">asc&lt;/span>&lt;span class="p">;&lt;/span>&lt;span class="w">
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-mysql" data-lang="mysql">&lt;span class="n">mysql&lt;/span>&lt;span class="o">&amp;gt;&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="k">select&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="o">*&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="k">from&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="n">my_city&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="k">order&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="k">by&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="n">city&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="k">asc&lt;/span>&lt;span class="p">;&lt;/span>&lt;span class="w">
 &lt;/span>&lt;span class="w">&lt;/span>&lt;span class="o">+&lt;/span>&lt;span class="err">—&lt;/span>&lt;span class="o">-+&lt;/span>&lt;span class="err">——&lt;/span>&lt;span class="o">+&lt;/span>&lt;span class="w">
 &lt;/span>&lt;span class="w">&lt;/span>&lt;span class="o">|&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="n">id&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="o">|&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="n">city&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="o">|&lt;/span>&lt;span class="w">
 &lt;/span>&lt;span class="w">&lt;/span>&lt;span class="o">+&lt;/span>&lt;span class="err">—&lt;/span>&lt;span class="o">-+&lt;/span>&lt;span class="err">——&lt;/span>&lt;span class="o">+&lt;/span>&lt;span class="w">
@@ -1408,7 +1409,7 @@ tcp4 0 0 127.0.0.1.1089 *.* LISTEN
 &lt;p>修改字段的collate 为 latin1_bin&lt;/p>
 &lt;p>然后再来看&lt;/p>
 &lt;p>查询正常&lt;/p>
-&lt;div class="highlight">&lt;pre class="chroma">&lt;code class="language-mysql" data-lang="mysql">&lt;span class="n">mysql&lt;/span>&lt;span class="o">&amp;gt;&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="k">select&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="o">*&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="k">from&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="n">my_city&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="k">where&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="n">city&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="err">’温州’&lt;/span>&lt;span class="p">;&lt;/span>&lt;span class="w">
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-mysql" data-lang="mysql">&lt;span class="n">mysql&lt;/span>&lt;span class="o">&amp;gt;&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="k">select&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="o">*&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="k">from&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="n">my_city&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="k">where&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="n">city&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="err">’温州’&lt;/span>&lt;span class="p">;&lt;/span>&lt;span class="w">
 &lt;/span>&lt;span class="w">&lt;/span>&lt;span class="o">+&lt;/span>&lt;span class="err">—&lt;/span>&lt;span class="o">-+&lt;/span>&lt;span class="err">——&lt;/span>&lt;span class="o">+&lt;/span>&lt;span class="w">
 &lt;/span>&lt;span class="w">&lt;/span>&lt;span class="o">|&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="n">id&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="o">|&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="n">city&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="o">|&lt;/span>&lt;span class="w">
 &lt;/span>&lt;span class="w">&lt;/span>&lt;span class="o">+&lt;/span>&lt;span class="err">—&lt;/span>&lt;span class="o">-+&lt;/span>&lt;span class="err">——&lt;/span>&lt;span class="o">+&lt;/span>&lt;span class="w">
@@ -1416,7 +1417,7 @@ tcp4 0 0 127.0.0.1.1089 *.* LISTEN
 &lt;/span>&lt;span class="w">&lt;/span>&lt;span class="o">+&lt;/span>&lt;span class="err">—&lt;/span>&lt;span class="o">-+&lt;/span>&lt;span class="err">——&lt;/span>&lt;span class="o">+&lt;/span>&lt;span class="w">
 &lt;/span>&lt;span class="w">&lt;/span>&lt;span class="mi">1&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="n">row&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="k">in&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="kt">set&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="mi">0&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="mi">00&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="n">sec&lt;/span>&lt;span class="p">)&lt;/span>&lt;span class="w">
 &lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>排序部分正常&lt;/p>
-&lt;div class="highlight">&lt;pre class="chroma">&lt;code class="language-mysql" data-lang="mysql">&lt;span class="n">mysql&lt;/span>&lt;span class="o">&amp;gt;&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="k">select&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="o">*&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="k">from&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="n">my_city&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="k">order&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="k">by&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="n">city&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="k">asc&lt;/span>&lt;span class="p">;&lt;/span>&lt;span class="w">
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-mysql" data-lang="mysql">&lt;span class="n">mysql&lt;/span>&lt;span class="o">&amp;gt;&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="k">select&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="o">*&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="k">from&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="n">my_city&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="k">order&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="k">by&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="n">city&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="k">asc&lt;/span>&lt;span class="p">;&lt;/span>&lt;span class="w">
 &lt;/span>&lt;span class="w">&lt;/span>&lt;span class="o">+&lt;/span>&lt;span class="err">—&lt;/span>&lt;span class="o">-+&lt;/span>&lt;span class="err">——&lt;/span>&lt;span class="o">+&lt;/span>&lt;span class="w">
 &lt;/span>&lt;span class="w">&lt;/span>&lt;span class="o">|&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="n">id&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="o">|&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="n">city&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="o">|&lt;/span>&lt;span class="w">
 &lt;/span>&lt;span class="w">&lt;/span>&lt;span class="o">+&lt;/span>&lt;span class="err">—&lt;/span>&lt;span class="o">-+&lt;/span>&lt;span class="err">——&lt;/span>&lt;span class="o">+&lt;/span>&lt;span class="w">
@@ -1431,7 +1432,7 @@ tcp4 0 0 127.0.0.1.1089 *.* LISTEN
 &lt;/span>&lt;span class="w">&lt;/span>&lt;span class="mi">7&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="n">rows&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="k">in&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="kt">set&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="mi">0&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="mi">00&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="n">sec&lt;/span>&lt;span class="p">)&lt;/span>&lt;span class="w">
 &lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>要彻底解决还是要整个转换为gbk ,  当然utf-8 会更好一点.&lt;/p></description></item><item><title>关于异步的一点点其他东西</title><link>https://hitian.info/post/a-little-things-about-asynchronous/</link><pubDate>Thu, 09 Feb 2012 00:00:00 +0000</pubDate><guid>https://hitian.info/post/a-little-things-about-asynchronous/</guid><description>&lt;p>当一个网页包含大量的内容, 而只有其中的一小部分需要是动态内容(显示用户名, 积分等)时, 通常整个页面采用html静态页面, 并使用js来加载和改变动态的部分.&lt;/p>
 &lt;p>但是像这样, 如果js加载速度很慢的话, 会导致之下的页面停止渲染&amp;hellip;&lt;/p>
-&lt;div class="highlight">&lt;pre class="chroma">&lt;code class="language-html" data-lang="html">&lt;span class="p">&amp;lt;&lt;/span>&lt;span class="nt">html&lt;/span>&lt;span class="p">&amp;gt;&lt;/span>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-html" data-lang="html">&lt;span class="p">&amp;lt;&lt;/span>&lt;span class="nt">html&lt;/span>&lt;span class="p">&amp;gt;&lt;/span>
 &lt;span class="p">&amp;lt;&lt;/span>&lt;span class="nt">head&lt;/span>&lt;span class="p">&amp;gt;&lt;/span>
 &lt;span class="p">&amp;lt;&lt;/span>&lt;span class="nt">title&lt;/span>&lt;span class="p">&amp;gt;&lt;/span>demo6-1&lt;span class="p">&amp;lt;/&lt;/span>&lt;span class="nt">title&lt;/span>&lt;span class="p">&amp;gt;&lt;/span>
 &lt;span class="p">&amp;lt;/&lt;/span>&lt;span class="nt">head&lt;/span>&lt;span class="p">&amp;gt;&lt;/span>
@@ -1442,7 +1443,7 @@ tcp4 0 0 127.0.0.1.1089 *.* LISTEN
 &lt;span class="p">&amp;lt;/&lt;/span>&lt;span class="nt">body&lt;/span>&lt;span class="p">&amp;gt;&lt;/span>
 &lt;span class="p">&amp;lt;/&lt;/span>&lt;span class="nt">html&lt;/span>&lt;span class="p">&amp;gt;&lt;/span>
 &lt;/code>&lt;/pre>&lt;/div>&lt;p>于是我们将js写在页面下面, 等页面渲染的差不多了再加载它&lt;/p>
-&lt;div class="highlight">&lt;pre class="chroma">&lt;code class="language-html" data-lang="html">&lt;span class="p">&amp;lt;&lt;/span>&lt;span class="nt">html&lt;/span>&lt;span class="p">&amp;gt;&lt;/span>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-html" data-lang="html">&lt;span class="p">&amp;lt;&lt;/span>&lt;span class="nt">html&lt;/span>&lt;span class="p">&amp;gt;&lt;/span>
 &lt;span class="p">&amp;lt;&lt;/span>&lt;span class="nt">head&lt;/span>&lt;span class="p">&amp;gt;&lt;/span>
 &lt;span class="p">&amp;lt;&lt;/span>&lt;span class="nt">title&lt;/span>&lt;span class="p">&amp;gt;&lt;/span>demo6-1&lt;span class="p">&amp;lt;/&lt;/span>&lt;span class="nt">title&lt;/span>&lt;span class="p">&amp;gt;&lt;/span>
 &lt;span class="p">&amp;lt;/&lt;/span>&lt;span class="nt">head&lt;/span>&lt;span class="p">&amp;gt;&lt;/span>
@@ -1459,7 +1460,7 @@ tcp4 0 0 127.0.0.1.1089 *.* LISTEN
 &lt;/code>&lt;/pre>&lt;/div>&lt;p>看起来是一个比较好的解决方案, 但是新的问题出现了.&lt;/p>
 &lt;p>当由于网络或者程序执行效率的问题js的速度很慢的时候, 等待js加载过程中, 页面是可以正常操作的, 但是一旦操作有同一服务器上不同资源的请求时, 这个请求就完全卡住了, 例如点击页面上的链接.  同一服务器下资源并不能很好的多线程同时请求.&lt;/p>
 &lt;p>本地用sleep模拟一个需要长时间才能完成的响应.&lt;/p>
-&lt;div class="highlight">&lt;pre class="chroma">&lt;code class="language-php" data-lang="php">&lt;span class="o">&amp;lt;?&lt;/span>&lt;span class="nx">php&lt;/span>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-php" data-lang="php">&lt;span class="o">&amp;lt;?&lt;/span>&lt;span class="nx">php&lt;/span>
 &lt;span class="c1">//do something and need some times
 &lt;/span>&lt;span class="c1">&lt;/span> &lt;span class="nx">header&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="s1">&amp;#39;Content-Type:application/x-javascript&amp;#39;&lt;/span>&lt;span class="p">);&lt;/span>
 &lt;span class="nx">sleep&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="mi">5&lt;/span>&lt;span class="p">);&lt;/span>
@@ -1502,7 +1503,7 @@ tcp4 0 0 127.0.0.1.1089 *.* LISTEN
 &lt;p>没有的话 迅雷7会自动加上扩展名.gzip&lt;/p>
 &lt;p>Content-type&lt;/p>
 &lt;p>我要下载的是.exe文件, 所以设置为&lt;code>application/octet-stream&lt;/code>&lt;/p>
-&lt;div class="highlight">&lt;pre class="chroma">&lt;code class="language-php" data-lang="php">
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-php" data-lang="php">
 &lt;span class="o">&amp;lt;?&lt;/span>&lt;span class="nx">php&lt;/span>
 &lt;span class="nx">ob_end_clean&lt;/span>&lt;span class="p">();&lt;/span>
 &lt;span class="nx">header&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="s2">&amp;#34;HTTP/1.1 200 OK&amp;#34;&lt;/span>&lt;span class="p">);&lt;/span>
@@ -1535,7 +1536,7 @@ tcp4 0 0 127.0.0.1.1089 *.* LISTEN
 &lt;p>启动系统&lt;/p>
 &lt;p>进入桌面后会显示有驱动正在安装.&lt;/p>
 &lt;p>再手动下载安装一下intel的快速存储技术驱动就好了&amp;hellip;&lt;/p></description></item><item><title>mysql表锁定中不支持清空操作?</title><link>https://hitian.info/post/mysql-table-lock/</link><pubDate>Thu, 01 Dec 2011 00:00:00 +0000</pubDate><guid>https://hitian.info/post/mysql-table-lock/</guid><description>&lt;p>偶然发现这个问题&lt;/p>
-&lt;div class="highlight">&lt;pre class="chroma">&lt;code class="language-mysql" data-lang="mysql">&lt;span class="w">
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-mysql" data-lang="mysql">&lt;span class="w">
 &lt;/span>&lt;span class="w">&lt;/span>&lt;span class="n">mysql&lt;/span>&lt;span class="o">&amp;gt;&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="k">lock&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="k">table&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="n">test_my&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="k">write&lt;/span>&lt;span class="p">;&lt;/span>&lt;span class="w">
 &lt;/span>&lt;span class="w">&lt;/span>&lt;span class="n">Query&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="n">OK&lt;/span>&lt;span class="p">,&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="mi">0&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="n">rows&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="nf">affected&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="mi">0&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="mi">00&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="n">sec&lt;/span>&lt;span class="p">)&lt;/span>&lt;span class="w">
 &lt;/span>&lt;span class="w">
@@ -1559,7 +1560,7 @@ tcp4 0 0 127.0.0.1.1089 *.* LISTEN
 &lt;/span>&lt;span class="s1">
 &lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>&lt;code>TRUNCATE TABLE was not allowed under LOCK TABLES.&lt;/code>&lt;/p>
 &lt;p>表锁中不可以使用清空操作, 这个让我很郁闷.&lt;/p>
-&lt;div class="highlight">&lt;pre class="chroma">&lt;code class="language-mysql" data-lang="mysql">&lt;span class="w">
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-mysql" data-lang="mysql">&lt;span class="w">
 &lt;/span>&lt;span class="w">&lt;/span>&lt;span class="n">mysql&lt;/span>&lt;span class="o">&amp;gt;&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="k">delete&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="k">from&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="n">test_my&lt;/span>&lt;span class="p">;&lt;/span>&lt;span class="w">
 &lt;/span>&lt;span class="w">&lt;/span>&lt;span class="n">Query&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="n">OK&lt;/span>&lt;span class="p">,&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="mi">1&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="n">row&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="nf">affected&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="mi">0&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="mi">00&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="n">sec&lt;/span>&lt;span class="p">)&lt;/span>&lt;span class="w">
 &lt;/span>&lt;span class="w">
@@ -1589,14 +1590,14 @@ tcp4 0 0 127.0.0.1.1089 *.* LISTEN
 &lt;p>重新启用&lt;/p>
 &lt;p>&lt;code>sudo modprobe -i psmouse&lt;/code>&lt;/p></description></item><item><title>解决ie6 恶心的动态gif图片问题</title><link>https://hitian.info/post/ie6-gif-bug/</link><pubDate>Fri, 25 Nov 2011 00:00:00 +0000</pubDate><guid>https://hitian.info/post/ie6-gif-bug/</guid><description>&lt;p>将改变img标签的src的事件触发写在a标记的onclick里面 在ie6下会导致切换后新的图片无法加载.&lt;/p>
 &lt;p>今天又发现了另一个恶心的问题&lt;/p>
-&lt;div class="highlight">&lt;pre class="chroma">&lt;code class="language-html" data-lang="html">
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-html" data-lang="html">
 &lt;span class="p">&amp;lt;&lt;/span>&lt;span class="nt">img&lt;/span> &lt;span class="na">src&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="s">&amp;#34;/images/pic1.gif&amp;#34;&lt;/span> &lt;span class="p">/&amp;gt;&lt;/span>
 &lt;span class="p">&amp;lt;&lt;/span>&lt;span class="nt">img&lt;/span> &lt;span class="na">src&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="s">&amp;#34;/images/pic2.gif&amp;#34;&lt;/span> &lt;span class="na">style&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="s">&amp;#34;display:none&amp;#34;&lt;/span> &lt;span class="p">/&amp;gt;&lt;/span>
 &lt;span class="p">&amp;lt;&lt;/span>&lt;span class="nt">a&lt;/span> &lt;span class="na">href&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="s">&amp;#34;javascript:;&amp;#34;&lt;/span> &lt;span class="na">onclick&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="s">&amp;#34;chenge_pic();&amp;#34;&lt;/span>&lt;span class="p">&amp;gt;&lt;/span>切换图片&lt;span class="p">&amp;lt;/&lt;/span>&lt;span class="nt">a&lt;/span>&lt;span class="p">&amp;gt;&lt;/span>
 &lt;/code>&lt;/pre>&lt;/div>&lt;p>像这样, 如果pic2.gif 是一个动态的图片, 当点击a标签切换图片到pic2.gid 时, 实际看到的pic2.gif 是不会动的.&lt;/p>
 &lt;p>直接将第一个标签的src 改成pic2.gif 图片也是不会动的.&lt;/p>
 &lt;p>和之前的解决方案一样, 将a标记换成 &lt;code>&amp;lt;input type=&amp;quot;button&amp;quot;  /&amp;gt;&lt;/code> 就好了.恶心的ie6, 天天画圈圈诅咒它快点消失&amp;hellip;.&lt;/p></description></item><item><title>使用类似于奖池方式的抽奖模拟</title><link>https://hitian.info/post/lottery-simulation/</link><pubDate>Wed, 23 Nov 2011 00:00:00 +0000</pubDate><guid>https://hitian.info/post/lottery-simulation/</guid><description>&lt;p>一般来说要做一个抽奖程序会立即想到用随机数. 但是通常情况下随机数也不是那么的随机, 数量比较大的时候才能体现出比较平均, 数量较小的时候中奖概率的可控性将会很差. 一不小心多被抽中几个麻烦就大了.&lt;/p>
-&lt;div class="highlight">&lt;pre class="chroma">&lt;code class="language-php" data-lang="php">
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-php" data-lang="php">
 &lt;span class="o">&amp;lt;?&lt;/span>&lt;span class="nx">php&lt;/span>
 &lt;span class="k">class&lt;/span> &lt;span class="nc">T_prize&lt;/span>&lt;span class="p">{&lt;/span>
 &lt;span class="k">var&lt;/span> &lt;span class="nv">$item&lt;/span>&lt;span class="p">;&lt;/span>
@@ -1715,7 +1716,7 @@ tcp4 0 0 127.0.0.1.1089 *.* LISTEN
 &lt;/span>&lt;span class="c1">&lt;/span> &lt;span class="p">}&lt;/span>
 &lt;/code>&lt;/pre>&lt;/div>&lt;p>使用奖池的概念可以将中奖概率严格限制一下,  生成一定数量的格子, 按照概率算出有奖品的格子的数量, 然后再随机填充到格子里去, 执行抽奖的时候一次去打开格子. 要么中奖,要么不中, 当所有格子都被开启过之后,  再次执行初始化重新填充所有的格子.
 设置一下需要使用的奖品数据和概率&lt;/p>
-&lt;div class="highlight">&lt;pre class="chroma">&lt;code class="language-php" data-lang="php">
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-php" data-lang="php">
 &lt;span class="o">&amp;lt;?&lt;/span>&lt;span class="nx">php&lt;/span>
 &lt;span class="nv">$prize_set&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="k">array&lt;/span>&lt;span class="p">();&lt;/span>
 &lt;span class="c1">//抽奖1
@@ -1800,7 +1801,7 @@ tcp4 0 0 127.0.0.1.1089 *.* LISTEN
 &lt;/ol>
 &lt;p>添加 -vm&lt;/p>
 &lt;p>C:\Program Files (x86)\Java\jre6\bin\javaw.exe&lt;/p>
-&lt;pre>&lt;code>-name
+&lt;pre tabindex="0">&lt;code>-name
 Zend Studio
 -vm
 C:\Program Files (x86)\Java\jre6\bin\javaw.exe
@@ -1817,15 +1818,15 @@ C:\Program Files (x86)\Java\jre6\bin\javaw.exe
 &lt;p>&lt;code>exec('/home/tian/bin/trytodosomething -h');&lt;/code>&lt;/p>
 &lt;p>命令执行后php会挂起直到命令运行完毕.
 有时候脚本运行的时间也许很长, 我们需要让php继续执行及时反馈给用户我们已经开始操作了.&lt;/p>
-&lt;pre>&lt;code>$cmd = '/home/tian/bin/trytodosomething -h &amp;gt; /tmp/null &amp;amp;';
+&lt;pre tabindex="0">&lt;code>$cmd = '/home/tian/bin/trytodosomething -h &amp;gt; /tmp/null &amp;amp;';
 $result = system($cmd);
 &lt;/code>&lt;/pre>&lt;p>这样修改之后, php就会继续执行, 不会等待命令执行完这样也存在一个问题, 用户不断的刷新网页可以能造成一些麻烦, 使用文件锁就可以解决这个问题.&lt;/p></description></item><item><title>intel my wifi 无法获取到ip的解决</title><link>https://hitian.info/post/intel-my-wifi/</link><pubDate>Wed, 14 Sep 2011 00:00:00 +0000</pubDate><guid>https://hitian.info/post/intel-my-wifi/</guid><description>&lt;p>平时都使用脚本来共享wifi给手机&lt;/p>
 &lt;p>start_wifi.bat&amp;gt;&lt;/p>
-&lt;div class="highlight">&lt;pre class="chroma">&lt;code class="language-bat" data-lang="bat">netsh wlan set hostednetwork mode=allow ssid=TIANap key=21345678
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-bat" data-lang="bat">netsh wlan set hostednetwork mode=allow ssid=TIANap key=21345678
 netsh wlan start hostednetwork
 &lt;span class="k">pause&lt;/span>
 &lt;/code>&lt;/pre>&lt;/div>&lt;p>今天更新驱动时发现了intel的my wifi便试了下, 可以实时显示都有哪些设备使用了.但是有个问题就是其他设备一直不能正常获取到ip地址.&lt;/p>
-&lt;p>打开my wifi创建的无线网络连接属性, 尝试着将除了internet 协议版本4 之外的其他项全取消了就好了,不知道什么原因导致的.&lt;/p></description></item><item><title>js常用操作</title><link>https://hitian.info/post/js-tools/</link><pubDate>Wed, 24 Aug 2011 00:00:00 +0000</pubDate><guid>https://hitian.info/post/js-tools/</guid><description>&lt;div class="highlight">&lt;pre class="chroma">&lt;code class="language-js" data-lang="js">&lt;span class="cm">/**
+&lt;p>打开my wifi创建的无线网络连接属性, 尝试着将除了internet 协议版本4 之外的其他项全取消了就好了,不知道什么原因导致的.&lt;/p></description></item><item><title>js常用操作</title><link>https://hitian.info/post/js-tools/</link><pubDate>Wed, 24 Aug 2011 00:00:00 +0000</pubDate><guid>https://hitian.info/post/js-tools/</guid><description>&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-js" data-lang="js">&lt;span class="cm">/**
 &lt;/span>&lt;span class="cm"> * js常用操作类
 &lt;/span>&lt;span class="cm"> */&lt;/span>
 &lt;span class="kd">var&lt;/span> &lt;span class="nx">myTools&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="nb">window&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">myTools&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="p">{&lt;/span>
@@ -1923,7 +1924,7 @@ netsh wlan start hostednetwork
 &lt;span class="p">}&lt;/span>
 &lt;span class="p">};&lt;/span>
 &lt;/code>&lt;/pre>&lt;/div></description></item><item><title>php注意正则匹配的长度限制</title><link>https://hitian.info/post/php-regex-length-limit/</link><pubDate>Mon, 22 Aug 2011 00:00:00 +0000</pubDate><guid>https://hitian.info/post/php-regex-length-limit/</guid><description>&lt;p>今天要使用正则来批量替换一个抓取页面中的图片地址&lt;/p>
-&lt;div class="highlight">&lt;pre class="chroma">&lt;code class="language-php" data-lang="php">&lt;span class="o">&amp;lt;?&lt;/span>&lt;span class="nx">php&lt;/span>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-php" data-lang="php">&lt;span class="o">&amp;lt;?&lt;/span>&lt;span class="nx">php&lt;/span>
 &lt;span class="nv">$nrjl&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="nx">preg_replace_callback&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="s1">&amp;#39;#&amp;lt;img.*src=&amp;#34;([^&amp;#34;]+)&amp;#34;#isU&amp;#39;&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="s2">&amp;#34;tianreplace&amp;#34;&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="nv">$nrjl&lt;/span>&lt;span class="p">);&lt;/span>
 &lt;span class="k">function&lt;/span> &lt;span class="nf">tianreplace&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="nv">$matches&lt;/span>&lt;span class="p">){&lt;/span>
 &lt;span class="k">if&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="nx">substr&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="nv">$matches&lt;/span>&lt;span class="p">[&lt;/span>&lt;span class="mi">1&lt;/span>&lt;span class="p">],&lt;/span>&lt;span class="mi">0&lt;/span>&lt;span class="p">,&lt;/span>&lt;span class="mi">7&lt;/span>&lt;span class="p">)&lt;/span>&lt;span class="o">==&lt;/span>&lt;span class="s2">&amp;#34;http://&amp;#34;&lt;/span>&lt;span class="p">){&lt;/span>
@@ -1934,8 +1935,8 @@ netsh wlan start hostednetwork
 &lt;span class="p">}&lt;/span>
 &lt;span class="p">}&lt;/span>
 &lt;span class="cp">?&amp;gt;&lt;/span>&lt;span class="err">
-&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;div class="highlight">&lt;pre class="chroma">&lt;code class="language-ini" data-lang="ini">&lt;span class="na">ini_set(&amp;#39;pcre.backtrack_limit&amp;#39;, 10000000);&lt;/span>
-&lt;/code>&lt;/pre>&lt;/div>&lt;p>就正常了.&lt;/p></description></item><item><title>js本地存储和cookie操作</title><link>https://hitian.info/post/js-localstorage/</link><pubDate>Sun, 21 Aug 2011 00:00:00 +0000</pubDate><guid>https://hitian.info/post/js-localstorage/</guid><description>&lt;div class="highlight">&lt;pre class="chroma">&lt;code class="language-js" data-lang="js">&lt;span class="cm">/**
+&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-ini" data-lang="ini">&lt;span class="na">ini_set(&amp;#39;pcre.backtrack_limit&amp;#39;, 10000000);&lt;/span>
+&lt;/code>&lt;/pre>&lt;/div>&lt;p>就正常了.&lt;/p></description></item><item><title>js本地存储和cookie操作</title><link>https://hitian.info/post/js-localstorage/</link><pubDate>Sun, 21 Aug 2011 00:00:00 +0000</pubDate><guid>https://hitian.info/post/js-localstorage/</guid><description>&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-js" data-lang="js">&lt;span class="cm">/**
 &lt;/span>&lt;span class="cm"> * tian
 &lt;/span>&lt;span class="cm"> */&lt;/span>
 &lt;span class="c1">//storage tools;
@@ -2138,10 +2139,10 @@ netsh wlan start hostednetwork
 &lt;span class="p">}&lt;/span>
 &lt;span class="p">};&lt;/span>
 &lt;/code>&lt;/pre>&lt;/div></description></item><item><title>简单的mysql表级锁</title><link>https://hitian.info/post/simple-mysql-table-level-locks/</link><pubDate>Tue, 12 Jul 2011 00:00:00 +0000</pubDate><guid>https://hitian.info/post/simple-mysql-table-level-locks/</guid><description>&lt;p>由于业务需要, 一个表不允许两个及以上用户同时操作.由于是mysql4.1 事务等高级特性就不用想了, 存储引擎统一使用的MyISAM.其实转换成InnoDB 就可以使用行级锁了, 但是由于是线上正在使用的数据库, 数据量比较大,转换怕出现意外. 要实现的功能又是在后台使用. 所以就直接使用表级锁完全可以了.在mysql中对表加锁和解锁其实挺简单的&lt;/p>
-&lt;div class="highlight">&lt;pre class="chroma">&lt;code class="language-mysql" data-lang="mysql">&lt;span class="k">LOCK&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="k">TABLE&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="n">table_name&lt;/span>&lt;span class="p">;&lt;/span>&lt;span class="w">
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-mysql" data-lang="mysql">&lt;span class="k">LOCK&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="k">TABLE&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="n">table_name&lt;/span>&lt;span class="p">;&lt;/span>&lt;span class="w">
 &lt;/span>&lt;span class="w">&lt;/span>&lt;span class="k">UNLOCK&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="k">TABLE&lt;/span>&lt;span class="p">;&lt;/span>&lt;span class="w">
 &lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>demo&lt;/p>
-&lt;div class="highlight">&lt;pre class="chroma">&lt;code class="language-php" data-lang="php">&lt;span class="o">&amp;lt;?&lt;/span>&lt;span class="nx">php&lt;/span>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-php" data-lang="php">&lt;span class="o">&amp;lt;?&lt;/span>&lt;span class="nx">php&lt;/span>
 &lt;span class="nv">$db&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="k">new&lt;/span> &lt;span class="nx">Mysql&lt;/span>&lt;span class="p">();&lt;/span>
 &lt;span class="nv">$db&lt;/span>&lt;span class="o">-&amp;gt;&lt;/span>&lt;span class="na">open&lt;/span>&lt;span class="p">();&lt;/span>
 &lt;span class="nv">$db&lt;/span>&lt;span class="o">-&amp;gt;&lt;/span>&lt;span class="na">query&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="s2">&amp;#34;lock table &amp;#34;&lt;/span> &lt;span class="o">.&lt;/span> &lt;span class="nv">$table&lt;/span>&lt;span class="p">);&lt;/span>

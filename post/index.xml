@@ -64,7 +64,7 @@ Install # From https://esxi-patches.v-front.de/ESXi-6.7.0.html # Cut and paste t
 &lt;p>以下可以参照Docker 官网的文档
 &lt;a class="link" href="https://docs.docker.com/install/linux/docker-ce/ubuntu/" target="_blank" rel="noopener"
 >https://docs.docker.com/install/linux/docker-ce/ubuntu/&lt;/a>&lt;/p>
-&lt;div class="highlight">&lt;pre class="chroma">&lt;code class="language-bash" data-lang="bash">
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">
 &lt;span class="c1"># 安装依赖&lt;/span>
 apt-get install -y &lt;span class="se">\
 &lt;/span>&lt;span class="se">&lt;/span> apt-transport-https &lt;span class="se">\
@@ -81,7 +81,7 @@ add-apt-repository &lt;span class="se">\
 &lt;span class="c1"># 更新APT 并安装Docker&lt;/span>
 apt-get update -y &lt;span class="o">&amp;amp;&amp;amp;&lt;/span> apt-get install -y docker-ce
 &lt;/code>&lt;/pre>&lt;/div>&lt;h3 id="安装-kubernetes-相关的工具">安装 Kubernetes 相关的工具&lt;/h3>
-&lt;div class="highlight">&lt;pre class="chroma">&lt;code class="language-bash" data-lang="bash">
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">
 &lt;span class="c1"># Add Google’s official GPG key:&lt;/span>
 curl -s https://packages.cloud.google.com/apt/doc/apt-key.gpg &lt;span class="p">|&lt;/span> apt-key add -
 &lt;span class="c1"># 添加 APT repository.&lt;/span>
@@ -106,7 +106,7 @@ Let&amp;rsquo;s Encrypt 签发的证书目录如下
 hitian :: ~ » ls -al .acme.sh/hitian.me/ total 36 drwxr-xr-x 2 tian tian 4096 Mar 20 14:59 . drwx------ 8 tian tian 4096 May 27 15:41 .. -rw-r--r-- 1 tian tian 1648 May 19 00:26 ca.cer -rw-r--r-- 1 tian tian 3803 May 19 00:26 fullchain.cer -rw-r--r-- 1 tian tian 2155 May 19 00:26 hitian.me.cer -rw-r--r-- 1 tian tian 529 May 19 00:26 hitian.me.conf -rw-r--r-- 1 tian tian 980 May 19 00:24 hitian.</description></item><item><title>使用netplan管理ubuntu 的网络配置</title><link>https://hitian.info/post/ubuntu-server-set-network-netplan/</link><pubDate>Tue, 10 Jul 2018 00:00:00 +0000</pubDate><guid>https://hitian.info/post/ubuntu-server-set-network-netplan/</guid><description>最新的ubuntu已经使用netplan来管理网络配置了
 列出当前的配置文件ls -al /etc/netplan/， 注意配置文件为yaml格式， 如果当前没有配置， 可以创建一个例如/etc/netplan/01-netcfg.yaml
 例子 配置为使用DHCP network:version:2renderer:networkdethernets:ens33:dhcp4:yesdhcp6:yes配置为静态ip network:version:2renderer:networkdethernets:ens33:dhcp4:nodhcp6:noaddresses:[192.168.1.2/24]gateway4:192.168.1.1nameservers:addresses:[8.8.8.8,8.8.4.4]配置文件修改好之后使用sudo netplan apply应用配置， 可以加debug参数来查看具体的过程sudo netplan --debug apply</description></item><item><title>常用的 x-callback 链接</title><link>https://hitian.info/post/x-callback-links/</link><pubDate>Mon, 09 Jul 2018 00:00:00 +0000</pubDate><guid>https://hitian.info/post/x-callback-links/</guid><description>OmniFocus change language Reset omnifocus:///change-preference?AppleLanguages= 中文 omnifocus:///change-preference?AppleLanguages=zh Bear Create note bear://x-callback-url/create?title=Title&amp;amp;text=Text&amp;amp;tags=tag1,tag2 Open tag bear://x-callback-url/open-tag?name=tag-name Search note bear://x-callback-url/search?term=keyword Due Add due://x-callback-url/add?title=title</description></item><item><title>Deploying an etcd cluster as a standalone cluster on docker</title><link>https://hitian.info/post/docker-run-etcd/</link><pubDate>Sun, 08 Jul 2018 00:00:00 +0000</pubDate><guid>https://hitian.info/post/docker-run-etcd/</guid><description>&lt;p>docker host ip addr &lt;code>192.168.5.170&lt;/code>&lt;/p>
-&lt;div class="highlight">&lt;pre class="chroma">&lt;code class="language-bash" data-lang="bash">
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">
 docker run &lt;span class="se">\
 &lt;/span>&lt;span class="se">&lt;/span> -p 2379:2379 &lt;span class="se">\
 &lt;/span>&lt;span class="se">&lt;/span> -p 2380:2380 &lt;span class="se">\

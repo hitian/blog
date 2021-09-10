@@ -52,7 +52,7 @@ git clone https://git.openwrt.org/openwrt/openwrt.git
 &lt;p>以下可以参照Docker 官网的文档
 &lt;a class="link" href="https://docs.docker.com/install/linux/docker-ce/ubuntu/" target="_blank" rel="noopener"
 >https://docs.docker.com/install/linux/docker-ce/ubuntu/&lt;/a>&lt;/p>
-&lt;div class="highlight">&lt;pre class="chroma">&lt;code class="language-bash" data-lang="bash">
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">
 &lt;span class="c1"># 安装依赖&lt;/span>
 apt-get install -y &lt;span class="se">\
 &lt;/span>&lt;span class="se">&lt;/span> apt-transport-https &lt;span class="se">\
@@ -69,7 +69,7 @@ add-apt-repository &lt;span class="se">\
 &lt;span class="c1"># 更新APT 并安装Docker&lt;/span>
 apt-get update -y &lt;span class="o">&amp;amp;&amp;amp;&lt;/span> apt-get install -y docker-ce
 &lt;/code>&lt;/pre>&lt;/div>&lt;h3 id="安装-kubernetes-相关的工具">安装 Kubernetes 相关的工具&lt;/h3>
-&lt;div class="highlight">&lt;pre class="chroma">&lt;code class="language-bash" data-lang="bash">
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">
 &lt;span class="c1"># Add Google’s official GPG key:&lt;/span>
 curl -s https://packages.cloud.google.com/apt/doc/apt-key.gpg &lt;span class="p">|&lt;/span> apt-key add -
 &lt;span class="c1"># 添加 APT repository.&lt;/span>
