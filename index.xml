@@ -1,4 +1,26 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>不折腾不舒服</title><link>https://hitian.info/</link><description>Recent content on 不折腾不舒服</description><generator>Hugo -- gohugo.io</generator><language>zh-cn</language><lastBuildDate>Sat, 01 Aug 2020 00:00:00 +0000</lastBuildDate><atom:link href="https://hitian.info/index.xml" rel="self" type="application/rss+xml"/><item><title>修复macOS上的Firefox在全屏时会隐藏所有屏幕菜单栏的问题</title><link>https://hitian.info/post/fix-firefox-macos-full-sceen/</link><pubDate>Sat, 01 Aug 2020 00:00:00 +0000</pubDate><guid>https://hitian.info/post/fix-firefox-macos-full-sceen/</guid><description>&lt;p>针对Firefox for macOS 79.0 (64-bit)&lt;/p>
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>不折腾不舒服</title><link>https://hitian.info/</link><description>Recent content on 不折腾不舒服</description><generator>Hugo -- gohugo.io</generator><language>zh-cn</language><lastBuildDate>Fri, 10 Sep 2021 14:03:48 +0800</lastBuildDate><atom:link href="https://hitian.info/index.xml" rel="self" type="application/rss+xml"/><item><title>macOS tips for developer</title><link>https://hitian.info/post/macos-developer-tips/</link><pubDate>Fri, 10 Sep 2021 14:03:48 +0800</pubDate><guid>https://hitian.info/post/macos-developer-tips/</guid><description>&lt;h1 id="alias">Alias&lt;/h1>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">
+&lt;span class="nb">alias&lt;/span> &lt;span class="nv">show_tcp_port&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="s2">&amp;#34;lsof -nP -iTCP&amp;#34;&lt;/span>
+&lt;span class="nb">alias&lt;/span> &lt;span class="nv">show_tcp_port_listen&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="s2">&amp;#34;lsof -nP -iTCP | grep LISTEN&amp;#34;&lt;/span>
+&lt;/code>&lt;/pre>&lt;/div>&lt;h1 id="disable-ds_store-on-network-storage">disable .DS_Store on network storage&lt;/h1>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">
+defaults write com.apple.desktopservices DSDontWriteNetworkStores &lt;span class="nb">true&lt;/span>
+&lt;/code>&lt;/pre>&lt;/div>&lt;h1 id="disable-gatekepper-for-binary-exec">disable gatekepper for binary exec&lt;/h1>
+&lt;p>e.g. perforce command &lt;code>p4&lt;/code>&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-shell" data-lang="shell">
+tian@mac-mini ~ % xattr -p com.apple.quarantine &lt;span class="sb">`&lt;/span>which p4&lt;span class="sb">`&lt;/span>
+0082&lt;span class="p">;&lt;/span>5fb2322c&lt;span class="p">;&lt;/span>Safari&lt;span class="p">;&lt;/span>
+tian@mac-mini ~ % xattr -d com.apple.quarantine &lt;span class="sb">`&lt;/span>which p4&lt;span class="sb">`&lt;/span>
+xattr: &lt;span class="o">[&lt;/span>Errno 13&lt;span class="o">]&lt;/span> Permission denied: &lt;span class="s1">&amp;#39;/usr/local/bin/p4&amp;#39;&lt;/span>
+tian@mac-mini ~ % sudo xattr -d com.apple.quarantine &lt;span class="sb">`&lt;/span>which p4&lt;span class="sb">`&lt;/span>
+Password:
+tian@mac-mini ~ % xattr -p com.apple.quarantine &lt;span class="sb">`&lt;/span>which p4&lt;span class="sb">`&lt;/span>
+xattr: /usr/local/bin/p4: No such xattr: com.apple.quarantine
+tian@mac-mini ~ %
+&lt;/code>&lt;/pre>&lt;/div>&lt;h1 id="create-macos-install-usb-disk">create macOS install usb disk&lt;/h1>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">
+sudo /Applications/Install&lt;span class="se">\ &lt;/span>macOS&lt;span class="se">\ &lt;/span>Big&lt;span class="se">\ &lt;/span>Sur.app/Contents/Resources/createinstallmedia --volume /Volumes/UDISK --applicationpath /Applications/Install&lt;span class="se">\ &lt;/span>macOS&lt;span class="se">\ &lt;/span>Big&lt;span class="se">\ &lt;/span>Sur.app
+&lt;/code>&lt;/pre>&lt;/div></description></item><item><title>修复macOS上的Firefox在全屏时会隐藏所有屏幕菜单栏的问题</title><link>https://hitian.info/post/fix-firefox-macos-full-sceen/</link><pubDate>Sat, 01 Aug 2020 00:00:00 +0000</pubDate><guid>https://hitian.info/post/fix-firefox-macos-full-sceen/</guid><description>&lt;p>针对Firefox for macOS 79.0 (64-bit)&lt;/p>
 &lt;p>如果macOS有多块屏幕， 在默认配置下 firefox 全屏时会隐藏所有屏幕的菜单栏，需要手动改配置修复。&lt;/p>
 &lt;ol>
 &lt;li>地址栏输入并打开 &lt;code>about:config&lt;/code>&lt;/li>

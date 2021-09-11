@@ -1,14 +1,17 @@
 <!doctype html><html lang=zh-cn>
 <head><meta charset=utf-8>
-<meta name=viewport content="width=device-width,initial-scale=1"><meta name=description content="OmniFocus change language  Reset omnifocus:///change-preference?AppleLanguages= 中文 omnifocus:///change-preference?AppleLanguages=zh  Bear  Create note bear://x-callback-url/create?title=Title&amp;amp;text=Text&amp;amp;tags=tag1,tag2 Open tag bear://x-callback-url/open-tag?name=tag-name Search note bear://x-callback-url/search?term=keyword  Due  Add due://x-callback-url/add?title=title  "><title>常用的 x-callback 链接</title>
-<link rel=canonical href=https://hitian.info/post/x-callback-links/>
-<link rel=stylesheet href=/scss/style.min.css><meta property="og:title" content="常用的 x-callback 链接">
-<meta property="og:description" content="OmniFocus change language  Reset omnifocus:///change-preference?AppleLanguages= 中文 omnifocus:///change-preference?AppleLanguages=zh  Bear  Create note bear://x-callback-url/create?title=Title&amp;amp;text=Text&amp;amp;tags=tag1,tag2 Open tag bear://x-callback-url/open-tag?name=tag-name Search note bear://x-callback-url/search?term=keyword  Due  Add due://x-callback-url/add?title=title  ">
-<meta property="og:url" content="https://hitian.info/post/x-callback-links/">
+<meta name=viewport content="width=device-width,initial-scale=1"><meta name=description content="Alias alias show_tcp_port=&amp;#34;lsof -nP -iTCP&amp;#34; alias show_tcp_port_listen=&amp;#34;lsof -nP -iTCP | grep LISTEN&amp;#34; disable .DS_Store on network storage defaults write com.apple.desktopservices DSDontWriteNetworkStores true disable gatekepper for binary exec e.g. perforce command p4
+tian@mac-mini ~ % xattr -p com.apple.quarantine `which p4` 0082;5fb2322c;Safari; tian@mac-mini ~ % xattr -d com.apple.quarantine `which p4` xattr: [Errno 13] Permission denied: &amp;#39;/usr/local/bin/p4&amp;#39; tian@mac-mini ~ % sudo xattr -d com.apple.quarantine `which p4` Password: tian@mac-mini ~ % xattr -p com.apple.quarantine `which p4` xattr: /usr/local/bin/p4: No such xattr: com."><title>macOS tips for developer</title>
+<link rel=canonical href=https://hitian.info/post/macos-developer-tips/>
+<link rel=stylesheet href=/scss/style.min.css><meta property="og:title" content="macOS tips for developer">
+<meta property="og:description" content="Alias alias show_tcp_port=&amp;#34;lsof -nP -iTCP&amp;#34; alias show_tcp_port_listen=&amp;#34;lsof -nP -iTCP | grep LISTEN&amp;#34; disable .DS_Store on network storage defaults write com.apple.desktopservices DSDontWriteNetworkStores true disable gatekepper for binary exec e.g. perforce command p4
+tian@mac-mini ~ % xattr -p com.apple.quarantine `which p4` 0082;5fb2322c;Safari; tian@mac-mini ~ % xattr -d com.apple.quarantine `which p4` xattr: [Errno 13] Permission denied: &amp;#39;/usr/local/bin/p4&amp;#39; tian@mac-mini ~ % sudo xattr -d com.apple.quarantine `which p4` Password: tian@mac-mini ~ % xattr -p com.apple.quarantine `which p4` xattr: /usr/local/bin/p4: No such xattr: com.">
+<meta property="og:url" content="https://hitian.info/post/macos-developer-tips/">
 <meta property="og:site_name" content="不折腾不舒服">
-<meta property="og:type" content="article"><meta property="article:section" content="Post"><meta property="article:tag" content="iOS"><meta property="article:tag" content="macOS"><meta property="article:tag" content="x-callback"><meta property="article:published_time" content="2018-07-09T00:00:00+00:00"><meta property="article:modified_time" content="2018-07-09T00:00:00+00:00">
-<meta name=twitter:title content="常用的 x-callback 链接">
-<meta name=twitter:description content="OmniFocus change language  Reset omnifocus:///change-preference?AppleLanguages= 中文 omnifocus:///change-preference?AppleLanguages=zh  Bear  Create note bear://x-callback-url/create?title=Title&amp;amp;text=Text&amp;amp;tags=tag1,tag2 Open tag bear://x-callback-url/open-tag?name=tag-name Search note bear://x-callback-url/search?term=keyword  Due  Add due://x-callback-url/add?title=title  ">
+<meta property="og:type" content="article"><meta property="article:section" content="Post"><meta property="article:tag" content="macOS"><meta property="article:published_time" content="2021-09-10T14:03:48+08:00"><meta property="article:modified_time" content="2021-09-10T14:03:48+08:00">
+<meta name=twitter:title content="macOS tips for developer">
+<meta name=twitter:description content="Alias alias show_tcp_port=&amp;#34;lsof -nP -iTCP&amp;#34; alias show_tcp_port_listen=&amp;#34;lsof -nP -iTCP | grep LISTEN&amp;#34; disable .DS_Store on network storage defaults write com.apple.desktopservices DSDontWriteNetworkStores true disable gatekepper for binary exec e.g. perforce command p4
+tian@mac-mini ~ % xattr -p com.apple.quarantine `which p4` 0082;5fb2322c;Safari; tian@mac-mini ~ % xattr -d com.apple.quarantine `which p4` xattr: [Errno 13] Permission denied: &amp;#39;/usr/local/bin/p4&amp;#39; tian@mac-mini ~ % sudo xattr -d com.apple.quarantine `which p4` Password: tian@mac-mini ~ % xattr -p com.apple.quarantine `which p4` xattr: /usr/local/bin/p4: No such xattr: com.">
 <script type=application/javascript>var doNotTrack=!1;doNotTrack||(window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)},ga.l=+new Date,ga('create','UA-24477176-1','auto'),ga('send','pageview'))</script>
 <script async src=https://www.google-analytics.com/analytics.js></script>
 </head>
@@ -69,34 +72,44 @@ notes
 </a>
 </header>
 <h2 class=article-title>
-<a href=/post/x-callback-links/>常用的 x-callback 链接</a>
+<a href=/post/macos-developer-tips/>macOS tips for developer</a>
 </h2>
 <footer class=article-time><svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-clock" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentcolor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z"/><circle cx="12" cy="12" r="9"/><polyline points="12 7 12 12 15 15"/></svg>
-<time class=article-time--published>Jul 09, 2018</time>
+<time class=article-time--published>Sep 10, 2021</time>
 </footer></div>
 </header>
 <section class=article-content>
-<h3 id=omnifocus-change-language>OmniFocus change language</h3>
-<ul>
-<li>Reset <a class=link href="omnifocus:///change-preference?AppleLanguages=">omnifocus:///change-preference?AppleLanguages=</a></li>
-<li>中文 <a class=link href="omnifocus:///change-preference?AppleLanguages=zh">omnifocus:///change-preference?AppleLanguages=zh</a></li>
-</ul>
-<h3 id=bear>Bear</h3>
-<ul>
-<li>Create note <a class=link href="bear://x-callback-url/create?title=Title&text=Text&tags=tag1,tag2">bear://x-callback-url/create?title=Title&text=Text&tags=tag1,tag2</a></li>
-<li>Open tag <a class=link href="bear://x-callback-url/open-tag?name=tag-name">bear://x-callback-url/open-tag?name=tag-name</a></li>
-<li>Search note <a class=link href="bear://x-callback-url/search?term=keyword">bear://x-callback-url/search?term=keyword</a></li>
-</ul>
-<h3 id=due>Due</h3>
-<ul>
-<li>Add <a class=link href="due://x-callback-url/add?title=title">due://x-callback-url/add?title=title</a></li>
-</ul>
+<h1 id=alias>Alias</h1>
+<div class=highlight><pre tabindex=0 class=chroma><code class=language-bash data-lang=bash>
+<span class=nb>alias</span> <span class=nv>show_tcp_port</span><span class=o>=</span><span class=s2>&#34;lsof -nP -iTCP&#34;</span>
+<span class=nb>alias</span> <span class=nv>show_tcp_port_listen</span><span class=o>=</span><span class=s2>&#34;lsof -nP -iTCP | grep LISTEN&#34;</span>
+
+</code></pre></div><h1 id=disable-ds_store-on-network-storage>disable .DS_Store on network storage</h1>
+<div class=highlight><pre tabindex=0 class=chroma><code class=language-bash data-lang=bash>
+defaults write com.apple.desktopservices DSDontWriteNetworkStores <span class=nb>true</span>
+
+</code></pre></div><h1 id=disable-gatekepper-for-binary-exec>disable gatekepper for binary exec</h1>
+<p>e.g. perforce command <code>p4</code></p>
+<div class=highlight><pre tabindex=0 class=chroma><code class=language-shell data-lang=shell>
+tian@mac-mini ~ % xattr -p com.apple.quarantine <span class=sb>`</span>which p4<span class=sb>`</span>
+0082<span class=p>;</span>5fb2322c<span class=p>;</span>Safari<span class=p>;</span>
+tian@mac-mini ~ % xattr -d com.apple.quarantine <span class=sb>`</span>which p4<span class=sb>`</span>
+xattr: <span class=o>[</span>Errno 13<span class=o>]</span> Permission denied: <span class=s1>&#39;/usr/local/bin/p4&#39;</span>
+tian@mac-mini ~ % sudo xattr -d com.apple.quarantine <span class=sb>`</span>which p4<span class=sb>`</span>
+Password:
+tian@mac-mini ~ % xattr -p com.apple.quarantine <span class=sb>`</span>which p4<span class=sb>`</span>
+xattr: /usr/local/bin/p4: No such xattr: com.apple.quarantine
+tian@mac-mini ~ %
+
+</code></pre></div><h1 id=create-macos-install-usb-disk>create macOS install usb disk</h1>
+<div class=highlight><pre tabindex=0 class=chroma><code class=language-bash data-lang=bash>
+sudo /Applications/Install<span class=se>\ </span>macOS<span class=se>\ </span>Big<span class=se>\ </span>Sur.app/Contents/Resources/createinstallmedia --volume /Volumes/UDISK --applicationpath /Applications/Install<span class=se>\ </span>macOS<span class=se>\ </span>Big<span class=se>\ </span>Sur.app
+
+</code></pre></div>
 </section>
 <footer class=article-footer>
 <section class=article-tags>
-<a href=/tags/ios/>iOS</a>
 <a href=/tags/macos/>macos</a>
-<a href=/tags/x-callback/>x-callback</a>
 </section>
 <section class=article-copyright><svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-copyright" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentcolor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z"/><circle cx="12" cy="12" r="9"/><path d="M14.5 9a3.5 4 0 100 6"/></svg>
 <span>Licensed under CC BY-NC-SA 4.0</span>
@@ -108,9 +121,9 @@ notes
 <div class=related-contents>
 <div class="flex article-list--tile">
 <article>
-<a href=/post/macos-developer-tips/>
+<a href=/post/x-callback-links/>
 <div class=article-details>
-<h2 class=article-title>macOS tips for developer</h2>
+<h2 class=article-title>常用的 x-callback 链接</h2>
 </div>
 </a>
 </article>
@@ -145,14 +158,6 @@ notes
 </div>
 </div>
 </aside>
-<div class=disqus-container>
-<div id=disqus_thread></div>
-<script type=application/javascript>var disqus_config=function(){};(function(){if(["localhost","127.0.0.1"].indexOf(window.location.hostname)!=-1){document.getElementById('disqus_thread').innerHTML='Disqus comments not available by default when the website is previewed locally.';return}var b=document,a=b.createElement('script');a.async=!0,a.src='//hitian.disqus.com/embed.js',a.setAttribute('data-timestamp',+new Date),(b.head||b.body).appendChild(a)})()</script>
-<noscript>Please enable JavaScript to view the <a href=https://disqus.com/?ref_noscript>comments powered by Disqus.</a></noscript>
-<a href=https://disqus.com class=dsq-brlink>comments powered by <span class=logo-disqus>Disqus</span></a>
-</div>
-<style>.disqus-container{background-color:var(--card-background);border-radius:var(--card-border-radius);box-shadow:var(--shadow-l1);padding:var(--card-padding)}</style>
-<script>window.addEventListener('onColorSchemeChange',a=>{DISQUS&&DISQUS.reset({reload:!0})})</script>
 <footer class=site-footer>
 <section class=copyright>
 &copy;
