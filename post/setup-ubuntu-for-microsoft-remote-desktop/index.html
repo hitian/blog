@@ -1,23 +1,26 @@
 <!doctype html><html lang=zh-cn>
 <head><meta charset=utf-8>
-<meta name=viewport content="width=device-width,initial-scale=1"><meta name=description content="首先需要更新到4.9以上的内核版本， ubuntu和debian可以参考 这里
-重启确认内核版本升级完成继续
-以root用户执行以下命令
-"><title>Ubuntu Server Install BBR</title>
-<link rel=canonical href=https://hitian.info/post/ubuntu-server-install-bbr/>
-<link rel=stylesheet href=/scss/style.min.css><meta property="og:title" content="Ubuntu Server Install BBR">
-<meta property="og:description" content="首先需要更新到4.9以上的内核版本， ubuntu和debian可以参考 这里
-重启确认内核版本升级完成继续
-以root用户执行以下命令
-">
-<meta property="og:url" content="https://hitian.info/post/ubuntu-server-install-bbr/">
+<meta name=viewport content="width=device-width,initial-scale=1"><meta name=description content="让 ubuntu 20.04 支持 Microsoft Remote Desktop 远程桌面连接
+安装依赖 这里安装了桌面 xfce4 , 个人感觉ubuntu自带的GNOME 3并不是很方便远程桌面使用😶
+sudo apt install xrdp xorg xfce4 xfce4-goodies dbus-x11 x11-xserver-utils xfce4-terminal 设置服务和配置 将桌面更改为 xfce, 编辑文件 /etc/xrdp/startwm.sh
+# 将这两行注释 #test -x /etc/X11/Xsession &amp;amp;&amp;amp; exec /etc/X11/Xsession #exec /bin/sh /etc/X11/Xsession # 新增 exec startxfce4 设置xsession
+echo xfce4-session &amp;gt; ~/.xsession 设置 xrdp 自启动并重启 sudo systemctl enable --now xrdp sudo systemctl restart xrdp 安装注意 xrdp 默认开放 3389/TCP 到所有的网卡, 如果要跨公网使用, 最好使用ufw限制一下可以连接的ip段, 另外修改默认的端口也能减少被试探的概率"><title>Setup Ubuntu for Microsoft Remote Desktop</title>
+<link rel=canonical href=https://hitian.info/post/setup-ubuntu-for-microsoft-remote-desktop/>
+<link rel=stylesheet href=/scss/style.min.css><meta property="og:title" content="Setup Ubuntu for Microsoft Remote Desktop">
+<meta property="og:description" content="让 ubuntu 20.04 支持 Microsoft Remote Desktop 远程桌面连接
+安装依赖 这里安装了桌面 xfce4 , 个人感觉ubuntu自带的GNOME 3并不是很方便远程桌面使用😶
+sudo apt install xrdp xorg xfce4 xfce4-goodies dbus-x11 x11-xserver-utils xfce4-terminal 设置服务和配置 将桌面更改为 xfce, 编辑文件 /etc/xrdp/startwm.sh
+# 将这两行注释 #test -x /etc/X11/Xsession &amp;amp;&amp;amp; exec /etc/X11/Xsession #exec /bin/sh /etc/X11/Xsession # 新增 exec startxfce4 设置xsession
+echo xfce4-session &amp;gt; ~/.xsession 设置 xrdp 自启动并重启 sudo systemctl enable --now xrdp sudo systemctl restart xrdp 安装注意 xrdp 默认开放 3389/TCP 到所有的网卡, 如果要跨公网使用, 最好使用ufw限制一下可以连接的ip段, 另外修改默认的端口也能减少被试探的概率">
+<meta property="og:url" content="https://hitian.info/post/setup-ubuntu-for-microsoft-remote-desktop/">
 <meta property="og:site_name" content="不折腾不舒服">
-<meta property="og:type" content="article"><meta property="article:section" content="Post"><meta property="article:tag" content="Ubuntu"><meta property="article:tag" content="Server"><meta property="article:tag" content="BBR"><meta property="article:published_time" content="2017-02-07T00:00:00+00:00"><meta property="article:modified_time" content="2017-02-07T00:00:00+00:00">
-<meta name=twitter:title content="Ubuntu Server Install BBR">
-<meta name=twitter:description content="首先需要更新到4.9以上的内核版本， ubuntu和debian可以参考 这里
-重启确认内核版本升级完成继续
-以root用户执行以下命令
-">
+<meta property="og:type" content="article"><meta property="article:section" content="Post"><meta property="article:tag" content="linux"><meta property="article:tag" content="ubuntu"><meta property="article:published_time" content="2021-09-12T14:15:39+08:00"><meta property="article:modified_time" content="2021-09-12T14:15:39+08:00">
+<meta name=twitter:title content="Setup Ubuntu for Microsoft Remote Desktop">
+<meta name=twitter:description content="让 ubuntu 20.04 支持 Microsoft Remote Desktop 远程桌面连接
+安装依赖 这里安装了桌面 xfce4 , 个人感觉ubuntu自带的GNOME 3并不是很方便远程桌面使用😶
+sudo apt install xrdp xorg xfce4 xfce4-goodies dbus-x11 x11-xserver-utils xfce4-terminal 设置服务和配置 将桌面更改为 xfce, 编辑文件 /etc/xrdp/startwm.sh
+# 将这两行注释 #test -x /etc/X11/Xsession &amp;amp;&amp;amp; exec /etc/X11/Xsession #exec /bin/sh /etc/X11/Xsession # 新增 exec startxfce4 设置xsession
+echo xfce4-session &amp;gt; ~/.xsession 设置 xrdp 自启动并重启 sudo systemctl enable --now xrdp sudo systemctl restart xrdp 安装注意 xrdp 默认开放 3389/TCP 到所有的网卡, 如果要跨公网使用, 最好使用ufw限制一下可以连接的ip段, 另外修改默认的端口也能减少被试探的概率">
 <script type=application/javascript>var doNotTrack=!1;doNotTrack||(window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)},ga.l=+new Date,ga('create','UA-24477176-1','auto'),ga('send','pageview'))</script>
 <script async src=https://www.google-analytics.com/analytics.js></script>
 </head>
@@ -78,41 +81,41 @@ notes
 </a>
 </header>
 <h2 class=article-title>
-<a href=/post/ubuntu-server-install-bbr/>Ubuntu Server Install BBR</a>
+<a href=/post/setup-ubuntu-for-microsoft-remote-desktop/>Setup Ubuntu for Microsoft Remote Desktop</a>
 </h2>
 <footer class=article-time><svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-clock" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentcolor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z"/><circle cx="12" cy="12" r="9"/><polyline points="12 7 12 12 15 15"/></svg>
-<time class=article-time--published>Feb 07, 2017</time>
+<time class=article-time--published>Sep 12, 2021</time>
 </footer></div>
 </header>
 <section class=article-content>
-<p>首先需要更新到4.9以上的内核版本， ubuntu和debian可以参考 <a class=link href=https://hitian.info/notes/2017/02/07/ubuntu-server-install-mainline-kernel/ target=_blank rel=noopener>这里</a></p>
-<p>重启确认内核版本升级完成继续</p>
-<p>以root用户执行以下命令</p>
+<p>让 ubuntu 20.04 支持 <code>Microsoft Remote Desktop</code> 远程桌面连接</p>
+<h3 id=安装依赖>安装依赖</h3>
+<p>这里安装了桌面 <code>xfce4</code> , 个人感觉ubuntu自带的<code>GNOME 3</code>并不是很方便远程桌面使用😶</p>
 <div class=highlight><pre tabindex=0 class=chroma><code class=language-bash data-lang=bash>
-<span class=nb>echo</span> <span class=s2>&#34;net.core.default_qdisc=fq&#34;</span> &gt;&gt; /etc/sysctl.conf
+sudo apt install xrdp xorg xfce4 xfce4-goodies dbus-x11 x11-xserver-utils xfce4-terminal 
 
-<span class=nb>echo</span> <span class=s2>&#34;net.ipv4.tcp_congestion_control=bbr&#34;</span> &gt;&gt; /etc/sysctl.conf
+</code></pre></div><h3 id=设置服务和配置>设置服务和配置</h3>
+<p>将桌面更改为 <code>xfce</code>, 编辑文件 <code>/etc/xrdp/startwm.sh</code></p>
+<div class=highlight><pre tabindex=0 class=chroma><code class=language-bash data-lang=bash>
+<span class=c1># 将这两行注释</span>
+<span class=c1>#test -x /etc/X11/Xsession &amp;&amp; exec /etc/X11/Xsession</span>
+<span class=c1>#exec /bin/sh /etc/X11/Xsession</span>
 
-sysctl -p
+<span class=c1># 新增</span>
+<span class=nb>exec</span> startxfce4
 
-</code></pre></div><p>检查是否修改成功</p>
-<div class=highlight><pre tabindex=0 class=chroma><code class=language-bash data-lang=bash>sysctl net.ipv4.tcp_available_congestion_control
-
-<span class=c1>#结果如下， 包含bbr</span>
-<span class=c1>#net.ipv4.tcp_available_congestion_control = bbr cubic reno</span>
-
-lsmod <span class=p>|</span> grep bbr
-
-<span class=c1>#结果如下， 包含 tcp_bbr</span>
-<span class=c1>#tcp_bbr                20480  40</span>
-
-</code></pre></div>
+</code></pre></div><p>设置xsession</p>
+<div class=highlight><pre tabindex=0 class=chroma><code class=language-bash data-lang=bash><span class=nb>echo</span> xfce4-session &gt; ~/.xsession
+</code></pre></div><h3 id=设置-xrdp-自启动并重启>设置 xrdp 自启动并重启</h3>
+<div class=highlight><pre tabindex=0 class=chroma><code class=language-bash data-lang=bash>sudo systemctl <span class=nb>enable</span> --now xrdp
+sudo systemctl restart xrdp
+</code></pre></div><h2 id=安装注意>安装注意</h2>
+<p>xrdp 默认开放 <code>3389/TCP</code> 到所有的网卡, 如果要跨公网使用, 最好使用ufw限制一下可以连接的ip段, 另外修改默认的端口也能减少被试探的概率</p>
 </section>
 <footer class=article-footer>
 <section class=article-tags>
+<a href=/tags/linux/>linux</a>
 <a href=/tags/ubuntu/>ubuntu</a>
-<a href=/tags/server/>server</a>
-<a href=/tags/bbr/>BBR</a>
 </section>
 <section class=article-copyright><svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-copyright" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentcolor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z"/><circle cx="12" cy="12" r="9"/><path d="M14.5 9a3.5 4 0 100 6"/></svg>
 <span>Licensed under CC BY-NC-SA 4.0</span>
@@ -124,51 +127,43 @@ lsmod <span class=p>|</span> grep bbr
 <div class=related-contents>
 <div class="flex article-list--tile">
 <article>
-<a href=/post/ubuntu-server-install-mainline-kernel/>
+<a href=/post/openwrt-build-docker/>
 <div class=article-details>
-<h2 class=article-title>Ubuntu Server Install Mainline Kernel</h2>
+<h2 class=article-title>在docker中编译openwrt</h2>
 </div>
 </a>
 </article>
 <article>
-<a href=/post/setup-ubuntu-for-microsoft-remote-desktop/>
+<a href=/post/kubernetes-cluster-setup-on-ubuntu-server/>
 <div class=article-details>
-<h2 class=article-title>Setup Ubuntu for Microsoft Remote Desktop</h2>
+<h2 class=article-title>在Ubuntu Server上搭建Kubernetes cluster</h2>
 </div>
 </a>
 </article>
 <article>
-<a href=/post/macos-developer-tips/>
+<a href=/post/ubuntu-server-set-network-netplan/>
 <div class=article-details>
-<h2 class=article-title>macOS tips for developer</h2>
+<h2 class=article-title>使用netplan管理ubuntu 的网络配置</h2>
 </div>
 </a>
 </article>
 <article>
-<a href=/post/fix-firefox-macos-full-sceen/>
+<a href=/post/ubuntu-install-mongodb-3.0-with-apt/>
 <div class=article-details>
-<h2 class=article-title>修复macOS上的Firefox在全屏时会隐藏所有屏幕菜单栏的问题</h2>
+<h2 class=article-title>ubuntu 通过apt 安装 mongodb 3.0</h2>
 </div>
 </a>
 </article>
 <article>
-<a href=/post/raspberry-pi-note/>
+<a href=/post/nginx-notes/>
 <div class=article-details>
-<h2 class=article-title>Raspberry Pi note</h2>
+<h2 class=article-title>nginx 使用笔记</h2>
 </div>
 </a>
 </article>
 </div>
 </div>
 </aside>
-<div class=disqus-container>
-<div id=disqus_thread></div>
-<script type=application/javascript>var disqus_config=function(){};(function(){if(["localhost","127.0.0.1"].indexOf(window.location.hostname)!=-1){document.getElementById('disqus_thread').innerHTML='Disqus comments not available by default when the website is previewed locally.';return}var b=document,a=b.createElement('script');a.async=!0,a.src='//hitian.disqus.com/embed.js',a.setAttribute('data-timestamp',+new Date),(b.head||b.body).appendChild(a)})()</script>
-<noscript>Please enable JavaScript to view the <a href=https://disqus.com/?ref_noscript>comments powered by Disqus.</a></noscript>
-<a href=https://disqus.com class=dsq-brlink>comments powered by <span class=logo-disqus>Disqus</span></a>
-</div>
-<style>.disqus-container{background-color:var(--card-background);border-radius:var(--card-border-radius);box-shadow:var(--shadow-l1);padding:var(--card-padding)}</style>
-<script>window.addEventListener('onColorSchemeChange',a=>{DISQUS&&DISQUS.reset({reload:!0})})</script>
 <footer class=site-footer>
 <section class=copyright>
 &copy;
