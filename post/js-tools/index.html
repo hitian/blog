@@ -9,7 +9,7 @@
 <meta property="og:type" content="article"><meta property="article:section" content="Post"><meta property="article:tag" content="js"><meta property="article:published_time" content="2011-08-24T00:00:00+00:00"><meta property="article:modified_time" content="2011-08-24T00:00:00+00:00">
 <meta name=twitter:title content="js常用操作">
 <meta name=twitter:description content="/** * js常用操作类 */ var myTools = window.myTools = { // getElementById  g: function(id){ return document.getElementById(id); }, // getElementsByTagName  t: function(name){ return document.getElementsByTagName(name); }, writeHTML: function(id, content){ var target = this.g(id); if (target != null) { target.innerHTML = content; } }, //计算字符串长度， 中文算两个字  slen: function(str){ c = 0; for (var i = 0; i &amp;lt; str.length; i++) (str.charCodeAt(i) &amp;gt; 255) ? c += 2 : c++; return c; }, // 还原html  HtmlToStr: function(vStr){ vStr = vStr.">
-<script type=application/javascript>var doNotTrack=!1;doNotTrack||(window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)},ga.l=+new Date,ga('create','UA-24477176-1','auto'),ga('send','pageview'))</script>
+<script type=application/javascript>var doNotTrack=!1;doNotTrack||(window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)},ga.l=+new Date,ga('create','G-MZ35160LM3','auto'),ga('send','pageview'))</script>
 <script async src=https://www.google-analytics.com/analytics.js></script>
 </head>
 <body>
@@ -144,24 +144,24 @@ js
     <span class=p>},</span>   
     <span class=nx>load_js_url</span><span class=o>:</span> <span class=s1>&#39;&#39;</span><span class=p>,</span>   
     <span class=c1>//加载js   
-</span><span class=c1></span>    <span class=nx>loadJs</span><span class=o>:</span> <span class=kd>function</span><span class=p>(</span><span class=mi>_</span><span class=nx>url</span><span class=p>){</span>   
+</span><span class=c1></span>    <span class=nx>loadJs</span><span class=o>:</span> <span class=kd>function</span><span class=p>(</span><span class=nx>_url</span><span class=p>){</span>   
         <span class=kd>var</span> <span class=nx>callback</span> <span class=o>=</span> <span class=nx>arguments</span><span class=p>[</span><span class=mi>1</span><span class=p>]</span> <span class=o>||</span>   
         <span class=kd>function</span><span class=p>(){</span>   
         <span class=p>};</span>   
-        <span class=k>this</span><span class=p>.</span><span class=nx>load_js_url</span> <span class=o>=</span> <span class=mi>_</span><span class=nx>url</span><span class=p>;</span>   
-        <span class=kd>var</span> <span class=mi>_</span><span class=nx>script</span> <span class=o>=</span> <span class=nx>$c</span><span class=p>(</span><span class=s2>&#34;SCRIPT&#34;</span><span class=p>);</span>   
-        <span class=mi>_</span><span class=nx>script</span><span class=p>.</span><span class=nx>setAttribute</span><span class=p>(</span><span class=s2>&#34;type&#34;</span><span class=p>,</span> <span class=s2>&#34;text/javascript&#34;</span><span class=p>);</span>   
-        <span class=mi>_</span><span class=nx>script</span><span class=p>.</span><span class=nx>setAttribute</span><span class=p>(</span><span class=s2>&#34;src&#34;</span><span class=p>,</span> <span class=mi>_</span><span class=nx>url</span><span class=p>);</span>   
-        <span class=nx>$t</span><span class=p>(</span><span class=s2>&#34;head&#34;</span><span class=p>)[</span><span class=mi>0</span><span class=p>].</span><span class=nx>appendChild</span><span class=p>(</span><span class=mi>_</span><span class=nx>script</span><span class=p>);</span>   
+        <span class=k>this</span><span class=p>.</span><span class=nx>load_js_url</span> <span class=o>=</span> <span class=nx>_url</span><span class=p>;</span>   
+        <span class=kd>var</span> <span class=nx>_script</span> <span class=o>=</span> <span class=nx>$c</span><span class=p>(</span><span class=s2>&#34;SCRIPT&#34;</span><span class=p>);</span>   
+        <span class=nx>_script</span><span class=p>.</span><span class=nx>setAttribute</span><span class=p>(</span><span class=s2>&#34;type&#34;</span><span class=p>,</span> <span class=s2>&#34;text/javascript&#34;</span><span class=p>);</span>   
+        <span class=nx>_script</span><span class=p>.</span><span class=nx>setAttribute</span><span class=p>(</span><span class=s2>&#34;src&#34;</span><span class=p>,</span> <span class=nx>_url</span><span class=p>);</span>   
+        <span class=nx>$t</span><span class=p>(</span><span class=s2>&#34;head&#34;</span><span class=p>)[</span><span class=mi>0</span><span class=p>].</span><span class=nx>appendChild</span><span class=p>(</span><span class=nx>_script</span><span class=p>);</span>   
         <span class=k>if</span> <span class=p>(</span><span class=nb>document</span><span class=p>.</span><span class=nx>all</span><span class=p>)</span> <span class=p>{</span>   
-            <span class=mi>_</span><span class=nx>script</span><span class=p>.</span><span class=nx>onreadystatechange</span> <span class=o>=</span> <span class=kd>function</span><span class=p>(){</span>   
-                <span class=k>if</span> <span class=p>(</span><span class=sr>/onload|loaded|complete/</span><span class=p>.</span><span class=nx>test</span><span class=p>(</span><span class=mi>_</span><span class=nx>script</span><span class=p>.</span><span class=nx>readyState</span><span class=p>))</span> <span class=p>{</span>   
+            <span class=nx>_script</span><span class=p>.</span><span class=nx>onreadystatechange</span> <span class=o>=</span> <span class=kd>function</span><span class=p>(){</span>   
+                <span class=k>if</span> <span class=p>(</span><span class=sr>/onload|loaded|complete/</span><span class=p>.</span><span class=nx>test</span><span class=p>(</span><span class=nx>_script</span><span class=p>.</span><span class=nx>readyState</span><span class=p>))</span> <span class=p>{</span>   
                     <span class=nx>callback</span> <span class=o>&amp;&amp;</span> <span class=nx>callback</span><span class=p>();</span>   
                 <span class=p>}</span>   
             <span class=p>};</span>   
         <span class=p>}</span>   
         <span class=k>else</span> <span class=p>{</span>   
-            <span class=mi>_</span><span class=nx>script</span><span class=p>.</span><span class=nx>onload</span> <span class=o>=</span> <span class=kd>function</span><span class=p>(){</span>   
+            <span class=nx>_script</span><span class=p>.</span><span class=nx>onload</span> <span class=o>=</span> <span class=kd>function</span><span class=p>(){</span>   
                 <span class=nx>callback</span><span class=p>();</span>   
             <span class=p>};</span>   
         <span class=p>}</span>   
@@ -224,7 +224,7 @@ js
 <section class=copyright>
 &copy;
 2011 -
-2021 不折腾不舒服
+2022 不折腾不舒服
 </section>
 <section class=powerby>
 Built with <a href=https://gohugo.io/ target=_blank rel=noopener>Hugo</a> <br>

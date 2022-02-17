@@ -9,7 +9,7 @@
 <meta property="og:type" content="article"><meta property="article:section" content="Post"><meta property="article:tag" content="touch"><meta property="article:tag" content="cocos2d-x"><meta property="article:published_time" content="2014-04-02T00:00:00+00:00"><meta property="article:modified_time" content="2014-04-02T00:00:00+00:00">
 <meta name=twitter:title content="cocos2d-x2.2.2 触摸事件的遮挡">
 <meta name=twitter:description content="cocos2d-x2.2.2 触摸事件的遮挡">
-<script type=application/javascript>var doNotTrack=!1;doNotTrack||(window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)},ga.l=+new Date,ga('create','UA-24477176-1','auto'),ga('send','pageview'))</script>
+<script type=application/javascript>var doNotTrack=!1;doNotTrack||(window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)},ga.l=+new Date,ga('create','G-MZ35160LM3','auto'),ga('send','pageview'))</script>
 <script async src=https://www.google-analytics.com/analytics.js></script>
 </head>
 <body>
@@ -86,7 +86,7 @@ cocos2d-x2.2.2 触摸事件的遮挡
 <p>这里需要两个点就可以做到.</p>
 <div class=highlight><pre tabindex=0 class=chroma><code class=language-javascript data-lang=javascript><span class=kd>var</span> <span class=nx>bgLayer</span> <span class=o>=</span> <span class=nx>cc</span><span class=p>.</span><span class=nx>LayerColor</span><span class=p>.</span><span class=nx>extend</span><span class=p>({</span>
     <span class=nx>ctor</span><span class=o>:</span> <span class=kd>function</span> <span class=p>()</span> <span class=p>{</span>
-        <span class=k>this</span><span class=p>.</span><span class=mi>_</span><span class=kr>super</span><span class=p>();</span>
+        <span class=k>this</span><span class=p>.</span><span class=nx>_super</span><span class=p>();</span>
         <span class=nx>cc</span><span class=p>.</span><span class=nx>associateWithNative</span><span class=p>(</span><span class=k>this</span><span class=p>,</span> <span class=nx>cc</span><span class=p>.</span><span class=nx>LayerColor</span><span class=p>);</span>
         <span class=nx>cc</span><span class=p>.</span><span class=nx>registerTargetedDelegate</span><span class=p>(</span><span class=o>-</span><span class=mi>129</span><span class=p>,</span> <span class=kc>true</span><span class=p>,</span> <span class=k>this</span><span class=p>);</span>  <span class=c1>//1.设置触摸的优先级
 </span><span class=c1></span>        <span class=k>this</span><span class=p>.</span><span class=nx>setTouchEnabled</span><span class=p>(</span><span class=kc>true</span><span class=p>);</span>
@@ -145,7 +145,7 @@ cocos2d-x2.2.2 触摸事件的遮挡
 <section class=copyright>
 &copy;
 2011 -
-2021 不折腾不舒服
+2022 不折腾不舒服
 </section>
 <section class=powerby>
 Built with <a href=https://gohugo.io/ target=_blank rel=noopener>Hugo</a> <br>

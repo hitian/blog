@@ -12,7 +12,7 @@ docker run \  -p 2379:2379 \  -p 2380:2380 \  --volume=/dir/for/etcd/data:/etcd-
 <meta name=twitter:title content="Deploying an etcd cluster as a standalone cluster on docker">
 <meta name=twitter:description content="docker host ip addr 192.168.5.170
 docker run \  -p 2379:2379 \  -p 2380:2380 \  --volume=/dir/for/etcd/data:/etcd-data \  --name etcd --rm -d quay.io/coreos/etcd:latest \  /usr/local/bin/etcd \  --data-dir=/etcd-data --name node1 \  --initial-advertise-peer-urls http://192.168.5.170:2380 \  --listen-peer-urls http://0.0.0.0:2380 \  --advertise-client-urls http://192.168.5.170:2379 \  --listen-client-urls http://0.0.0.0:2379 \  --initial-cluster node1=http://192.168.5.170:2380 ">
-<script type=application/javascript>var doNotTrack=!1;doNotTrack||(window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)},ga.l=+new Date,ga('create','UA-24477176-1','auto'),ga('send','pageview'))</script>
+<script type=application/javascript>var doNotTrack=!1;doNotTrack||(window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)},ga.l=+new Date,ga('create','G-MZ35160LM3','auto'),ga('send','pageview'))</script>
 <script async src=https://www.google-analytics.com/analytics.js></script>
 </head>
 <body>
@@ -219,7 +219,7 @@ docker <span class=nb>exec</span> -it etcd etcdctl member list
 <section class=copyright>
 &copy;
 2011 -
-2021 不折腾不舒服
+2022 不折腾不舒服
 </section>
 <section class=powerby>
 Built with <a href=https://gohugo.io/ target=_blank rel=noopener>Hugo</a> <br>

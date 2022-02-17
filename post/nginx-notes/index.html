@@ -15,7 +15,7 @@ location ~ \.(jpg|jpeg|gif|css|png|js|ico|xml)$ { access_log off; expires 30d; }
 <meta name=twitter:description content="添加phpmyadmin alias
 location /phpmyadmin { root /usr/share/; index index.php index.html index.htm; location ~ ^/phpmyadmin/(.+\.php)$ { try_files $uri =404; root /usr/share/; fastcgi_pass 127.0.0.1:9000; fastcgi_index index.php; fastcgi_param SCRIPT_FILENAME $document_root$fastcgi_script_name; include /etc/nginx/fastcgi_params; } location ~* ^/phpmyadmin/(.+\.(jpg|jpeg|gif|css|png|js|ico|html|xml|txt))$ { root /usr/share/; } } 静态文件缓存， 并且不记录日志
 location ~ \.(jpg|jpeg|gif|css|png|js|ico|xml)$ { access_log off; expires 30d; } ">
-<script type=application/javascript>var doNotTrack=!1;doNotTrack||(window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)},ga.l=+new Date,ga('create','UA-24477176-1','auto'),ga('send','pageview'))</script>
+<script type=application/javascript>var doNotTrack=!1;doNotTrack||(window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)},ga.l=+new Date,ga('create','G-MZ35160LM3','auto'),ga('send','pageview'))</script>
 <script async src=https://www.google-analytics.com/analytics.js></script>
 </head>
 <body>
@@ -173,7 +173,7 @@ location ~ <span class=se>\.</span><span class=o>(</span>jpg<span class=p>|</spa
 <section class=copyright>
 &copy;
 2011 -
-2021 不折腾不舒服
+2022 不折腾不舒服
 </section>
 <section class=powerby>
 Built with <a href=https://gohugo.io/ target=_blank rel=noopener>Hugo</a> <br>

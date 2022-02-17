@@ -42,7 +42,7 @@ export DP_Id=&amp;#34;API Token 的 ID&amp;#34; export DP_Key=&amp;#34;API Token
 acme.sh --issue --dns dns_dp -d example.com -d www.example.com 每个 -d 参数可以指定一个域名， 可以把需要用到的子域名也全部列出来
 自动运行的流程大概是这样的
  使用dnspod的api 自动生成所有的验证域名txt记录 _acme-challenge.example.com， 每个子域名也会有_acme-challenge.www.example.com 等待dns记录生效，自动脚本会sleep 120 秒 检查验证的dns记录， 没有问题的话签发证书保存到本地， 再次调用api 移除验证的域名 创建crontab 自动更新相关证书。  生成好的证书位于 ~/.">
-<script type=application/javascript>var doNotTrack=!1;doNotTrack||(window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)},ga.l=+new Date,ga('create','UA-24477176-1','auto'),ga('send','pageview'))</script>
+<script type=application/javascript>var doNotTrack=!1;doNotTrack||(window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)},ga.l=+new Date,ga('create','G-MZ35160LM3','auto'),ga('send','pageview'))</script>
 <script async src=https://www.google-analytics.com/analytics.js></script>
 </head>
 <body>
@@ -211,7 +211,7 @@ acme.sh --issue --dns dns_dp -d example.com -d www.example.com
 <section class=copyright>
 &copy;
 2011 -
-2021 不折腾不舒服
+2022 不折腾不舒服
 </section>
 <section class=powerby>
 Built with <a href=https://gohugo.io/ target=_blank rel=noopener>Hugo</a> <br>

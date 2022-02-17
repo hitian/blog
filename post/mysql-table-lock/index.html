@@ -18,7 +18,7 @@ mysql&amp;gt;deletefromtest_my;QueryOK,1rowaffected(0.00sec)mysql&amp;gt;alterta
 mysql&amp;gt;locktabletest_mywrite;QueryOK,0rowsaffected(0.00sec)mysql&amp;gt;select*fromtest_my;Emptyset(0.00sec)mysql&amp;gt;insertintotest_myvalues(null,1,1);QueryOK,1rowaffected(0.00sec)mysql&amp;gt;select*fromtest_my;+—-+——+——–+|id|pid|enable|+—-+——+——–+|1|1|1|+—-+——+——–+1rowinset(0.00sec)mysql&amp;gt;truncatetabletest_my;ERROR1192(HY000):Can&amp;#39;t execute the given command because you have active lock ed tables or an active transaction TRUNCATE TABLE was not allowed under LOCK TABLES.
 表锁中不可以使用清空操作, 这个让我很郁闷.
 mysql&amp;gt;deletefromtest_my;QueryOK,1rowaffected(0.00sec)mysql&amp;gt;altertabletest_myauto_increment=1;QueryOK,0rowsaffected(0.05sec)Records:0Duplicates:0Warnings:0mysql&amp;gt;select*fromtest_my;Emptyset(0.00sec)mysql&amp;gt;insertintotest_myvalues(null,99,1);QueryOK,1rowaffected(0.00sec)mysql&amp;gt;select*fromtest_my;+—-+——+——–+|id|pid|enable|+—-+——+——–+|1|99|1|+—-+——+——–+1rowinset(0.00sec)mysql&amp;gt;分布操作: 先删除所有数据, 然后重新设置自增长的起始点却可以.">
-<script type=application/javascript>var doNotTrack=!1;doNotTrack||(window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)},ga.l=+new Date,ga('create','UA-24477176-1','auto'),ga('send','pageview'))</script>
+<script type=application/javascript>var doNotTrack=!1;doNotTrack||(window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)},ga.l=+new Date,ga('create','G-MZ35160LM3','auto'),ga('send','pageview'))</script>
 <script async src=https://www.google-analytics.com/analytics.js></script>
 </head>
 <body>
@@ -181,7 +181,7 @@ mysql
 <section class=copyright>
 &copy;
 2011 -
-2021 不折腾不舒服
+2022 不折腾不舒服
 </section>
 <section class=powerby>
 Built with <a href=https://gohugo.io/ target=_blank rel=noopener>Hugo</a> <br>

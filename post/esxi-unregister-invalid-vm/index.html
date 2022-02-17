@@ -21,7 +21,7 @@
 开启SSH服务，登录esxi。
 [root@localhost:/vmfs] vim-cmd vmsvc/getallvms Skipping invalid VM &amp;#39;6&amp;#39; Vmid Name File Guest OS Version Annotation 1 ubuntu-desktop [HDD] ubuntu-desktop/ubuntu-desktop.vmx ubuntu64Guest vmx-13 11 ubuntu-server-1710 [HDD] ubuntu-server-1710/ubuntu-server-1710.vmx ubuntu64Guest vmx-13 2 ubuntu-server [HDD] ubuntu-server/ubuntu-server.vmx ubuntu64Guest vmx-13 3 windows-7 [HDD] windows-7/windows-7.vmx windows7_64Guest vmx-13 使用 vim-cmd vmsvc/getallvms 命令可以看到提示出现问题的是 VM 6， 接下来直接删除就好了。
 [root@localhost:/vmfs] vim-cmd vmsvc/unregister 6 刷新web界面， 就可以看到出错的vm已经被删除了。">
-<script type=application/javascript>var doNotTrack=!1;doNotTrack||(window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)},ga.l=+new Date,ga('create','UA-24477176-1','auto'),ga('send','pageview'))</script>
+<script type=application/javascript>var doNotTrack=!1;doNotTrack||(window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)},ga.l=+new Date,ga('create','G-MZ35160LM3','auto'),ga('send','pageview'))</script>
 <script async src=https://www.google-analytics.com/analytics.js></script>
 </head>
 <body>
@@ -171,7 +171,7 @@ Vmid          Name                               File                           
 <section class=copyright>
 &copy;
 2011 -
-2021 不折腾不舒服
+2022 不折腾不舒服
 </section>
 <section class=powerby>
 Built with <a href=https://gohugo.io/ target=_blank rel=noopener>Hugo</a> <br>

@@ -21,7 +21,7 @@ echo xfce4-session &amp;gt; ~/.xsession 设置 xrdp 自启动并重启 sudo syst
 sudo apt install xrdp xorg xfce4 xfce4-goodies dbus-x11 x11-xserver-utils xfce4-terminal 设置服务和配置 将桌面更改为 xfce, 编辑文件 /etc/xrdp/startwm.sh
 # 将这两行注释 #test -x /etc/X11/Xsession &amp;amp;&amp;amp; exec /etc/X11/Xsession #exec /bin/sh /etc/X11/Xsession # 新增 exec startxfce4 设置xsession
 echo xfce4-session &amp;gt; ~/.xsession 设置 xrdp 自启动并重启 sudo systemctl enable --now xrdp sudo systemctl restart xrdp 安装注意 xrdp 默认开放 3389/TCP 到所有的网卡, 如果要跨公网使用, 最好使用ufw限制一下可以连接的ip段, 另外修改默认的端口也能减少被试探的概率">
-<script type=application/javascript>var doNotTrack=!1;doNotTrack||(window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)},ga.l=+new Date,ga('create','UA-24477176-1','auto'),ga('send','pageview'))</script>
+<script type=application/javascript>var doNotTrack=!1;doNotTrack||(window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)},ga.l=+new Date,ga('create','G-MZ35160LM3','auto'),ga('send','pageview'))</script>
 <script async src=https://www.google-analytics.com/analytics.js></script>
 </head>
 <body>
@@ -168,7 +168,7 @@ sudo systemctl restart xrdp
 <section class=copyright>
 &copy;
 2011 -
-2021 不折腾不舒服
+2022 不折腾不舒服
 </section>
 <section class=powerby>
 Built with <a href=https://gohugo.io/ target=_blank rel=noopener>Hugo</a> <br>

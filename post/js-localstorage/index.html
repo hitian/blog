@@ -9,7 +9,7 @@
 <meta property="og:type" content="article"><meta property="article:section" content="Post"><meta property="article:tag" content="js"><meta property="article:tag" content="cookie"><meta property="article:tag" content="localstorage"><meta property="article:published_time" content="2011-08-21T00:00:00+00:00"><meta property="article:modified_time" content="2011-08-21T00:00:00+00:00">
 <meta name=twitter:title content="js本地存储和cookie操作">
 <meta name=twitter:description content="/** * tian */ //storage tools; var st = { sset : function(a, b) { storage.set(a, b); }, sget : function(a) { return storage.get(a); }, sdel : function(a) { storage.del(a); }, cset : function(a, b) { var c = [], _para = {}; for ( var d = 0, _len = arguments.length; d &amp;lt; _len; d++) { c[d] = arguments[d]; } ; _para.exps = typeof (c[2]) != &amp;#34;undefined&amp;#34; ? Math.ceil(c[2] / (3600 * 24)) : undefined; _para.">
-<script type=application/javascript>var doNotTrack=!1;doNotTrack||(window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)},ga.l=+new Date,ga('create','UA-24477176-1','auto'),ga('send','pageview'))</script>
+<script type=application/javascript>var doNotTrack=!1;doNotTrack||(window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)},ga.l=+new Date,ga('create','G-MZ35160LM3','auto'),ga('send','pageview'))</script>
 <script async src=https://www.google-analytics.com/analytics.js></script>
 </head>
 <body>
@@ -92,19 +92,19 @@ js
         <span class=nx>storage</span><span class=p>.</span><span class=nx>del</span><span class=p>(</span><span class=nx>a</span><span class=p>);</span>
     <span class=p>},</span>
     <span class=nx>cset</span> <span class=o>:</span> <span class=kd>function</span><span class=p>(</span><span class=nx>a</span><span class=p>,</span> <span class=nx>b</span><span class=p>)</span> <span class=p>{</span>
-        <span class=kd>var</span> <span class=nx>c</span> <span class=o>=</span> <span class=p>[],</span> <span class=mi>_</span><span class=nx>para</span> <span class=o>=</span> <span class=p>{};</span>
-        <span class=k>for</span> <span class=p>(</span> <span class=kd>var</span> <span class=nx>d</span> <span class=o>=</span> <span class=mi>0</span><span class=p>,</span> <span class=mi>_</span><span class=nx>len</span> <span class=o>=</span> <span class=nx>arguments</span><span class=p>.</span><span class=nx>length</span><span class=p>;</span> <span class=nx>d</span> <span class=o>&lt;</span> <span class=mi>_</span><span class=nx>len</span><span class=p>;</span> <span class=nx>d</span><span class=o>++</span><span class=p>)</span> <span class=p>{</span>
+        <span class=kd>var</span> <span class=nx>c</span> <span class=o>=</span> <span class=p>[],</span> <span class=nx>_para</span> <span class=o>=</span> <span class=p>{};</span>
+        <span class=k>for</span> <span class=p>(</span> <span class=kd>var</span> <span class=nx>d</span> <span class=o>=</span> <span class=mi>0</span><span class=p>,</span> <span class=nx>_len</span> <span class=o>=</span> <span class=nx>arguments</span><span class=p>.</span><span class=nx>length</span><span class=p>;</span> <span class=nx>d</span> <span class=o>&lt;</span> <span class=nx>_len</span><span class=p>;</span> <span class=nx>d</span><span class=o>++</span><span class=p>)</span> <span class=p>{</span>
             <span class=nx>c</span><span class=p>[</span><span class=nx>d</span><span class=p>]</span> <span class=o>=</span> <span class=nx>arguments</span><span class=p>[</span><span class=nx>d</span><span class=p>];</span>
         <span class=p>}</span>
         <span class=p>;</span>
-        <span class=mi>_</span><span class=nx>para</span><span class=p>.</span><span class=nx>exps</span> <span class=o>=</span> <span class=k>typeof</span> <span class=p>(</span><span class=nx>c</span><span class=p>[</span><span class=mi>2</span><span class=p>])</span> <span class=o>!=</span> <span class=s2>&#34;undefined&#34;</span> <span class=o>?</span> <span class=nb>Math</span><span class=p>.</span><span class=nx>ceil</span><span class=p>(</span><span class=nx>c</span><span class=p>[</span><span class=mi>2</span><span class=p>]</span>
+        <span class=nx>_para</span><span class=p>.</span><span class=nx>exps</span> <span class=o>=</span> <span class=k>typeof</span> <span class=p>(</span><span class=nx>c</span><span class=p>[</span><span class=mi>2</span><span class=p>])</span> <span class=o>!=</span> <span class=s2>&#34;undefined&#34;</span> <span class=o>?</span> <span class=nb>Math</span><span class=p>.</span><span class=nx>ceil</span><span class=p>(</span><span class=nx>c</span><span class=p>[</span><span class=mi>2</span><span class=p>]</span>
                 <span class=o>/</span> <span class=p>(</span><span class=mi>3600</span> <span class=o>*</span> <span class=mi>24</span><span class=p>))</span> <span class=o>:</span> <span class=kc>undefined</span><span class=p>;</span>
-        <span class=mi>_</span><span class=nx>para</span><span class=p>.</span><span class=nx>name</span> <span class=o>=</span> <span class=nx>c</span><span class=p>[</span><span class=mi>0</span><span class=p>];</span>
-        <span class=mi>_</span><span class=nx>para</span><span class=p>.</span><span class=nx>val</span> <span class=o>=</span> <span class=nx>c</span><span class=p>[</span><span class=mi>1</span><span class=p>];</span>
-        <span class=mi>_</span><span class=nx>para</span><span class=p>.</span><span class=nx>path</span> <span class=o>=</span> <span class=nx>c</span><span class=p>[</span><span class=mi>3</span><span class=p>];</span>
-        <span class=mi>_</span><span class=nx>para</span><span class=p>.</span><span class=nx>domain</span> <span class=o>=</span> <span class=nx>c</span><span class=p>[</span><span class=mi>4</span><span class=p>];</span>
-        <span class=mi>_</span><span class=nx>para</span><span class=p>.</span><span class=nx>secure</span> <span class=o>=</span> <span class=nx>c</span><span class=p>[</span><span class=mi>5</span><span class=p>];</span>
-        <span class=nx>storage</span><span class=p>.</span><span class=nx>cookieStore</span><span class=p>.</span><span class=nx>set</span><span class=p>(</span><span class=mi>_</span><span class=nx>para</span><span class=p>);</span>
+        <span class=nx>_para</span><span class=p>.</span><span class=nx>name</span> <span class=o>=</span> <span class=nx>c</span><span class=p>[</span><span class=mi>0</span><span class=p>];</span>
+        <span class=nx>_para</span><span class=p>.</span><span class=nx>val</span> <span class=o>=</span> <span class=nx>c</span><span class=p>[</span><span class=mi>1</span><span class=p>];</span>
+        <span class=nx>_para</span><span class=p>.</span><span class=nx>path</span> <span class=o>=</span> <span class=nx>c</span><span class=p>[</span><span class=mi>3</span><span class=p>];</span>
+        <span class=nx>_para</span><span class=p>.</span><span class=nx>domain</span> <span class=o>=</span> <span class=nx>c</span><span class=p>[</span><span class=mi>4</span><span class=p>];</span>
+        <span class=nx>_para</span><span class=p>.</span><span class=nx>secure</span> <span class=o>=</span> <span class=nx>c</span><span class=p>[</span><span class=mi>5</span><span class=p>];</span>
+        <span class=nx>storage</span><span class=p>.</span><span class=nx>cookieStore</span><span class=p>.</span><span class=nx>set</span><span class=p>(</span><span class=nx>_para</span><span class=p>);</span>
         <span class=k>return</span> <span class=kc>false</span><span class=p>;</span>
     <span class=p>},</span>
     <span class=nx>cget</span> <span class=o>:</span> <span class=kd>function</span><span class=p>(</span><span class=nx>a</span><span class=p>)</span> <span class=p>{</span>
@@ -118,47 +118,47 @@ js
 <span class=c1>//
 </span><span class=c1></span> 
 <span class=kd>var</span> <span class=nx>storage</span> <span class=o>=</span> <span class=p>{</span>
-    <span class=mi>_</span><span class=nx>g</span><span class=o>:</span> <span class=kd>function</span> <span class=p>(</span><span class=nx>id</span><span class=p>){</span><span class=k>return</span> <span class=nb>document</span><span class=p>.</span><span class=nx>getElementById</span><span class=p>(</span><span class=nx>id</span><span class=p>);},</span>
-    <span class=mi>_</span><span class=nx>c</span><span class=o>:</span> <span class=kd>function</span> <span class=p>(</span><span class=nx>a</span><span class=p>){</span><span class=k>return</span> <span class=nb>document</span><span class=p>.</span><span class=nx>createElement</span><span class=p>(</span><span class=nx>a</span><span class=p>);},</span>
-    <span class=mi>_</span><span class=nx>domain</span> <span class=o>:</span> <span class=s1>&#39;&#39;</span><span class=p>,</span>       <span class=c1>//设置cookie域名
-</span><span class=c1></span>    <span class=mi>_</span><span class=nx>store</span> <span class=o>:</span> <span class=kc>null</span><span class=p>,</span>
-    <span class=mi>_</span><span class=nx>init</span> <span class=o>:</span> <span class=kc>false</span><span class=p>,</span>
+    <span class=nx>_g</span><span class=o>:</span> <span class=kd>function</span> <span class=p>(</span><span class=nx>id</span><span class=p>){</span><span class=k>return</span> <span class=nb>document</span><span class=p>.</span><span class=nx>getElementById</span><span class=p>(</span><span class=nx>id</span><span class=p>);},</span>
+    <span class=nx>_c</span><span class=o>:</span> <span class=kd>function</span> <span class=p>(</span><span class=nx>a</span><span class=p>){</span><span class=k>return</span> <span class=nb>document</span><span class=p>.</span><span class=nx>createElement</span><span class=p>(</span><span class=nx>a</span><span class=p>);},</span>
+    <span class=nx>_domain</span> <span class=o>:</span> <span class=s1>&#39;&#39;</span><span class=p>,</span>       <span class=c1>//设置cookie域名
+</span><span class=c1></span>    <span class=nx>_store</span> <span class=o>:</span> <span class=kc>null</span><span class=p>,</span>
+    <span class=nx>_init</span> <span class=o>:</span> <span class=kc>false</span><span class=p>,</span>
     <span class=nx>init</span> <span class=o>:</span> <span class=kd>function</span><span class=p>()</span> <span class=p>{</span>
         <span class=k>if</span> <span class=p>(</span><span class=nb>window</span><span class=p>.</span><span class=nx>localStorage</span><span class=p>)</span> <span class=p>{</span>
-            <span class=k>this</span><span class=p>.</span><span class=mi>_</span><span class=nx>store</span> <span class=o>=</span> <span class=k>this</span><span class=p>.</span><span class=nx>localStore</span><span class=p>;</span>
+            <span class=k>this</span><span class=p>.</span><span class=nx>_store</span> <span class=o>=</span> <span class=k>this</span><span class=p>.</span><span class=nx>localStore</span><span class=p>;</span>
         <span class=p>}</span> <span class=k>else</span> <span class=k>if</span> <span class=p>(</span><span class=nx>navigator</span><span class=p>.</span><span class=nx>userAgent</span><span class=p>.</span><span class=nx>indexOf</span><span class=p>(</span><span class=s1>&#39;MSIE&#39;</span><span class=p>)</span> <span class=o>&gt;=</span> <span class=mi>0</span><span class=p>)</span> <span class=p>{</span>
-            <span class=k>this</span><span class=p>.</span><span class=mi>_</span><span class=nx>store</span> <span class=o>=</span> <span class=k>this</span><span class=p>.</span><span class=nx>ieStore</span><span class=p>;</span>
+            <span class=k>this</span><span class=p>.</span><span class=nx>_store</span> <span class=o>=</span> <span class=k>this</span><span class=p>.</span><span class=nx>ieStore</span><span class=p>;</span>
         <span class=p>}</span>
-        <span class=k>this</span><span class=p>.</span><span class=mi>_</span><span class=nx>store</span><span class=p>.</span><span class=nx>init</span><span class=p>();</span>
+        <span class=k>this</span><span class=p>.</span><span class=nx>_store</span><span class=p>.</span><span class=nx>init</span><span class=p>();</span>
         <span class=k>this</span><span class=p>.</span><span class=nx>cookieStore</span><span class=p>.</span><span class=nx>init</span><span class=p>();</span>
     <span class=p>},</span>
     <span class=nx>set</span> <span class=o>:</span> <span class=kd>function</span><span class=p>(</span><span class=nx>a</span><span class=p>,</span> <span class=nx>b</span><span class=p>)</span> <span class=p>{</span>
         <span class=k>this</span><span class=p>.</span><span class=nx>checkInit</span><span class=p>();</span>
-        <span class=k>this</span><span class=p>.</span><span class=mi>_</span><span class=nx>store</span><span class=p>.</span><span class=nx>set</span><span class=p>({</span>
+        <span class=k>this</span><span class=p>.</span><span class=nx>_store</span><span class=p>.</span><span class=nx>set</span><span class=p>({</span>
             <span class=nx>name</span> <span class=o>:</span> <span class=nx>a</span><span class=p>,</span>
             <span class=nx>val</span> <span class=o>:</span> <span class=nx>b</span>
         <span class=p>});</span>
     <span class=p>},</span>
     <span class=nx>get</span> <span class=o>:</span> <span class=kd>function</span><span class=p>(</span><span class=nx>a</span><span class=p>)</span> <span class=p>{</span>
         <span class=k>this</span><span class=p>.</span><span class=nx>checkInit</span><span class=p>();</span>
-        <span class=k>return</span> <span class=k>this</span><span class=p>.</span><span class=mi>_</span><span class=nx>store</span><span class=p>.</span><span class=nx>get</span><span class=p>(</span><span class=nx>a</span><span class=p>);</span>
+        <span class=k>return</span> <span class=k>this</span><span class=p>.</span><span class=nx>_store</span><span class=p>.</span><span class=nx>get</span><span class=p>(</span><span class=nx>a</span><span class=p>);</span>
     <span class=p>},</span>
     <span class=nx>del</span> <span class=o>:</span> <span class=kd>function</span><span class=p>(</span><span class=nx>a</span><span class=p>)</span> <span class=p>{</span>
         <span class=k>this</span><span class=p>.</span><span class=nx>checkInit</span><span class=p>();</span>
-        <span class=k>this</span><span class=p>.</span><span class=mi>_</span><span class=nx>store</span><span class=p>.</span><span class=nx>del</span><span class=p>(</span><span class=nx>a</span><span class=p>);</span>
+        <span class=k>this</span><span class=p>.</span><span class=nx>_store</span><span class=p>.</span><span class=nx>del</span><span class=p>(</span><span class=nx>a</span><span class=p>);</span>
     <span class=p>},</span>
     <span class=nx>isInit</span> <span class=o>:</span> <span class=kd>function</span><span class=p>()</span> <span class=p>{</span>
         <span class=k>this</span><span class=p>.</span><span class=nx>checkInit</span><span class=p>();</span>
-        <span class=k>return</span> <span class=k>this</span><span class=p>.</span><span class=mi>_</span><span class=nx>store</span><span class=p>.</span><span class=mi>_</span><span class=nx>init</span><span class=p>;</span>
+        <span class=k>return</span> <span class=k>this</span><span class=p>.</span><span class=nx>_store</span><span class=p>.</span><span class=nx>_init</span><span class=p>;</span>
     <span class=p>},</span>
     <span class=nx>checkInit</span> <span class=o>:</span> <span class=kd>function</span><span class=p>()</span> <span class=p>{</span>
-        <span class=k>if</span> <span class=p>(</span><span class=o>!</span><span class=k>this</span><span class=p>.</span><span class=mi>_</span><span class=nx>init</span><span class=p>)</span>
+        <span class=k>if</span> <span class=p>(</span><span class=o>!</span><span class=k>this</span><span class=p>.</span><span class=nx>_init</span><span class=p>)</span>
             <span class=k>this</span><span class=p>.</span><span class=nx>init</span><span class=p>();</span>
-        <span class=k>if</span> <span class=p>(</span><span class=o>!</span><span class=k>this</span><span class=p>.</span><span class=mi>_</span><span class=nx>store</span><span class=p>.</span><span class=nx>isInit</span><span class=p>())</span>
-            <span class=k>this</span><span class=p>.</span><span class=mi>_</span><span class=nx>store</span><span class=p>.</span><span class=nx>init</span><span class=p>();</span>
+        <span class=k>if</span> <span class=p>(</span><span class=o>!</span><span class=k>this</span><span class=p>.</span><span class=nx>_store</span><span class=p>.</span><span class=nx>isInit</span><span class=p>())</span>
+            <span class=k>this</span><span class=p>.</span><span class=nx>_store</span><span class=p>.</span><span class=nx>init</span><span class=p>();</span>
     <span class=p>},</span>
     <span class=nx>localStore</span> <span class=o>:</span> <span class=p>{</span>
-        <span class=mi>_</span><span class=nx>init</span> <span class=o>:</span> <span class=kc>true</span><span class=p>,</span>
+        <span class=nx>_init</span> <span class=o>:</span> <span class=kc>true</span><span class=p>,</span>
         <span class=nx>init</span> <span class=o>:</span> <span class=kd>function</span><span class=p>()</span> <span class=p>{</span>
         <span class=p>},</span>
         <span class=nx>get</span> <span class=o>:</span> <span class=kd>function</span><span class=p>(</span><span class=nx>a</span><span class=p>)</span> <span class=p>{</span>
@@ -176,18 +176,18 @@ js
     <span class=p>},</span>
     <span class=nx>ieStore</span> <span class=o>:</span> <span class=p>{</span>
         <span class=nx>exps</span> <span class=o>:</span> <span class=mi>180</span><span class=p>,</span>
-        <span class=mi>_</span><span class=nx>init</span> <span class=o>:</span> <span class=kc>false</span><span class=p>,</span>
+        <span class=nx>_init</span> <span class=o>:</span> <span class=kc>false</span><span class=p>,</span>
         <span class=nx>init</span> <span class=o>:</span> <span class=kd>function</span><span class=p>()</span> <span class=p>{</span>
-            <span class=k>if</span> <span class=p>(</span><span class=o>!</span><span class=k>this</span><span class=p>.</span><span class=nx>isInit</span><span class=p>()</span> <span class=o>&amp;&amp;</span> <span class=o>!</span><span class=nx>storage</span><span class=p>.</span><span class=mi>_</span><span class=nx>g</span><span class=p>(</span><span class=s2>&#34;_ieStore&#34;</span><span class=p>))</span> <span class=p>{</span>
-                <span class=k>this</span><span class=p>.</span><span class=nx>store</span> <span class=o>=</span> <span class=nx>storage</span><span class=p>.</span><span class=mi>_</span><span class=nx>c</span><span class=p>(</span><span class=s2>&#34;INPUT&#34;</span><span class=p>),</span> <span class=k>this</span><span class=p>.</span><span class=nx>store</span><span class=p>.</span><span class=nx>type</span> <span class=o>=</span> <span class=s2>&#34;hidden&#34;</span><span class=p>,</span>
+            <span class=k>if</span> <span class=p>(</span><span class=o>!</span><span class=k>this</span><span class=p>.</span><span class=nx>isInit</span><span class=p>()</span> <span class=o>&amp;&amp;</span> <span class=o>!</span><span class=nx>storage</span><span class=p>.</span><span class=nx>_g</span><span class=p>(</span><span class=s2>&#34;_ieStore&#34;</span><span class=p>))</span> <span class=p>{</span>
+                <span class=k>this</span><span class=p>.</span><span class=nx>store</span> <span class=o>=</span> <span class=nx>storage</span><span class=p>.</span><span class=nx>_c</span><span class=p>(</span><span class=s2>&#34;INPUT&#34;</span><span class=p>),</span> <span class=k>this</span><span class=p>.</span><span class=nx>store</span><span class=p>.</span><span class=nx>type</span> <span class=o>=</span> <span class=s2>&#34;hidden&#34;</span><span class=p>,</span>
                         <span class=k>this</span><span class=p>.</span><span class=nx>store</span><span class=p>.</span><span class=nx>id</span> <span class=o>=</span> <span class=s2>&#34;_ieStore&#34;</span><span class=p>,</span> <span class=k>this</span><span class=p>.</span><span class=nx>store</span>
                                 <span class=p>.</span><span class=nx>addBehavior</span><span class=p>(</span><span class=s2>&#34;#default#userData&#34;</span><span class=p>);</span>
-                <span class=nx>storage</span><span class=p>.</span><span class=mi>_</span><span class=nx>g</span><span class=p>(</span><span class=s2>&#34;logo&#34;</span><span class=p>).</span><span class=nx>appendChild</span><span class=p>(</span><span class=k>this</span><span class=p>.</span><span class=nx>store</span><span class=p>);</span>
+                <span class=nx>storage</span><span class=p>.</span><span class=nx>_g</span><span class=p>(</span><span class=s2>&#34;logo&#34;</span><span class=p>).</span><span class=nx>appendChild</span><span class=p>(</span><span class=k>this</span><span class=p>.</span><span class=nx>store</span><span class=p>);</span>
                 <span class=c1>//注意这里的logo 是页面里一个标签的id,用来创建userdata的数据载体.
-</span><span class=c1></span>                <span class=k>this</span><span class=p>.</span><span class=mi>_</span><span class=nx>init</span> <span class=o>=</span> <span class=kc>true</span><span class=p>;</span>
-            <span class=p>}</span> <span class=k>else</span> <span class=k>if</span> <span class=p>(</span><span class=nx>storage</span><span class=p>.</span><span class=mi>_</span><span class=nx>g</span><span class=p>(</span><span class=s2>&#34;_ieStore&#34;</span><span class=p>))</span> <span class=p>{</span>
-                <span class=k>this</span><span class=p>.</span><span class=nx>store</span> <span class=o>=</span> <span class=nx>storage</span><span class=p>.</span><span class=mi>_</span><span class=nx>g</span><span class=p>(</span><span class=s2>&#34;_ieStore&#34;</span><span class=p>);</span>
-                <span class=k>this</span><span class=p>.</span><span class=mi>_</span><span class=nx>init</span> <span class=o>=</span> <span class=kc>true</span><span class=p>;</span>
+</span><span class=c1></span>                <span class=k>this</span><span class=p>.</span><span class=nx>_init</span> <span class=o>=</span> <span class=kc>true</span><span class=p>;</span>
+            <span class=p>}</span> <span class=k>else</span> <span class=k>if</span> <span class=p>(</span><span class=nx>storage</span><span class=p>.</span><span class=nx>_g</span><span class=p>(</span><span class=s2>&#34;_ieStore&#34;</span><span class=p>))</span> <span class=p>{</span>
+                <span class=k>this</span><span class=p>.</span><span class=nx>store</span> <span class=o>=</span> <span class=nx>storage</span><span class=p>.</span><span class=nx>_g</span><span class=p>(</span><span class=s2>&#34;_ieStore&#34;</span><span class=p>);</span>
+                <span class=k>this</span><span class=p>.</span><span class=nx>_init</span> <span class=o>=</span> <span class=kc>true</span><span class=p>;</span>
             <span class=p>}</span>
             <span class=k>return</span> <span class=k>this</span><span class=p>;</span>
         <span class=p>},</span>
@@ -200,14 +200,14 @@ js
             <span class=k>return</span> <span class=k>this</span><span class=p>.</span><span class=nx>store</span><span class=p>.</span><span class=nx>getAttribute</span><span class=p>(</span><span class=s2>&#34;__store__&#34;</span><span class=p>)</span> <span class=o>||</span> <span class=kc>null</span><span class=p>;</span>
         <span class=p>},</span>
         <span class=nx>set</span> <span class=o>:</span> <span class=kd>function</span><span class=p>(</span><span class=nx>a</span><span class=p>)</span> <span class=p>{</span>
-            <span class=kd>var</span> <span class=nx>b</span> <span class=o>=</span> <span class=nx>a</span><span class=p>.</span><span class=nx>name</span><span class=p>,</span> <span class=mi>_</span><span class=nx>val</span> <span class=o>=</span> <span class=nx>a</span><span class=p>.</span><span class=nx>val</span><span class=p>,</span> 
-                <span class=mi>_</span><span class=nx>exps</span> <span class=o>=</span> <span class=k>typeof</span> <span class=p>(</span><span class=nx>a</span><span class=p>.</span><span class=nx>exps</span><span class=p>)</span> <span class=o>!=</span> <span class=s2>&#34;undefined&#34;</span> <span class=o>?</span> <span class=nx>a</span><span class=p>.</span><span class=nx>exps</span>
+            <span class=kd>var</span> <span class=nx>b</span> <span class=o>=</span> <span class=nx>a</span><span class=p>.</span><span class=nx>name</span><span class=p>,</span> <span class=nx>_val</span> <span class=o>=</span> <span class=nx>a</span><span class=p>.</span><span class=nx>val</span><span class=p>,</span> 
+                <span class=nx>_exps</span> <span class=o>=</span> <span class=k>typeof</span> <span class=p>(</span><span class=nx>a</span><span class=p>.</span><span class=nx>exps</span><span class=p>)</span> <span class=o>!=</span> <span class=s2>&#34;undefined&#34;</span> <span class=o>?</span> <span class=nx>a</span><span class=p>.</span><span class=nx>exps</span>
                     <span class=o>:</span> <span class=k>this</span><span class=p>.</span><span class=nx>exps</span><span class=p>;</span>
             <span class=kd>var</span> <span class=nx>c</span> <span class=o>=</span> <span class=k>new</span> <span class=nb>Date</span><span class=p>();</span>
-            <span class=nx>c</span><span class=p>.</span><span class=nx>setDate</span><span class=p>(</span><span class=nx>c</span><span class=p>.</span><span class=nx>getDate</span><span class=p>()</span> <span class=o>+</span> <span class=mi>_</span><span class=nx>exps</span><span class=p>);</span>
+            <span class=nx>c</span><span class=p>.</span><span class=nx>setDate</span><span class=p>(</span><span class=nx>c</span><span class=p>.</span><span class=nx>getDate</span><span class=p>()</span> <span class=o>+</span> <span class=nx>_exps</span><span class=p>);</span>
             <span class=k>this</span><span class=p>.</span><span class=nx>store</span><span class=p>.</span><span class=nx>load</span><span class=p>(</span><span class=nx>b</span><span class=p>);</span>
             <span class=k>this</span><span class=p>.</span><span class=nx>store</span><span class=p>.</span><span class=nx>expires</span> <span class=o>=</span> <span class=nx>c</span><span class=p>.</span><span class=nx>toUTCString</span><span class=p>();</span>
-            <span class=k>this</span><span class=p>.</span><span class=nx>store</span><span class=p>.</span><span class=nx>setAttribute</span><span class=p>(</span><span class=s2>&#34;__store__&#34;</span><span class=p>,</span> <span class=mi>_</span><span class=nx>val</span><span class=p>);</span>
+            <span class=k>this</span><span class=p>.</span><span class=nx>store</span><span class=p>.</span><span class=nx>setAttribute</span><span class=p>(</span><span class=s2>&#34;__store__&#34;</span><span class=p>,</span> <span class=nx>_val</span><span class=p>);</span>
             <span class=k>this</span><span class=p>.</span><span class=nx>store</span><span class=p>.</span><span class=nx>save</span><span class=p>(</span><span class=nx>b</span><span class=p>);</span>
         <span class=p>},</span>
         <span class=nx>del</span> <span class=o>:</span> <span class=kd>function</span><span class=p>(</span><span class=nx>a</span><span class=p>)</span> <span class=p>{</span>
@@ -216,26 +216,26 @@ js
             <span class=p>},</span> <span class=kc>false</span><span class=p>,</span> <span class=o>-</span><span class=mi>1</span><span class=p>);</span>
         <span class=p>},</span>
         <span class=nx>isInit</span> <span class=o>:</span> <span class=kd>function</span><span class=p>()</span> <span class=p>{</span>
-            <span class=k>return</span> <span class=k>this</span><span class=p>.</span><span class=mi>_</span><span class=nx>init</span><span class=p>;</span>
+            <span class=k>return</span> <span class=k>this</span><span class=p>.</span><span class=nx>_init</span><span class=p>;</span>
         <span class=p>}</span>
     <span class=p>},</span>
     <span class=nx>cookieStore</span> <span class=o>:</span> <span class=p>{</span>
-        <span class=mi>_</span><span class=nx>init</span> <span class=o>:</span> <span class=kc>false</span><span class=p>,</span>
-        <span class=mi>_</span><span class=nx>exps</span> <span class=o>:</span> <span class=mi>180</span><span class=p>,</span>
-        <span class=mi>_</span><span class=nx>secure</span> <span class=o>:</span> <span class=s2>&#34;&#34;</span><span class=p>,</span>
+        <span class=nx>_init</span> <span class=o>:</span> <span class=kc>false</span><span class=p>,</span>
+        <span class=nx>_exps</span> <span class=o>:</span> <span class=mi>180</span><span class=p>,</span>
+        <span class=nx>_secure</span> <span class=o>:</span> <span class=s2>&#34;&#34;</span><span class=p>,</span>
         <span class=nx>init</span> <span class=o>:</span> <span class=kd>function</span><span class=p>()</span> <span class=p>{</span>
             <span class=k>if</span> <span class=p>(</span><span class=o>!</span><span class=k>this</span><span class=p>.</span><span class=nx>isInit</span><span class=p>())</span> <span class=p>{</span>
-                <span class=k>this</span><span class=p>.</span><span class=mi>_</span><span class=nx>domain</span> <span class=o>=</span> <span class=nx>storage</span><span class=p>.</span><span class=mi>_</span><span class=nx>domain</span><span class=p>;</span>
-                <span class=k>this</span><span class=p>.</span><span class=mi>_</span><span class=nx>init</span> <span class=o>=</span> <span class=kc>true</span><span class=p>;</span>
+                <span class=k>this</span><span class=p>.</span><span class=nx>_domain</span> <span class=o>=</span> <span class=nx>storage</span><span class=p>.</span><span class=nx>_domain</span><span class=p>;</span>
+                <span class=k>this</span><span class=p>.</span><span class=nx>_init</span> <span class=o>=</span> <span class=kc>true</span><span class=p>;</span>
             <span class=p>}</span>
             <span class=p>;</span>
             <span class=k>return</span> <span class=k>this</span><span class=p>;</span>
         <span class=p>},</span>
         <span class=nx>get</span> <span class=o>:</span> <span class=kd>function</span><span class=p>(</span><span class=nx>a</span><span class=p>)</span> <span class=p>{</span>
-            <span class=k>if</span> <span class=p>(</span><span class=o>!</span><span class=k>this</span><span class=p>.</span><span class=mi>_</span><span class=nx>init</span><span class=p>)</span>
+            <span class=k>if</span> <span class=p>(</span><span class=o>!</span><span class=k>this</span><span class=p>.</span><span class=nx>_init</span><span class=p>)</span>
                 <span class=k>this</span><span class=p>.</span><span class=nx>init</span><span class=p>();</span>
             <span class=kd>var</span> <span class=nx>b</span> <span class=o>=</span> <span class=nb>document</span><span class=p>.</span><span class=nx>cookie</span><span class=p>.</span><span class=nx>split</span><span class=p>(</span><span class=s2>&#34;; &#34;</span><span class=p>),</span> <span class=nx>a</span> <span class=o>=</span> <span class=nx>a</span> <span class=o>+</span> <span class=s2>&#34;=&#34;</span><span class=p>;</span>
-            <span class=k>for</span> <span class=p>(</span> <span class=kd>var</span> <span class=nx>c</span> <span class=o>=</span> <span class=mi>0</span><span class=p>,</span> <span class=mi>_</span><span class=nx>len</span> <span class=o>=</span> <span class=nx>b</span><span class=p>.</span><span class=nx>length</span><span class=p>;</span> <span class=nx>c</span> <span class=o>&lt;</span> <span class=mi>_</span><span class=nx>len</span><span class=p>;</span> <span class=nx>c</span><span class=o>++</span><span class=p>)</span> <span class=p>{</span>
+            <span class=k>for</span> <span class=p>(</span> <span class=kd>var</span> <span class=nx>c</span> <span class=o>=</span> <span class=mi>0</span><span class=p>,</span> <span class=nx>_len</span> <span class=o>=</span> <span class=nx>b</span><span class=p>.</span><span class=nx>length</span><span class=p>;</span> <span class=nx>c</span> <span class=o>&lt;</span> <span class=nx>_len</span><span class=p>;</span> <span class=nx>c</span><span class=o>++</span><span class=p>)</span> <span class=p>{</span>
                 <span class=k>if</span> <span class=p>(</span><span class=nx>b</span><span class=p>[</span><span class=nx>c</span><span class=p>].</span><span class=nx>indexOf</span><span class=p>(</span><span class=nx>a</span><span class=p>)</span> <span class=o>!=</span> <span class=s2>&#34;-1&#34;</span><span class=p>)</span> <span class=p>{</span>
                     <span class=k>try</span> <span class=p>{</span>
                         <span class=k>return</span> <span class=nb>decodeURIComponent</span><span class=p>(</span><span class=nx>b</span><span class=p>[</span><span class=nx>c</span><span class=p>].</span><span class=nx>replace</span><span class=p>(</span><span class=nx>a</span><span class=p>,</span> <span class=s2>&#34;&#34;</span><span class=p>));</span>
@@ -247,27 +247,27 @@ js
             <span class=k>return</span> <span class=kc>null</span><span class=p>;</span>
         <span class=p>},</span>
         <span class=nx>set</span> <span class=o>:</span> <span class=kd>function</span><span class=p>(</span><span class=nx>a</span><span class=p>)</span> <span class=p>{</span>
-            <span class=k>if</span> <span class=p>(</span><span class=o>!</span><span class=k>this</span><span class=p>.</span><span class=mi>_</span><span class=nx>init</span><span class=p>)</span>
+            <span class=k>if</span> <span class=p>(</span><span class=o>!</span><span class=k>this</span><span class=p>.</span><span class=nx>_init</span><span class=p>)</span>
                 <span class=k>this</span><span class=p>.</span><span class=nx>init</span><span class=p>();</span>
             <span class=kd>var</span> <span class=nx>b</span> <span class=o>=</span> <span class=k>new</span> <span class=nb>Date</span><span class=p>();</span>
-            <span class=kd>var</span> <span class=nx>c</span> <span class=o>=</span> <span class=nx>a</span><span class=p>.</span><span class=nx>name</span><span class=p>,</span> <span class=mi>_</span><span class=nx>val</span> <span class=o>=</span> <span class=nx>a</span><span class=p>.</span><span class=nx>val</span><span class=p>,</span> <span class=mi>_</span><span class=nx>exps</span> <span class=o>=</span> <span class=k>typeof</span> <span class=p>(</span><span class=nx>a</span><span class=p>.</span><span class=nx>exps</span><span class=p>)</span> <span class=o>!=</span> <span class=s2>&#34;undefined&#34;</span> <span class=o>?</span> <span class=nx>a</span><span class=p>.</span><span class=nx>exps</span>
-                    <span class=o>:</span> <span class=k>this</span><span class=p>.</span><span class=mi>_</span><span class=nx>exps</span><span class=p>,</span> <span class=mi>_</span><span class=nx>domain</span> <span class=o>=</span> <span class=nx>a</span><span class=p>.</span><span class=nx>domain</span> <span class=o>||</span> <span class=k>this</span><span class=p>.</span><span class=mi>_</span><span class=nx>domain</span><span class=p>,</span> <span class=mi>_</span><span class=nx>path</span> <span class=o>=</span> <span class=nx>a</span><span class=p>.</span><span class=nx>path</span>
-                    <span class=o>||</span> <span class=s2>&#34;/&#34;</span><span class=p>,</span> <span class=mi>_</span><span class=nx>secure</span> <span class=o>=</span> <span class=nx>a</span><span class=p>.</span><span class=nx>secure</span> <span class=o>||</span> <span class=k>this</span><span class=p>.</span><span class=mi>_</span><span class=nx>secure</span><span class=p>;</span>
-            <span class=nx>b</span><span class=p>.</span><span class=nx>setDate</span><span class=p>(</span><span class=nx>b</span><span class=p>.</span><span class=nx>getDate</span><span class=p>()</span> <span class=o>+</span> <span class=mi>_</span><span class=nx>exps</span><span class=p>);</span>
-            <span class=kd>var</span> <span class=nx>d</span> <span class=o>=</span> <span class=nx>c</span> <span class=o>+</span> <span class=s2>&#34;=&#34;</span> <span class=o>+</span> <span class=nx>escape</span><span class=p>(</span><span class=mi>_</span><span class=nx>val</span><span class=p>)</span>
-                    <span class=o>+</span> <span class=p>(</span><span class=mi>_</span><span class=nx>exps</span> <span class=o>?</span> <span class=s2>&#34;;expires=&#34;</span> <span class=o>+</span> <span class=nx>b</span><span class=p>.</span><span class=nx>toUTCString</span><span class=p>()</span> <span class=o>:</span> <span class=s2>&#34;&#34;</span><span class=p>)</span>
-                    <span class=o>+</span> <span class=p>(</span><span class=mi>_</span><span class=nx>path</span> <span class=o>?</span> <span class=s2>&#34;;path=&#34;</span> <span class=o>+</span> <span class=mi>_</span><span class=nx>path</span> <span class=o>:</span> <span class=s2>&#34;&#34;</span><span class=p>)</span>
-                    <span class=o>+</span> <span class=p>(</span><span class=mi>_</span><span class=nx>domain</span> <span class=o>?</span> <span class=s2>&#34;;domain=&#34;</span> <span class=o>+</span> <span class=mi>_</span><span class=nx>domain</span> <span class=o>:</span> <span class=s2>&#34;&#34;</span><span class=p>)</span>
-                    <span class=o>+</span> <span class=p>(</span><span class=mi>_</span><span class=nx>secure</span> <span class=o>?</span> <span class=s2>&#34;;secure=&#34;</span> <span class=o>:</span> <span class=s2>&#34;&#34;</span><span class=p>);</span>
+            <span class=kd>var</span> <span class=nx>c</span> <span class=o>=</span> <span class=nx>a</span><span class=p>.</span><span class=nx>name</span><span class=p>,</span> <span class=nx>_val</span> <span class=o>=</span> <span class=nx>a</span><span class=p>.</span><span class=nx>val</span><span class=p>,</span> <span class=nx>_exps</span> <span class=o>=</span> <span class=k>typeof</span> <span class=p>(</span><span class=nx>a</span><span class=p>.</span><span class=nx>exps</span><span class=p>)</span> <span class=o>!=</span> <span class=s2>&#34;undefined&#34;</span> <span class=o>?</span> <span class=nx>a</span><span class=p>.</span><span class=nx>exps</span>
+                    <span class=o>:</span> <span class=k>this</span><span class=p>.</span><span class=nx>_exps</span><span class=p>,</span> <span class=nx>_domain</span> <span class=o>=</span> <span class=nx>a</span><span class=p>.</span><span class=nx>domain</span> <span class=o>||</span> <span class=k>this</span><span class=p>.</span><span class=nx>_domain</span><span class=p>,</span> <span class=nx>_path</span> <span class=o>=</span> <span class=nx>a</span><span class=p>.</span><span class=nx>path</span>
+                    <span class=o>||</span> <span class=s2>&#34;/&#34;</span><span class=p>,</span> <span class=nx>_secure</span> <span class=o>=</span> <span class=nx>a</span><span class=p>.</span><span class=nx>secure</span> <span class=o>||</span> <span class=k>this</span><span class=p>.</span><span class=nx>_secure</span><span class=p>;</span>
+            <span class=nx>b</span><span class=p>.</span><span class=nx>setDate</span><span class=p>(</span><span class=nx>b</span><span class=p>.</span><span class=nx>getDate</span><span class=p>()</span> <span class=o>+</span> <span class=nx>_exps</span><span class=p>);</span>
+            <span class=kd>var</span> <span class=nx>d</span> <span class=o>=</span> <span class=nx>c</span> <span class=o>+</span> <span class=s2>&#34;=&#34;</span> <span class=o>+</span> <span class=nx>escape</span><span class=p>(</span><span class=nx>_val</span><span class=p>)</span>
+                    <span class=o>+</span> <span class=p>(</span><span class=nx>_exps</span> <span class=o>?</span> <span class=s2>&#34;;expires=&#34;</span> <span class=o>+</span> <span class=nx>b</span><span class=p>.</span><span class=nx>toUTCString</span><span class=p>()</span> <span class=o>:</span> <span class=s2>&#34;&#34;</span><span class=p>)</span>
+                    <span class=o>+</span> <span class=p>(</span><span class=nx>_path</span> <span class=o>?</span> <span class=s2>&#34;;path=&#34;</span> <span class=o>+</span> <span class=nx>_path</span> <span class=o>:</span> <span class=s2>&#34;&#34;</span><span class=p>)</span>
+                    <span class=o>+</span> <span class=p>(</span><span class=nx>_domain</span> <span class=o>?</span> <span class=s2>&#34;;domain=&#34;</span> <span class=o>+</span> <span class=nx>_domain</span> <span class=o>:</span> <span class=s2>&#34;&#34;</span><span class=p>)</span>
+                    <span class=o>+</span> <span class=p>(</span><span class=nx>_secure</span> <span class=o>?</span> <span class=s2>&#34;;secure=&#34;</span> <span class=o>:</span> <span class=s2>&#34;&#34;</span><span class=p>);</span>
             <span class=nb>document</span><span class=p>.</span><span class=nx>cookie</span> <span class=o>=</span> <span class=nx>d</span><span class=p>;</span>
         <span class=p>},</span>
         <span class=nx>del</span> <span class=o>:</span> <span class=kd>function</span><span class=p>(</span><span class=nx>a</span><span class=p>)</span> <span class=p>{</span>
-            <span class=k>if</span> <span class=p>(</span><span class=o>!</span><span class=k>this</span><span class=p>.</span><span class=mi>_</span><span class=nx>init</span><span class=p>)</span>
+            <span class=k>if</span> <span class=p>(</span><span class=o>!</span><span class=k>this</span><span class=p>.</span><span class=nx>_init</span><span class=p>)</span>
                 <span class=k>this</span><span class=p>.</span><span class=nx>init</span><span class=p>();</span>
             <span class=k>if</span> <span class=p>(</span><span class=nb>String</span><span class=p>.</span><span class=nx>prototype</span><span class=p>.</span><span class=nx>toLowerCase</span><span class=p>.</span><span class=nx>apply</span><span class=p>(</span><span class=k>typeof</span> <span class=p>(</span><span class=nx>a</span><span class=p>))</span> <span class=o>==</span> <span class=s2>&#34;string&#34;</span><span class=p>)</span> <span class=p>{</span>
-                <span class=mi>_</span><span class=nx>name</span> <span class=o>=</span> <span class=nx>a</span><span class=p>;</span>
+                <span class=nx>_name</span> <span class=o>=</span> <span class=nx>a</span><span class=p>;</span>
                 <span class=nx>a</span> <span class=o>=</span> <span class=p>{</span>
-                    <span class=nx>name</span> <span class=o>:</span> <span class=mi>_</span><span class=nx>name</span><span class=p>,</span>
+                    <span class=nx>name</span> <span class=o>:</span> <span class=nx>_name</span><span class=p>,</span>
                     <span class=nx>val</span> <span class=o>:</span> <span class=s2>&#34;&#34;</span>
                 <span class=p>};</span>
             <span class=p>}</span>
@@ -276,7 +276,7 @@ js
             <span class=k>this</span><span class=p>.</span><span class=nx>set</span><span class=p>(</span><span class=nx>a</span><span class=p>);</span>
         <span class=p>},</span>
         <span class=nx>isInit</span> <span class=o>:</span> <span class=kd>function</span><span class=p>()</span> <span class=p>{</span>
-            <span class=k>return</span> <span class=k>this</span><span class=p>.</span><span class=mi>_</span><span class=nx>init</span><span class=p>;</span>
+            <span class=k>return</span> <span class=k>this</span><span class=p>.</span><span class=nx>_init</span><span class=p>;</span>
         <span class=p>}</span>
     <span class=p>}</span>
 <span class=p>};</span>
@@ -333,7 +333,7 @@ js
 <section class=copyright>
 &copy;
 2011 -
-2021 不折腾不舒服
+2022 不折腾不舒服
 </section>
 <section class=powerby>
 Built with <a href=https://gohugo.io/ target=_blank rel=noopener>Hugo</a> <br>
