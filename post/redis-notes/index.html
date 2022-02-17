@@ -24,8 +24,8 @@ array(2) { [&amp;quot;name&amp;quot;]=&amp;gt; string(4) &amp;quot;tian&amp;quot
 &amp;lt;?php /** * redis test * @author jia.tian@me.com */ $redis = new Redis(); $redis-&amp;gt;connect(&amp;#39;127.0.0.1&amp;#39;, &amp;#39;6379&amp;#39;); $redis-&amp;gt;setOption(Redis::OPT_SERIALIZER, Redis::SERIALIZER_PHP); $redis-&amp;gt;set(&amp;#39;tian&amp;#39;, array(&amp;#39;name&amp;#39; =&amp;gt; &amp;#39;tian&amp;#39;, &amp;#39;passwd&amp;#39; =&amp;gt; &amp;#39;123456&amp;#39;)); var_dump($redis-&amp;gt;get(&amp;#39;tian&amp;#39;)); $redis-&amp;gt;set(&amp;#39;tian&amp;#39;, &amp;#39;test&amp;#39;); var_dump($redis-&amp;gt;get(&amp;#39;tian&amp;#39;)); 运行结果：
 array(2) { [&amp;quot;name&amp;quot;]=&amp;gt; string(4) &amp;quot;tian&amp;quot; [&amp;quot;passwd&amp;quot;]=&amp;gt; string(6) &amp;quot;123456&amp;quot; } string(4) &amp;quot;test&amp;quot;
 可以看到将array存入和取出时会自动进行了处理这是直接在github上下载的zip包在ubuntu上安装的，可以看到版本号是2.2.2">
-<script type=application/javascript>var doNotTrack=!1;doNotTrack||(window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)},ga.l=+new Date,ga('create','G-MZ35160LM3','auto'),ga('send','pageview'))</script>
-<script async src=https://www.google-analytics.com/analytics.js></script>
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-MZ35160LM3"></script>
+<script>var doNotTrack=!1;if(!doNotTrack){window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments)}gtag('js',new Date),gtag('config','G-MZ35160LM3',{anonymize_ip:!1})}</script>
 </head>
 <body>
 <script>(function(){const a='StackColorScheme';localStorage.getItem(a)||localStorage.setItem(a,"auto")})()</script><script>(function(){const b='StackColorScheme',a=localStorage.getItem(b),c=window.matchMedia('(prefers-color-scheme: dark)').matches===!0;a=='dark'||a==='auto'&&c?document.body.dataset.scheme='dark':document.body.dataset.scheme='light'})()</script><div class="container main-container flex on-phone--column extended article-page with-toolbar">

@@ -15,8 +15,8 @@ location ~ \.(jpg|jpeg|gif|css|png|js|ico|xml)$ { access_log off; expires 30d; }
 <meta name=twitter:description content="添加phpmyadmin alias
 location /phpmyadmin { root /usr/share/; index index.php index.html index.htm; location ~ ^/phpmyadmin/(.+\.php)$ { try_files $uri =404; root /usr/share/; fastcgi_pass 127.0.0.1:9000; fastcgi_index index.php; fastcgi_param SCRIPT_FILENAME $document_root$fastcgi_script_name; include /etc/nginx/fastcgi_params; } location ~* ^/phpmyadmin/(.+\.(jpg|jpeg|gif|css|png|js|ico|html|xml|txt))$ { root /usr/share/; } } 静态文件缓存， 并且不记录日志
 location ~ \.(jpg|jpeg|gif|css|png|js|ico|xml)$ { access_log off; expires 30d; } ">
-<script type=application/javascript>var doNotTrack=!1;doNotTrack||(window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)},ga.l=+new Date,ga('create','G-MZ35160LM3','auto'),ga('send','pageview'))</script>
-<script async src=https://www.google-analytics.com/analytics.js></script>
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-MZ35160LM3"></script>
+<script>var doNotTrack=!1;if(!doNotTrack){window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments)}gtag('js',new Date),gtag('config','G-MZ35160LM3',{anonymize_ip:!1})}</script>
 </head>
 <body>
 <script>(function(){const a='StackColorScheme';localStorage.getItem(a)||localStorage.setItem(a,"auto")})()</script><script>(function(){const b='StackColorScheme',a=localStorage.getItem(b),c=window.matchMedia('(prefers-color-scheme: dark)').matches===!0;a=='dark'||a==='auto'&&c?document.body.dataset.scheme='dark':document.body.dataset.scheme='light'})()</script><div class="container main-container flex on-phone--column extended article-page with-toolbar">

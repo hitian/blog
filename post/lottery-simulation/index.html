@@ -12,8 +12,8 @@
 <meta name=twitter:title content="使用类似于奖池方式的抽奖模拟">
 <meta name=twitter:description content="一般来说要做一个抽奖程序会立即想到用随机数. 但是通常情况下随机数也不是那么的随机, 数量比较大的时候才能体现出比较平均, 数量较小的时候中奖概率的可控性将会很差. 一不小心多被抽中几个麻烦就大了.
 &amp;lt;?php class T_prize{ var $item; var $table; /** * 抽奖主程序 外部调用入口 * @param unknown_type $db 数据库链接 * @param unknown_type $id 抽奖类型 */ function prize($db, $id){ global $prize_set; //  if(!isset($prize_set[$id])){ return false; } $this-&amp;gt;item = $prize_set[$id]; $table = &amp;#39;my_prize_store_table_&amp;#39; . $id; //抽奖并发较大时可以进行分表, 多生成几个奖池  //$table = &amp;#39;my_prize_store_table_&amp;#39; . $id . &amp;#39;_&amp;#39; . rand(0, 4);  $this-&amp;gt;table = $table; //防止多个用户抽到同一个条目, 进行锁表  $db-&amp;gt;query(&amp;#34;lock table &amp;#34; . $table .">
-<script type=application/javascript>var doNotTrack=!1;doNotTrack||(window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)},ga.l=+new Date,ga('create','G-MZ35160LM3','auto'),ga('send','pageview'))</script>
-<script async src=https://www.google-analytics.com/analytics.js></script>
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-MZ35160LM3"></script>
+<script>var doNotTrack=!1;if(!doNotTrack){window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments)}gtag('js',new Date),gtag('config','G-MZ35160LM3',{anonymize_ip:!1})}</script>
 </head>
 <body>
 <script>(function(){const a='StackColorScheme';localStorage.getItem(a)||localStorage.setItem(a,"auto")})()</script><script>(function(){const b='StackColorScheme',a=localStorage.getItem(b),c=window.matchMedia('(prefers-color-scheme: dark)').matches===!0;a=='dark'||a==='auto'&&c?document.body.dataset.scheme='dark':document.body.dataset.scheme='light'})()</script><div class="container main-container flex on-phone--column extended article-page with-toolbar">

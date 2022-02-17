@@ -27,8 +27,8 @@
 当由于网络或者程序执行效率的问题js的速度很慢的时候, 等待js加载过程中, 页面是可以正常操作的, 但是一旦操作有同一服务器上不同资源的请求时, 这个请求就完全卡住了, 例如点击页面上的链接. 同一服务器下资源并不能很好的多线程同时请求.
 本地用sleep模拟一个需要长时间才能完成的响应.
 &amp;lt;?php //do something and need some times  header(&amp;#39;Content-Type:application/x-javascript&amp;#39;); sleep(5); echo &amp;#34;alert(&amp;#39;results&amp;#39;);&amp;#34;; ?">
-<script type=application/javascript>var doNotTrack=!1;doNotTrack||(window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)},ga.l=+new Date,ga('create','G-MZ35160LM3','auto'),ga('send','pageview'))</script>
-<script async src=https://www.google-analytics.com/analytics.js></script>
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-MZ35160LM3"></script>
+<script>var doNotTrack=!1;if(!doNotTrack){window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments)}gtag('js',new Date),gtag('config','G-MZ35160LM3',{anonymize_ip:!1})}</script>
 </head>
 <body>
 <script>(function(){const a='StackColorScheme';localStorage.getItem(a)||localStorage.setItem(a,"auto")})()</script><script>(function(){const b='StackColorScheme',a=localStorage.getItem(b),c=window.matchMedia('(prefers-color-scheme: dark)').matches===!0;a=='dark'||a==='auto'&&c?document.body.dataset.scheme='dark':document.body.dataset.scheme='light'})()</script><div class="container main-container flex on-phone--column extended article-page with-toolbar">

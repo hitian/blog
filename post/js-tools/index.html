@@ -9,8 +9,8 @@
 <meta property="og:type" content="article"><meta property="article:section" content="Post"><meta property="article:tag" content="js"><meta property="article:published_time" content="2011-08-24T00:00:00+00:00"><meta property="article:modified_time" content="2011-08-24T00:00:00+00:00">
 <meta name=twitter:title content="js常用操作">
 <meta name=twitter:description content="/** * js常用操作类 */ var myTools = window.myTools = { // getElementById  g: function(id){ return document.getElementById(id); }, // getElementsByTagName  t: function(name){ return document.getElementsByTagName(name); }, writeHTML: function(id, content){ var target = this.g(id); if (target != null) { target.innerHTML = content; } }, //计算字符串长度， 中文算两个字  slen: function(str){ c = 0; for (var i = 0; i &amp;lt; str.length; i++) (str.charCodeAt(i) &amp;gt; 255) ? c += 2 : c++; return c; }, // 还原html  HtmlToStr: function(vStr){ vStr = vStr.">
-<script type=application/javascript>var doNotTrack=!1;doNotTrack||(window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)},ga.l=+new Date,ga('create','G-MZ35160LM3','auto'),ga('send','pageview'))</script>
-<script async src=https://www.google-analytics.com/analytics.js></script>
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-MZ35160LM3"></script>
+<script>var doNotTrack=!1;if(!doNotTrack){window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments)}gtag('js',new Date),gtag('config','G-MZ35160LM3',{anonymize_ip:!1})}</script>
 </head>
 <body>
 <script>(function(){const a='StackColorScheme';localStorage.getItem(a)||localStorage.setItem(a,"auto")})()</script><script>(function(){const b='StackColorScheme',a=localStorage.getItem(b),c=window.matchMedia('(prefers-color-scheme: dark)').matches===!0;a=='dark'||a==='auto'&&c?document.body.dataset.scheme='dark':document.body.dataset.scheme='light'})()</script><div class="container main-container flex on-phone--column extended article-page with-toolbar">

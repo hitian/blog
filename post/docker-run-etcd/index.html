@@ -12,8 +12,8 @@ docker run \  -p 2379:2379 \  -p 2380:2380 \  --volume=/dir/for/etcd/data:/etcd-
 <meta name=twitter:title content="Deploying an etcd cluster as a standalone cluster on docker">
 <meta name=twitter:description content="docker host ip addr 192.168.5.170
 docker run \  -p 2379:2379 \  -p 2380:2380 \  --volume=/dir/for/etcd/data:/etcd-data \  --name etcd --rm -d quay.io/coreos/etcd:latest \  /usr/local/bin/etcd \  --data-dir=/etcd-data --name node1 \  --initial-advertise-peer-urls http://192.168.5.170:2380 \  --listen-peer-urls http://0.0.0.0:2380 \  --advertise-client-urls http://192.168.5.170:2379 \  --listen-client-urls http://0.0.0.0:2379 \  --initial-cluster node1=http://192.168.5.170:2380 ">
-<script type=application/javascript>var doNotTrack=!1;doNotTrack||(window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)},ga.l=+new Date,ga('create','G-MZ35160LM3','auto'),ga('send','pageview'))</script>
-<script async src=https://www.google-analytics.com/analytics.js></script>
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-MZ35160LM3"></script>
+<script>var doNotTrack=!1;if(!doNotTrack){window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments)}gtag('js',new Date),gtag('config','G-MZ35160LM3',{anonymize_ip:!1})}</script>
 </head>
 <body>
 <script>(function(){const a='StackColorScheme';localStorage.getItem(a)||localStorage.setItem(a,"auto")})()</script><script>(function(){const b='StackColorScheme',a=localStorage.getItem(b),c=window.matchMedia('(prefers-color-scheme: dark)').matches===!0;a=='dark'||a==='auto'&&c?document.body.dataset.scheme='dark':document.body.dataset.scheme='light'})()</script><div class="container main-container flex on-phone--column extended article-page with-toolbar">

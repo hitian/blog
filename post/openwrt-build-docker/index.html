@@ -27,8 +27,8 @@ build clone openwrt source code
 git clone https://git.openwrt.org/openwrt/openwrt.git
 # 更新软件包 docker run -it --rm -v $PWD:/build ubuntu-openwrt-build ./scripts/feeds update -a # 使用 menuconfig 设置编译目标、内核信息、以及需要安装的包 docker run -it --rm -v $PWD:/build ubuntu-openwrt-build make menuconfig # 编译 docker run -it --rm -v $PWD:/build ubuntu-openwrt-build make -j4 生成的文件会放置在bin目录下, 例如 MT7621 放在 bin/targets/ramips/mt7621
 #配置文件，同运行 make menuconfig 后生成的.config 文件，可以用于备份和还原配置 config.">
-<script type=application/javascript>var doNotTrack=!1;doNotTrack||(window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)},ga.l=+new Date,ga('create','G-MZ35160LM3','auto'),ga('send','pageview'))</script>
-<script async src=https://www.google-analytics.com/analytics.js></script>
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-MZ35160LM3"></script>
+<script>var doNotTrack=!1;if(!doNotTrack){window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments)}gtag('js',new Date),gtag('config','G-MZ35160LM3',{anonymize_ip:!1})}</script>
 </head>
 <body>
 <script>(function(){const a='StackColorScheme';localStorage.getItem(a)||localStorage.setItem(a,"auto")})()</script><script>(function(){const b='StackColorScheme',a=localStorage.getItem(b),c=window.matchMedia('(prefers-color-scheme: dark)').matches===!0;a=='dark'||a==='auto'&&c?document.body.dataset.scheme='dark':document.body.dataset.scheme='light'})()</script><div class="container main-container flex on-phone--column extended article-page with-toolbar">
