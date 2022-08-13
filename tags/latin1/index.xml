@@ -1,12 +1,5 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>latin1 on 不折腾不舒服</title><link>https://hitian.info/tags/latin1/</link><description>Recent content in latin1 on 不折腾不舒服</description><generator>Hugo -- gohugo.io</generator><language>zh-cn</language><lastBuildDate>Thu, 12 Apr 2012 00:00:00 +0000</lastBuildDate><atom:link href="https://hitian.info/tags/latin1/index.xml" rel="self" type="application/rss+xml"/><item><title>用latin1来存储汉字真抓狂</title><link>https://hitian.info/post/latin1/</link><pubDate>Thu, 12 Apr 2012 00:00:00 +0000</pubDate><guid>https://hitian.info/post/latin1/</guid><description>mysql 是从4.0 升级上来的， 直接使用了latin1_swedish_ci 存储汉字，没想到带来了好多麻烦。
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>latin1 on 哈哈哈</title><link>https://hitian.info/tags/latin1/</link><description>Recent content in latin1 on 哈哈哈</description><generator>Hugo -- gohugo.io</generator><language>zh-cn</language><lastBuildDate>Thu, 12 Apr 2012 00:00:00 +0000</lastBuildDate><atom:link href="https://hitian.info/tags/latin1/index.xml" rel="self" type="application/rss+xml"/><item><title>用latin1来存储汉字真抓狂</title><link>https://hitian.info/post/latin1/</link><pubDate>Thu, 12 Apr 2012 00:00:00 +0000</pubDate><guid>https://hitian.info/post/latin1/</guid><description>mysql 是从4.0 升级上来的， 直接使用了latin1_swedish_ci 存储汉字，没想到带来了好多麻烦。
 首先是查询的问题
-mysql&amp;gt;select*frommy_citywherecity=’温州’;+—-+——+|id|city|+—-+——+|2|温州||3|梧州|+—-+——+2rowsinset(0.00sec)当然, 如果在city上建了唯一索引, 就会倒大霉&amp;hellip;
- 然后是排序的问题
-mysql&amp;gt;select*frommy_cityorderbycityasc;+—-+——+|id|city|+—-+——+|6|上海||2|温州||3|梧州||5|西安||7|重庆||4|安徽||8|北京|+—-+——+7rowsinset(0.00sec)这个顺序看起来更让人郁闷&amp;hellip;
-临时解决方案:
-ALTER TABLE `my_city` CHANGE `city` `city` VARCHAR( 25 ) CHARACTER SET latin1 COLLATE latin1_bin NULL DEFAULT NULL
-修改字段的collate 为 latin1_bin
-然后再来看
-查询正常
-mysql&amp;gt;select*frommy_citywherecity=’温州’;+—-+——+|id|city|+—-+——+|2|温州|+—-+——+1rowinset(0.00sec)排序部分正常
-mysql&amp;gt;select*frommy_cityorderbycityasc;+—-+——+|id|city|+—-+——+|4|安徽||8|北京||6|上海||2|温州||3|梧州||5|西安||7|重庆|+—-+——+7rowsinset(0.00sec)要彻底解决还是要整个转换为gbk , 当然utf-8 会更好一点.</description></item></channel></rss>
+mysql&amp;gt; select * from my_city where city=’温州’; +—-+——+ | id | city | +—-+——+ | 2 | 温州 | | 3 | 梧州 | +—-+——+ 2 rows in set (0.00 sec) 当然, 如果在city上建了唯一索引, 就会倒大霉&amp;hellip;
+然后是排序的问题
+mysql&amp;gt; select * from my_city order by city asc; +—-+——+ | id | city | +—-+——+ | 6 | 上海 | | 2 | 温州 | | 3 | 梧州 | | 5 | 西安 | | 7 | 重庆 | | 4 | 安徽 | | 8 | 北京 | +—-+——+ 7 rows in set (0.</description></item></channel></rss>

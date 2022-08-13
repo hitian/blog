@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>ubuntu on 不折腾不舒服</title><link>https://hitian.info/tags/ubuntu/</link><description>Recent content in ubuntu on 不折腾不舒服</description><generator>Hugo -- gohugo.io</generator><language>zh-cn</language><lastBuildDate>Sun, 12 Sep 2021 14:15:39 +0800</lastBuildDate><atom:link href="https://hitian.info/tags/ubuntu/index.xml" rel="self" type="application/rss+xml"/><item><title>Setup Ubuntu for Microsoft Remote Desktop</title><link>https://hitian.info/post/setup-ubuntu-for-microsoft-remote-desktop/</link><pubDate>Sun, 12 Sep 2021 14:15:39 +0800</pubDate><guid>https://hitian.info/post/setup-ubuntu-for-microsoft-remote-desktop/</guid><description>让 ubuntu 20.04 支持 Microsoft Remote Desktop 远程桌面连接
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>ubuntu on 哈哈哈</title><link>https://hitian.info/tags/ubuntu/</link><description>Recent content in ubuntu on 哈哈哈</description><generator>Hugo -- gohugo.io</generator><language>zh-cn</language><lastBuildDate>Sun, 12 Sep 2021 14:15:39 +0800</lastBuildDate><atom:link href="https://hitian.info/tags/ubuntu/index.xml" rel="self" type="application/rss+xml"/><item><title>Setup Ubuntu for Microsoft Remote Desktop</title><link>https://hitian.info/post/setup-ubuntu-for-microsoft-remote-desktop/</link><pubDate>Sun, 12 Sep 2021 14:15:39 +0800</pubDate><guid>https://hitian.info/post/setup-ubuntu-for-microsoft-remote-desktop/</guid><description>让 ubuntu 20.04 支持 Microsoft Remote Desktop 远程桌面连接
 安装依赖 这里安装了桌面 xfce4 , 个人感觉ubuntu自带的GNOME 3并不是很方便远程桌面使用😶
 sudo apt install xrdp xorg xfce4 xfce4-goodies dbus-x11 x11-xserver-utils xfce4-terminal 设置服务和配置 将桌面更改为 xfce, 编辑文件 /etc/xrdp/startwm.sh
 # 将这两行注释 #test -x /etc/X11/Xsession &amp;amp;&amp;amp; exec /etc/X11/Xsession #exec /bin/sh /etc/X11/Xsession # 新增 exec startxfce4 设置xsession
@@ -56,33 +56,38 @@ git clone https://git.openwrt.org/openwrt/openwrt.git
 &lt;p>以下可以参照Docker 官网的文档
 &lt;a class="link" href="https://docs.docker.com/install/linux/docker-ce/ubuntu/" target="_blank" rel="noopener"
 >https://docs.docker.com/install/linux/docker-ce/ubuntu/&lt;/a>&lt;/p>
-&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">
-&lt;span class="c1"># 安装依赖&lt;/span>
-apt-get install -y &lt;span class="se">\
-&lt;/span>&lt;span class="se">&lt;/span> apt-transport-https &lt;span class="se">\
-&lt;/span>&lt;span class="se">&lt;/span> ca-certificates &lt;span class="se">\
-&lt;/span>&lt;span class="se">&lt;/span> curl &lt;span class="se">\
-&lt;/span>&lt;span class="se">&lt;/span> software-properties-common
-&lt;span class="c1"># Add Docker’s official GPG key:&lt;/span>
-curl -fsSL https://download.docker.com/linux/ubuntu/gpg &lt;span class="p">|&lt;/span> sudo apt-key add -
-&lt;span class="c1"># 添加Docker 的 apt repository.&lt;/span>
-add-apt-repository &lt;span class="se">\
-&lt;/span>&lt;span class="se">&lt;/span> &lt;span class="s2">&amp;#34;deb [arch=amd64] https://download.docker.com/linux/ubuntu \
-&lt;/span>&lt;span class="s2"> &lt;/span>&lt;span class="k">$(&lt;/span>lsb_release -cs&lt;span class="k">)&lt;/span>&lt;span class="s2"> \
-&lt;/span>&lt;span class="s2"> stable&amp;#34;&lt;/span>
-&lt;span class="c1"># 更新APT 并安装Docker&lt;/span>
-apt-get update -y &lt;span class="o">&amp;amp;&amp;amp;&lt;/span> apt-get install -y docker-ce
-&lt;/code>&lt;/pre>&lt;/div>&lt;h3 id="安装-kubernetes-相关的工具">安装 Kubernetes 相关的工具&lt;/h3>
-&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">
-&lt;span class="c1"># Add Google’s official GPG key:&lt;/span>
-curl -s https://packages.cloud.google.com/apt/doc/apt-key.gpg &lt;span class="p">|&lt;/span> apt-key add -
-&lt;span class="c1"># 添加 APT repository.&lt;/span>
-cat &lt;span class="s">&amp;lt;&amp;lt;EOF &amp;gt;/etc/apt/sources.list.d/kubernetes.list
-&lt;/span>&lt;span class="s">deb http://apt.kubernetes.io/ kubernetes-xenial main
-&lt;/span>&lt;span class="s">EOF&lt;/span>
-&lt;span class="c1"># 更新APT 并安装&lt;/span>
-apt-get update -y &lt;span class="o">&amp;amp;&amp;amp;&lt;/span> apt-get install -y kubelet kubeadm kubectl
-&lt;/code>&lt;/pre>&lt;/div>&lt;p>&lt;em>到这里基础环境就准备好了， 下来开始初始化， 注意下面的部分在Master主机上操作&lt;/em>&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1"># 安装依赖&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">apt-get install -y &lt;span class="se">\
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="se">&lt;/span> apt-transport-https &lt;span class="se">\
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="se">&lt;/span> ca-certificates &lt;span class="se">\
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="se">&lt;/span> curl &lt;span class="se">\
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="se">&lt;/span> software-properties-common
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1"># Add Docker’s official GPG key:&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">curl -fsSL https://download.docker.com/linux/ubuntu/gpg &lt;span class="p">|&lt;/span> sudo apt-key add -
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1"># 添加Docker 的 apt repository.&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">add-apt-repository &lt;span class="se">\
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="se">&lt;/span> &lt;span class="s2">&amp;#34;deb [arch=amd64] https://download.docker.com/linux/ubuntu \
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="s2"> &lt;/span>&lt;span class="k">$(&lt;/span>lsb_release -cs&lt;span class="k">)&lt;/span>&lt;span class="s2"> \
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="s2"> stable&amp;#34;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1"># 更新APT 并安装Docker&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">apt-get update -y &lt;span class="o">&amp;amp;&amp;amp;&lt;/span> apt-get install -y docker-ce
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;h3 id="安装-kubernetes-相关的工具">安装 Kubernetes 相关的工具&lt;/h3>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1"># Add Google’s official GPG key:&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">curl -s https://packages.cloud.google.com/apt/doc/apt-key.gpg &lt;span class="p">|&lt;/span> apt-key add -
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1"># 添加 APT repository.&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">cat &lt;span class="s">&amp;lt;&amp;lt;EOF &amp;gt;/etc/apt/sources.list.d/kubernetes.list
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="s">deb http://apt.kubernetes.io/ kubernetes-xenial main
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="s">EOF&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1"># 更新APT 并安装&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">apt-get update -y &lt;span class="o">&amp;amp;&amp;amp;&lt;/span> apt-get install -y kubelet kubeadm kubectl
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>&lt;em>到这里基础环境就准备好了， 下来开始初始化， 注意下面的部分在Master主机上操作&lt;/em>&lt;/p>
 &lt;h2 id="初始化-kubernetes">初始化 Kubernetes&lt;/h2>
 &lt;h3 id="启动-master">启动 Master&lt;/h3>
 &lt;h3 id="可选-先pull一下初始化过程中需要的docker-image-加速安装过程">(可选) 先pull一下初始化过程中需要的docker image， 加速安装过程&lt;/h3>
@@ -94,10 +99,11 @@ apt-get update -y &lt;span class="o">&amp;amp;&amp;amp;&lt;/span> apt-get instal
 &lt;code>if [ERROR Swap]: running with swap on is not supported. Please disable swap&lt;/code>&lt;/p>
 &lt;p>swap 没有关闭， 使用&lt;code>swapoff -a&lt;/code>命令关闭swap再重新运行init&lt;/p></description></item><item><title>使用netplan管理ubuntu 的网络配置</title><link>https://hitian.info/post/ubuntu-server-set-network-netplan/</link><pubDate>Tue, 10 Jul 2018 00:00:00 +0000</pubDate><guid>https://hitian.info/post/ubuntu-server-set-network-netplan/</guid><description>最新的ubuntu已经使用netplan来管理网络配置了
 列出当前的配置文件ls -al /etc/netplan/， 注意配置文件为yaml格式， 如果当前没有配置， 可以创建一个例如/etc/netplan/01-netcfg.yaml
-例子 配置为使用DHCP network:version:2renderer:networkdethernets:ens33:dhcp4:yesdhcp6:yes配置为静态ip network:version:2renderer:networkdethernets:ens33:dhcp4:nodhcp6:noaddresses:[192.168.1.2/24]gateway4:192.168.1.1nameservers:addresses:[8.8.8.8,8.8.4.4]配置文件修改好之后使用sudo netplan apply应用配置， 可以加debug参数来查看具体的过程sudo netplan --debug apply</description></item><item><title>Ubuntu Server Install BBR</title><link>https://hitian.info/post/ubuntu-server-install-bbr/</link><pubDate>Tue, 07 Feb 2017 00:00:00 +0000</pubDate><guid>https://hitian.info/post/ubuntu-server-install-bbr/</guid><description>&lt;p>首先需要更新到4.9以上的内核版本， ubuntu和debian可以参考 &lt;a class="link" href="https://hitian.info/notes/2017/02/07/ubuntu-server-install-mainline-kernel/" target="_blank" rel="noopener"
+例子 配置为使用DHCP network: version: 2 renderer: networkd ethernets: ens33: dhcp4: yes dhcp6: yes 配置为静态ip network: version: 2 renderer: networkd ethernets: ens33: dhcp4: no dhcp6: no addresses: [192.168.1.2/24] gateway4: 192.168.1.1 nameservers: addresses: [8.8.8.8,8.8.4.4] 配置文件修改好之后使用sudo netplan apply应用配置， 可以加debug参数来查看具体的过程sudo netplan --debug apply</description></item><item><title>Ubuntu Server Install BBR</title><link>https://hitian.info/post/ubuntu-server-install-bbr/</link><pubDate>Tue, 07 Feb 2017 00:00:00 +0000</pubDate><guid>https://hitian.info/post/ubuntu-server-install-bbr/</guid><description>&lt;p>首先需要更新到4.9以上的内核版本， ubuntu和debian可以参考 &lt;a class="link" href="https://hitian.info/notes/2017/02/07/ubuntu-server-install-mainline-kernel/" target="_blank" rel="noopener"
 >这里&lt;/a>&lt;/p>
 &lt;p>重启确认内核版本升级完成继续&lt;/p>
-&lt;p>以root用户执行以下命令&lt;/p></description></item><item><title>Ubuntu Server Install Mainline Kernel</title><link>https://hitian.info/post/ubuntu-server-install-mainline-kernel/</link><pubDate>Tue, 07 Feb 2017 00:00:00 +0000</pubDate><guid>https://hitian.info/post/ubuntu-server-install-mainline-kernel/</guid><description>下载最新的内核 http://kernel.ubuntu.com/~kernel-ppa/mainline/?C=N;O=D进入最新的版本目录
+&lt;p>以root用户执行以下命令&lt;/p></description></item><item><title>Ubuntu Server Install Mainline Kernel</title><link>https://hitian.info/post/ubuntu-server-install-mainline-kernel/</link><pubDate>Tue, 07 Feb 2017 00:00:00 +0000</pubDate><guid>https://hitian.info/post/ubuntu-server-install-mainline-kernel/</guid><description>下载最新的内核 http://kernel.ubuntu.com/~kernel-ppa/mainline/?C=N;O=D
+进入最新的版本目录
 需要下载4个文件
 linux-headers-XXXXX_XXXXX_all.deb linux-headers-XXXXX-generic_XXXXX_PLATFORM.deb linux-image-unsigned-XXXXX-generic_XXXXX_PLATFORM.deb linux-modules-XXXXX-generic_XXXXX_PLATFORM.deb 例如目前最新的是v4.17.5 (2018-07-09), 下载这4个文件
 linux-headers-4.17.5-041705_4.17.5-041705.201807081431_all.deb linux-headers-4.17.5-041705-generic_4.17.5-041705.201807081431_amd64.deb linux-image-unsigned-4.17.5-041705-generic_4.17.5-041705.201807081431_amd64.deb linux-modules-4.17.5-041705-generic_4.17.5-041705.201807081431_amd64.deb 安装 dpkg -i *.deb 如果安装报错提示libssl1.1没有安装

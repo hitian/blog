@@ -1,507 +1,216 @@
-<!doctype html><html lang=zh-cn>
-<head><meta charset=utf-8>
-<meta name=viewport content="width=device-width,initial-scale=1"><meta name=description content="准备Ubuntu Server 安装最新版本的 ubuntu server, 可以使用网易开源镜像站加速下载
+<!doctype html><html lang=zh-cn><head><meta charset=utf-8><meta name=viewport content="width=device-width,initial-scale=1"><meta name=description content="准备Ubuntu Server 安装最新版本的 ubuntu server, 可以使用网易开源镜像站加速下载
 http://mirrors.163.com/ubuntu-releases/18.04/ubuntu-18.04-live-server-amd64.iso
 在3台主机上安装系统 物理机或者虚拟机都可以，要求互相之前可以直连，内存建议在2G以上， 如果不跑什么大型系统的话硬盘15G就差不多了
 这里直接在VMware Esxi 上启动3个实例安装系统并指定IP地址
-   主机 IP hostname 说明     c-1 192.168.5.191 c1 Master   c-2 192.168.5.192 c2 Node   c-3 192.168.5.193 c3 Node    准备环境 下面的步骤需要在3台主机上全部执行, 注意使用root用户
+主机 IP hostname 说明 c-1 192.168.5.191 c1 Master c-2 192.168.5.192 c2 Node c-3 192.168.5.193 c3 Node 准备环境 下面的步骤需要在3台主机上全部执行, 注意使用root用户
 (可选) 更换apt的更新源为国内的地址，加速安装过程 sed -i -- 's/archive.ubuntu.com/mirrors.163.com/g' /etc/apt/sources.list
 更新 APT apt update -y &amp;amp;&amp;amp; apt upgrade -y
 安装 Docker CE 以下可以参照Docker 官网的文档 https://docs.docker.com/install/linux/docker-ce/ubuntu/
-# 安装依赖 apt-get install -y \  apt-transport-https \  ca-certificates \  curl \  software-properties-common # Add Docker’s official GPG key: curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo apt-key add - # 添加Docker 的 apt repository. add-apt-repository \  &amp;#34;deb [arch=amd64] https://download.docker.com/linux/ubuntu \ $(lsb_release -cs)\ stable&amp;#34; # 更新APT 并安装Docker apt-get update -y &amp;amp;&amp;amp; apt-get install -y docker-ce 安装 Kubernetes 相关的工具 # Add Google’s official GPG key: curl -s https://packages.cloud.google.com/apt/doc/apt-key.gpg | apt-key add - # 添加 APT repository. cat &amp;lt;&amp;lt;EOF &amp;gt;/etc/apt/sources.list.d/kubernetes.list deb http://apt.kubernetes.io/ kubernetes-xenial main EOF # 更新APT 并安装 apt-get update -y &amp;amp;&amp;amp; apt-get install -y kubelet kubeadm kubectl 到这里基础环境就准备好了， 下来开始初始化， 注意下面的部分在Master主机上操作
+# 安装依赖 apt-get install -y \ apt-transport-https \ ca-certificates \ curl \ software-properties-common # Add Docker’s official GPG key: curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo apt-key add - # 添加Docker 的 apt repository. add-apt-repository \ &amp;#34;deb [arch=amd64] https://download.docker.com/linux/ubuntu \ $(lsb_release -cs) \ stable&amp;#34; # 更新APT 并安装Docker apt-get update -y &amp;amp;&amp;amp; apt-get install -y docker-ce 安装 Kubernetes 相关的工具 # Add Google’s official GPG key: curl -s https://packages.cloud.google.com/apt/doc/apt-key.gpg | apt-key add - # 添加 APT repository. cat &amp;lt;&amp;lt;EOF &amp;gt;/etc/apt/sources.list.d/kubernetes.list deb http://apt.kubernetes.io/ kubernetes-xenial main EOF # 更新APT 并安装 apt-get update -y &amp;amp;&amp;amp; apt-get install -y kubelet kubeadm kubectl 到这里基础环境就准备好了， 下来开始初始化， 注意下面的部分在Master主机上操作
 初始化 Kubernetes 启动 Master (可选) 先pull一下初始化过程中需要的docker image， 加速安装过程 kubeadm config images pull
 初始化 kubeadm init --pod-network-cidr=10.244.0.0/16
 pod-network-cidr参数是之后创建内部网络需要的ip段，选一个没有被占用的内网段就可以了
 如果报错 if [ERROR Swap]: running with swap on is not supported. Please disable swap
 swap 没有关闭， 使用swapoff -a命令关闭swap再重新运行init
-"><title>在Ubuntu Server上搭建Kubernetes cluster</title>
-<link rel=canonical href=https://hitian.info/post/kubernetes-cluster-setup-on-ubuntu-server/>
-<link rel=stylesheet href=/scss/style.min.css><meta property="og:title" content="在Ubuntu Server上搭建Kubernetes cluster">
-<meta property="og:description" content="准备Ubuntu Server 安装最新版本的 ubuntu server, 可以使用网易开源镜像站加速下载
+"><title>在Ubuntu Server上搭建Kubernetes cluster</title><link rel=canonical href=https://hitian.info/post/kubernetes-cluster-setup-on-ubuntu-server/><link rel=stylesheet href=/scss/style.min.css><meta property="og:title" content="在Ubuntu Server上搭建Kubernetes cluster"><meta property="og:description" content="准备Ubuntu Server 安装最新版本的 ubuntu server, 可以使用网易开源镜像站加速下载
 http://mirrors.163.com/ubuntu-releases/18.04/ubuntu-18.04-live-server-amd64.iso
 在3台主机上安装系统 物理机或者虚拟机都可以，要求互相之前可以直连，内存建议在2G以上， 如果不跑什么大型系统的话硬盘15G就差不多了
 这里直接在VMware Esxi 上启动3个实例安装系统并指定IP地址
-   主机 IP hostname 说明     c-1 192.168.5.191 c1 Master   c-2 192.168.5.192 c2 Node   c-3 192.168.5.193 c3 Node    准备环境 下面的步骤需要在3台主机上全部执行, 注意使用root用户
+主机 IP hostname 说明 c-1 192.168.5.191 c1 Master c-2 192.168.5.192 c2 Node c-3 192.168.5.193 c3 Node 准备环境 下面的步骤需要在3台主机上全部执行, 注意使用root用户
 (可选) 更换apt的更新源为国内的地址，加速安装过程 sed -i -- 's/archive.ubuntu.com/mirrors.163.com/g' /etc/apt/sources.list
 更新 APT apt update -y &amp;amp;&amp;amp; apt upgrade -y
 安装 Docker CE 以下可以参照Docker 官网的文档 https://docs.docker.com/install/linux/docker-ce/ubuntu/
-# 安装依赖 apt-get install -y \  apt-transport-https \  ca-certificates \  curl \  software-properties-common # Add Docker’s official GPG key: curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo apt-key add - # 添加Docker 的 apt repository. add-apt-repository \  &amp;#34;deb [arch=amd64] https://download.docker.com/linux/ubuntu \ $(lsb_release -cs)\ stable&amp;#34; # 更新APT 并安装Docker apt-get update -y &amp;amp;&amp;amp; apt-get install -y docker-ce 安装 Kubernetes 相关的工具 # Add Google’s official GPG key: curl -s https://packages.cloud.google.com/apt/doc/apt-key.gpg | apt-key add - # 添加 APT repository. cat &amp;lt;&amp;lt;EOF &amp;gt;/etc/apt/sources.list.d/kubernetes.list deb http://apt.kubernetes.io/ kubernetes-xenial main EOF # 更新APT 并安装 apt-get update -y &amp;amp;&amp;amp; apt-get install -y kubelet kubeadm kubectl 到这里基础环境就准备好了， 下来开始初始化， 注意下面的部分在Master主机上操作
+# 安装依赖 apt-get install -y \ apt-transport-https \ ca-certificates \ curl \ software-properties-common # Add Docker’s official GPG key: curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo apt-key add - # 添加Docker 的 apt repository. add-apt-repository \ &amp;#34;deb [arch=amd64] https://download.docker.com/linux/ubuntu \ $(lsb_release -cs) \ stable&amp;#34; # 更新APT 并安装Docker apt-get update -y &amp;amp;&amp;amp; apt-get install -y docker-ce 安装 Kubernetes 相关的工具 # Add Google’s official GPG key: curl -s https://packages.cloud.google.com/apt/doc/apt-key.gpg | apt-key add - # 添加 APT repository. cat &amp;lt;&amp;lt;EOF &amp;gt;/etc/apt/sources.list.d/kubernetes.list deb http://apt.kubernetes.io/ kubernetes-xenial main EOF # 更新APT 并安装 apt-get update -y &amp;amp;&amp;amp; apt-get install -y kubelet kubeadm kubectl 到这里基础环境就准备好了， 下来开始初始化， 注意下面的部分在Master主机上操作
 初始化 Kubernetes 启动 Master (可选) 先pull一下初始化过程中需要的docker image， 加速安装过程 kubeadm config images pull
 初始化 kubeadm init --pod-network-cidr=10.244.0.0/16
 pod-network-cidr参数是之后创建内部网络需要的ip段，选一个没有被占用的内网段就可以了
 如果报错 if [ERROR Swap]: running with swap on is not supported. Please disable swap
 swap 没有关闭， 使用swapoff -a命令关闭swap再重新运行init
-">
-<meta property="og:url" content="https://hitian.info/post/kubernetes-cluster-setup-on-ubuntu-server/">
-<meta property="og:site_name" content="不折腾不舒服">
-<meta property="og:type" content="article"><meta property="article:section" content="Post"><meta property="article:tag" content="Kubernetes"><meta property="article:tag" content="cluster"><meta property="article:tag" content="ubuntu"><meta property="article:tag" content="docker"><meta property="article:published_time" content="2018-07-12T00:00:00+00:00"><meta property="article:modified_time" content="2018-07-12T00:00:00+00:00">
-<meta name=twitter:title content="在Ubuntu Server上搭建Kubernetes cluster">
-<meta name=twitter:description content="准备Ubuntu Server 安装最新版本的 ubuntu server, 可以使用网易开源镜像站加速下载
+"><meta property="og:url" content="https://hitian.info/post/kubernetes-cluster-setup-on-ubuntu-server/"><meta property="og:site_name" content="哈哈哈"><meta property="og:type" content="article"><meta property="article:section" content="Post"><meta property="article:tag" content="Kubernetes"><meta property="article:tag" content="cluster"><meta property="article:tag" content="ubuntu"><meta property="article:tag" content="docker"><meta property="article:published_time" content="2018-07-12T00:00:00+00:00"><meta property="article:modified_time" content="2018-07-12T00:00:00+00:00"><meta name=twitter:title content="在Ubuntu Server上搭建Kubernetes cluster"><meta name=twitter:description content="准备Ubuntu Server 安装最新版本的 ubuntu server, 可以使用网易开源镜像站加速下载
 http://mirrors.163.com/ubuntu-releases/18.04/ubuntu-18.04-live-server-amd64.iso
 在3台主机上安装系统 物理机或者虚拟机都可以，要求互相之前可以直连，内存建议在2G以上， 如果不跑什么大型系统的话硬盘15G就差不多了
 这里直接在VMware Esxi 上启动3个实例安装系统并指定IP地址
-   主机 IP hostname 说明     c-1 192.168.5.191 c1 Master   c-2 192.168.5.192 c2 Node   c-3 192.168.5.193 c3 Node    准备环境 下面的步骤需要在3台主机上全部执行, 注意使用root用户
+主机 IP hostname 说明 c-1 192.168.5.191 c1 Master c-2 192.168.5.192 c2 Node c-3 192.168.5.193 c3 Node 准备环境 下面的步骤需要在3台主机上全部执行, 注意使用root用户
 (可选) 更换apt的更新源为国内的地址，加速安装过程 sed -i -- 's/archive.ubuntu.com/mirrors.163.com/g' /etc/apt/sources.list
 更新 APT apt update -y &amp;amp;&amp;amp; apt upgrade -y
 安装 Docker CE 以下可以参照Docker 官网的文档 https://docs.docker.com/install/linux/docker-ce/ubuntu/
-# 安装依赖 apt-get install -y \  apt-transport-https \  ca-certificates \  curl \  software-properties-common # Add Docker’s official GPG key: curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo apt-key add - # 添加Docker 的 apt repository. add-apt-repository \  &amp;#34;deb [arch=amd64] https://download.docker.com/linux/ubuntu \ $(lsb_release -cs)\ stable&amp;#34; # 更新APT 并安装Docker apt-get update -y &amp;amp;&amp;amp; apt-get install -y docker-ce 安装 Kubernetes 相关的工具 # Add Google’s official GPG key: curl -s https://packages.cloud.google.com/apt/doc/apt-key.gpg | apt-key add - # 添加 APT repository. cat &amp;lt;&amp;lt;EOF &amp;gt;/etc/apt/sources.list.d/kubernetes.list deb http://apt.kubernetes.io/ kubernetes-xenial main EOF # 更新APT 并安装 apt-get update -y &amp;amp;&amp;amp; apt-get install -y kubelet kubeadm kubectl 到这里基础环境就准备好了， 下来开始初始化， 注意下面的部分在Master主机上操作
+# 安装依赖 apt-get install -y \ apt-transport-https \ ca-certificates \ curl \ software-properties-common # Add Docker’s official GPG key: curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo apt-key add - # 添加Docker 的 apt repository. add-apt-repository \ &amp;#34;deb [arch=amd64] https://download.docker.com/linux/ubuntu \ $(lsb_release -cs) \ stable&amp;#34; # 更新APT 并安装Docker apt-get update -y &amp;amp;&amp;amp; apt-get install -y docker-ce 安装 Kubernetes 相关的工具 # Add Google’s official GPG key: curl -s https://packages.cloud.google.com/apt/doc/apt-key.gpg | apt-key add - # 添加 APT repository. cat &amp;lt;&amp;lt;EOF &amp;gt;/etc/apt/sources.list.d/kubernetes.list deb http://apt.kubernetes.io/ kubernetes-xenial main EOF # 更新APT 并安装 apt-get update -y &amp;amp;&amp;amp; apt-get install -y kubelet kubeadm kubectl 到这里基础环境就准备好了， 下来开始初始化， 注意下面的部分在Master主机上操作
 初始化 Kubernetes 启动 Master (可选) 先pull一下初始化过程中需要的docker image， 加速安装过程 kubeadm config images pull
 初始化 kubeadm init --pod-network-cidr=10.244.0.0/16
 pod-network-cidr参数是之后创建内部网络需要的ip段，选一个没有被占用的内网段就可以了
 如果报错 if [ERROR Swap]: running with swap on is not supported. Please disable swap
 swap 没有关闭， 使用swapoff -a命令关闭swap再重新运行init
-">
-<script async src="https://www.googletagmanager.com/gtag/js?id=G-MZ35160LM3"></script>
-<script>var doNotTrack=!1;if(!doNotTrack){window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments)}gtag('js',new Date),gtag('config','G-MZ35160LM3',{anonymize_ip:!1})}</script>
-</head>
-<body>
-<script>(function(){const a='StackColorScheme';localStorage.getItem(a)||localStorage.setItem(a,"auto")})()</script><script>(function(){const b='StackColorScheme',a=localStorage.getItem(b),c=window.matchMedia('(prefers-color-scheme: dark)').matches===!0;a=='dark'||a==='auto'&&c?document.body.dataset.scheme='dark':document.body.dataset.scheme='light'})()</script><div class="container main-container flex on-phone--column extended article-page with-toolbar">
-<aside class="sidebar left-sidebar sticky">
-<button class="hamburger hamburger--spin" type=button id=toggle-menu aria-label=切换菜单>
-<span class=hamburger-box>
-<span class=hamburger-inner></span>
-</span>
-</button>
-<header class=site-info>
-<figure class=site-avatar>
-<img src=/assets/avatar.jpg width=300 height=300 class=site-logo loading=lazy alt=Avatar>
-<span class=emoji>🌎</span>
-</figure>
-<h1 class=site-name><a href=https://hitian.info>不折腾不舒服</a></h1>
-<h2 class=site-description>折腾笔记</h2>
-</header>
-<ol class=menu id=main-menu>
-<li>
-<a href=/><svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-home" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentcolor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z"/><polyline points="5 12 3 12 12 3 21 12 19 12"/><path d="M5 12v7a2 2 0 002 2h10a2 2 0 002-2v-7"/><path d="M9 21v-6a2 2 0 012-2h2a2 2 0 012 2v6"/></svg>
-<span>Home</span>
-</a>
-</li>
-<li>
-<a href=/about/><svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-user" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentcolor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z"/><circle cx="12" cy="7" r="4"/><path d="M6 21v-2a4 4 0 014-4h4a4 4 0 014 4v2"/></svg>
-<span>About</span>
-</a>
-</li>
-<li>
-<a href=/archives/><svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-archive" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentcolor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z"/><rect x="3" y="4" width="18" height="4" rx="2"/><path d="M5 8v10a2 2 0 002 2h10a2 2 0 002-2V8"/><line x1="10" y1="12" x2="14" y2="12"/></svg>
-<span>Archives</span>
-</a>
-</li>
-<li>
-<a href=/search/><svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-search" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentcolor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z"/><circle cx="10" cy="10" r="7"/><line x1="21" y1="21" x2="15" y2="15"/></svg>
-<span>Search</span>
-</a>
-</li>
-<li id=dark-mode-toggle><svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-toggle-left" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentcolor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z"/><circle cx="8" cy="12" r="2"/><rect x="2" y="6" width="20" height="12" rx="6"/></svg><svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-toggle-right" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentcolor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z"/><circle cx="16" cy="12" r="2"/><rect x="2" y="6" width="20" height="12" rx="6"/></svg>
-<span>暗色模式</span>
-</li>
-</ol>
-</aside>
-<main class="main full-width">
-<div id=article-toolbar>
-<a href=https://hitian.info class=back-home><svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-chevron-left" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentcolor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z"/><polyline points="15 6 9 12 15 18"/></svg>
-<span>Back</span>
-</a>
-</div>
-<article class=main-article>
-<header class=article-header>
-<div class=article-details>
-<header class=article-category>
-<a href=/categories/notes/>
-notes
-</a>
-</header>
-<h2 class=article-title>
-<a href=/post/kubernetes-cluster-setup-on-ubuntu-server/>在Ubuntu Server上搭建Kubernetes cluster</a>
-</h2>
-<footer class=article-time><svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-clock" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentcolor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z"/><circle cx="12" cy="12" r="9"/><polyline points="12 7 12 12 15 15"/></svg>
-<time class=article-time--published>Jul 12, 2018</time>
-</footer></div>
-</header>
-<section class=article-content>
-<h1 id=准备ubuntu-server>准备Ubuntu Server</h1>
-<p>安装最新版本的 ubuntu server, 可以使用网易开源镜像站加速下载</p>
-<p><a class=link href=http://mirrors.163.com/ubuntu-releases/18.04/ubuntu-18.04-live-server-amd64.iso target=_blank rel=noopener>http://mirrors.163.com/ubuntu-releases/18.04/ubuntu-18.04-live-server-amd64.iso</a></p>
-<h2 id=在3台主机上安装系统>在3台主机上安装系统</h2>
-<p>物理机或者虚拟机都可以，要求互相之前可以直连，内存建议在2G以上， 如果不跑什么大型系统的话硬盘15G就差不多了</p>
-<p>这里直接在VMware Esxi 上启动3个实例安装系统并指定IP地址</p>
-<p><img src=/assets/images/201807/Kubernetes-vmware-exsi.png alt=Kubernetes-vmware-exsi></p>
-<table>
-<thead>
-<tr>
-<th>主机</th>
-<th>IP</th>
-<th>hostname</th>
-<th>说明</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>c-1</td>
-<td>192.168.5.191</td>
-<td>c1</td>
-<td>Master</td>
-</tr>
-<tr>
-<td>c-2</td>
-<td>192.168.5.192</td>
-<td>c2</td>
-<td>Node</td>
-</tr>
-<tr>
-<td>c-3</td>
-<td>192.168.5.193</td>
-<td>c3</td>
-<td>Node</td>
-</tr>
-</tbody>
-</table>
-<h2 id=准备环境>准备环境</h2>
-<p><strong>下面的步骤需要在3台主机上全部执行, 注意使用root用户</strong></p>
-<h3 id=可选-更换apt的更新源为国内的地址加速安装过程>(可选) 更换apt的更新源为国内的地址，加速安装过程</h3>
-<p><code>sed -i -- 's/archive.ubuntu.com/mirrors.163.com/g' /etc/apt/sources.list</code></p>
-<h3 id=更新-apt>更新 APT</h3>
-<p><code>apt update -y && apt upgrade -y</code></p>
-<h3 id=安装-docker-ce>安装 Docker CE</h3>
-<p>以下可以参照Docker 官网的文档
-<a class=link href=https://docs.docker.com/install/linux/docker-ce/ubuntu/ target=_blank rel=noopener>https://docs.docker.com/install/linux/docker-ce/ubuntu/</a></p>
-<div class=highlight><pre tabindex=0 class=chroma><code class=language-bash data-lang=bash>
-<span class=c1># 安装依赖</span>
-apt-get install -y <span class=se>\
-</span><span class=se></span>    apt-transport-https <span class=se>\
-</span><span class=se></span>    ca-certificates <span class=se>\
-</span><span class=se></span>    curl <span class=se>\
-</span><span class=se></span>    software-properties-common
-
-<span class=c1># Add Docker’s official GPG key:</span>
-curl -fsSL https://download.docker.com/linux/ubuntu/gpg <span class=p>|</span> sudo apt-key add -
-
-<span class=c1># 添加Docker 的 apt repository.</span>
-add-apt-repository <span class=se>\
-</span><span class=se></span>   <span class=s2>&#34;deb [arch=amd64] https://download.docker.com/linux/ubuntu \
-</span><span class=s2>   </span><span class=k>$(</span>lsb_release -cs<span class=k>)</span><span class=s2> \
-</span><span class=s2>   stable&#34;</span>
-
-<span class=c1># 更新APT 并安装Docker</span>
-apt-get update -y <span class=o>&amp;&amp;</span> apt-get install -y docker-ce
-
-</code></pre></div><h3 id=安装-kubernetes-相关的工具>安装 Kubernetes 相关的工具</h3>
-<div class=highlight><pre tabindex=0 class=chroma><code class=language-bash data-lang=bash>
-<span class=c1># Add Google’s official GPG key:</span>
-curl -s https://packages.cloud.google.com/apt/doc/apt-key.gpg <span class=p>|</span> apt-key add -
-
-<span class=c1># 添加 APT repository.</span>
-cat <span class=s>&lt;&lt;EOF &gt;/etc/apt/sources.list.d/kubernetes.list
-</span><span class=s>deb http://apt.kubernetes.io/ kubernetes-xenial main
-</span><span class=s>EOF</span>
-
-<span class=c1># 更新APT 并安装</span>
-apt-get update -y <span class=o>&amp;&amp;</span> apt-get install -y kubelet kubeadm kubectl
-
-</code></pre></div><p><em>到这里基础环境就准备好了， 下来开始初始化， 注意下面的部分在Master主机上操作</em></p>
-<h2 id=初始化-kubernetes>初始化 Kubernetes</h2>
-<h3 id=启动-master>启动 Master</h3>
-<h3 id=可选-先pull一下初始化过程中需要的docker-image-加速安装过程>(可选) 先pull一下初始化过程中需要的docker image， 加速安装过程</h3>
-<p><code>kubeadm config images pull</code></p>
-<h3 id=初始化>初始化</h3>
-<p><code>kubeadm init --pod-network-cidr=10.244.0.0/16</code></p>
-<p><code>pod-network-cidr</code>参数是之后创建内部网络需要的ip段，选一个没有被占用的内网段就可以了</p>
-<p>如果报错
-<code>if [ERROR Swap]: running with swap on is not supported. Please disable swap</code></p>
-<p>swap 没有关闭， 使用<code>swapoff -a</code>命令关闭swap再重新运行init</p>
-<p>输出大概如下</p>
-<div class=highlight><pre tabindex=0 class=chroma><code class=language-bash data-lang=bash>
-root@c1:/home/tian# kubeadm init --pod-network-cidr<span class=o>=</span>10.244.0.0/16
-I0711 03:45:48.345918    <span class=m>2359</span> feature_gate.go:230<span class=o>]</span> feature gates: <span class=p>&amp;</span><span class=o>{</span>map<span class=o>[]}</span>
-<span class=o>[</span>init<span class=o>]</span> using Kubernetes version: v1.11.0
-<span class=o>[</span>preflight<span class=o>]</span> running pre-flight checks
-I0711 03:45:48.367074    <span class=m>2359</span> kernel_validator.go:81<span class=o>]</span> Validating kernel version
-I0711 03:45:48.367165    <span class=m>2359</span> kernel_validator.go:96<span class=o>]</span> Validating kernel config
-        <span class=o>[</span>WARNING SystemVerification<span class=o>]</span>: docker version is greater than the most recently validated version. Docker version: 18.03.1-ce. Max validated version: 17.03
-<span class=o>[</span>preflight/images<span class=o>]</span> Pulling images required <span class=k>for</span> setting up a Kubernetes cluster
-<span class=o>[</span>preflight/images<span class=o>]</span> This might take a minute or two, depending on the speed of your internet connection
-<span class=o>[</span>preflight/images<span class=o>]</span> You can also perform this action in beforehand using <span class=s1>&#39;kubeadm config images pull&#39;</span>
-<span class=o>[</span>kubelet<span class=o>]</span> Writing kubelet environment file with flags to file <span class=s2>&#34;/var/lib/kubelet/kubeadm-flags.env&#34;</span>
-<span class=o>[</span>kubelet<span class=o>]</span> Writing kubelet configuration to file <span class=s2>&#34;/var/lib/kubelet/config.yaml&#34;</span>
-<span class=o>[</span>preflight<span class=o>]</span> Activating the kubelet service
-<span class=o>[</span>certificates<span class=o>]</span> Generated ca certificate and key.
-<span class=o>[</span>certificates<span class=o>]</span> Generated apiserver certificate and key.
-<span class=o>[</span>certificates<span class=o>]</span> apiserver serving cert is signed <span class=k>for</span> DNS names <span class=o>[</span>c1 kubernetes kubernetes.default kubernetes.default.svc kubernetes.default.svc.cluster.local<span class=o>]</span> and IPs <span class=o>[</span>10.96.0.1 192.168.5.191<span class=o>]</span>
-<span class=o>[</span>certificates<span class=o>]</span> Generated apiserver-kubelet-client certificate and key.
-<span class=o>[</span>certificates<span class=o>]</span> Generated sa key and public key.
-<span class=o>[</span>certificates<span class=o>]</span> Generated front-proxy-ca certificate and key.
-<span class=o>[</span>certificates<span class=o>]</span> Generated front-proxy-client certificate and key.
-<span class=o>[</span>certificates<span class=o>]</span> Generated etcd/ca certificate and key.
-<span class=o>[</span>certificates<span class=o>]</span> Generated etcd/server certificate and key.
-<span class=o>[</span>certificates<span class=o>]</span> etcd/server serving cert is signed <span class=k>for</span> DNS names <span class=o>[</span>c1 localhost<span class=o>]</span> and IPs <span class=o>[</span>127.0.0.1 ::1<span class=o>]</span>
-<span class=o>[</span>certificates<span class=o>]</span> Generated etcd/peer certificate and key.
-<span class=o>[</span>certificates<span class=o>]</span> etcd/peer serving cert is signed <span class=k>for</span> DNS names <span class=o>[</span>c1 localhost<span class=o>]</span> and IPs <span class=o>[</span>192.168.5.191 127.0.0.1 ::1<span class=o>]</span>
-<span class=o>[</span>certificates<span class=o>]</span> Generated etcd/healthcheck-client certificate and key.
-<span class=o>[</span>certificates<span class=o>]</span> Generated apiserver-etcd-client certificate and key.
-<span class=o>[</span>certificates<span class=o>]</span> valid certificates and keys now exist in <span class=s2>&#34;/etc/kubernetes/pki&#34;</span>
-<span class=o>[</span>kubeconfig<span class=o>]</span> Wrote KubeConfig file to disk: <span class=s2>&#34;/etc/kubernetes/admin.conf&#34;</span>
-<span class=o>[</span>kubeconfig<span class=o>]</span> Wrote KubeConfig file to disk: <span class=s2>&#34;/etc/kubernetes/kubelet.conf&#34;</span>
-<span class=o>[</span>kubeconfig<span class=o>]</span> Wrote KubeConfig file to disk: <span class=s2>&#34;/etc/kubernetes/controller-manager.conf&#34;</span>
-<span class=o>[</span>kubeconfig<span class=o>]</span> Wrote KubeConfig file to disk: <span class=s2>&#34;/etc/kubernetes/scheduler.conf&#34;</span>
-<span class=o>[</span>controlplane<span class=o>]</span> wrote Static Pod manifest <span class=k>for</span> component kube-apiserver to <span class=s2>&#34;/etc/kubernetes/manifests/kube-apiserver.yaml&#34;</span>
-<span class=o>[</span>controlplane<span class=o>]</span> wrote Static Pod manifest <span class=k>for</span> component kube-controller-manager to <span class=s2>&#34;/etc/kubernetes/manifests/kube-controller-manager.yaml&#34;</span>
-<span class=o>[</span>controlplane<span class=o>]</span> wrote Static Pod manifest <span class=k>for</span> component kube-scheduler to <span class=s2>&#34;/etc/kubernetes/manifests/kube-scheduler.yaml&#34;</span>
-<span class=o>[</span>etcd<span class=o>]</span> Wrote Static Pod manifest <span class=k>for</span> a <span class=nb>local</span> etcd instance to <span class=s2>&#34;/etc/kubernetes/manifests/etcd.yaml&#34;</span>
-<span class=o>[</span>init<span class=o>]</span> waiting <span class=k>for</span> the kubelet to boot up the control plane as Static Pods from directory <span class=s2>&#34;/etc/kubernetes/manifests&#34;</span>
-<span class=o>[</span>init<span class=o>]</span> this might take a minute or longer <span class=k>if</span> the control plane images have to be pulled
-<span class=o>[</span>apiclient<span class=o>]</span> All control plane components are healthy after 42.004178 seconds
-<span class=o>[</span>uploadconfig<span class=o>]</span> storing the configuration used in ConfigMap <span class=s2>&#34;kubeadm-config&#34;</span> in the <span class=s2>&#34;kube-system&#34;</span> Namespace
-<span class=o>[</span>kubelet<span class=o>]</span> Creating a ConfigMap <span class=s2>&#34;kubelet-config-1.11&#34;</span> in namespace kube-system with the configuration <span class=k>for</span> the kubelets in the cluster
-<span class=o>[</span>markmaster<span class=o>]</span> Marking the node c1 as master by adding the label <span class=s2>&#34;node-role.kubernetes.io/master=&#39;&#39;&#34;</span>
-<span class=o>[</span>markmaster<span class=o>]</span> Marking the node c1 as master by adding the taints <span class=o>[</span>node-role.kubernetes.io/master:NoSchedule<span class=o>]</span>
-<span class=o>[</span>patchnode<span class=o>]</span> Uploading the CRI Socket information <span class=s2>&#34;/var/run/dockershim.sock&#34;</span> to the Node API object <span class=s2>&#34;c1&#34;</span> as an annotation
-<span class=o>[</span>bootstraptoken<span class=o>]</span> using token: pbl4c9.b0ws1tfhjt6ra66a
-<span class=o>[</span>bootstraptoken<span class=o>]</span> configured RBAC rules to allow Node Bootstrap tokens to post CSRs in order <span class=k>for</span> nodes to get long term certificate credentials
-<span class=o>[</span>bootstraptoken<span class=o>]</span> configured RBAC rules to allow the csrapprover controller automatically approve CSRs from a Node Bootstrap Token
-<span class=o>[</span>bootstraptoken<span class=o>]</span> configured RBAC rules to allow certificate rotation <span class=k>for</span> all node client certificates in the cluster
-<span class=o>[</span>bootstraptoken<span class=o>]</span> creating the <span class=s2>&#34;cluster-info&#34;</span> ConfigMap in the <span class=s2>&#34;kube-public&#34;</span> namespace
-<span class=o>[</span>addons<span class=o>]</span> Applied essential addon: CoreDNS
-<span class=o>[</span>addons<span class=o>]</span> Applied essential addon: kube-proxy
-
-Your Kubernetes master has initialized successfully!
-
-To start using your cluster, you need to run the following as a regular user:
-
-  mkdir -p <span class=nv>$HOME</span>/.kube
-  sudo cp -i /etc/kubernetes/admin.conf <span class=nv>$HOME</span>/.kube/config
-  sudo chown <span class=k>$(</span>id -u<span class=k>)</span>:<span class=k>$(</span>id -g<span class=k>)</span> <span class=nv>$HOME</span>/.kube/config
-
-You should now deploy a pod network to the cluster.
-Run <span class=s2>&#34;kubectl apply -f [podnetwork].yaml&#34;</span> with one of the options listed at:
-  https://kubernetes.io/docs/concepts/cluster-administration/addons/
-
-You can now join any number of machines by running the following on each node
-as root:
-
-  kubeadm join 192.168.5.191:6443 --token xxxxxxxxxxx --discovery-token-ca-cert-hash sha256:xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
-
-</code></pre></div><h3 id=配置信息拷贝到普通用户>配置信息拷贝到普通用户</h3>
-<p>上面有两部分是之后需要用到的。</p>
-<p>首先退出root用户，切换到普通用户执行这一段，目的是将生成的相关配置信息拷贝到普通用户目录下，之后直接使用普通用户操作集群</p>
-<div class=highlight><pre tabindex=0 class=chroma><code class=language-bash data-lang=bash>
-  mkdir -p <span class=nv>$HOME</span>/.kube
-  sudo cp -i /etc/kubernetes/admin.conf <span class=nv>$HOME</span>/.kube/config
-  sudo chown <span class=k>$(</span>id -u<span class=k>)</span>:<span class=k>$(</span>id -g<span class=k>)</span> <span class=nv>$HOME</span>/.kube/config
-
-</code></pre></div><p>检查一下节点信息</p>
-<p><code>kubectl get nodes --all-namespaces</code></p>
-<div class=highlight><pre tabindex=0 class=chroma><code class=language-bash data-lang=bash>
-tian@c1:~$ kubectl get nodes --all-namespaces
-NAME      STATUS     ROLES     AGE       VERSION
-c1        NotReady   master    1m        v1.11.0
-
-</code></pre></div><p>因为网络还没有配置好， 状态还暂时是<code>NotReady</code>， 下来安装网络插件</p>
-<h3 id=安装网络插件>安装网络插件</h3>
-<p>选择一种网络插件， 参考官方文档<a class=link href=https://kubernetes.io/docs/setup/independent/create-cluster-kubeadm/#pod-network target=_blank rel=noopener>https://kubernetes.io/docs/setup/independent/create-cluster-kubeadm/#pod-network</a></p>
-<p>我们这里使用<code>Flannel</code></p>
-<p>执行 (For Kubernetes v1.7+)</p>
-<p><code>kubectl apply -f https://raw.githubusercontent.com/coreos/flannel/master/Documentation/kube-flannel.yml</code></p>
-<p>注意新版本的ubuntu 需要更改 <code>/etc/sysctl.conf</code> 添加 <code>net.bridge.bridge-nf-call-iptables=1</code> 开启桥接网络的流量转发</p>
-<div class=highlight><pre tabindex=0 class=chroma><code class=language-bash data-lang=bash><span class=nb>echo</span> <span class=s1>&#39;net.bridge.bridge-nf-call-iptables=1&#39;</span> &gt;&gt; /etc/sysctl.conf
-sysctl -p
-</code></pre></div><p>安装完成后使用<code>kubectl get pods --all-namespaces</code>看下情况，
-因为要下载相关的docker镜像，可能需要一点时间，等到<code>kube-flannel-XXXXXXX</code> 这个变成<code>Running</code> 之后就完成了</p>
-<div class=highlight><pre tabindex=0 class=chroma><code class=language-bash data-lang=bash>
-tian@c1:~$ kubectl get pods --all-namespaces
-NAMESPACE     NAME                         READY     STATUS    RESTARTS   AGE
-kube-system   coredns-78fcdf6894-8tkzx     1/1       Running   <span class=m>0</span>          2m
-kube-system   coredns-78fcdf6894-cbdb8     1/1       Running   <span class=m>0</span>          2m
-kube-system   etcd-c1                      1/1       Running   <span class=m>0</span>          1m
-kube-system   kube-apiserver-c1            1/1       Running   <span class=m>0</span>          1m
-kube-system   kube-controller-manager-c1   1/1       Running   <span class=m>0</span>          2m
-kube-system   kube-flannel-ds-pqpgk        1/1       Running   <span class=m>0</span>          36s
-kube-system   kube-proxy-kpjrk             1/1       Running   <span class=m>0</span>          2m
-kube-system   kube-scheduler-c1            1/1       Running   <span class=m>0</span>          1m
-
-</code></pre></div><p><strong>到这里Master就配置好了，现在可以开始加入其它节点了</strong></p>
-<h2 id=初始化其它-node>初始化其它 Node</h2>
-<p>进入其它的所有主机切换到root用户， 执行之前Mater初始化最后输出的<code>join</code>命令段， 例如</p>
-<p><code>kubeadm join 192.168.5.191:6443 --token xxxxxxxxxxx --discovery-token-ca-cert-hash sha256:xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx</code></p>
-<p>如果没有报错的话就完成了</p>
-<p><strong>接下来回到Master主机</strong></p>
-<p>使用<code>kubectl get nodes</code>查看节点的状态</p>
-<div class=highlight><pre tabindex=0 class=chroma><code class=language-bash data-lang=bash>
-tian@c1:~$ kubectl get nodes
-NAME      STATUS     ROLES     AGE       VERSION
-c1        Ready      master    10m       v1.11.0
-c2        NotReady   &lt;none&gt;    1m        v1.11.0
-c3        NotReady   &lt;none&gt;    14s       v1.11.0
-
-</code></pre></div><p>到这里就完成了，稍等初始化完成可以正常使用了。</p>
-<h1 id=安装图形化管理界面>安装图形化管理界面</h1>
-<h2 id=安装>安装</h2>
-<div class=highlight><pre tabindex=0 class=chroma><code class=language-bash data-lang=bash>
-kubectl apply -f https://raw.githubusercontent.com/kubernetes/dashboard/v2.0.1/aio/deploy/recommended.yaml
-
-<span class=c1>#开启proxy 方便内网访问</span>
-kubectl proxy --address<span class=o>=</span><span class=s1>&#39;0.0.0.0&#39;</span>
-
-<span class=c1>#(可选)如果在机房内网需要经过gateway才能访问的话， 可以临时开启ssh转发，然后直接访问 </span>
-
-TMac :: ~ » ssh -L localhost:8001:192.168.5.191:8001 gateway-server
-
-</code></pre></div><p>管理地址</p>
-<p><a class=link href=http://localhost:8001/api/v1/namespaces/kubernetes-dashboard/services/https:kubernetes-dashboard:/proxy/ target=_blank rel=noopener>http://localhost:8001/api/v1/namespaces/kubernetes-dashboard/services/https:kubernetes-dashboard:/proxy/</a></p>
-<p><img src=/assets/images/201807/Kubernetes-dashboard-login.png alt=Kubernetes-gui-login.png></p>
-<p>接下来要创建可以登陆管理界面的用户</p>
-<p>创建用户配置 <code>create_account.yaml</code>, 用户名为admin</p>
-<div class=highlight><pre tabindex=0 class=chroma><code class=language-yaml data-lang=yaml><span class=w>
-</span><span class=w></span><span class=nt>apiVersion</span><span class=p>:</span><span class=w> </span><span class=l>v1</span><span class=w>
-</span><span class=w></span><span class=nt>kind</span><span class=p>:</span><span class=w> </span><span class=l>ServiceAccount</span><span class=w>
-</span><span class=w></span><span class=nt>metadata</span><span class=p>:</span><span class=w>
-</span><span class=w>  </span><span class=nt>name</span><span class=p>:</span><span class=w> </span><span class=l>admin-user</span><span class=w>
-</span><span class=w>  </span><span class=nt>namespace</span><span class=p>:</span><span class=w> </span><span class=l>kubernetes-dashboard</span><span class=w>
-</span><span class=w>
-</span></code></pre></div><p>应用配置<code>kubectl create -f create_account.yaml</code></p>
-<p>创建权限配置 <code>admin_account_role_binding.yaml</code></p>
-<div class=highlight><pre tabindex=0 class=chroma><code class=language-yaml data-lang=yaml><span class=w>
-</span><span class=w></span><span class=nt>apiVersion</span><span class=p>:</span><span class=w> </span><span class=l>rbac.authorization.k8s.io/v1</span><span class=w>
-</span><span class=w></span><span class=nt>kind</span><span class=p>:</span><span class=w> </span><span class=l>ClusterRoleBinding</span><span class=w>
-</span><span class=w></span><span class=nt>metadata</span><span class=p>:</span><span class=w>
-</span><span class=w>  </span><span class=nt>name</span><span class=p>:</span><span class=w> </span><span class=l>admin-user</span><span class=w>
-</span><span class=w></span><span class=nt>roleRef</span><span class=p>:</span><span class=w>
-</span><span class=w>  </span><span class=nt>apiGroup</span><span class=p>:</span><span class=w> </span><span class=l>rbac.authorization.k8s.io</span><span class=w>
-</span><span class=w>  </span><span class=nt>kind</span><span class=p>:</span><span class=w> </span><span class=l>ClusterRole</span><span class=w>
-</span><span class=w>  </span><span class=nt>name</span><span class=p>:</span><span class=w> </span><span class=l>cluster-admin</span><span class=w>
-</span><span class=w></span><span class=nt>subjects</span><span class=p>:</span><span class=w>
-</span><span class=w></span>- <span class=nt>kind</span><span class=p>:</span><span class=w> </span><span class=l>ServiceAccount</span><span class=w>
-</span><span class=w>  </span><span class=nt>name</span><span class=p>:</span><span class=w> </span><span class=l>admin-user</span><span class=w>
-</span><span class=w>  </span><span class=nt>namespace</span><span class=p>:</span><span class=w> </span><span class=l>kubernetes-dashboard</span><span class=w>
-</span><span class=w>
-</span></code></pre></div><p>应用配置<code>kubectl create -f admin_account_role_binding.yaml</code></p>
-<p>好了， 接下来查看创建的用户token</p>
-<p><code>kubectl -n kubernetes-dashboard describe secret $(kubectl -n kubernetes-dashboard get secret | grep admin-user | awk '{print $1}')</code></p>
-<p>使用输出的很长很长的token登陆</p>
-<p><img src=/assets/images/201807/Kubernetes-dashboard.png alt=Kubernetes-dashboard></p>
-<h2 id=销毁>销毁</h2>
-<p><em><strong>注意，这里是销毁</strong></em></p>
-<h3 id=移除node>移除Node</h3>
-<p>在Mater 上执行</p>
-<div class=highlight><pre tabindex=0 class=chroma><code class=language-bash data-lang=bash>
-kubectl drain &lt;node name&gt; --delete-local-data --force --ignore-daemonsets
-kubectl delete node &lt;node name&gt;
-
-</code></pre></div><p>然后在对应的Node 上执行<code>kubeadm reset</code></p>
-<h3 id=删除master>删除Master</h3>
-<p>直接执行 <code>kubeadm reset</code> 就可以了</p>
-<p>全文完</p>
-</section>
-<footer class=article-footer>
-<section class=article-tags>
-<a href=/tags/kubernetes/>Kubernetes</a>
+"><script async src="https://www.googletagmanager.com/gtag/js?id=G-MZ35160LM3"></script>
+<script>var doNotTrack=!1;if(!doNotTrack){window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments)}gtag("js",new Date),gtag("config","G-MZ35160LM3",{anonymize_ip:!1})}</script></head><body><script>(function(){const e="StackColorScheme";localStorage.getItem(e)||localStorage.setItem(e,"auto")})()</script><script>(function(){const t="StackColorScheme",e=localStorage.getItem(t),n=window.matchMedia("(prefers-color-scheme: dark)").matches===!0;e=="dark"||e==="auto"&&n?document.body.dataset.scheme="dark":document.body.dataset.scheme="light"})()</script><div class="container main-container flex on-phone--column extended article-page with-toolbar"><aside class="sidebar left-sidebar sticky"><button class="hamburger hamburger--spin" type=button id=toggle-menu aria-label=切换菜单>
+<span class=hamburger-box><span class=hamburger-inner></span></span></button><header class=site-info><figure class=site-avatar><img src=/assets/avatar.jpg width=300 height=300 class=site-logo loading=lazy alt=Avatar>
+<span class=emoji>🌎</span></figure><h1 class=site-name><a href=https://hitian.info>哈哈哈</a></h1><h2 class=site-description>折腾笔记</h2></header><ol class=menu id=main-menu><li><a href=/><svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-home" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentcolor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z"/><polyline points="5 12 3 12 12 3 21 12 19 12"/><path d="M5 12v7a2 2 0 002 2h10a2 2 0 002-2v-7"/><path d="M9 21v-6a2 2 0 012-2h2a2 2 0 012 2v6"/></svg><span>Home</span></a></li><li><a href=/about/><svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-user" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentcolor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z"/><circle cx="12" cy="7" r="4"/><path d="M6 21v-2a4 4 0 014-4h4a4 4 0 014 4v2"/></svg><span>About</span></a></li><li><a href=/archives/><svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-archive" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentcolor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z"/><rect x="3" y="4" width="18" height="4" rx="2"/><path d="M5 8v10a2 2 0 002 2h10a2 2 0 002-2V8"/><line x1="10" y1="12" x2="14" y2="12"/></svg><span>Archives</span></a></li><li><a href=/search/><svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-search" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentcolor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z"/><circle cx="10" cy="10" r="7"/><line x1="21" y1="21" x2="15" y2="15"/></svg><span>Search</span></a></li><li id=dark-mode-toggle><svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-toggle-left" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentcolor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z"/><circle cx="8" cy="12" r="2"/><rect x="2" y="6" width="20" height="12" rx="6"/></svg><svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-toggle-right" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentcolor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z"/><circle cx="16" cy="12" r="2"/><rect x="2" y="6" width="20" height="12" rx="6"/></svg><span>暗色模式</span></li></ol></aside><main class="main full-width"><div id=article-toolbar><a href=https://hitian.info class=back-home><svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-chevron-left" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentcolor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z"/><polyline points="15 6 9 12 15 18"/></svg><span>Back</span></a></div><article class=main-article><header class=article-header><div class=article-details><header class=article-category><a href=/categories/notes/>notes</a></header><h2 class=article-title><a href=/post/kubernetes-cluster-setup-on-ubuntu-server/>在Ubuntu Server上搭建Kubernetes cluster</a></h2><footer class=article-time><svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-clock" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentcolor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z"/><circle cx="12" cy="12" r="9"/><polyline points="12 7 12 12 15 15"/></svg><time class=article-time--published>Jul 12, 2018</time></footer></div></header><section class=article-content><h1 id=准备ubuntu-server>准备Ubuntu Server</h1><p>安装最新版本的 ubuntu server, 可以使用网易开源镜像站加速下载</p><p><a class=link href=http://mirrors.163.com/ubuntu-releases/18.04/ubuntu-18.04-live-server-amd64.iso target=_blank rel=noopener>http://mirrors.163.com/ubuntu-releases/18.04/ubuntu-18.04-live-server-amd64.iso</a></p><h2 id=在3台主机上安装系统>在3台主机上安装系统</h2><p>物理机或者虚拟机都可以，要求互相之前可以直连，内存建议在2G以上， 如果不跑什么大型系统的话硬盘15G就差不多了</p><p>这里直接在VMware Esxi 上启动3个实例安装系统并指定IP地址</p><p><img src=/assets/images/201807/Kubernetes-vmware-exsi.png alt=Kubernetes-vmware-exsi></p><table><thead><tr><th>主机</th><th>IP</th><th>hostname</th><th>说明</th></tr></thead><tbody><tr><td>c-1</td><td>192.168.5.191</td><td>c1</td><td>Master</td></tr><tr><td>c-2</td><td>192.168.5.192</td><td>c2</td><td>Node</td></tr><tr><td>c-3</td><td>192.168.5.193</td><td>c3</td><td>Node</td></tr></tbody></table><h2 id=准备环境>准备环境</h2><p><strong>下面的步骤需要在3台主机上全部执行, 注意使用root用户</strong></p><h3 id=可选-更换apt的更新源为国内的地址加速安装过程>(可选) 更换apt的更新源为国内的地址，加速安装过程</h3><p><code>sed -i -- 's/archive.ubuntu.com/mirrors.163.com/g' /etc/apt/sources.list</code></p><h3 id=更新-apt>更新 APT</h3><p><code>apt update -y && apt upgrade -y</code></p><h3 id=安装-docker-ce>安装 Docker CE</h3><p>以下可以参照Docker 官网的文档
+<a class=link href=https://docs.docker.com/install/linux/docker-ce/ubuntu/ target=_blank rel=noopener>https://docs.docker.com/install/linux/docker-ce/ubuntu/</a></p><div class=highlight><pre tabindex=0 class=chroma><code class=language-bash data-lang=bash><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=c1># 安装依赖</span>
+</span></span><span class=line><span class=cl>apt-get install -y <span class=se>\
+</span></span></span><span class=line><span class=cl><span class=se></span>    apt-transport-https <span class=se>\
+</span></span></span><span class=line><span class=cl><span class=se></span>    ca-certificates <span class=se>\
+</span></span></span><span class=line><span class=cl><span class=se></span>    curl <span class=se>\
+</span></span></span><span class=line><span class=cl><span class=se></span>    software-properties-common
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=c1># Add Docker’s official GPG key:</span>
+</span></span><span class=line><span class=cl>curl -fsSL https://download.docker.com/linux/ubuntu/gpg <span class=p>|</span> sudo apt-key add -
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=c1># 添加Docker 的 apt repository.</span>
+</span></span><span class=line><span class=cl>add-apt-repository <span class=se>\
+</span></span></span><span class=line><span class=cl><span class=se></span>   <span class=s2>&#34;deb [arch=amd64] https://download.docker.com/linux/ubuntu \
+</span></span></span><span class=line><span class=cl><span class=s2>   </span><span class=k>$(</span>lsb_release -cs<span class=k>)</span><span class=s2> \
+</span></span></span><span class=line><span class=cl><span class=s2>   stable&#34;</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=c1># 更新APT 并安装Docker</span>
+</span></span><span class=line><span class=cl>apt-get update -y <span class=o>&amp;&amp;</span> apt-get install -y docker-ce
+</span></span></code></pre></div><h3 id=安装-kubernetes-相关的工具>安装 Kubernetes 相关的工具</h3><div class=highlight><pre tabindex=0 class=chroma><code class=language-bash data-lang=bash><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=c1># Add Google’s official GPG key:</span>
+</span></span><span class=line><span class=cl>curl -s https://packages.cloud.google.com/apt/doc/apt-key.gpg <span class=p>|</span> apt-key add -
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=c1># 添加 APT repository.</span>
+</span></span><span class=line><span class=cl>cat <span class=s>&lt;&lt;EOF &gt;/etc/apt/sources.list.d/kubernetes.list
+</span></span></span><span class=line><span class=cl><span class=s>deb http://apt.kubernetes.io/ kubernetes-xenial main
+</span></span></span><span class=line><span class=cl><span class=s>EOF</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=c1># 更新APT 并安装</span>
+</span></span><span class=line><span class=cl>apt-get update -y <span class=o>&amp;&amp;</span> apt-get install -y kubelet kubeadm kubectl
+</span></span></code></pre></div><p><em>到这里基础环境就准备好了， 下来开始初始化， 注意下面的部分在Master主机上操作</em></p><h2 id=初始化-kubernetes>初始化 Kubernetes</h2><h3 id=启动-master>启动 Master</h3><h3 id=可选-先pull一下初始化过程中需要的docker-image-加速安装过程>(可选) 先pull一下初始化过程中需要的docker image， 加速安装过程</h3><p><code>kubeadm config images pull</code></p><h3 id=初始化>初始化</h3><p><code>kubeadm init --pod-network-cidr=10.244.0.0/16</code></p><p><code>pod-network-cidr</code>参数是之后创建内部网络需要的ip段，选一个没有被占用的内网段就可以了</p><p>如果报错
+<code>if [ERROR Swap]: running with swap on is not supported. Please disable swap</code></p><p>swap 没有关闭， 使用<code>swapoff -a</code>命令关闭swap再重新运行init</p><p>输出大概如下</p><div class=highlight><pre tabindex=0 class=chroma><code class=language-bash data-lang=bash><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>root@c1:/home/tian# kubeadm init --pod-network-cidr<span class=o>=</span>10.244.0.0/16
+</span></span><span class=line><span class=cl>I0711 03:45:48.345918    <span class=m>2359</span> feature_gate.go:230<span class=o>]</span> feature gates: <span class=p>&amp;</span><span class=o>{</span>map<span class=o>[]}</span>
+</span></span><span class=line><span class=cl><span class=o>[</span>init<span class=o>]</span> using Kubernetes version: v1.11.0
+</span></span><span class=line><span class=cl><span class=o>[</span>preflight<span class=o>]</span> running pre-flight checks
+</span></span><span class=line><span class=cl>I0711 03:45:48.367074    <span class=m>2359</span> kernel_validator.go:81<span class=o>]</span> Validating kernel version
+</span></span><span class=line><span class=cl>I0711 03:45:48.367165    <span class=m>2359</span> kernel_validator.go:96<span class=o>]</span> Validating kernel config
+</span></span><span class=line><span class=cl>        <span class=o>[</span>WARNING SystemVerification<span class=o>]</span>: docker version is greater than the most recently validated version. Docker version: 18.03.1-ce. Max validated version: 17.03
+</span></span><span class=line><span class=cl><span class=o>[</span>preflight/images<span class=o>]</span> Pulling images required <span class=k>for</span> setting up a Kubernetes cluster
+</span></span><span class=line><span class=cl><span class=o>[</span>preflight/images<span class=o>]</span> This might take a minute or two, depending on the speed of your internet connection
+</span></span><span class=line><span class=cl><span class=o>[</span>preflight/images<span class=o>]</span> You can also perform this action in beforehand using <span class=s1>&#39;kubeadm config images pull&#39;</span>
+</span></span><span class=line><span class=cl><span class=o>[</span>kubelet<span class=o>]</span> Writing kubelet environment file with flags to file <span class=s2>&#34;/var/lib/kubelet/kubeadm-flags.env&#34;</span>
+</span></span><span class=line><span class=cl><span class=o>[</span>kubelet<span class=o>]</span> Writing kubelet configuration to file <span class=s2>&#34;/var/lib/kubelet/config.yaml&#34;</span>
+</span></span><span class=line><span class=cl><span class=o>[</span>preflight<span class=o>]</span> Activating the kubelet service
+</span></span><span class=line><span class=cl><span class=o>[</span>certificates<span class=o>]</span> Generated ca certificate and key.
+</span></span><span class=line><span class=cl><span class=o>[</span>certificates<span class=o>]</span> Generated apiserver certificate and key.
+</span></span><span class=line><span class=cl><span class=o>[</span>certificates<span class=o>]</span> apiserver serving cert is signed <span class=k>for</span> DNS names <span class=o>[</span>c1 kubernetes kubernetes.default kubernetes.default.svc kubernetes.default.svc.cluster.local<span class=o>]</span> and IPs <span class=o>[</span>10.96.0.1 192.168.5.191<span class=o>]</span>
+</span></span><span class=line><span class=cl><span class=o>[</span>certificates<span class=o>]</span> Generated apiserver-kubelet-client certificate and key.
+</span></span><span class=line><span class=cl><span class=o>[</span>certificates<span class=o>]</span> Generated sa key and public key.
+</span></span><span class=line><span class=cl><span class=o>[</span>certificates<span class=o>]</span> Generated front-proxy-ca certificate and key.
+</span></span><span class=line><span class=cl><span class=o>[</span>certificates<span class=o>]</span> Generated front-proxy-client certificate and key.
+</span></span><span class=line><span class=cl><span class=o>[</span>certificates<span class=o>]</span> Generated etcd/ca certificate and key.
+</span></span><span class=line><span class=cl><span class=o>[</span>certificates<span class=o>]</span> Generated etcd/server certificate and key.
+</span></span><span class=line><span class=cl><span class=o>[</span>certificates<span class=o>]</span> etcd/server serving cert is signed <span class=k>for</span> DNS names <span class=o>[</span>c1 localhost<span class=o>]</span> and IPs <span class=o>[</span>127.0.0.1 ::1<span class=o>]</span>
+</span></span><span class=line><span class=cl><span class=o>[</span>certificates<span class=o>]</span> Generated etcd/peer certificate and key.
+</span></span><span class=line><span class=cl><span class=o>[</span>certificates<span class=o>]</span> etcd/peer serving cert is signed <span class=k>for</span> DNS names <span class=o>[</span>c1 localhost<span class=o>]</span> and IPs <span class=o>[</span>192.168.5.191 127.0.0.1 ::1<span class=o>]</span>
+</span></span><span class=line><span class=cl><span class=o>[</span>certificates<span class=o>]</span> Generated etcd/healthcheck-client certificate and key.
+</span></span><span class=line><span class=cl><span class=o>[</span>certificates<span class=o>]</span> Generated apiserver-etcd-client certificate and key.
+</span></span><span class=line><span class=cl><span class=o>[</span>certificates<span class=o>]</span> valid certificates and keys now exist in <span class=s2>&#34;/etc/kubernetes/pki&#34;</span>
+</span></span><span class=line><span class=cl><span class=o>[</span>kubeconfig<span class=o>]</span> Wrote KubeConfig file to disk: <span class=s2>&#34;/etc/kubernetes/admin.conf&#34;</span>
+</span></span><span class=line><span class=cl><span class=o>[</span>kubeconfig<span class=o>]</span> Wrote KubeConfig file to disk: <span class=s2>&#34;/etc/kubernetes/kubelet.conf&#34;</span>
+</span></span><span class=line><span class=cl><span class=o>[</span>kubeconfig<span class=o>]</span> Wrote KubeConfig file to disk: <span class=s2>&#34;/etc/kubernetes/controller-manager.conf&#34;</span>
+</span></span><span class=line><span class=cl><span class=o>[</span>kubeconfig<span class=o>]</span> Wrote KubeConfig file to disk: <span class=s2>&#34;/etc/kubernetes/scheduler.conf&#34;</span>
+</span></span><span class=line><span class=cl><span class=o>[</span>controlplane<span class=o>]</span> wrote Static Pod manifest <span class=k>for</span> component kube-apiserver to <span class=s2>&#34;/etc/kubernetes/manifests/kube-apiserver.yaml&#34;</span>
+</span></span><span class=line><span class=cl><span class=o>[</span>controlplane<span class=o>]</span> wrote Static Pod manifest <span class=k>for</span> component kube-controller-manager to <span class=s2>&#34;/etc/kubernetes/manifests/kube-controller-manager.yaml&#34;</span>
+</span></span><span class=line><span class=cl><span class=o>[</span>controlplane<span class=o>]</span> wrote Static Pod manifest <span class=k>for</span> component kube-scheduler to <span class=s2>&#34;/etc/kubernetes/manifests/kube-scheduler.yaml&#34;</span>
+</span></span><span class=line><span class=cl><span class=o>[</span>etcd<span class=o>]</span> Wrote Static Pod manifest <span class=k>for</span> a <span class=nb>local</span> etcd instance to <span class=s2>&#34;/etc/kubernetes/manifests/etcd.yaml&#34;</span>
+</span></span><span class=line><span class=cl><span class=o>[</span>init<span class=o>]</span> waiting <span class=k>for</span> the kubelet to boot up the control plane as Static Pods from directory <span class=s2>&#34;/etc/kubernetes/manifests&#34;</span>
+</span></span><span class=line><span class=cl><span class=o>[</span>init<span class=o>]</span> this might take a minute or longer <span class=k>if</span> the control plane images have to be pulled
+</span></span><span class=line><span class=cl><span class=o>[</span>apiclient<span class=o>]</span> All control plane components are healthy after 42.004178 seconds
+</span></span><span class=line><span class=cl><span class=o>[</span>uploadconfig<span class=o>]</span> storing the configuration used in ConfigMap <span class=s2>&#34;kubeadm-config&#34;</span> in the <span class=s2>&#34;kube-system&#34;</span> Namespace
+</span></span><span class=line><span class=cl><span class=o>[</span>kubelet<span class=o>]</span> Creating a ConfigMap <span class=s2>&#34;kubelet-config-1.11&#34;</span> in namespace kube-system with the configuration <span class=k>for</span> the kubelets in the cluster
+</span></span><span class=line><span class=cl><span class=o>[</span>markmaster<span class=o>]</span> Marking the node c1 as master by adding the label <span class=s2>&#34;node-role.kubernetes.io/master=&#39;&#39;&#34;</span>
+</span></span><span class=line><span class=cl><span class=o>[</span>markmaster<span class=o>]</span> Marking the node c1 as master by adding the taints <span class=o>[</span>node-role.kubernetes.io/master:NoSchedule<span class=o>]</span>
+</span></span><span class=line><span class=cl><span class=o>[</span>patchnode<span class=o>]</span> Uploading the CRI Socket information <span class=s2>&#34;/var/run/dockershim.sock&#34;</span> to the Node API object <span class=s2>&#34;c1&#34;</span> as an annotation
+</span></span><span class=line><span class=cl><span class=o>[</span>bootstraptoken<span class=o>]</span> using token: pbl4c9.b0ws1tfhjt6ra66a
+</span></span><span class=line><span class=cl><span class=o>[</span>bootstraptoken<span class=o>]</span> configured RBAC rules to allow Node Bootstrap tokens to post CSRs in order <span class=k>for</span> nodes to get long term certificate credentials
+</span></span><span class=line><span class=cl><span class=o>[</span>bootstraptoken<span class=o>]</span> configured RBAC rules to allow the csrapprover controller automatically approve CSRs from a Node Bootstrap Token
+</span></span><span class=line><span class=cl><span class=o>[</span>bootstraptoken<span class=o>]</span> configured RBAC rules to allow certificate rotation <span class=k>for</span> all node client certificates in the cluster
+</span></span><span class=line><span class=cl><span class=o>[</span>bootstraptoken<span class=o>]</span> creating the <span class=s2>&#34;cluster-info&#34;</span> ConfigMap in the <span class=s2>&#34;kube-public&#34;</span> namespace
+</span></span><span class=line><span class=cl><span class=o>[</span>addons<span class=o>]</span> Applied essential addon: CoreDNS
+</span></span><span class=line><span class=cl><span class=o>[</span>addons<span class=o>]</span> Applied essential addon: kube-proxy
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>Your Kubernetes master has initialized successfully!
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>To start using your cluster, you need to run the following as a regular user:
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>  mkdir -p <span class=nv>$HOME</span>/.kube
+</span></span><span class=line><span class=cl>  sudo cp -i /etc/kubernetes/admin.conf <span class=nv>$HOME</span>/.kube/config
+</span></span><span class=line><span class=cl>  sudo chown <span class=k>$(</span>id -u<span class=k>)</span>:<span class=k>$(</span>id -g<span class=k>)</span> <span class=nv>$HOME</span>/.kube/config
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>You should now deploy a pod network to the cluster.
+</span></span><span class=line><span class=cl>Run <span class=s2>&#34;kubectl apply -f [podnetwork].yaml&#34;</span> with one of the options listed at:
+</span></span><span class=line><span class=cl>  https://kubernetes.io/docs/concepts/cluster-administration/addons/
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>You can now join any number of machines by running the following on each node
+</span></span><span class=line><span class=cl>as root:
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>  kubeadm join 192.168.5.191:6443 --token xxxxxxxxxxx --discovery-token-ca-cert-hash sha256:xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+</span></span></code></pre></div><h3 id=配置信息拷贝到普通用户>配置信息拷贝到普通用户</h3><p>上面有两部分是之后需要用到的。</p><p>首先退出root用户，切换到普通用户执行这一段，目的是将生成的相关配置信息拷贝到普通用户目录下，之后直接使用普通用户操作集群</p><div class=highlight><pre tabindex=0 class=chroma><code class=language-bash data-lang=bash><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>  mkdir -p <span class=nv>$HOME</span>/.kube
+</span></span><span class=line><span class=cl>  sudo cp -i /etc/kubernetes/admin.conf <span class=nv>$HOME</span>/.kube/config
+</span></span><span class=line><span class=cl>  sudo chown <span class=k>$(</span>id -u<span class=k>)</span>:<span class=k>$(</span>id -g<span class=k>)</span> <span class=nv>$HOME</span>/.kube/config
+</span></span></code></pre></div><p>检查一下节点信息</p><p><code>kubectl get nodes --all-namespaces</code></p><div class=highlight><pre tabindex=0 class=chroma><code class=language-bash data-lang=bash><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>tian@c1:~$ kubectl get nodes --all-namespaces
+</span></span><span class=line><span class=cl>NAME      STATUS     ROLES     AGE       VERSION
+</span></span><span class=line><span class=cl>c1        NotReady   master    1m        v1.11.0
+</span></span></code></pre></div><p>因为网络还没有配置好， 状态还暂时是<code>NotReady</code>， 下来安装网络插件</p><h3 id=安装网络插件>安装网络插件</h3><p>选择一种网络插件， 参考官方文档<a class=link href=https://kubernetes.io/docs/setup/independent/create-cluster-kubeadm/#pod-network target=_blank rel=noopener>https://kubernetes.io/docs/setup/independent/create-cluster-kubeadm/#pod-network</a></p><p>我们这里使用<code>Flannel</code></p><p>执行 (For Kubernetes v1.7+)</p><p><code>kubectl apply -f https://raw.githubusercontent.com/coreos/flannel/master/Documentation/kube-flannel.yml</code></p><p>注意新版本的ubuntu 需要更改 <code>/etc/sysctl.conf</code> 添加 <code>net.bridge.bridge-nf-call-iptables=1</code> 开启桥接网络的流量转发</p><div class=highlight><pre tabindex=0 class=chroma><code class=language-bash data-lang=bash><span class=line><span class=cl><span class=nb>echo</span> <span class=s1>&#39;net.bridge.bridge-nf-call-iptables=1&#39;</span> &gt;&gt; /etc/sysctl.conf
+</span></span><span class=line><span class=cl>sysctl -p
+</span></span></code></pre></div><p>安装完成后使用<code>kubectl get pods --all-namespaces</code>看下情况，
+因为要下载相关的docker镜像，可能需要一点时间，等到<code>kube-flannel-XXXXXXX</code> 这个变成<code>Running</code> 之后就完成了</p><div class=highlight><pre tabindex=0 class=chroma><code class=language-bash data-lang=bash><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>tian@c1:~$ kubectl get pods --all-namespaces
+</span></span><span class=line><span class=cl>NAMESPACE     NAME                         READY     STATUS    RESTARTS   AGE
+</span></span><span class=line><span class=cl>kube-system   coredns-78fcdf6894-8tkzx     1/1       Running   <span class=m>0</span>          2m
+</span></span><span class=line><span class=cl>kube-system   coredns-78fcdf6894-cbdb8     1/1       Running   <span class=m>0</span>          2m
+</span></span><span class=line><span class=cl>kube-system   etcd-c1                      1/1       Running   <span class=m>0</span>          1m
+</span></span><span class=line><span class=cl>kube-system   kube-apiserver-c1            1/1       Running   <span class=m>0</span>          1m
+</span></span><span class=line><span class=cl>kube-system   kube-controller-manager-c1   1/1       Running   <span class=m>0</span>          2m
+</span></span><span class=line><span class=cl>kube-system   kube-flannel-ds-pqpgk        1/1       Running   <span class=m>0</span>          36s
+</span></span><span class=line><span class=cl>kube-system   kube-proxy-kpjrk             1/1       Running   <span class=m>0</span>          2m
+</span></span><span class=line><span class=cl>kube-system   kube-scheduler-c1            1/1       Running   <span class=m>0</span>          1m
+</span></span></code></pre></div><p><strong>到这里Master就配置好了，现在可以开始加入其它节点了</strong></p><h2 id=初始化其它-node>初始化其它 Node</h2><p>进入其它的所有主机切换到root用户， 执行之前Mater初始化最后输出的<code>join</code>命令段， 例如</p><p><code>kubeadm join 192.168.5.191:6443 --token xxxxxxxxxxx --discovery-token-ca-cert-hash sha256:xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx</code></p><p>如果没有报错的话就完成了</p><p><strong>接下来回到Master主机</strong></p><p>使用<code>kubectl get nodes</code>查看节点的状态</p><div class=highlight><pre tabindex=0 class=chroma><code class=language-bash data-lang=bash><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>tian@c1:~$ kubectl get nodes
+</span></span><span class=line><span class=cl>NAME      STATUS     ROLES     AGE       VERSION
+</span></span><span class=line><span class=cl>c1        Ready      master    10m       v1.11.0
+</span></span><span class=line><span class=cl>c2        NotReady   &lt;none&gt;    1m        v1.11.0
+</span></span><span class=line><span class=cl>c3        NotReady   &lt;none&gt;    14s       v1.11.0
+</span></span></code></pre></div><p>到这里就完成了，稍等初始化完成可以正常使用了。</p><h1 id=安装图形化管理界面>安装图形化管理界面</h1><h2 id=安装>安装</h2><div class=highlight><pre tabindex=0 class=chroma><code class=language-bash data-lang=bash><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>kubectl apply -f https://raw.githubusercontent.com/kubernetes/dashboard/v2.0.1/aio/deploy/recommended.yaml
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=c1>#开启proxy 方便内网访问</span>
+</span></span><span class=line><span class=cl>kubectl proxy --address<span class=o>=</span><span class=s1>&#39;0.0.0.0&#39;</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=c1>#(可选)如果在机房内网需要经过gateway才能访问的话， 可以临时开启ssh转发，然后直接访问 </span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>TMac :: ~ » ssh -L localhost:8001:192.168.5.191:8001 gateway-server
+</span></span></code></pre></div><p>管理地址</p><p><a class=link href=http://localhost:8001/api/v1/namespaces/kubernetes-dashboard/services/https:kubernetes-dashboard:/proxy/ target=_blank rel=noopener>http://localhost:8001/api/v1/namespaces/kubernetes-dashboard/services/https:kubernetes-dashboard:/proxy/</a></p><p><img src=/assets/images/201807/Kubernetes-dashboard-login.png alt=Kubernetes-gui-login.png></p><p>接下来要创建可以登陆管理界面的用户</p><p>创建用户配置 <code>create_account.yaml</code>, 用户名为admin</p><div class=highlight><pre tabindex=0 class=chroma><code class=language-yaml data-lang=yaml><span class=line><span class=cl><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w></span><span class=nt>apiVersion</span><span class=p>:</span><span class=w> </span><span class=l>v1</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w></span><span class=nt>kind</span><span class=p>:</span><span class=w> </span><span class=l>ServiceAccount</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w></span><span class=nt>metadata</span><span class=p>:</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>  </span><span class=nt>name</span><span class=p>:</span><span class=w> </span><span class=l>admin-user</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>  </span><span class=nt>namespace</span><span class=p>:</span><span class=w> </span><span class=l>kubernetes-dashboard</span><span class=w>
+</span></span></span></code></pre></div><p>应用配置<code>kubectl create -f create_account.yaml</code></p><p>创建权限配置 <code>admin_account_role_binding.yaml</code></p><div class=highlight><pre tabindex=0 class=chroma><code class=language-yaml data-lang=yaml><span class=line><span class=cl><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w></span><span class=nt>apiVersion</span><span class=p>:</span><span class=w> </span><span class=l>rbac.authorization.k8s.io/v1</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w></span><span class=nt>kind</span><span class=p>:</span><span class=w> </span><span class=l>ClusterRoleBinding</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w></span><span class=nt>metadata</span><span class=p>:</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>  </span><span class=nt>name</span><span class=p>:</span><span class=w> </span><span class=l>admin-user</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w></span><span class=nt>roleRef</span><span class=p>:</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>  </span><span class=nt>apiGroup</span><span class=p>:</span><span class=w> </span><span class=l>rbac.authorization.k8s.io</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>  </span><span class=nt>kind</span><span class=p>:</span><span class=w> </span><span class=l>ClusterRole</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>  </span><span class=nt>name</span><span class=p>:</span><span class=w> </span><span class=l>cluster-admin</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w></span><span class=nt>subjects</span><span class=p>:</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w></span>- <span class=nt>kind</span><span class=p>:</span><span class=w> </span><span class=l>ServiceAccount</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>  </span><span class=nt>name</span><span class=p>:</span><span class=w> </span><span class=l>admin-user</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>  </span><span class=nt>namespace</span><span class=p>:</span><span class=w> </span><span class=l>kubernetes-dashboard</span><span class=w>
+</span></span></span></code></pre></div><p>应用配置<code>kubectl create -f admin_account_role_binding.yaml</code></p><p>好了， 接下来查看创建的用户token</p><p><code>kubectl -n kubernetes-dashboard describe secret $(kubectl -n kubernetes-dashboard get secret | grep admin-user | awk '{print $1}')</code></p><p>使用输出的很长很长的token登陆</p><p><img src=/assets/images/201807/Kubernetes-dashboard.png alt=Kubernetes-dashboard></p><h2 id=销毁>销毁</h2><p><em><strong>注意，这里是销毁</strong></em></p><h3 id=移除node>移除Node</h3><p>在Mater 上执行</p><div class=highlight><pre tabindex=0 class=chroma><code class=language-bash data-lang=bash><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>kubectl drain &lt;node name&gt; --delete-local-data --force --ignore-daemonsets
+</span></span><span class=line><span class=cl>kubectl delete node &lt;node name&gt;
+</span></span></code></pre></div><p>然后在对应的Node 上执行<code>kubeadm reset</code></p><h3 id=删除master>删除Master</h3><p>直接执行 <code>kubeadm reset</code> 就可以了</p><p>全文完</p></section><footer class=article-footer><section class=article-tags><a href=/tags/kubernetes/>Kubernetes</a>
 <a href=/tags/cluster/>cluster</a>
 <a href=/tags/ubuntu/>ubuntu</a>
-<a href=/tags/docker/>docker</a>
-</section>
-<section class=article-copyright><svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-copyright" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentcolor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z"/><circle cx="12" cy="12" r="9"/><path d="M14.5 9a3.5 4 0 100 6"/></svg>
-<span>Licensed under CC BY-NC-SA 4.0</span>
-</section>
-</footer>
-</article>
-<aside class=related-contents--wrapper>
-<h2 class=section-title>相关文章</h2>
-<div class=related-contents>
-<div class="flex article-list--tile">
-<article>
-<a href=/post/openwrt-build-docker/>
-<div class=article-details>
-<h2 class=article-title>在docker中编译openwrt</h2>
-</div>
-</a>
-</article>
-<article>
-<a href=/post/setup-ubuntu-for-microsoft-remote-desktop/>
-<div class=article-details>
-<h2 class=article-title>Setup Ubuntu for Microsoft Remote Desktop</h2>
-</div>
-</a>
-</article>
-<article>
-<a href=/post/ubuntu-server-set-network-netplan/>
-<div class=article-details>
-<h2 class=article-title>使用netplan管理ubuntu 的网络配置</h2>
-</div>
-</a>
-</article>
-<article>
-<a href=/post/docker-run-etcd/>
-<div class=article-details>
-<h2 class=article-title>Deploying an etcd cluster as a standalone cluster on docker</h2>
-</div>
-</a>
-</article>
-<article>
-<a href=/post/ubuntu-install-mongodb-3.0-with-apt/>
-<div class=article-details>
-<h2 class=article-title>ubuntu 通过apt 安装 mongodb 3.0</h2>
-</div>
-</a>
-</article>
-</div>
-</div>
-</aside>
-<div class=disqus-container>
-<div id=disqus_thread></div>
-<script type=application/javascript>var disqus_config=function(){};(function(){if(["localhost","127.0.0.1"].indexOf(window.location.hostname)!=-1){document.getElementById('disqus_thread').innerHTML='Disqus comments not available by default when the website is previewed locally.';return}var b=document,a=b.createElement('script');a.async=!0,a.src='//hitian.disqus.com/embed.js',a.setAttribute('data-timestamp',+new Date),(b.head||b.body).appendChild(a)})()</script>
-<noscript>Please enable JavaScript to view the <a href=https://disqus.com/?ref_noscript>comments powered by Disqus.</a></noscript>
-<a href=https://disqus.com class=dsq-brlink>comments powered by <span class=logo-disqus>Disqus</span></a>
-</div>
-<style>.disqus-container{background-color:var(--card-background);border-radius:var(--card-border-radius);box-shadow:var(--shadow-l1);padding:var(--card-padding)}</style>
-<script>window.addEventListener('onColorSchemeChange',a=>{DISQUS&&DISQUS.reset({reload:!0})})</script>
-<footer class=site-footer>
-<section class=copyright>
-&copy;
+<a href=/tags/docker/>docker</a></section><section class=article-copyright><svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-copyright" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentcolor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z"/><circle cx="12" cy="12" r="9"/><path d="M14.5 9a3.5 4 0 100 6"/></svg><span>Licensed under CC BY-NC-SA 4.0</span></section></footer></article><aside class=related-contents--wrapper><h2 class=section-title>相关文章</h2><div class=related-contents><div class="flex article-list--tile"><article><a href=/post/openwrt-build-docker/><div class=article-details><h2 class=article-title>在docker中编译openwrt</h2></div></a></article><article><a href=/post/setup-ubuntu-for-microsoft-remote-desktop/><div class=article-details><h2 class=article-title>Setup Ubuntu for Microsoft Remote Desktop</h2></div></a></article><article><a href=/post/ubuntu-server-set-network-netplan/><div class=article-details><h2 class=article-title>使用netplan管理ubuntu 的网络配置</h2></div></a></article><article><a href=/post/docker-run-etcd/><div class=article-details><h2 class=article-title>Deploying an etcd cluster as a standalone cluster on docker</h2></div></a></article><article><a href=/post/ubuntu-install-mongodb-3.0-with-apt/><div class=article-details><h2 class=article-title>ubuntu 通过apt 安装 mongodb 3.0</h2></div></a></article></div></div></aside><div class=disqus-container><div id=disqus_thread></div><script type=application/javascript>window.disqus_config=function(){},function(){if(["localhost","127.0.0.1"].indexOf(window.location.hostname)!=-1){document.getElementById("disqus_thread").innerHTML="Disqus comments not available by default when the website is previewed locally.";return}var t=document,e=t.createElement("script");e.async=!0,e.src="//hitian.disqus.com/embed.js",e.setAttribute("data-timestamp",+new Date),(t.head||t.body).appendChild(e)}()</script><noscript>Please enable JavaScript to view the <a href=https://disqus.com/?ref_noscript>comments powered by Disqus.</a></noscript><a href=https://disqus.com class=dsq-brlink>comments powered by <span class=logo-disqus>Disqus</span></a></div><style>.disqus-container{background-color:var(--card-background);border-radius:var(--card-border-radius);box-shadow:var(--shadow-l1);padding:var(--card-padding)}</style><script>window.addEventListener("onColorSchemeChange",e=>{DISQUS&&DISQUS.reset({reload:!0})})</script><footer class=site-footer><section class=copyright>&copy;
 2011 -
-2022 不折腾不舒服
-</section>
-<section class=powerby>
-Built with <a href=https://gohugo.io/ target=_blank rel=noopener>Hugo</a> <br>
-Theme <b><a href=https://github.com/CaiJimmy/hugo-theme-stack target=_blank rel=noopener data-version=2.3.0>Stack</a></b> designed by <a href=https://jimmycai.com target=_blank rel=noopener>Jimmy</a>
-</section>
-</footer>
-<div class=pswp tabindex=-1 role=dialog aria-hidden=true>
-<div class=pswp__bg></div>
-<div class=pswp__scroll-wrap>
-<div class=pswp__container>
-<div class=pswp__item></div>
-<div class=pswp__item></div>
-<div class=pswp__item></div>
-</div>
-<div class="pswp__ui pswp__ui--hidden">
-<div class=pswp__top-bar>
-<div class=pswp__counter></div>
-<button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+2022 哈哈哈</section><section class=powerby>Built with <a href=https://gohugo.io/ target=_blank rel=noopener>Hugo</a><br>Theme <b><a href=https://github.com/CaiJimmy/hugo-theme-stack target=_blank rel=noopener data-version=2.3.0>Stack</a></b> designed by <a href=https://jimmycai.com target=_blank rel=noopener>Jimmy</a></section></footer><div class=pswp tabindex=-1 role=dialog aria-hidden=true><div class=pswp__bg></div><div class=pswp__scroll-wrap><div class=pswp__container><div class=pswp__item></div><div class=pswp__item></div><div class=pswp__item></div></div><div class="pswp__ui pswp__ui--hidden"><div class=pswp__top-bar><div class=pswp__counter></div><button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
 <button class="pswp__button pswp__button--share" title=Share></button>
 <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
-<button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
-<div class=pswp__preloader>
-<div class=pswp__preloader__icn>
-<div class=pswp__preloader__cut>
-<div class=pswp__preloader__donut></div>
-</div>
-</div>
-</div>
-</div>
-<div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
-<div class=pswp__share-tooltip></div>
-</div>
-<button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
-</button>
-<button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)">
-</button>
-<div class=pswp__caption>
-<div class=pswp__caption__center></div>
-</div>
-</div>
-</div>
-</div><script src=https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.min.js integrity="sha256-ePwmChbbvXbsO02lbM3HoHbSHTHFAeChekF1xKJdleo=" crossorigin=anonymous defer></script><script src=https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe-ui-default.min.js integrity="sha256-UKkzOn/w1mBxRmLLGrSeyB4e1xbrp4xylgAWb3M42pU=" crossorigin=anonymous defer></script><link rel=stylesheet href=https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/default-skin/default-skin.css integrity="sha256-c0uckgykQ9v5k+IqViZOZKc47Jn7KQil4/MP3ySA3F8=" crossorigin=anonymous><link rel=stylesheet href=https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.css integrity="sha256-SBLU4vv6CA6lHsZ1XyTdhyjJxCjPif/TRkjnsyGAGnE=" crossorigin=anonymous>
-</main>
-</div>
-<script src=https://cdn.jsdelivr.net/npm/node-vibrant@3.1.5/dist/vibrant.min.js integrity="sha256-5NovOZc4iwiAWTYIFiIM7DxKUXKWvpVEuMEPLzcm5/g=" crossorigin=anonymous defer></script><script type=text/javascript src=/ts/main.js defer></script>
-<script>(function(){const a=document.createElement('link');a.href="https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700&display=swap",a.type="text/css",a.rel="stylesheet",document.head.appendChild(a)})()</script>
-</body>
-</html>
+<button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button><div class=pswp__preloader><div class=pswp__preloader__icn><div class=pswp__preloader__cut><div class=pswp__preloader__donut></div></div></div></div></div><div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap"><div class=pswp__share-tooltip></div></div><button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)"></button>
+<button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)"></button><div class=pswp__caption><div class=pswp__caption__center></div></div></div></div></div><script src=https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.min.js integrity="sha256-ePwmChbbvXbsO02lbM3HoHbSHTHFAeChekF1xKJdleo=" crossorigin=anonymous defer></script><script src=https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe-ui-default.min.js integrity="sha256-UKkzOn/w1mBxRmLLGrSeyB4e1xbrp4xylgAWb3M42pU=" crossorigin=anonymous defer></script><link rel=stylesheet href=https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/default-skin/default-skin.css integrity="sha256-c0uckgykQ9v5k+IqViZOZKc47Jn7KQil4/MP3ySA3F8=" crossorigin=anonymous><link rel=stylesheet href=https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.css integrity="sha256-SBLU4vv6CA6lHsZ1XyTdhyjJxCjPif/TRkjnsyGAGnE=" crossorigin=anonymous></main></div><script src=https://cdn.jsdelivr.net/npm/node-vibrant@3.1.5/dist/vibrant.min.js integrity="sha256-5NovOZc4iwiAWTYIFiIM7DxKUXKWvpVEuMEPLzcm5/g=" crossorigin=anonymous defer></script><script type=text/javascript src=/ts/main.js defer></script>
+<script>(function(){const e=document.createElement("link");e.href="https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700&display=swap",e.type="text/css",e.rel="stylesheet",document.head.appendChild(e)})()</script></body></html>

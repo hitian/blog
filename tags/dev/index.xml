@@ -1,22 +1,24 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>dev on 不折腾不舒服</title><link>https://hitian.info/tags/dev/</link><description>Recent content in dev on 不折腾不舒服</description><generator>Hugo -- gohugo.io</generator><language>zh-cn</language><lastBuildDate>Sat, 05 Jan 2019 00:00:00 +0000</lastBuildDate><atom:link href="https://hitian.info/tags/dev/index.xml" rel="self" type="application/rss+xml"/><item><title>ssh 代理和转发那些事</title><link>https://hitian.info/post/ssh-proxy-forward/</link><pubDate>Sat, 05 Jan 2019 00:00:00 +0000</pubDate><guid>https://hitian.info/post/ssh-proxy-forward/</guid><description>配置ssh客户端的行为 配置文件路径 ~/.ssh/config
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>dev on 哈哈哈</title><link>https://hitian.info/tags/dev/</link><description>Recent content in dev on 哈哈哈</description><generator>Hugo -- gohugo.io</generator><language>zh-cn</language><lastBuildDate>Sat, 05 Jan 2019 00:00:00 +0000</lastBuildDate><atom:link href="https://hitian.info/tags/dev/index.xml" rel="self" type="application/rss+xml"/><item><title>ssh 代理和转发那些事</title><link>https://hitian.info/post/ssh-proxy-forward/</link><pubDate>Sat, 05 Jan 2019 00:00:00 +0000</pubDate><guid>https://hitian.info/post/ssh-proxy-forward/</guid><description>配置ssh客户端的行为 配置文件路径 ~/.ssh/config
 针对目标主机的配置块示例
 Host deploy-gw HostName [__target_hostname_or_ip__] User game IdentityFile ~/.ssh/deploy_private_key ProxyCommand [__connect_command__] 配置解释 除了Host之外， 其它的都是可选的 Host deploy-gw 定义使用时的名字，之后使用 ssh deploy-gw 登录目标，这个只是别名，当然这里也可以直接写hostname 或者IP地址; 当使用 Hostname 时可以进行匹配， 例如 Host *.hitian.info 可以匹配到 a.hitian.info.
 HostName [__target_hostname_or_ip__] 目标的主机名或者IP地址
 User tian 用户名
 IdentityFile ~/.ssh/deploy_private_key 指定使用的private key路径。 替代ssh的 -i 参数一样效果
 ProxyCommand ssh -q [__local_gw__] nc [__target_addr__] 22 连接目标主机时使用的命令
-ssh via [http or socks proxy] 使用场景: 由于不可抗拒的因素无法直接ssh 到远程主机，或者链接过程中会被异常阻断时</description></item><item><title>重装系统后恢复开发环境</title><link>https://hitian.info/post/restore-development-environment/</link><pubDate>Tue, 22 Nov 2011 00:00:00 +0000</pubDate><guid>https://hitian.info/post/restore-development-environment/</guid><description>每次做系统都很愁, 因为有一大堆软件需要重新安装, 尽管尽量都用绿色的还是有一大推需要安装的, 尝试着列个表, 简化一下流程&amp;hellip;
-个人文件夹迁移 将个人文件夹中的 我的视频 我的音乐 我的图片 移动到原来非系统盘的位置去 (一直很纳闷为什么这些需要大量占用磁盘空间的东西不一开始就放在非系统盘) 恢复apache和php环境 之前的都装在d盘了  以管理员运行cmd 进入D:\lamp\apache\bin
+ssh via [http or socks proxy] 使用场景: 由于不可抗拒的因素无法直接ssh 到远程主机，或者链接过程中会被异常阻断时
+这里我们需要一个 connect 命令，需要自行安装一下。
+Provides SOCKS and HTTPS proxy support to SSH https://bitbucket.</description></item><item><title>重装系统后恢复开发环境</title><link>https://hitian.info/post/restore-development-environment/</link><pubDate>Tue, 22 Nov 2011 00:00:00 +0000</pubDate><guid>https://hitian.info/post/restore-development-environment/</guid><description>每次做系统都很愁, 因为有一大堆软件需要重新安装, 尽管尽量都用绿色的还是有一大推需要安装的, 尝试着列个表, 简化一下流程&amp;hellip;
+个人文件夹迁移 将个人文件夹中的 我的视频 我的音乐 我的图片 移动到原来非系统盘的位置去 (一直很纳闷为什么这些需要大量占用磁盘空间的东西不一开始就放在非系统盘) 恢复apache和php环境 之前的都装在d盘了 以管理员运行cmd 进入D:\lamp\apache\bin
 httpd.exe -k install 将apache安装为系统服务
 httpd.exe -k start 启动apache
 mysql 一直使用的远程的, 跳过
 将备份的host 文件覆盖 顺便调整一下修改的权限
 运行环境搞定
- 安装firefox 然后安装插件 firebug;
+安装firefox 然后安装插件 firebug;
 firecookie;
 web developer;
 dns flusher;
 advanced cookie manager;
 再安装一下chrome 使用google帐号将之前的插件都同步回来
 ok 调试环境也搞定
- 安装 jre ; Dreamweaver ; mysql workbench; eclipse pdt; editplus ok 开发环境搞定</description></item></channel></rss>
+安装 jre ; Dreamweaver ; mysql workbench; eclipse pdt; editplus ok 开发环境搞定</description></item></channel></rss>

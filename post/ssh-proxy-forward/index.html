@@ -1,291 +1,53 @@
-<!doctype html><html lang=zh-cn>
-<head><meta charset=utf-8>
-<meta name=viewport content="width=device-width,initial-scale=1"><meta name=description content="配置ssh客户端的行为 配置文件路径 ~/.ssh/config
+<!doctype html><html lang=zh-cn><head><meta charset=utf-8><meta name=viewport content="width=device-width,initial-scale=1"><meta name=description content="配置ssh客户端的行为 配置文件路径 ~/.ssh/config
 针对目标主机的配置块示例
-Host deploy-gw HostName [__target_hostname_or_ip__] User game IdentityFile ~/.ssh/deploy_private_key ProxyCommand [__connect_command__] 配置解释 除了Host之外， 其它的都是可选的  Host deploy-gw  定义使用时的名字，之后使用 ssh deploy-gw 登录目标，这个只是别名，当然这里也可以直接写hostname 或者IP地址; 当使用 Hostname 时可以进行匹配， 例如 Host *.hitian.info 可以匹配到 a.hitian.info.
- HostName [__target_hostname_or_ip__]  目标的主机名或者IP地址
- User tian  用户名
- IdentityFile ~/.ssh/deploy_private_key  指定使用的private key路径。 替代ssh的 -i 参数一样效果
- ProxyCommand ssh -q [__local_gw__] nc [__target_addr__] 22  连接目标主机时使用的命令
-ssh via [http or socks proxy] 使用场景: 由于不可抗拒的因素无法直接ssh 到远程主机，或者链接过程中会被异常阻断时"><title>ssh 代理和转发那些事</title>
-<link rel=canonical href=https://hitian.info/post/ssh-proxy-forward/>
-<link rel=stylesheet href=/scss/style.min.css><meta property="og:title" content="ssh 代理和转发那些事">
-<meta property="og:description" content="配置ssh客户端的行为 配置文件路径 ~/.ssh/config
+Host deploy-gw HostName [__target_hostname_or_ip__] User game IdentityFile ~/.ssh/deploy_private_key ProxyCommand [__connect_command__] 配置解释 除了Host之外， 其它的都是可选的 Host deploy-gw 定义使用时的名字，之后使用 ssh deploy-gw 登录目标，这个只是别名，当然这里也可以直接写hostname 或者IP地址; 当使用 Hostname 时可以进行匹配， 例如 Host *.hitian.info 可以匹配到 a.hitian.info.
+HostName [__target_hostname_or_ip__] 目标的主机名或者IP地址
+User tian 用户名
+IdentityFile ~/.ssh/deploy_private_key 指定使用的private key路径。 替代ssh的 -i 参数一样效果
+ProxyCommand ssh -q [__local_gw__] nc [__target_addr__] 22 连接目标主机时使用的命令
+ssh via [http or socks proxy] 使用场景: 由于不可抗拒的因素无法直接ssh 到远程主机，或者链接过程中会被异常阻断时
+这里我们需要一个 connect 命令，需要自行安装一下。
+Provides SOCKS and HTTPS proxy support to SSH https://bitbucket."><title>ssh 代理和转发那些事</title><link rel=canonical href=https://hitian.info/post/ssh-proxy-forward/><link rel=stylesheet href=/scss/style.min.css><meta property="og:title" content="ssh 代理和转发那些事"><meta property="og:description" content="配置ssh客户端的行为 配置文件路径 ~/.ssh/config
 针对目标主机的配置块示例
-Host deploy-gw HostName [__target_hostname_or_ip__] User game IdentityFile ~/.ssh/deploy_private_key ProxyCommand [__connect_command__] 配置解释 除了Host之外， 其它的都是可选的  Host deploy-gw  定义使用时的名字，之后使用 ssh deploy-gw 登录目标，这个只是别名，当然这里也可以直接写hostname 或者IP地址; 当使用 Hostname 时可以进行匹配， 例如 Host *.hitian.info 可以匹配到 a.hitian.info.
- HostName [__target_hostname_or_ip__]  目标的主机名或者IP地址
- User tian  用户名
- IdentityFile ~/.ssh/deploy_private_key  指定使用的private key路径。 替代ssh的 -i 参数一样效果
- ProxyCommand ssh -q [__local_gw__] nc [__target_addr__] 22  连接目标主机时使用的命令
-ssh via [http or socks proxy] 使用场景: 由于不可抗拒的因素无法直接ssh 到远程主机，或者链接过程中会被异常阻断时">
-<meta property="og:url" content="https://hitian.info/post/ssh-proxy-forward/">
-<meta property="og:site_name" content="不折腾不舒服">
-<meta property="og:type" content="article"><meta property="article:section" content="Post"><meta property="article:tag" content="ssh"><meta property="article:tag" content="dev"><meta property="article:tag" content="proxy"><meta property="article:tag" content="forward"><meta property="article:published_time" content="2019-01-05T00:00:00+00:00"><meta property="article:modified_time" content="2019-01-05T00:00:00+00:00">
-<meta name=twitter:title content="ssh 代理和转发那些事">
-<meta name=twitter:description content="配置ssh客户端的行为 配置文件路径 ~/.ssh/config
+Host deploy-gw HostName [__target_hostname_or_ip__] User game IdentityFile ~/.ssh/deploy_private_key ProxyCommand [__connect_command__] 配置解释 除了Host之外， 其它的都是可选的 Host deploy-gw 定义使用时的名字，之后使用 ssh deploy-gw 登录目标，这个只是别名，当然这里也可以直接写hostname 或者IP地址; 当使用 Hostname 时可以进行匹配， 例如 Host *.hitian.info 可以匹配到 a.hitian.info.
+HostName [__target_hostname_or_ip__] 目标的主机名或者IP地址
+User tian 用户名
+IdentityFile ~/.ssh/deploy_private_key 指定使用的private key路径。 替代ssh的 -i 参数一样效果
+ProxyCommand ssh -q [__local_gw__] nc [__target_addr__] 22 连接目标主机时使用的命令
+ssh via [http or socks proxy] 使用场景: 由于不可抗拒的因素无法直接ssh 到远程主机，或者链接过程中会被异常阻断时
+这里我们需要一个 connect 命令，需要自行安装一下。
+Provides SOCKS and HTTPS proxy support to SSH https://bitbucket."><meta property="og:url" content="https://hitian.info/post/ssh-proxy-forward/"><meta property="og:site_name" content="哈哈哈"><meta property="og:type" content="article"><meta property="article:section" content="Post"><meta property="article:tag" content="ssh"><meta property="article:tag" content="dev"><meta property="article:tag" content="proxy"><meta property="article:tag" content="forward"><meta property="article:published_time" content="2019-01-05T00:00:00+00:00"><meta property="article:modified_time" content="2019-01-05T00:00:00+00:00"><meta name=twitter:title content="ssh 代理和转发那些事"><meta name=twitter:description content="配置ssh客户端的行为 配置文件路径 ~/.ssh/config
 针对目标主机的配置块示例
-Host deploy-gw HostName [__target_hostname_or_ip__] User game IdentityFile ~/.ssh/deploy_private_key ProxyCommand [__connect_command__] 配置解释 除了Host之外， 其它的都是可选的  Host deploy-gw  定义使用时的名字，之后使用 ssh deploy-gw 登录目标，这个只是别名，当然这里也可以直接写hostname 或者IP地址; 当使用 Hostname 时可以进行匹配， 例如 Host *.hitian.info 可以匹配到 a.hitian.info.
- HostName [__target_hostname_or_ip__]  目标的主机名或者IP地址
- User tian  用户名
- IdentityFile ~/.ssh/deploy_private_key  指定使用的private key路径。 替代ssh的 -i 参数一样效果
- ProxyCommand ssh -q [__local_gw__] nc [__target_addr__] 22  连接目标主机时使用的命令
-ssh via [http or socks proxy] 使用场景: 由于不可抗拒的因素无法直接ssh 到远程主机，或者链接过程中会被异常阻断时">
-<script async src="https://www.googletagmanager.com/gtag/js?id=G-MZ35160LM3"></script>
-<script>var doNotTrack=!1;if(!doNotTrack){window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments)}gtag('js',new Date),gtag('config','G-MZ35160LM3',{anonymize_ip:!1})}</script>
-</head>
-<body>
-<script>(function(){const a='StackColorScheme';localStorage.getItem(a)||localStorage.setItem(a,"auto")})()</script><script>(function(){const b='StackColorScheme',a=localStorage.getItem(b),c=window.matchMedia('(prefers-color-scheme: dark)').matches===!0;a=='dark'||a==='auto'&&c?document.body.dataset.scheme='dark':document.body.dataset.scheme='light'})()</script><div class="container main-container flex on-phone--column extended article-page with-toolbar">
-<aside class="sidebar left-sidebar sticky">
-<button class="hamburger hamburger--spin" type=button id=toggle-menu aria-label=切换菜单>
-<span class=hamburger-box>
-<span class=hamburger-inner></span>
-</span>
-</button>
-<header class=site-info>
-<figure class=site-avatar>
-<img src=/assets/avatar.jpg width=300 height=300 class=site-logo loading=lazy alt=Avatar>
-<span class=emoji>🌎</span>
-</figure>
-<h1 class=site-name><a href=https://hitian.info>不折腾不舒服</a></h1>
-<h2 class=site-description>折腾笔记</h2>
-</header>
-<ol class=menu id=main-menu>
-<li>
-<a href=/><svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-home" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentcolor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z"/><polyline points="5 12 3 12 12 3 21 12 19 12"/><path d="M5 12v7a2 2 0 002 2h10a2 2 0 002-2v-7"/><path d="M9 21v-6a2 2 0 012-2h2a2 2 0 012 2v6"/></svg>
-<span>Home</span>
-</a>
-</li>
-<li>
-<a href=/about/><svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-user" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentcolor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z"/><circle cx="12" cy="7" r="4"/><path d="M6 21v-2a4 4 0 014-4h4a4 4 0 014 4v2"/></svg>
-<span>About</span>
-</a>
-</li>
-<li>
-<a href=/archives/><svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-archive" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentcolor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z"/><rect x="3" y="4" width="18" height="4" rx="2"/><path d="M5 8v10a2 2 0 002 2h10a2 2 0 002-2V8"/><line x1="10" y1="12" x2="14" y2="12"/></svg>
-<span>Archives</span>
-</a>
-</li>
-<li>
-<a href=/search/><svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-search" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentcolor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z"/><circle cx="10" cy="10" r="7"/><line x1="21" y1="21" x2="15" y2="15"/></svg>
-<span>Search</span>
-</a>
-</li>
-<li id=dark-mode-toggle><svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-toggle-left" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentcolor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z"/><circle cx="8" cy="12" r="2"/><rect x="2" y="6" width="20" height="12" rx="6"/></svg><svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-toggle-right" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentcolor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z"/><circle cx="16" cy="12" r="2"/><rect x="2" y="6" width="20" height="12" rx="6"/></svg>
-<span>暗色模式</span>
-</li>
-</ol>
-</aside>
-<main class="main full-width">
-<div id=article-toolbar>
-<a href=https://hitian.info class=back-home><svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-chevron-left" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentcolor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z"/><polyline points="15 6 9 12 15 18"/></svg>
-<span>Back</span>
-</a>
-</div>
-<article class=main-article>
-<header class=article-header>
-<div class=article-details>
-<header class=article-category>
-<a href=/categories/notes/>
-notes
-</a>
-</header>
-<h2 class=article-title>
-<a href=/post/ssh-proxy-forward/>ssh 代理和转发那些事</a>
-</h2>
-<footer class=article-time><svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-clock" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentcolor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z"/><circle cx="12" cy="12" r="9"/><polyline points="12 7 12 12 15 15"/></svg>
-<time class=article-time--published>Jan 05, 2019</time>
-</footer></div>
-</header>
-<section class=article-content>
-<h1 id=配置ssh客户端的行为>配置ssh客户端的行为</h1>
-<p>配置文件路径 <code>~/.ssh/config</code></p>
-<p>针对目标主机的配置块示例</p>
-<div class=highlight><pre tabindex=0 class=chroma><code class=language-bash data-lang=bash>Host deploy-gw
-  HostName <span class=o>[</span>__target_hostname_or_ip__<span class=o>]</span>
-  User game
-  IdentityFile ~/.ssh/deploy_private_key
-  ProxyCommand <span class=o>[</span>__connect_command__<span class=o>]</span>
-
-</code></pre></div><h2 id=配置解释>配置解释</h2>
-<h3 id=除了host之外-其它的都是可选的>除了Host之外， 其它的都是可选的</h3>
-<ul>
-<li><code>Host deploy-gw</code></li>
-</ul>
-<p>定义使用时的名字，之后使用 <code>ssh deploy-gw</code> 登录目标，这个只是别名，当然这里也可以直接写hostname 或者IP地址; 当使用 Hostname 时可以进行匹配， 例如 <code>Host *.hitian.info</code> 可以匹配到 <code>a.hitian.info</code>.</p>
-<ul>
-<li><code>HostName [__target_hostname_or_ip__]</code></li>
-</ul>
-<p>目标的主机名或者IP地址</p>
-<ul>
-<li><code>User tian</code></li>
-</ul>
-<p>用户名</p>
-<ul>
-<li><code>IdentityFile ~/.ssh/deploy_private_key</code></li>
-</ul>
-<p>指定使用的private key路径。 替代ssh的 <code>-i</code> 参数一样效果</p>
-<ul>
-<li><code>ProxyCommand ssh -q [__local_gw__] nc [__target_addr__] 22</code></li>
-</ul>
-<p>连接目标主机时使用的命令</p>
-<h1 id=ssh-via-http-or-socks-proxy>ssh via [http or socks proxy]</h1>
-<p>使用场景: 由于不可抗拒的因素无法直接ssh 到远程主机，或者链接过程中会被异常阻断时</p>
-<p>这里我们需要一个 connect 命令，需要自行安装一下。</p>
-<div class=highlight><pre tabindex=0 class=chroma><code class=language-text data-lang=text>Provides SOCKS and HTTPS proxy support to SSH
-https://bitbucket.org/gotoh/connect/wiki/Home
-</code></pre></div><p>macOS 可以利用brew 直接安装, 其它平台可以按说明执行编译安装</p>
-<div class=highlight><pre tabindex=0 class=chroma><code class=language-bash data-lang=bash>brew install connect
-</code></pre></div><p>要让ssh使用proxy连接到目标主机，在config 中添加ProxyCommand配置</p>
-<p>使用 http 代理</p>
-<p><code>ProxyCommand connect -H http_proxy_addr:port %h %p</code></p>
-<p>使用 socks 代理</p>
-<p><code>ProxyCommand connect -S socks_proxy_addr:port %h %p</code></p>
-<p>详细的connect使用说明可以参照官方wiki</p>
-<h1 id=ssh-via-ssh>ssh via ssh</h1>
-<p>使用场景：</p>
-<p>例如需要通过某台ssh的网关才能链接到内网的其它ssh服务器</p>
-<p>当然可以通过先ssh到网关，再ssh到目标主机的方式简单实现，但是这要求在网关机器上放一份目标主机的私钥。</p>
-<p>如果不想将私钥给网关机器。可以采用以下方式</p>
-<p>使用 nc 命令实现转发， nc在macOS和主流Linux上已经内置</p>
-<hr>
-<p>在config 中添加ProxyCommand配置</p>
-<p><code>ProxyCommand ssh -q gateway_host nc target_host 22</code></p>
-<p>这里 gateway_host 为网关， nc 后为目标的主机和sshd的端口号， 首先要保证可以正常ssh 到gateway_host。</p>
-<p>这种方式可以直接实现更长的转发链</p>
-<p>例如要直接在local登录target 只需要在本地分别为a, b, target 配置ProxyCommand就可以了，妈妈再也不需要担心我要一层一层ssh到远程机器了:)</p>
-<div class=highlight><pre tabindex=0 class=chroma><code class=language-text data-lang=text>local -&gt; gateway -&gt; a -&gt; b -&gt; target
-</code></pre></div><h1 id=socks-proxy-over-ssh>socks proxy over ssh</h1>
-<p>使用场景：需要访问目标主机的localhost，或者目标主机内网的资源时， 如果客户端无法使用socks链接需要的资源，请参考下一种方式</p>
-<p>在本地监听1089端口。将请求通过ssh隧道转发到target_host</p>
-<div class=highlight><pre tabindex=0 class=chroma><code class=language-bash data-lang=bash>ssh -D <span class=m>1089</span> target_host
-</code></pre></div><h1 id=port-forward-via-ssh>port forward via ssh</h1>
-<p>使用场景： 直接在本地请求目标主机内网的服务时</p>
-<p>举个例子</p>
-<p>gateway 服务器的内网有一台mysql服务器运行在 <code>10.0.0.3:3306</code>， 本地的mysql客户端无法直接链接。 我们可以采用ssh来映射端口到本地</p>
-<div class=highlight><pre tabindex=0 class=chroma><code class=language-bash data-lang=bash>ssh -L localhost:3306:10.0.0.3:3306 target_host
-</code></pre></div><p>L参数的格式 <code>本地地址</code>:<code>本地监听端口</code>:<code>远程地址</code>:<code>要映射的远程端口</code></p>
-<p>上面的命令可以直接将远程mysql服务器的3306端口映射到本地的3306端口， 在本地可以直接使用<code>mysql -h localhost</code>连接。</p>
-<p>当然也可以使用0.0.0.0，将本地的端口开放给本地的其它主机使用</p>
-<div class=highlight><pre tabindex=0 class=chroma><code class=language-bash data-lang=bash>ssh -L 0.0.0.0:3306:10.0.0.3:3306 target_host
-</code></pre></div><h1 id=不稳定的网络中使用ssh>不稳定的网络中使用ssh</h1>
-<p>由于ssh使用的TCP链接，在不稳定的网络中使用ssh会很容易断开，推荐使用 mosh <a class=link href=https://mosh.org/ target=_blank rel=noopener>https://mosh.org/</a></p>
-<p>mosh 会使用 Protocol Buffers + UDP 的方式传输ssh数据，包含数据的压缩和断线重连，原有的ssh配置和权限都不需要额外的变更</p>
-<p>注意：mosh客户端在启动的时候会ssh到远程的主机，启动一个mosh-server 并默认监听在一个60000-61000之间的UDP端口。而且每开启一个新的客户端， 都会在服务器上开一个新的udp端口，需要防火墙放心对应的UDP端口段.</p>
-<p>iOS上的客户端推荐 <a class=link href=https://github.com/blinksh/blink target=_blank rel=noopener>https://github.com/blinksh/blink</a></p>
-<p>THE END</p>
-</section>
-<footer class=article-footer>
-<section class=article-tags>
-<a href=/tags/ssh/>ssh</a>
+Host deploy-gw HostName [__target_hostname_or_ip__] User game IdentityFile ~/.ssh/deploy_private_key ProxyCommand [__connect_command__] 配置解释 除了Host之外， 其它的都是可选的 Host deploy-gw 定义使用时的名字，之后使用 ssh deploy-gw 登录目标，这个只是别名，当然这里也可以直接写hostname 或者IP地址; 当使用 Hostname 时可以进行匹配， 例如 Host *.hitian.info 可以匹配到 a.hitian.info.
+HostName [__target_hostname_or_ip__] 目标的主机名或者IP地址
+User tian 用户名
+IdentityFile ~/.ssh/deploy_private_key 指定使用的private key路径。 替代ssh的 -i 参数一样效果
+ProxyCommand ssh -q [__local_gw__] nc [__target_addr__] 22 连接目标主机时使用的命令
+ssh via [http or socks proxy] 使用场景: 由于不可抗拒的因素无法直接ssh 到远程主机，或者链接过程中会被异常阻断时
+这里我们需要一个 connect 命令，需要自行安装一下。
+Provides SOCKS and HTTPS proxy support to SSH https://bitbucket."><script async src="https://www.googletagmanager.com/gtag/js?id=G-MZ35160LM3"></script>
+<script>var doNotTrack=!1;if(!doNotTrack){window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments)}gtag("js",new Date),gtag("config","G-MZ35160LM3",{anonymize_ip:!1})}</script></head><body><script>(function(){const e="StackColorScheme";localStorage.getItem(e)||localStorage.setItem(e,"auto")})()</script><script>(function(){const t="StackColorScheme",e=localStorage.getItem(t),n=window.matchMedia("(prefers-color-scheme: dark)").matches===!0;e=="dark"||e==="auto"&&n?document.body.dataset.scheme="dark":document.body.dataset.scheme="light"})()</script><div class="container main-container flex on-phone--column extended article-page with-toolbar"><aside class="sidebar left-sidebar sticky"><button class="hamburger hamburger--spin" type=button id=toggle-menu aria-label=切换菜单>
+<span class=hamburger-box><span class=hamburger-inner></span></span></button><header class=site-info><figure class=site-avatar><img src=/assets/avatar.jpg width=300 height=300 class=site-logo loading=lazy alt=Avatar>
+<span class=emoji>🌎</span></figure><h1 class=site-name><a href=https://hitian.info>哈哈哈</a></h1><h2 class=site-description>折腾笔记</h2></header><ol class=menu id=main-menu><li><a href=/><svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-home" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentcolor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z"/><polyline points="5 12 3 12 12 3 21 12 19 12"/><path d="M5 12v7a2 2 0 002 2h10a2 2 0 002-2v-7"/><path d="M9 21v-6a2 2 0 012-2h2a2 2 0 012 2v6"/></svg><span>Home</span></a></li><li><a href=/about/><svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-user" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentcolor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z"/><circle cx="12" cy="7" r="4"/><path d="M6 21v-2a4 4 0 014-4h4a4 4 0 014 4v2"/></svg><span>About</span></a></li><li><a href=/archives/><svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-archive" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentcolor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z"/><rect x="3" y="4" width="18" height="4" rx="2"/><path d="M5 8v10a2 2 0 002 2h10a2 2 0 002-2V8"/><line x1="10" y1="12" x2="14" y2="12"/></svg><span>Archives</span></a></li><li><a href=/search/><svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-search" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentcolor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z"/><circle cx="10" cy="10" r="7"/><line x1="21" y1="21" x2="15" y2="15"/></svg><span>Search</span></a></li><li id=dark-mode-toggle><svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-toggle-left" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentcolor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z"/><circle cx="8" cy="12" r="2"/><rect x="2" y="6" width="20" height="12" rx="6"/></svg><svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-toggle-right" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentcolor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z"/><circle cx="16" cy="12" r="2"/><rect x="2" y="6" width="20" height="12" rx="6"/></svg><span>暗色模式</span></li></ol></aside><main class="main full-width"><div id=article-toolbar><a href=https://hitian.info class=back-home><svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-chevron-left" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentcolor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z"/><polyline points="15 6 9 12 15 18"/></svg><span>Back</span></a></div><article class=main-article><header class=article-header><div class=article-details><header class=article-category><a href=/categories/notes/>notes</a></header><h2 class=article-title><a href=/post/ssh-proxy-forward/>ssh 代理和转发那些事</a></h2><footer class=article-time><svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-clock" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentcolor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z"/><circle cx="12" cy="12" r="9"/><polyline points="12 7 12 12 15 15"/></svg><time class=article-time--published>Jan 05, 2019</time></footer></div></header><section class=article-content><h1 id=配置ssh客户端的行为>配置ssh客户端的行为</h1><p>配置文件路径 <code>~/.ssh/config</code></p><p>针对目标主机的配置块示例</p><div class=highlight><pre tabindex=0 class=chroma><code class=language-bash data-lang=bash><span class=line><span class=cl>Host deploy-gw
+</span></span><span class=line><span class=cl>  HostName <span class=o>[</span>__target_hostname_or_ip__<span class=o>]</span>
+</span></span><span class=line><span class=cl>  User game
+</span></span><span class=line><span class=cl>  IdentityFile ~/.ssh/deploy_private_key
+</span></span><span class=line><span class=cl>  ProxyCommand <span class=o>[</span>__connect_command__<span class=o>]</span>
+</span></span></code></pre></div><h2 id=配置解释>配置解释</h2><h3 id=除了host之外-其它的都是可选的>除了Host之外， 其它的都是可选的</h3><ul><li><code>Host deploy-gw</code></li></ul><p>定义使用时的名字，之后使用 <code>ssh deploy-gw</code> 登录目标，这个只是别名，当然这里也可以直接写hostname 或者IP地址; 当使用 Hostname 时可以进行匹配， 例如 <code>Host *.hitian.info</code> 可以匹配到 <code>a.hitian.info</code>.</p><ul><li><code>HostName [__target_hostname_or_ip__]</code></li></ul><p>目标的主机名或者IP地址</p><ul><li><code>User tian</code></li></ul><p>用户名</p><ul><li><code>IdentityFile ~/.ssh/deploy_private_key</code></li></ul><p>指定使用的private key路径。 替代ssh的 <code>-i</code> 参数一样效果</p><ul><li><code>ProxyCommand ssh -q [__local_gw__] nc [__target_addr__] 22</code></li></ul><p>连接目标主机时使用的命令</p><h1 id=ssh-via-http-or-socks-proxy>ssh via [http or socks proxy]</h1><p>使用场景: 由于不可抗拒的因素无法直接ssh 到远程主机，或者链接过程中会被异常阻断时</p><p>这里我们需要一个 connect 命令，需要自行安装一下。</p><div class=highlight><pre tabindex=0 class=chroma><code class=language-text data-lang=text><span class=line><span class=cl>Provides SOCKS and HTTPS proxy support to SSH
+</span></span><span class=line><span class=cl>https://bitbucket.org/gotoh/connect/wiki/Home
+</span></span></code></pre></div><p>macOS 可以利用brew 直接安装, 其它平台可以按说明执行编译安装</p><div class=highlight><pre tabindex=0 class=chroma><code class=language-bash data-lang=bash><span class=line><span class=cl>brew install connect
+</span></span></code></pre></div><p>要让ssh使用proxy连接到目标主机，在config 中添加ProxyCommand配置</p><p>使用 http 代理</p><p><code>ProxyCommand connect -H http_proxy_addr:port %h %p</code></p><p>使用 socks 代理</p><p><code>ProxyCommand connect -S socks_proxy_addr:port %h %p</code></p><p>详细的connect使用说明可以参照官方wiki</p><h1 id=ssh-via-ssh>ssh via ssh</h1><p>使用场景：</p><p>例如需要通过某台ssh的网关才能链接到内网的其它ssh服务器</p><p>当然可以通过先ssh到网关，再ssh到目标主机的方式简单实现，但是这要求在网关机器上放一份目标主机的私钥。</p><p>如果不想将私钥给网关机器。可以采用以下方式</p><p>使用 nc 命令实现转发， nc在macOS和主流Linux上已经内置</p><hr><p>在config 中添加ProxyCommand配置</p><p><code>ProxyCommand ssh -q gateway_host nc target_host 22</code></p><p>这里 gateway_host 为网关， nc 后为目标的主机和sshd的端口号， 首先要保证可以正常ssh 到gateway_host。</p><p>这种方式可以直接实现更长的转发链</p><p>例如要直接在local登录target 只需要在本地分别为a, b, target 配置ProxyCommand就可以了，妈妈再也不需要担心我要一层一层ssh到远程机器了:)</p><div class=highlight><pre tabindex=0 class=chroma><code class=language-text data-lang=text><span class=line><span class=cl>local -&gt; gateway -&gt; a -&gt; b -&gt; target
+</span></span></code></pre></div><h1 id=socks-proxy-over-ssh>socks proxy over ssh</h1><p>使用场景：需要访问目标主机的localhost，或者目标主机内网的资源时， 如果客户端无法使用socks链接需要的资源，请参考下一种方式</p><p>在本地监听1089端口。将请求通过ssh隧道转发到target_host</p><div class=highlight><pre tabindex=0 class=chroma><code class=language-bash data-lang=bash><span class=line><span class=cl>ssh -D <span class=m>1089</span> target_host
+</span></span></code></pre></div><h1 id=port-forward-via-ssh>port forward via ssh</h1><p>使用场景： 直接在本地请求目标主机内网的服务时</p><p>举个例子</p><p>gateway 服务器的内网有一台mysql服务器运行在 <code>10.0.0.3:3306</code>， 本地的mysql客户端无法直接链接。 我们可以采用ssh来映射端口到本地</p><div class=highlight><pre tabindex=0 class=chroma><code class=language-bash data-lang=bash><span class=line><span class=cl>ssh -L localhost:3306:10.0.0.3:3306 target_host
+</span></span></code></pre></div><p>L参数的格式 <code>本地地址</code>:<code>本地监听端口</code>:<code>远程地址</code>:<code>要映射的远程端口</code></p><p>上面的命令可以直接将远程mysql服务器的3306端口映射到本地的3306端口， 在本地可以直接使用<code>mysql -h localhost</code>连接。</p><p>当然也可以使用0.0.0.0，将本地的端口开放给本地的其它主机使用</p><div class=highlight><pre tabindex=0 class=chroma><code class=language-bash data-lang=bash><span class=line><span class=cl>ssh -L 0.0.0.0:3306:10.0.0.3:3306 target_host
+</span></span></code></pre></div><h1 id=不稳定的网络中使用ssh>不稳定的网络中使用ssh</h1><p>由于ssh使用的TCP链接，在不稳定的网络中使用ssh会很容易断开，推荐使用 mosh <a class=link href=https://mosh.org/ target=_blank rel=noopener>https://mosh.org/</a></p><p>mosh 会使用 Protocol Buffers + UDP 的方式传输ssh数据，包含数据的压缩和断线重连，原有的ssh配置和权限都不需要额外的变更</p><p>注意：mosh客户端在启动的时候会ssh到远程的主机，启动一个mosh-server 并默认监听在一个60000-61000之间的UDP端口。而且每开启一个新的客户端， 都会在服务器上开一个新的udp端口，需要防火墙放心对应的UDP端口段.</p><p>iOS上的客户端推荐 <a class=link href=https://github.com/blinksh/blink target=_blank rel=noopener>https://github.com/blinksh/blink</a></p><p>THE END</p></section><footer class=article-footer><section class=article-tags><a href=/tags/ssh/>ssh</a>
 <a href=/tags/dev/>dev</a>
 <a href=/tags/proxy/>proxy</a>
-<a href=/tags/forward/>forward</a>
-</section>
-<section class=article-copyright><svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-copyright" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentcolor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z"/><circle cx="12" cy="12" r="9"/><path d="M14.5 9a3.5 4 0 100 6"/></svg>
-<span>Licensed under CC BY-NC-SA 4.0</span>
-</section>
-</footer>
-</article>
-<aside class=related-contents--wrapper>
-<h2 class=section-title>相关文章</h2>
-<div class=related-contents>
-<div class="flex article-list--tile">
-<article>
-<a href=/post/setup-ubuntu-for-microsoft-remote-desktop/>
-<div class=article-details>
-<h2 class=article-title>Setup Ubuntu for Microsoft Remote Desktop</h2>
-</div>
-</a>
-</article>
-<article>
-<a href=/post/macos-developer-tips/>
-<div class=article-details>
-<h2 class=article-title>macOS tips for developer</h2>
-</div>
-</a>
-</article>
-<article>
-<a href=/post/fix-firefox-macos-full-sceen/>
-<div class=article-details>
-<h2 class=article-title>修复macOS上的Firefox在全屏时会隐藏所有屏幕菜单栏的问题</h2>
-</div>
-</a>
-</article>
-<article>
-<a href=/post/raspberry-pi-note/>
-<div class=article-details>
-<h2 class=article-title>Raspberry Pi note</h2>
-</div>
-</a>
-</article>
-<article>
-<a href=/post/openwrt-build-docker/>
-<div class=article-details>
-<h2 class=article-title>在docker中编译openwrt</h2>
-</div>
-</a>
-</article>
-</div>
-</div>
-</aside>
-<div class=disqus-container>
-<div id=disqus_thread></div>
-<script type=application/javascript>var disqus_config=function(){};(function(){if(["localhost","127.0.0.1"].indexOf(window.location.hostname)!=-1){document.getElementById('disqus_thread').innerHTML='Disqus comments not available by default when the website is previewed locally.';return}var b=document,a=b.createElement('script');a.async=!0,a.src='//hitian.disqus.com/embed.js',a.setAttribute('data-timestamp',+new Date),(b.head||b.body).appendChild(a)})()</script>
-<noscript>Please enable JavaScript to view the <a href=https://disqus.com/?ref_noscript>comments powered by Disqus.</a></noscript>
-<a href=https://disqus.com class=dsq-brlink>comments powered by <span class=logo-disqus>Disqus</span></a>
-</div>
-<style>.disqus-container{background-color:var(--card-background);border-radius:var(--card-border-radius);box-shadow:var(--shadow-l1);padding:var(--card-padding)}</style>
-<script>window.addEventListener('onColorSchemeChange',a=>{DISQUS&&DISQUS.reset({reload:!0})})</script>
-<footer class=site-footer>
-<section class=copyright>
-&copy;
+<a href=/tags/forward/>forward</a></section><section class=article-copyright><svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-copyright" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentcolor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z"/><circle cx="12" cy="12" r="9"/><path d="M14.5 9a3.5 4 0 100 6"/></svg><span>Licensed under CC BY-NC-SA 4.0</span></section></footer></article><aside class=related-contents--wrapper><h2 class=section-title>相关文章</h2><div class=related-contents><div class="flex article-list--tile"><article><a href=/post/arch-linux-install/><div class=article-details><h2 class=article-title>arch linux install note</h2></div></a></article><article><a href=/post/setup-ubuntu-for-microsoft-remote-desktop/><div class=article-details><h2 class=article-title>Setup Ubuntu for Microsoft Remote Desktop</h2></div></a></article><article><a href=/post/macos-developer-tips/><div class=article-details><h2 class=article-title>macOS tips for developer</h2></div></a></article><article><a href=/post/fix-firefox-macos-full-sceen/><div class=article-details><h2 class=article-title>修复macOS上的Firefox在全屏时会隐藏所有屏幕菜单栏的问题</h2></div></a></article><article><a href=/post/raspberry-pi-note/><div class=article-details><h2 class=article-title>Raspberry Pi note</h2></div></a></article></div></div></aside><div class=disqus-container><div id=disqus_thread></div><script type=application/javascript>window.disqus_config=function(){},function(){if(["localhost","127.0.0.1"].indexOf(window.location.hostname)!=-1){document.getElementById("disqus_thread").innerHTML="Disqus comments not available by default when the website is previewed locally.";return}var t=document,e=t.createElement("script");e.async=!0,e.src="//hitian.disqus.com/embed.js",e.setAttribute("data-timestamp",+new Date),(t.head||t.body).appendChild(e)}()</script><noscript>Please enable JavaScript to view the <a href=https://disqus.com/?ref_noscript>comments powered by Disqus.</a></noscript><a href=https://disqus.com class=dsq-brlink>comments powered by <span class=logo-disqus>Disqus</span></a></div><style>.disqus-container{background-color:var(--card-background);border-radius:var(--card-border-radius);box-shadow:var(--shadow-l1);padding:var(--card-padding)}</style><script>window.addEventListener("onColorSchemeChange",e=>{DISQUS&&DISQUS.reset({reload:!0})})</script><footer class=site-footer><section class=copyright>&copy;
 2011 -
-2022 不折腾不舒服
-</section>
-<section class=powerby>
-Built with <a href=https://gohugo.io/ target=_blank rel=noopener>Hugo</a> <br>
-Theme <b><a href=https://github.com/CaiJimmy/hugo-theme-stack target=_blank rel=noopener data-version=2.3.0>Stack</a></b> designed by <a href=https://jimmycai.com target=_blank rel=noopener>Jimmy</a>
-</section>
-</footer>
-<div class=pswp tabindex=-1 role=dialog aria-hidden=true>
-<div class=pswp__bg></div>
-<div class=pswp__scroll-wrap>
-<div class=pswp__container>
-<div class=pswp__item></div>
-<div class=pswp__item></div>
-<div class=pswp__item></div>
-</div>
-<div class="pswp__ui pswp__ui--hidden">
-<div class=pswp__top-bar>
-<div class=pswp__counter></div>
-<button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+2022 哈哈哈</section><section class=powerby>Built with <a href=https://gohugo.io/ target=_blank rel=noopener>Hugo</a><br>Theme <b><a href=https://github.com/CaiJimmy/hugo-theme-stack target=_blank rel=noopener data-version=2.3.0>Stack</a></b> designed by <a href=https://jimmycai.com target=_blank rel=noopener>Jimmy</a></section></footer><div class=pswp tabindex=-1 role=dialog aria-hidden=true><div class=pswp__bg></div><div class=pswp__scroll-wrap><div class=pswp__container><div class=pswp__item></div><div class=pswp__item></div><div class=pswp__item></div></div><div class="pswp__ui pswp__ui--hidden"><div class=pswp__top-bar><div class=pswp__counter></div><button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
 <button class="pswp__button pswp__button--share" title=Share></button>
 <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
-<button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
-<div class=pswp__preloader>
-<div class=pswp__preloader__icn>
-<div class=pswp__preloader__cut>
-<div class=pswp__preloader__donut></div>
-</div>
-</div>
-</div>
-</div>
-<div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
-<div class=pswp__share-tooltip></div>
-</div>
-<button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
-</button>
-<button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)">
-</button>
-<div class=pswp__caption>
-<div class=pswp__caption__center></div>
-</div>
-</div>
-</div>
-</div><script src=https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.min.js integrity="sha256-ePwmChbbvXbsO02lbM3HoHbSHTHFAeChekF1xKJdleo=" crossorigin=anonymous defer></script><script src=https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe-ui-default.min.js integrity="sha256-UKkzOn/w1mBxRmLLGrSeyB4e1xbrp4xylgAWb3M42pU=" crossorigin=anonymous defer></script><link rel=stylesheet href=https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/default-skin/default-skin.css integrity="sha256-c0uckgykQ9v5k+IqViZOZKc47Jn7KQil4/MP3ySA3F8=" crossorigin=anonymous><link rel=stylesheet href=https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.css integrity="sha256-SBLU4vv6CA6lHsZ1XyTdhyjJxCjPif/TRkjnsyGAGnE=" crossorigin=anonymous>
-</main>
-</div>
-<script src=https://cdn.jsdelivr.net/npm/node-vibrant@3.1.5/dist/vibrant.min.js integrity="sha256-5NovOZc4iwiAWTYIFiIM7DxKUXKWvpVEuMEPLzcm5/g=" crossorigin=anonymous defer></script><script type=text/javascript src=/ts/main.js defer></script>
-<script>(function(){const a=document.createElement('link');a.href="https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700&display=swap",a.type="text/css",a.rel="stylesheet",document.head.appendChild(a)})()</script>
-</body>
-</html>
+<button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button><div class=pswp__preloader><div class=pswp__preloader__icn><div class=pswp__preloader__cut><div class=pswp__preloader__donut></div></div></div></div></div><div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap"><div class=pswp__share-tooltip></div></div><button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)"></button>
+<button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)"></button><div class=pswp__caption><div class=pswp__caption__center></div></div></div></div></div><script src=https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.min.js integrity="sha256-ePwmChbbvXbsO02lbM3HoHbSHTHFAeChekF1xKJdleo=" crossorigin=anonymous defer></script><script src=https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe-ui-default.min.js integrity="sha256-UKkzOn/w1mBxRmLLGrSeyB4e1xbrp4xylgAWb3M42pU=" crossorigin=anonymous defer></script><link rel=stylesheet href=https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/default-skin/default-skin.css integrity="sha256-c0uckgykQ9v5k+IqViZOZKc47Jn7KQil4/MP3ySA3F8=" crossorigin=anonymous><link rel=stylesheet href=https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.css integrity="sha256-SBLU4vv6CA6lHsZ1XyTdhyjJxCjPif/TRkjnsyGAGnE=" crossorigin=anonymous></main></div><script src=https://cdn.jsdelivr.net/npm/node-vibrant@3.1.5/dist/vibrant.min.js integrity="sha256-5NovOZc4iwiAWTYIFiIM7DxKUXKWvpVEuMEPLzcm5/g=" crossorigin=anonymous defer></script><script type=text/javascript src=/ts/main.js defer></script>
+<script>(function(){const e=document.createElement("link");e.href="https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700&display=swap",e.type="text/css",e.rel="stylesheet",document.head.appendChild(e)})()</script></body></html>

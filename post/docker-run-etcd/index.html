@@ -1,270 +1,79 @@
-<!doctype html><html lang=zh-cn>
-<head><meta charset=utf-8>
-<meta name=viewport content="width=device-width,initial-scale=1"><meta name=description content="docker host ip addr 192.168.5.170
-docker run \  -p 2379:2379 \  -p 2380:2380 \  --volume=/dir/for/etcd/data:/etcd-data \  --name etcd --rm -d quay.io/coreos/etcd:latest \  /usr/local/bin/etcd \  --data-dir=/etcd-data --name node1 \  --initial-advertise-peer-urls http://192.168.5.170:2380 \  --listen-peer-urls http://0.0.0.0:2380 \  --advertise-client-urls http://192.168.5.170:2379 \  --listen-client-urls http://0.0.0.0:2379 \  --initial-cluster node1=http://192.168.5.170:2380 "><title>Deploying an etcd cluster as a standalone cluster on docker</title>
-<link rel=canonical href=https://hitian.info/post/docker-run-etcd/>
-<link rel=stylesheet href=/scss/style.min.css><meta property="og:title" content="Deploying an etcd cluster as a standalone cluster on docker">
-<meta property="og:description" content="docker host ip addr 192.168.5.170
-docker run \  -p 2379:2379 \  -p 2380:2380 \  --volume=/dir/for/etcd/data:/etcd-data \  --name etcd --rm -d quay.io/coreos/etcd:latest \  /usr/local/bin/etcd \  --data-dir=/etcd-data --name node1 \  --initial-advertise-peer-urls http://192.168.5.170:2380 \  --listen-peer-urls http://0.0.0.0:2380 \  --advertise-client-urls http://192.168.5.170:2379 \  --listen-client-urls http://0.0.0.0:2379 \  --initial-cluster node1=http://192.168.5.170:2380 ">
-<meta property="og:url" content="https://hitian.info/post/docker-run-etcd/">
-<meta property="og:site_name" content="不折腾不舒服">
-<meta property="og:type" content="article"><meta property="article:section" content="Post"><meta property="article:tag" content="etcd"><meta property="article:tag" content="docker"><meta property="article:published_time" content="2018-07-08T00:00:00+00:00"><meta property="article:modified_time" content="2018-07-08T00:00:00+00:00">
-<meta name=twitter:title content="Deploying an etcd cluster as a standalone cluster on docker">
-<meta name=twitter:description content="docker host ip addr 192.168.5.170
-docker run \  -p 2379:2379 \  -p 2380:2380 \  --volume=/dir/for/etcd/data:/etcd-data \  --name etcd --rm -d quay.io/coreos/etcd:latest \  /usr/local/bin/etcd \  --data-dir=/etcd-data --name node1 \  --initial-advertise-peer-urls http://192.168.5.170:2380 \  --listen-peer-urls http://0.0.0.0:2380 \  --advertise-client-urls http://192.168.5.170:2379 \  --listen-client-urls http://0.0.0.0:2379 \  --initial-cluster node1=http://192.168.5.170:2380 ">
-<script async src="https://www.googletagmanager.com/gtag/js?id=G-MZ35160LM3"></script>
-<script>var doNotTrack=!1;if(!doNotTrack){window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments)}gtag('js',new Date),gtag('config','G-MZ35160LM3',{anonymize_ip:!1})}</script>
-</head>
-<body>
-<script>(function(){const a='StackColorScheme';localStorage.getItem(a)||localStorage.setItem(a,"auto")})()</script><script>(function(){const b='StackColorScheme',a=localStorage.getItem(b),c=window.matchMedia('(prefers-color-scheme: dark)').matches===!0;a=='dark'||a==='auto'&&c?document.body.dataset.scheme='dark':document.body.dataset.scheme='light'})()</script><div class="container main-container flex on-phone--column extended article-page with-toolbar">
-<aside class="sidebar left-sidebar sticky">
-<button class="hamburger hamburger--spin" type=button id=toggle-menu aria-label=切换菜单>
-<span class=hamburger-box>
-<span class=hamburger-inner></span>
-</span>
-</button>
-<header class=site-info>
-<figure class=site-avatar>
-<img src=/assets/avatar.jpg width=300 height=300 class=site-logo loading=lazy alt=Avatar>
-<span class=emoji>🌎</span>
-</figure>
-<h1 class=site-name><a href=https://hitian.info>不折腾不舒服</a></h1>
-<h2 class=site-description>折腾笔记</h2>
-</header>
-<ol class=menu id=main-menu>
-<li>
-<a href=/><svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-home" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentcolor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z"/><polyline points="5 12 3 12 12 3 21 12 19 12"/><path d="M5 12v7a2 2 0 002 2h10a2 2 0 002-2v-7"/><path d="M9 21v-6a2 2 0 012-2h2a2 2 0 012 2v6"/></svg>
-<span>Home</span>
-</a>
-</li>
-<li>
-<a href=/about/><svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-user" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentcolor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z"/><circle cx="12" cy="7" r="4"/><path d="M6 21v-2a4 4 0 014-4h4a4 4 0 014 4v2"/></svg>
-<span>About</span>
-</a>
-</li>
-<li>
-<a href=/archives/><svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-archive" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentcolor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z"/><rect x="3" y="4" width="18" height="4" rx="2"/><path d="M5 8v10a2 2 0 002 2h10a2 2 0 002-2V8"/><line x1="10" y1="12" x2="14" y2="12"/></svg>
-<span>Archives</span>
-</a>
-</li>
-<li>
-<a href=/search/><svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-search" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentcolor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z"/><circle cx="10" cy="10" r="7"/><line x1="21" y1="21" x2="15" y2="15"/></svg>
-<span>Search</span>
-</a>
-</li>
-<li id=dark-mode-toggle><svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-toggle-left" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentcolor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z"/><circle cx="8" cy="12" r="2"/><rect x="2" y="6" width="20" height="12" rx="6"/></svg><svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-toggle-right" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentcolor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z"/><circle cx="16" cy="12" r="2"/><rect x="2" y="6" width="20" height="12" rx="6"/></svg>
-<span>暗色模式</span>
-</li>
-</ol>
-</aside>
-<main class="main full-width">
-<div id=article-toolbar>
-<a href=https://hitian.info class=back-home><svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-chevron-left" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentcolor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z"/><polyline points="15 6 9 12 15 18"/></svg>
-<span>Back</span>
-</a>
-</div>
-<article class=main-article>
-<header class=article-header>
-<div class=article-details>
-<header class=article-category>
-<a href=/categories/notes/>
-notes
-</a>
-</header>
-<h2 class=article-title>
-<a href=/post/docker-run-etcd/>Deploying an etcd cluster as a standalone cluster on docker</a>
-</h2>
-<footer class=article-time><svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-clock" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentcolor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z"/><circle cx="12" cy="12" r="9"/><polyline points="12 7 12 12 15 15"/></svg>
-<time class=article-time--published>Jul 08, 2018</time>
-</footer></div>
-</header>
-<section class=article-content>
-<p>docker host ip addr <code>192.168.5.170</code></p>
-<div class=highlight><pre tabindex=0 class=chroma><code class=language-bash data-lang=bash>
-docker run <span class=se>\
-</span><span class=se></span>  -p 2379:2379 <span class=se>\
-</span><span class=se></span>  -p 2380:2380 <span class=se>\
-</span><span class=se></span>  --volume<span class=o>=</span>/dir/for/etcd/data:/etcd-data <span class=se>\
-</span><span class=se></span>  --name etcd --rm -d quay.io/coreos/etcd:latest <span class=se>\
-</span><span class=se></span>  /usr/local/bin/etcd <span class=se>\
-</span><span class=se></span>  --data-dir<span class=o>=</span>/etcd-data --name node1 <span class=se>\
-</span><span class=se></span>  --initial-advertise-peer-urls http://192.168.5.170:2380 <span class=se>\
-</span><span class=se></span>  --listen-peer-urls http://0.0.0.0:2380 <span class=se>\
-</span><span class=se></span>  --advertise-client-urls http://192.168.5.170:2379 <span class=se>\
-</span><span class=se></span>  --listen-client-urls http://0.0.0.0:2379 <span class=se>\
-</span><span class=se></span>  --initial-cluster <span class=nv>node1</span><span class=o>=</span>http://192.168.5.170:2380
-
-</code></pre></div><p>with tls certificate.</p>
-<div class=highlight><pre tabindex=0 class=chroma><code class=language-bash data-lang=bash>
-docker run --name etcd -d -p 2379:2379 -p 2380:2380 <span class=se>\
-</span><span class=se></span> -v /home/tian/workspace/certs:/etcd-ssl-certs-dir <span class=se>\
-</span><span class=se></span> -v /home/tian/workspace/etcd:/etcd-data <span class=se>\
-</span><span class=se></span>  quay.io/coreos/etcd:latest /usr/local/bin/etcd <span class=se>\
-</span><span class=se></span>    --name my-name <span class=se>\
-</span><span class=se></span>    --data-dir /etcd-data <span class=se>\
-</span><span class=se></span>    --listen-client-urls <span class=s2>&#34;https://0.0.0.0:2379&#34;</span> <span class=se>\
-</span><span class=se></span>    --advertise-client-urls <span class=s2>&#34;https://hostname:2379&#34;</span> <span class=se>\
-</span><span class=se></span>    --listen-peer-urls <span class=s2>&#34;https://0.0.0.0:2380&#34;</span> <span class=se>\
-</span><span class=se></span>    --initial-advertise-peer-urls <span class=s2>&#34;https://hostname:2380&#34;</span> <span class=se>\
-</span><span class=se></span>    --initial-cluster <span class=s2>&#34;my-name=https://hostname:2380&#34;</span> <span class=se>\
-</span><span class=se></span>    --initial-cluster-token <span class=s2>&#34;tkn&#34;</span> <span class=se>\
-</span><span class=se></span>    --initial-cluster-state <span class=s2>&#34;new&#34;</span> <span class=se>\
-</span><span class=se></span>    --client-cert-auth <span class=se>\
-</span><span class=se></span>    --trusted-ca-file <span class=s2>&#34;/etcd-ssl-certs-dir/ca.pem&#34;</span> <span class=se>\
-</span><span class=se></span>    --cert-file <span class=s2>&#34;/etcd-ssl-certs-dir/server.pem&#34;</span> <span class=se>\
-</span><span class=se></span>    --key-file <span class=s2>&#34;/etcd-ssl-certs-dir/server-key.pem&#34;</span> <span class=se>\
-</span><span class=se></span>    --peer-client-cert-auth <span class=se>\
-</span><span class=se></span>    --peer-trusted-ca-file <span class=s2>&#34;/etcd-ssl-certs-dir/ca.pem&#34;</span> <span class=se>\
-</span><span class=se></span>    --peer-cert-file <span class=s2>&#34;/etcd-ssl-certs-dir/server.pem&#34;</span> <span class=se>\
-</span><span class=se></span>    --peer-key-file <span class=s2>&#34;/etcd-ssl-certs-dir/server-key.pem&#34;</span>
-
-</code></pre></div><p>check</p>
-<div class=highlight><pre tabindex=0 class=chroma><code class=language-bash data-lang=bash>
-docker <span class=nb>exec</span> -it etcd etcdctl member list
-
-</code></pre></div><p>test with golang</p>
-<p>{% gist 211bd79f3ce5a6e1fde607086a75c46b %}</p>
-<p>create golang client with certificate.</p>
-<div class=highlight><pre tabindex=0 class=chroma><code class=language-go data-lang=go>
-<span class=c1>//load client certificate.
-</span><span class=c1></span><span class=nx>cert</span><span class=p>,</span> <span class=nx>err</span> <span class=o>:=</span> <span class=nx>tls</span><span class=p>.</span><span class=nf>LoadX509KeyPair</span><span class=p>(</span><span class=s>&#34;./client.pem&#34;</span><span class=p>,</span> <span class=s>&#34;./client-key.pem&#34;</span><span class=p>)</span>
-<span class=k>if</span> <span class=nx>err</span> <span class=o>!=</span> <span class=kc>nil</span> <span class=p>{</span>
-  <span class=nb>panic</span><span class=p>(</span><span class=nx>err</span><span class=p>)</span>
-<span class=p>}</span>
-<span class=c1>//load ca certificate.
-</span><span class=c1></span><span class=nx>rootCAPem</span><span class=p>,</span> <span class=nx>err</span> <span class=o>:=</span> <span class=nx>ioutil</span><span class=p>.</span><span class=nf>ReadFile</span><span class=p>(</span><span class=s>&#34;ca.pem&#34;</span><span class=p>)</span>
-<span class=k>if</span> <span class=nx>err</span> <span class=o>!=</span> <span class=kc>nil</span> <span class=p>{</span>
-  <span class=nb>panic</span><span class=p>(</span><span class=nx>err</span><span class=p>)</span>
-<span class=p>}</span>
-<span class=nx>caPool</span> <span class=o>:=</span> <span class=nx>x509</span><span class=p>.</span><span class=nf>NewCertPool</span><span class=p>()</span>
-<span class=nx>ok</span> <span class=o>:=</span> <span class=nx>caPool</span><span class=p>.</span><span class=nf>AppendCertsFromPEM</span><span class=p>(</span><span class=nx>rootCAPem</span><span class=p>)</span>
-<span class=k>if</span> <span class=p>!</span><span class=nx>ok</span> <span class=p>{</span>
-  <span class=nb>panic</span><span class=p>(</span><span class=s>&#34;append ca cert failed.&#34;</span><span class=p>)</span>
-<span class=p>}</span>
-
-<span class=nx>cfg</span> <span class=o>:=</span> <span class=nx>client</span><span class=p>.</span><span class=nx>Config</span><span class=p>{</span>
-  <span class=nx>Endpoints</span><span class=p>:</span> <span class=p>[]</span><span class=kt>string</span><span class=p>{</span><span class=s>&#34;https://hostname:2379&#34;</span><span class=p>},</span>
-  <span class=nx>Transport</span><span class=p>:</span> <span class=o>&amp;</span><span class=nx>http</span><span class=p>.</span><span class=nx>Transport</span><span class=p>{</span>
-    <span class=nx>TLSClientConfig</span><span class=p>:</span> <span class=o>&amp;</span><span class=nx>tls</span><span class=p>.</span><span class=nx>Config</span><span class=p>{</span>
-      <span class=nx>Certificates</span><span class=p>:</span> <span class=p>[]</span><span class=nx>tls</span><span class=p>.</span><span class=nx>Certificate</span><span class=p>{</span><span class=nx>cert</span><span class=p>},</span>
-      <span class=nx>RootCAs</span><span class=p>:</span>      <span class=nx>caPool</span><span class=p>,</span>
-    <span class=p>},</span>
-  <span class=p>},</span>
-  <span class=nx>HeaderTimeoutPerRequest</span><span class=p>:</span> <span class=nx>time</span><span class=p>.</span><span class=nx>Second</span><span class=p>,</span>
-<span class=p>}</span>
-
-</code></pre></div>
-</section>
-<footer class=article-footer>
-<section class=article-tags>
-<a href=/tags/etcd/>etcd</a>
-<a href=/tags/docker/>docker</a>
-</section>
-<section class=article-copyright><svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-copyright" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentcolor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z"/><circle cx="12" cy="12" r="9"/><path d="M14.5 9a3.5 4 0 100 6"/></svg>
-<span>Licensed under CC BY-NC-SA 4.0</span>
-</section>
-</footer>
-</article>
-<aside class=related-contents--wrapper>
-<h2 class=section-title>相关文章</h2>
-<div class=related-contents>
-<div class="flex article-list--tile">
-<article>
-<a href=/post/openwrt-build-docker/>
-<div class=article-details>
-<h2 class=article-title>在docker中编译openwrt</h2>
-</div>
-</a>
-</article>
-<article>
-<a href=/post/kubernetes-cluster-setup-on-ubuntu-server/>
-<div class=article-details>
-<h2 class=article-title>在Ubuntu Server上搭建Kubernetes cluster</h2>
-</div>
-</a>
-</article>
-<article>
-<a href=/post/setup-ubuntu-for-microsoft-remote-desktop/>
-<div class=article-details>
-<h2 class=article-title>Setup Ubuntu for Microsoft Remote Desktop</h2>
-</div>
-</a>
-</article>
-<article>
-<a href=/post/macos-developer-tips/>
-<div class=article-details>
-<h2 class=article-title>macOS tips for developer</h2>
-</div>
-</a>
-</article>
-<article>
-<a href=/post/fix-firefox-macos-full-sceen/>
-<div class=article-details>
-<h2 class=article-title>修复macOS上的Firefox在全屏时会隐藏所有屏幕菜单栏的问题</h2>
-</div>
-</a>
-</article>
-</div>
-</div>
-</aside>
-<div class=disqus-container>
-<div id=disqus_thread></div>
-<script type=application/javascript>var disqus_config=function(){};(function(){if(["localhost","127.0.0.1"].indexOf(window.location.hostname)!=-1){document.getElementById('disqus_thread').innerHTML='Disqus comments not available by default when the website is previewed locally.';return}var b=document,a=b.createElement('script');a.async=!0,a.src='//hitian.disqus.com/embed.js',a.setAttribute('data-timestamp',+new Date),(b.head||b.body).appendChild(a)})()</script>
-<noscript>Please enable JavaScript to view the <a href=https://disqus.com/?ref_noscript>comments powered by Disqus.</a></noscript>
-<a href=https://disqus.com class=dsq-brlink>comments powered by <span class=logo-disqus>Disqus</span></a>
-</div>
-<style>.disqus-container{background-color:var(--card-background);border-radius:var(--card-border-radius);box-shadow:var(--shadow-l1);padding:var(--card-padding)}</style>
-<script>window.addEventListener('onColorSchemeChange',a=>{DISQUS&&DISQUS.reset({reload:!0})})</script>
-<footer class=site-footer>
-<section class=copyright>
-&copy;
+<!doctype html><html lang=zh-cn><head><meta charset=utf-8><meta name=viewport content="width=device-width,initial-scale=1"><meta name=description content="docker host ip addr 192.168.5.170
+docker run \ -p 2379:2379 \ -p 2380:2380 \ --volume=/dir/for/etcd/data:/etcd-data \ --name etcd --rm -d quay.io/coreos/etcd:latest \ /usr/local/bin/etcd \ --data-dir=/etcd-data --name node1 \ --initial-advertise-peer-urls http://192.168.5.170:2380 \ --listen-peer-urls http://0.0.0.0:2380 \ --advertise-client-urls http://192.168.5.170:2379 \ --listen-client-urls http://0.0.0.0:2379 \ --initial-cluster node1=http://192.168.5.170:2380 "><title>Deploying an etcd cluster as a standalone cluster on docker</title><link rel=canonical href=https://hitian.info/post/docker-run-etcd/><link rel=stylesheet href=/scss/style.min.css><meta property="og:title" content="Deploying an etcd cluster as a standalone cluster on docker"><meta property="og:description" content="docker host ip addr 192.168.5.170
+docker run \ -p 2379:2379 \ -p 2380:2380 \ --volume=/dir/for/etcd/data:/etcd-data \ --name etcd --rm -d quay.io/coreos/etcd:latest \ /usr/local/bin/etcd \ --data-dir=/etcd-data --name node1 \ --initial-advertise-peer-urls http://192.168.5.170:2380 \ --listen-peer-urls http://0.0.0.0:2380 \ --advertise-client-urls http://192.168.5.170:2379 \ --listen-client-urls http://0.0.0.0:2379 \ --initial-cluster node1=http://192.168.5.170:2380 "><meta property="og:url" content="https://hitian.info/post/docker-run-etcd/"><meta property="og:site_name" content="哈哈哈"><meta property="og:type" content="article"><meta property="article:section" content="Post"><meta property="article:tag" content="etcd"><meta property="article:tag" content="docker"><meta property="article:published_time" content="2018-07-08T00:00:00+00:00"><meta property="article:modified_time" content="2018-07-08T00:00:00+00:00"><meta name=twitter:title content="Deploying an etcd cluster as a standalone cluster on docker"><meta name=twitter:description content="docker host ip addr 192.168.5.170
+docker run \ -p 2379:2379 \ -p 2380:2380 \ --volume=/dir/for/etcd/data:/etcd-data \ --name etcd --rm -d quay.io/coreos/etcd:latest \ /usr/local/bin/etcd \ --data-dir=/etcd-data --name node1 \ --initial-advertise-peer-urls http://192.168.5.170:2380 \ --listen-peer-urls http://0.0.0.0:2380 \ --advertise-client-urls http://192.168.5.170:2379 \ --listen-client-urls http://0.0.0.0:2379 \ --initial-cluster node1=http://192.168.5.170:2380 "><script async src="https://www.googletagmanager.com/gtag/js?id=G-MZ35160LM3"></script>
+<script>var doNotTrack=!1;if(!doNotTrack){window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments)}gtag("js",new Date),gtag("config","G-MZ35160LM3",{anonymize_ip:!1})}</script></head><body><script>(function(){const e="StackColorScheme";localStorage.getItem(e)||localStorage.setItem(e,"auto")})()</script><script>(function(){const t="StackColorScheme",e=localStorage.getItem(t),n=window.matchMedia("(prefers-color-scheme: dark)").matches===!0;e=="dark"||e==="auto"&&n?document.body.dataset.scheme="dark":document.body.dataset.scheme="light"})()</script><div class="container main-container flex on-phone--column extended article-page with-toolbar"><aside class="sidebar left-sidebar sticky"><button class="hamburger hamburger--spin" type=button id=toggle-menu aria-label=切换菜单>
+<span class=hamburger-box><span class=hamburger-inner></span></span></button><header class=site-info><figure class=site-avatar><img src=/assets/avatar.jpg width=300 height=300 class=site-logo loading=lazy alt=Avatar>
+<span class=emoji>🌎</span></figure><h1 class=site-name><a href=https://hitian.info>哈哈哈</a></h1><h2 class=site-description>折腾笔记</h2></header><ol class=menu id=main-menu><li><a href=/><svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-home" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentcolor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z"/><polyline points="5 12 3 12 12 3 21 12 19 12"/><path d="M5 12v7a2 2 0 002 2h10a2 2 0 002-2v-7"/><path d="M9 21v-6a2 2 0 012-2h2a2 2 0 012 2v6"/></svg><span>Home</span></a></li><li><a href=/about/><svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-user" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentcolor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z"/><circle cx="12" cy="7" r="4"/><path d="M6 21v-2a4 4 0 014-4h4a4 4 0 014 4v2"/></svg><span>About</span></a></li><li><a href=/archives/><svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-archive" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentcolor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z"/><rect x="3" y="4" width="18" height="4" rx="2"/><path d="M5 8v10a2 2 0 002 2h10a2 2 0 002-2V8"/><line x1="10" y1="12" x2="14" y2="12"/></svg><span>Archives</span></a></li><li><a href=/search/><svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-search" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentcolor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z"/><circle cx="10" cy="10" r="7"/><line x1="21" y1="21" x2="15" y2="15"/></svg><span>Search</span></a></li><li id=dark-mode-toggle><svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-toggle-left" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentcolor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z"/><circle cx="8" cy="12" r="2"/><rect x="2" y="6" width="20" height="12" rx="6"/></svg><svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-toggle-right" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentcolor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z"/><circle cx="16" cy="12" r="2"/><rect x="2" y="6" width="20" height="12" rx="6"/></svg><span>暗色模式</span></li></ol></aside><main class="main full-width"><div id=article-toolbar><a href=https://hitian.info class=back-home><svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-chevron-left" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentcolor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z"/><polyline points="15 6 9 12 15 18"/></svg><span>Back</span></a></div><article class=main-article><header class=article-header><div class=article-details><header class=article-category><a href=/categories/notes/>notes</a></header><h2 class=article-title><a href=/post/docker-run-etcd/>Deploying an etcd cluster as a standalone cluster on docker</a></h2><footer class=article-time><svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-clock" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentcolor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z"/><circle cx="12" cy="12" r="9"/><polyline points="12 7 12 12 15 15"/></svg><time class=article-time--published>Jul 08, 2018</time></footer></div></header><section class=article-content><p>docker host ip addr <code>192.168.5.170</code></p><div class=highlight><pre tabindex=0 class=chroma><code class=language-bash data-lang=bash><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>docker run <span class=se>\
+</span></span></span><span class=line><span class=cl><span class=se></span>  -p 2379:2379 <span class=se>\
+</span></span></span><span class=line><span class=cl><span class=se></span>  -p 2380:2380 <span class=se>\
+</span></span></span><span class=line><span class=cl><span class=se></span>  --volume<span class=o>=</span>/dir/for/etcd/data:/etcd-data <span class=se>\
+</span></span></span><span class=line><span class=cl><span class=se></span>  --name etcd --rm -d quay.io/coreos/etcd:latest <span class=se>\
+</span></span></span><span class=line><span class=cl><span class=se></span>  /usr/local/bin/etcd <span class=se>\
+</span></span></span><span class=line><span class=cl><span class=se></span>  --data-dir<span class=o>=</span>/etcd-data --name node1 <span class=se>\
+</span></span></span><span class=line><span class=cl><span class=se></span>  --initial-advertise-peer-urls http://192.168.5.170:2380 <span class=se>\
+</span></span></span><span class=line><span class=cl><span class=se></span>  --listen-peer-urls http://0.0.0.0:2380 <span class=se>\
+</span></span></span><span class=line><span class=cl><span class=se></span>  --advertise-client-urls http://192.168.5.170:2379 <span class=se>\
+</span></span></span><span class=line><span class=cl><span class=se></span>  --listen-client-urls http://0.0.0.0:2379 <span class=se>\
+</span></span></span><span class=line><span class=cl><span class=se></span>  --initial-cluster <span class=nv>node1</span><span class=o>=</span>http://192.168.5.170:2380
+</span></span></code></pre></div><p>with tls certificate.</p><div class=highlight><pre tabindex=0 class=chroma><code class=language-bash data-lang=bash><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>docker run --name etcd -d -p 2379:2379 -p 2380:2380 <span class=se>\
+</span></span></span><span class=line><span class=cl><span class=se></span> -v /home/tian/workspace/certs:/etcd-ssl-certs-dir <span class=se>\
+</span></span></span><span class=line><span class=cl><span class=se></span> -v /home/tian/workspace/etcd:/etcd-data <span class=se>\
+</span></span></span><span class=line><span class=cl><span class=se></span>  quay.io/coreos/etcd:latest /usr/local/bin/etcd <span class=se>\
+</span></span></span><span class=line><span class=cl><span class=se></span>    --name my-name <span class=se>\
+</span></span></span><span class=line><span class=cl><span class=se></span>    --data-dir /etcd-data <span class=se>\
+</span></span></span><span class=line><span class=cl><span class=se></span>    --listen-client-urls <span class=s2>&#34;https://0.0.0.0:2379&#34;</span> <span class=se>\
+</span></span></span><span class=line><span class=cl><span class=se></span>    --advertise-client-urls <span class=s2>&#34;https://hostname:2379&#34;</span> <span class=se>\
+</span></span></span><span class=line><span class=cl><span class=se></span>    --listen-peer-urls <span class=s2>&#34;https://0.0.0.0:2380&#34;</span> <span class=se>\
+</span></span></span><span class=line><span class=cl><span class=se></span>    --initial-advertise-peer-urls <span class=s2>&#34;https://hostname:2380&#34;</span> <span class=se>\
+</span></span></span><span class=line><span class=cl><span class=se></span>    --initial-cluster <span class=s2>&#34;my-name=https://hostname:2380&#34;</span> <span class=se>\
+</span></span></span><span class=line><span class=cl><span class=se></span>    --initial-cluster-token <span class=s2>&#34;tkn&#34;</span> <span class=se>\
+</span></span></span><span class=line><span class=cl><span class=se></span>    --initial-cluster-state <span class=s2>&#34;new&#34;</span> <span class=se>\
+</span></span></span><span class=line><span class=cl><span class=se></span>    --client-cert-auth <span class=se>\
+</span></span></span><span class=line><span class=cl><span class=se></span>    --trusted-ca-file <span class=s2>&#34;/etcd-ssl-certs-dir/ca.pem&#34;</span> <span class=se>\
+</span></span></span><span class=line><span class=cl><span class=se></span>    --cert-file <span class=s2>&#34;/etcd-ssl-certs-dir/server.pem&#34;</span> <span class=se>\
+</span></span></span><span class=line><span class=cl><span class=se></span>    --key-file <span class=s2>&#34;/etcd-ssl-certs-dir/server-key.pem&#34;</span> <span class=se>\
+</span></span></span><span class=line><span class=cl><span class=se></span>    --peer-client-cert-auth <span class=se>\
+</span></span></span><span class=line><span class=cl><span class=se></span>    --peer-trusted-ca-file <span class=s2>&#34;/etcd-ssl-certs-dir/ca.pem&#34;</span> <span class=se>\
+</span></span></span><span class=line><span class=cl><span class=se></span>    --peer-cert-file <span class=s2>&#34;/etcd-ssl-certs-dir/server.pem&#34;</span> <span class=se>\
+</span></span></span><span class=line><span class=cl><span class=se></span>    --peer-key-file <span class=s2>&#34;/etcd-ssl-certs-dir/server-key.pem&#34;</span>
+</span></span></code></pre></div><p>check</p><div class=highlight><pre tabindex=0 class=chroma><code class=language-bash data-lang=bash><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>docker <span class=nb>exec</span> -it etcd etcdctl member list
+</span></span></code></pre></div><p>test with golang</p><p>{% gist 211bd79f3ce5a6e1fde607086a75c46b %}</p><p>create golang client with certificate.</p><div class=highlight><pre tabindex=0 class=chroma><code class=language-go data-lang=go><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=c1>//load client certificate.
+</span></span></span><span class=line><span class=cl><span class=c1></span><span class=nx>cert</span><span class=p>,</span> <span class=nx>err</span> <span class=o>:=</span> <span class=nx>tls</span><span class=p>.</span><span class=nf>LoadX509KeyPair</span><span class=p>(</span><span class=s>&#34;./client.pem&#34;</span><span class=p>,</span> <span class=s>&#34;./client-key.pem&#34;</span><span class=p>)</span>
+</span></span><span class=line><span class=cl><span class=k>if</span> <span class=nx>err</span> <span class=o>!=</span> <span class=kc>nil</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>  <span class=nb>panic</span><span class=p>(</span><span class=nx>err</span><span class=p>)</span>
+</span></span><span class=line><span class=cl><span class=p>}</span>
+</span></span><span class=line><span class=cl><span class=c1>//load ca certificate.
+</span></span></span><span class=line><span class=cl><span class=c1></span><span class=nx>rootCAPem</span><span class=p>,</span> <span class=nx>err</span> <span class=o>:=</span> <span class=nx>ioutil</span><span class=p>.</span><span class=nf>ReadFile</span><span class=p>(</span><span class=s>&#34;ca.pem&#34;</span><span class=p>)</span>
+</span></span><span class=line><span class=cl><span class=k>if</span> <span class=nx>err</span> <span class=o>!=</span> <span class=kc>nil</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>  <span class=nb>panic</span><span class=p>(</span><span class=nx>err</span><span class=p>)</span>
+</span></span><span class=line><span class=cl><span class=p>}</span>
+</span></span><span class=line><span class=cl><span class=nx>caPool</span> <span class=o>:=</span> <span class=nx>x509</span><span class=p>.</span><span class=nf>NewCertPool</span><span class=p>()</span>
+</span></span><span class=line><span class=cl><span class=nx>ok</span> <span class=o>:=</span> <span class=nx>caPool</span><span class=p>.</span><span class=nf>AppendCertsFromPEM</span><span class=p>(</span><span class=nx>rootCAPem</span><span class=p>)</span>
+</span></span><span class=line><span class=cl><span class=k>if</span> <span class=p>!</span><span class=nx>ok</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>  <span class=nb>panic</span><span class=p>(</span><span class=s>&#34;append ca cert failed.&#34;</span><span class=p>)</span>
+</span></span><span class=line><span class=cl><span class=p>}</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=nx>cfg</span> <span class=o>:=</span> <span class=nx>client</span><span class=p>.</span><span class=nx>Config</span><span class=p>{</span>
+</span></span><span class=line><span class=cl>  <span class=nx>Endpoints</span><span class=p>:</span> <span class=p>[]</span><span class=kt>string</span><span class=p>{</span><span class=s>&#34;https://hostname:2379&#34;</span><span class=p>},</span>
+</span></span><span class=line><span class=cl>  <span class=nx>Transport</span><span class=p>:</span> <span class=o>&amp;</span><span class=nx>http</span><span class=p>.</span><span class=nx>Transport</span><span class=p>{</span>
+</span></span><span class=line><span class=cl>    <span class=nx>TLSClientConfig</span><span class=p>:</span> <span class=o>&amp;</span><span class=nx>tls</span><span class=p>.</span><span class=nx>Config</span><span class=p>{</span>
+</span></span><span class=line><span class=cl>      <span class=nx>Certificates</span><span class=p>:</span> <span class=p>[]</span><span class=nx>tls</span><span class=p>.</span><span class=nx>Certificate</span><span class=p>{</span><span class=nx>cert</span><span class=p>},</span>
+</span></span><span class=line><span class=cl>      <span class=nx>RootCAs</span><span class=p>:</span>      <span class=nx>caPool</span><span class=p>,</span>
+</span></span><span class=line><span class=cl>    <span class=p>},</span>
+</span></span><span class=line><span class=cl>  <span class=p>},</span>
+</span></span><span class=line><span class=cl>  <span class=nx>HeaderTimeoutPerRequest</span><span class=p>:</span> <span class=nx>time</span><span class=p>.</span><span class=nx>Second</span><span class=p>,</span>
+</span></span><span class=line><span class=cl><span class=p>}</span>
+</span></span></code></pre></div></section><footer class=article-footer><section class=article-tags><a href=/tags/etcd/>etcd</a>
+<a href=/tags/docker/>docker</a></section><section class=article-copyright><svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-copyright" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentcolor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z"/><circle cx="12" cy="12" r="9"/><path d="M14.5 9a3.5 4 0 100 6"/></svg><span>Licensed under CC BY-NC-SA 4.0</span></section></footer></article><aside class=related-contents--wrapper><h2 class=section-title>相关文章</h2><div class=related-contents><div class="flex article-list--tile"><article><a href=/post/openwrt-build-docker/><div class=article-details><h2 class=article-title>在docker中编译openwrt</h2></div></a></article><article><a href=/post/kubernetes-cluster-setup-on-ubuntu-server/><div class=article-details><h2 class=article-title>在Ubuntu Server上搭建Kubernetes cluster</h2></div></a></article><article><a href=/post/arch-linux-install/><div class=article-details><h2 class=article-title>arch linux install note</h2></div></a></article><article><a href=/post/setup-ubuntu-for-microsoft-remote-desktop/><div class=article-details><h2 class=article-title>Setup Ubuntu for Microsoft Remote Desktop</h2></div></a></article><article><a href=/post/macos-developer-tips/><div class=article-details><h2 class=article-title>macOS tips for developer</h2></div></a></article></div></div></aside><div class=disqus-container><div id=disqus_thread></div><script type=application/javascript>window.disqus_config=function(){},function(){if(["localhost","127.0.0.1"].indexOf(window.location.hostname)!=-1){document.getElementById("disqus_thread").innerHTML="Disqus comments not available by default when the website is previewed locally.";return}var t=document,e=t.createElement("script");e.async=!0,e.src="//hitian.disqus.com/embed.js",e.setAttribute("data-timestamp",+new Date),(t.head||t.body).appendChild(e)}()</script><noscript>Please enable JavaScript to view the <a href=https://disqus.com/?ref_noscript>comments powered by Disqus.</a></noscript><a href=https://disqus.com class=dsq-brlink>comments powered by <span class=logo-disqus>Disqus</span></a></div><style>.disqus-container{background-color:var(--card-background);border-radius:var(--card-border-radius);box-shadow:var(--shadow-l1);padding:var(--card-padding)}</style><script>window.addEventListener("onColorSchemeChange",e=>{DISQUS&&DISQUS.reset({reload:!0})})</script><footer class=site-footer><section class=copyright>&copy;
 2011 -
-2022 不折腾不舒服
-</section>
-<section class=powerby>
-Built with <a href=https://gohugo.io/ target=_blank rel=noopener>Hugo</a> <br>
-Theme <b><a href=https://github.com/CaiJimmy/hugo-theme-stack target=_blank rel=noopener data-version=2.3.0>Stack</a></b> designed by <a href=https://jimmycai.com target=_blank rel=noopener>Jimmy</a>
-</section>
-</footer>
-<div class=pswp tabindex=-1 role=dialog aria-hidden=true>
-<div class=pswp__bg></div>
-<div class=pswp__scroll-wrap>
-<div class=pswp__container>
-<div class=pswp__item></div>
-<div class=pswp__item></div>
-<div class=pswp__item></div>
-</div>
-<div class="pswp__ui pswp__ui--hidden">
-<div class=pswp__top-bar>
-<div class=pswp__counter></div>
-<button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+2022 哈哈哈</section><section class=powerby>Built with <a href=https://gohugo.io/ target=_blank rel=noopener>Hugo</a><br>Theme <b><a href=https://github.com/CaiJimmy/hugo-theme-stack target=_blank rel=noopener data-version=2.3.0>Stack</a></b> designed by <a href=https://jimmycai.com target=_blank rel=noopener>Jimmy</a></section></footer><div class=pswp tabindex=-1 role=dialog aria-hidden=true><div class=pswp__bg></div><div class=pswp__scroll-wrap><div class=pswp__container><div class=pswp__item></div><div class=pswp__item></div><div class=pswp__item></div></div><div class="pswp__ui pswp__ui--hidden"><div class=pswp__top-bar><div class=pswp__counter></div><button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
 <button class="pswp__button pswp__button--share" title=Share></button>
 <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
-<button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
-<div class=pswp__preloader>
-<div class=pswp__preloader__icn>
-<div class=pswp__preloader__cut>
-<div class=pswp__preloader__donut></div>
-</div>
-</div>
-</div>
-</div>
-<div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
-<div class=pswp__share-tooltip></div>
-</div>
-<button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
-</button>
-<button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)">
-</button>
-<div class=pswp__caption>
-<div class=pswp__caption__center></div>
-</div>
-</div>
-</div>
-</div><script src=https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.min.js integrity="sha256-ePwmChbbvXbsO02lbM3HoHbSHTHFAeChekF1xKJdleo=" crossorigin=anonymous defer></script><script src=https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe-ui-default.min.js integrity="sha256-UKkzOn/w1mBxRmLLGrSeyB4e1xbrp4xylgAWb3M42pU=" crossorigin=anonymous defer></script><link rel=stylesheet href=https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/default-skin/default-skin.css integrity="sha256-c0uckgykQ9v5k+IqViZOZKc47Jn7KQil4/MP3ySA3F8=" crossorigin=anonymous><link rel=stylesheet href=https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.css integrity="sha256-SBLU4vv6CA6lHsZ1XyTdhyjJxCjPif/TRkjnsyGAGnE=" crossorigin=anonymous>
-</main>
-</div>
-<script src=https://cdn.jsdelivr.net/npm/node-vibrant@3.1.5/dist/vibrant.min.js integrity="sha256-5NovOZc4iwiAWTYIFiIM7DxKUXKWvpVEuMEPLzcm5/g=" crossorigin=anonymous defer></script><script type=text/javascript src=/ts/main.js defer></script>
-<script>(function(){const a=document.createElement('link');a.href="https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700&display=swap",a.type="text/css",a.rel="stylesheet",document.head.appendChild(a)})()</script>
-</body>
-</html>
+<button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button><div class=pswp__preloader><div class=pswp__preloader__icn><div class=pswp__preloader__cut><div class=pswp__preloader__donut></div></div></div></div></div><div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap"><div class=pswp__share-tooltip></div></div><button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)"></button>
+<button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)"></button><div class=pswp__caption><div class=pswp__caption__center></div></div></div></div></div><script src=https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.min.js integrity="sha256-ePwmChbbvXbsO02lbM3HoHbSHTHFAeChekF1xKJdleo=" crossorigin=anonymous defer></script><script src=https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe-ui-default.min.js integrity="sha256-UKkzOn/w1mBxRmLLGrSeyB4e1xbrp4xylgAWb3M42pU=" crossorigin=anonymous defer></script><link rel=stylesheet href=https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/default-skin/default-skin.css integrity="sha256-c0uckgykQ9v5k+IqViZOZKc47Jn7KQil4/MP3ySA3F8=" crossorigin=anonymous><link rel=stylesheet href=https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.css integrity="sha256-SBLU4vv6CA6lHsZ1XyTdhyjJxCjPif/TRkjnsyGAGnE=" crossorigin=anonymous></main></div><script src=https://cdn.jsdelivr.net/npm/node-vibrant@3.1.5/dist/vibrant.min.js integrity="sha256-5NovOZc4iwiAWTYIFiIM7DxKUXKWvpVEuMEPLzcm5/g=" crossorigin=anonymous defer></script><script type=text/javascript src=/ts/main.js defer></script>
+<script>(function(){const e=document.createElement("link");e.href="https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700&display=swap",e.type="text/css",e.rel="stylesheet",document.head.appendChild(e)})()</script></body></html>

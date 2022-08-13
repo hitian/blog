@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>openwrt on 不折腾不舒服</title><link>https://hitian.info/tags/openwrt/</link><description>Recent content in openwrt on 不折腾不舒服</description><generator>Hugo -- gohugo.io</generator><language>zh-cn</language><lastBuildDate>Sat, 10 Aug 2019 00:00:00 +0000</lastBuildDate><atom:link href="https://hitian.info/tags/openwrt/index.xml" rel="self" type="application/rss+xml"/><item><title>在docker中编译openwrt</title><link>https://hitian.info/post/openwrt-build-docker/</link><pubDate>Sat, 10 Aug 2019 00:00:00 +0000</pubDate><guid>https://hitian.info/post/openwrt-build-docker/</guid><description>在docker中编译openwrt build docker image Docker file
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>openwrt on 哈哈哈</title><link>https://hitian.info/tags/openwrt/</link><description>Recent content in openwrt on 哈哈哈</description><generator>Hugo -- gohugo.io</generator><language>zh-cn</language><lastBuildDate>Sat, 10 Aug 2019 00:00:00 +0000</lastBuildDate><atom:link href="https://hitian.info/tags/openwrt/index.xml" rel="self" type="application/rss+xml"/><item><title>在docker中编译openwrt</title><link>https://hitian.info/post/openwrt-build-docker/</link><pubDate>Sat, 10 Aug 2019 00:00:00 +0000</pubDate><guid>https://hitian.info/post/openwrt-build-docker/</guid><description>在docker中编译openwrt build docker image Docker file
 {% gist 88ff8a7cad5deffad51d8c29d5c47d75 Dockerfile %}
 docker build --no-cache -t ubuntu-openwrt-build .
 build clone openwrt source code
@@ -16,12 +16,11 @@ http://www.shadowandy.net/2015/03/flashing-tp-link-tl-wr703n-v1-7-to-openwrt.htm
 aa i1 i2 busybox 我使用过的打包共享一下 百度网盘下载
 核心的3条命令:
 curl -o - -b &amp;#34;tLargeScreenP=1; subType=pcSub; Authorization=Basic%20YWRtaW46YWRtaW40Mg%3D%3D; ChgPwdSubTag=true&amp;#34; &amp;#34;http://192.168.1.1/&amp;#34; curl -o - -b &amp;#34;tLargeScreenP=1; subType=pcSub; Authorization=Basic%20YWRtaW46YWRtaW40Mg%3D%3D; ChgPwdSubTag=&amp;#34; --referer &amp;#34;http://192.168.1.1/userRpm/ParentCtrlRpm.htm&amp;#34; &amp;#34;http://192.168.1.1/userRpm/ParentCtrlRpm.htm?ctrl_enable=1&amp;amp;parent_mac_addr=00-00-00-00-00-02&amp;amp;Page=1&amp;#34; curl -o - -b &amp;#34;tLargeScreenP=1; subType=pcSub; Authorization=Basic%20YWRtaW46YWRtaW40Mg%3D%3D; ChgPwdSubTag=&amp;#34; --referer &amp;#34;http://192.168.1.1/userRpm/ParentCtrlRpm.htm?Modify=0&amp;amp;Page=1&amp;#34; &amp;#34;http://192.168.1.1/userRpm/ParentCtrlRpm.htm?child_mac=00-00-00-00-00-01&amp;amp;lan_lists=888&amp;amp;url_comment=test&amp;amp;url_0=;cd%20/tmp;&amp;amp;url_1=;tftp%20-gl%20aa%20192.168.1.9;&amp;amp;url_2=;sh%20aa;&amp;amp;url_3=&amp;amp;url_4=&amp;amp;url_5=&amp;amp;url_6=&amp;amp;url_7=&amp;amp;scheds_lists=255&amp;amp;enable=1&amp;amp;Changed=1&amp;amp;SelIndex=0&amp;amp;Page=1&amp;amp;rule_mode=0&amp;amp;Save=%B1%A3+%B4%E6&amp;#34; 有几点要注意的:
-tftp需要运行在windows上, 而且要使用32位的版本, (Mac上的tftp尝试过无效的). 将ip调整为192.168.1.9 另外执行命令之前需要先在管理界面执行恢复出厂, 重启完不要设置密码, 直接开始.</description></item><item><title>openwrt dns配置</title><link>https://hitian.info/post/openwrt-dns-configuration/</link><pubDate>Sun, 25 Nov 2012 00:00:00 +0000</pubDate><guid>https://hitian.info/post/openwrt-dns-configuration/</guid><description>想使用v2ex的dns来加速app store， 又不想因为dns的原因导致某些网站的区域性cdn加速失效
+tftp需要运行在windows上, 而且要使用32位的版本, (Mac上的tftp尝试过无效的). 将ip调整为192.168.1.9 另外执行命令之前需要先在管理界面执行恢复出厂, 重启完不要设置密码, 直接开始. windows需要自己装curl. 最后的一条命令比较慢, 一定要等到路由器的灯不在闪了, 或者直接在电脑上打开http://192.</description></item><item><title>openwrt dns配置</title><link>https://hitian.info/post/openwrt-dns-configuration/</link><pubDate>Sun, 25 Nov 2012 00:00:00 +0000</pubDate><guid>https://hitian.info/post/openwrt-dns-configuration/</guid><description>想使用v2ex的dns来加速app store， 又不想因为dns的原因导致某些网站的区域性cdn加速失效
 其实用dnsmasq很容易解决这个问题
 给路由器刷个openwrt， 然后设置就简单多了
 打开 网络 =》 DHCP/DNS 页面
 设置一下里面的DNS转发， 把v2ex的两个ip加进去, 将苹果的二级域名使用v2ex进行解析， 而其他域名还是通过本地isp的dns解析。
 /.apple.com/199.91.73.222
 /.apple.com/178.79.131.110
-保存， 大功告成
- </description></item></channel></rss>
+保存， 大功告成</description></item></channel></rss>

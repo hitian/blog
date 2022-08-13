@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Cloud on 不折腾不舒服</title><link>https://hitian.info/tags/cloud/</link><description>Recent content in Cloud on 不折腾不舒服</description><generator>Hugo -- gohugo.io</generator><language>zh-cn</language><lastBuildDate>Tue, 17 Jan 2017 00:00:00 +0000</lastBuildDate><atom:link href="https://hitian.info/tags/cloud/index.xml" rel="self" type="application/rss+xml"/><item><title>Google Compute Engine 简单测试</title><link>https://hitian.info/post/google-compute-engine-simple-test/</link><pubDate>Tue, 17 Jan 2017 00:00:00 +0000</pubDate><guid>https://hitian.info/post/google-compute-engine-simple-test/</guid><description>这几天在试用Google Cloud Platform，觉得Compute Engine的运行速度貌似挺慢的，就测试了一下
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Cloud on 哈哈哈</title><link>https://hitian.info/tags/cloud/</link><description>Recent content in Cloud on 哈哈哈</description><generator>Hugo -- gohugo.io</generator><language>zh-cn</language><lastBuildDate>Tue, 17 Jan 2017 00:00:00 +0000</lastBuildDate><atom:link href="https://hitian.info/tags/cloud/index.xml" rel="self" type="application/rss+xml"/><item><title>Google Compute Engine 简单测试</title><link>https://hitian.info/post/google-compute-engine-simple-test/</link><pubDate>Tue, 17 Jan 2017 00:00:00 +0000</pubDate><guid>https://hitian.info/post/google-compute-engine-simple-test/</guid><description>这几天在试用Google Cloud Platform，觉得Compute Engine的运行速度貌似挺慢的，就测试了一下
 选了距离比较近的区域 asia-east1-a, 貌似是在台湾的。
 创建了3个不同配置的实例
 f1-micro（1 个 vCPU，0.6 GB 内存） $5.00/月 g1-small（1 个 vCPU，1.7 GB 内存） $15.73/月 n1-standard-1（1 个 vCPU，3.75 GB 内存）$28.50/月 系统都选择了 Ubuntu 16.04.1 LTS
@@ -6,4 +6,4 @@ CPU测试 测试方式 Node.js v7.4.0 源代码编译 (时间统计方式 time m
 f1: 155m35.651s （两个多小时。。） g1: 55m9.996s n1: 28m27.362s 相比之下
 digitalocean $5.00/月 的最低配用时 43m11.467s 本地的笔记本i7-5557m的CPU使用2个核心 27m47.806s 另外f1和g1是共享cpu的 可以看到在cpu负载上升后可以超过限制运行短暂的时间。
 然后测试一下磁盘的IO 测试方式 直接使用 dd if=/dev/zero of=/var/swap.img bs=1024k count=1000 创建一个1G的大文件
-f1: 1048576000 bytes (1.</description></item></channel></rss>
+f1: 1048576000 bytes (1.0 GB, 1000 MiB) copied, 25.</description></item></channel></rss>

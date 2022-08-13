@@ -1,9 +1,8 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>dns on 不折腾不舒服</title><link>https://hitian.info/tags/dns/</link><description>Recent content in dns on 不折腾不舒服</description><generator>Hugo -- gohugo.io</generator><language>zh-cn</language><lastBuildDate>Sun, 25 Nov 2012 00:00:00 +0000</lastBuildDate><atom:link href="https://hitian.info/tags/dns/index.xml" rel="self" type="application/rss+xml"/><item><title>openwrt dns配置</title><link>https://hitian.info/post/openwrt-dns-configuration/</link><pubDate>Sun, 25 Nov 2012 00:00:00 +0000</pubDate><guid>https://hitian.info/post/openwrt-dns-configuration/</guid><description>想使用v2ex的dns来加速app store， 又不想因为dns的原因导致某些网站的区域性cdn加速失效
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>dns on 哈哈哈</title><link>https://hitian.info/tags/dns/</link><description>Recent content in dns on 哈哈哈</description><generator>Hugo -- gohugo.io</generator><language>zh-cn</language><lastBuildDate>Sun, 25 Nov 2012 00:00:00 +0000</lastBuildDate><atom:link href="https://hitian.info/tags/dns/index.xml" rel="self" type="application/rss+xml"/><item><title>openwrt dns配置</title><link>https://hitian.info/post/openwrt-dns-configuration/</link><pubDate>Sun, 25 Nov 2012 00:00:00 +0000</pubDate><guid>https://hitian.info/post/openwrt-dns-configuration/</guid><description>想使用v2ex的dns来加速app store， 又不想因为dns的原因导致某些网站的区域性cdn加速失效
 其实用dnsmasq很容易解决这个问题
 给路由器刷个openwrt， 然后设置就简单多了
 打开 网络 =》 DHCP/DNS 页面
 设置一下里面的DNS转发， 把v2ex的两个ip加进去, 将苹果的二级域名使用v2ex进行解析， 而其他域名还是通过本地isp的dns解析。
 /.apple.com/199.91.73.222
 /.apple.com/178.79.131.110
-保存， 大功告成
- </description></item></channel></rss>
+保存， 大功告成</description></item></channel></rss>

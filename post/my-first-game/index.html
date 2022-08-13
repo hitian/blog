@@ -1,6 +1,4 @@
-<!doctype html><html lang=zh-cn>
-<head><meta charset=utf-8>
-<meta name=viewport content="width=device-width,initial-scale=1"><meta name=description content="到今天为止, 折腾了10个月的游戏终于结束了, 虽然google play store的版本已经上架有一段时间了, iOS的还正在审核中, 不过后续的版本应该已经不会再开发了. 也算是这10个月的努力没有白费.
+<!doctype html><html lang=zh-cn><head><meta charset=utf-8><meta name=viewport content="width=device-width,initial-scale=1"><meta name=description content="到今天为止, 折腾了10个月的游戏终于结束了, 虽然google play store的版本已经上架有一段时间了, iOS的还正在审核中, 不过后续的版本应该已经不会再开发了. 也算是这10个月的努力没有白费.
 ###2013年3月###
 正在维护后端的游戏进入了最后阶段, 虽然每天都还有不少的收入, 但对于一个不算小的游戏公司来说跨国的运营已经太费力了. 于是决定一段时间后就不在进行更新了, 等玩家流失,然后关服. 项目组的人员开始慢慢的调到其他的项目组. 然后, leader问我愿不愿意跟他去开发个新游戏, 然后就去了.
 话说从大三起就一直在进行web开发, 毕业后的3年也是, 对手机端游戏开发毫无概念, 老大们决定要用js作为主要的开发语言, 然后就突然想换一下口味, 正好公司也允许我们边学边做, 然后就开始转到客户端开发了.
@@ -9,10 +7,7 @@
 从0开始, 在伟大的google的帮助下, 仅仅第10天第一个demo就出来了, 虽然只有一个场景, 但是核心的消除逻辑已经可以初步使用了. 然后就立即有信心了. 项目也就正式开始了.
 ###坑的开始…###
 Facebook, 因为是要在台湾发行的游戏, 决定深度整合Facebook. 由于某些原因, 即使有专线,和Facebook服务的通讯通畅度也根本就是个悲剧, 开发和测试过程中各种调用异常, 一句话, 不要在国内做这方面的开发.
-js作为开发语言是很方便, 但是如果和第三方sdk的交互比较多, 想象一下操作链: js =&amp;gt; js解释器 =&amp;gt; c++ =&amp;gt; jni =&amp;gt; java, 特别是js和c++ 是完全不同的语言类型, 我们需要做好多的接口和回调, 又是在android上运行, 互相调用时会发生各种各样的崩溃问题."><title>我的第一个游戏开发历程</title>
-<link rel=canonical href=https://hitian.info/post/my-first-game/>
-<link rel=stylesheet href=/scss/style.min.css><meta property="og:title" content="我的第一个游戏开发历程">
-<meta property="og:description" content="到今天为止, 折腾了10个月的游戏终于结束了, 虽然google play store的版本已经上架有一段时间了, iOS的还正在审核中, 不过后续的版本应该已经不会再开发了. 也算是这10个月的努力没有白费.
+js作为开发语言是很方便, 但是如果和第三方sdk的交互比较多, 想象一下操作链: js =&amp;gt; js解释器 =&amp;gt; c++ =&amp;gt; jni =&amp;gt; java, 特别是js和c++ 是完全不同的语言类型, 我们需要做好多的接口和回调, 又是在android上运行, 互相调用时会发生各种各样的崩溃问题."><title>我的第一个游戏开发历程</title><link rel=canonical href=https://hitian.info/post/my-first-game/><link rel=stylesheet href=/scss/style.min.css><meta property="og:title" content="我的第一个游戏开发历程"><meta property="og:description" content="到今天为止, 折腾了10个月的游戏终于结束了, 虽然google play store的版本已经上架有一段时间了, iOS的还正在审核中, 不过后续的版本应该已经不会再开发了. 也算是这10个月的努力没有白费.
 ###2013年3月###
 正在维护后端的游戏进入了最后阶段, 虽然每天都还有不少的收入, 但对于一个不算小的游戏公司来说跨国的运营已经太费力了. 于是决定一段时间后就不在进行更新了, 等玩家流失,然后关服. 项目组的人员开始慢慢的调到其他的项目组. 然后, leader问我愿不愿意跟他去开发个新游戏, 然后就去了.
 话说从大三起就一直在进行web开发, 毕业后的3年也是, 对手机端游戏开发毫无概念, 老大们决定要用js作为主要的开发语言, 然后就突然想换一下口味, 正好公司也允许我们边学边做, 然后就开始转到客户端开发了.
@@ -21,12 +16,7 @@ js作为开发语言是很方便, 但是如果和第三方sdk的交互比较多,
 从0开始, 在伟大的google的帮助下, 仅仅第10天第一个demo就出来了, 虽然只有一个场景, 但是核心的消除逻辑已经可以初步使用了. 然后就立即有信心了. 项目也就正式开始了.
 ###坑的开始…###
 Facebook, 因为是要在台湾发行的游戏, 决定深度整合Facebook. 由于某些原因, 即使有专线,和Facebook服务的通讯通畅度也根本就是个悲剧, 开发和测试过程中各种调用异常, 一句话, 不要在国内做这方面的开发.
-js作为开发语言是很方便, 但是如果和第三方sdk的交互比较多, 想象一下操作链: js =&amp;gt; js解释器 =&amp;gt; c++ =&amp;gt; jni =&amp;gt; java, 特别是js和c++ 是完全不同的语言类型, 我们需要做好多的接口和回调, 又是在android上运行, 互相调用时会发生各种各样的崩溃问题.">
-<meta property="og:url" content="https://hitian.info/post/my-first-game/">
-<meta property="og:site_name" content="不折腾不舒服">
-<meta property="og:type" content="article"><meta property="article:section" content="Post"><meta property="article:tag" content="game"><meta property="article:tag" content="me"><meta property="article:published_time" content="2015-01-22T00:00:00+00:00"><meta property="article:modified_time" content="2015-01-22T00:00:00+00:00">
-<meta name=twitter:title content="我的第一个游戏开发历程">
-<meta name=twitter:description content="到今天为止, 折腾了10个月的游戏终于结束了, 虽然google play store的版本已经上架有一段时间了, iOS的还正在审核中, 不过后续的版本应该已经不会再开发了. 也算是这10个月的努力没有白费.
+js作为开发语言是很方便, 但是如果和第三方sdk的交互比较多, 想象一下操作链: js =&amp;gt; js解释器 =&amp;gt; c++ =&amp;gt; jni =&amp;gt; java, 特别是js和c++ 是完全不同的语言类型, 我们需要做好多的接口和回调, 又是在android上运行, 互相调用时会发生各种各样的崩溃问题."><meta property="og:url" content="https://hitian.info/post/my-first-game/"><meta property="og:site_name" content="哈哈哈"><meta property="og:type" content="article"><meta property="article:section" content="Post"><meta property="article:tag" content="game"><meta property="article:tag" content="me"><meta property="article:published_time" content="2015-01-22T00:00:00+00:00"><meta property="article:modified_time" content="2015-01-22T00:00:00+00:00"><meta name=twitter:title content="我的第一个游戏开发历程"><meta name=twitter:description content="到今天为止, 折腾了10个月的游戏终于结束了, 虽然google play store的版本已经上架有一段时间了, iOS的还正在审核中, 不过后续的版本应该已经不会再开发了. 也算是这10个月的努力没有白费.
 ###2013年3月###
 正在维护后端的游戏进入了最后阶段, 虽然每天都还有不少的收入, 但对于一个不算小的游戏公司来说跨国的运营已经太费力了. 于是决定一段时间后就不在进行更新了, 等玩家流失,然后关服. 项目组的人员开始慢慢的调到其他的项目组. 然后, leader问我愿不愿意跟他去开发个新游戏, 然后就去了.
 话说从大三起就一直在进行web开发, 毕业后的3年也是, 对手机端游戏开发毫无概念, 老大们决定要用js作为主要的开发语言, 然后就突然想换一下口味, 正好公司也允许我们边学边做, 然后就开始转到客户端开发了.
@@ -35,207 +25,15 @@ js作为开发语言是很方便, 但是如果和第三方sdk的交互比较多,
 从0开始, 在伟大的google的帮助下, 仅仅第10天第一个demo就出来了, 虽然只有一个场景, 但是核心的消除逻辑已经可以初步使用了. 然后就立即有信心了. 项目也就正式开始了.
 ###坑的开始…###
 Facebook, 因为是要在台湾发行的游戏, 决定深度整合Facebook. 由于某些原因, 即使有专线,和Facebook服务的通讯通畅度也根本就是个悲剧, 开发和测试过程中各种调用异常, 一句话, 不要在国内做这方面的开发.
-js作为开发语言是很方便, 但是如果和第三方sdk的交互比较多, 想象一下操作链: js =&amp;gt; js解释器 =&amp;gt; c++ =&amp;gt; jni =&amp;gt; java, 特别是js和c++ 是完全不同的语言类型, 我们需要做好多的接口和回调, 又是在android上运行, 互相调用时会发生各种各样的崩溃问题.">
-<script async src="https://www.googletagmanager.com/gtag/js?id=G-MZ35160LM3"></script>
-<script>var doNotTrack=!1;if(!doNotTrack){window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments)}gtag('js',new Date),gtag('config','G-MZ35160LM3',{anonymize_ip:!1})}</script>
-</head>
-<body>
-<script>(function(){const a='StackColorScheme';localStorage.getItem(a)||localStorage.setItem(a,"auto")})()</script><script>(function(){const b='StackColorScheme',a=localStorage.getItem(b),c=window.matchMedia('(prefers-color-scheme: dark)').matches===!0;a=='dark'||a==='auto'&&c?document.body.dataset.scheme='dark':document.body.dataset.scheme='light'})()</script><div class="container main-container flex on-phone--column extended article-page with-toolbar">
-<aside class="sidebar left-sidebar sticky">
-<button class="hamburger hamburger--spin" type=button id=toggle-menu aria-label=切换菜单>
-<span class=hamburger-box>
-<span class=hamburger-inner></span>
-</span>
-</button>
-<header class=site-info>
-<figure class=site-avatar>
-<img src=/assets/avatar.jpg width=300 height=300 class=site-logo loading=lazy alt=Avatar>
-<span class=emoji>🌎</span>
-</figure>
-<h1 class=site-name><a href=https://hitian.info>不折腾不舒服</a></h1>
-<h2 class=site-description>折腾笔记</h2>
-</header>
-<ol class=menu id=main-menu>
-<li>
-<a href=/><svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-home" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentcolor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z"/><polyline points="5 12 3 12 12 3 21 12 19 12"/><path d="M5 12v7a2 2 0 002 2h10a2 2 0 002-2v-7"/><path d="M9 21v-6a2 2 0 012-2h2a2 2 0 012 2v6"/></svg>
-<span>Home</span>
-</a>
-</li>
-<li>
-<a href=/about/><svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-user" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentcolor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z"/><circle cx="12" cy="7" r="4"/><path d="M6 21v-2a4 4 0 014-4h4a4 4 0 014 4v2"/></svg>
-<span>About</span>
-</a>
-</li>
-<li>
-<a href=/archives/><svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-archive" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentcolor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z"/><rect x="3" y="4" width="18" height="4" rx="2"/><path d="M5 8v10a2 2 0 002 2h10a2 2 0 002-2V8"/><line x1="10" y1="12" x2="14" y2="12"/></svg>
-<span>Archives</span>
-</a>
-</li>
-<li>
-<a href=/search/><svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-search" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentcolor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z"/><circle cx="10" cy="10" r="7"/><line x1="21" y1="21" x2="15" y2="15"/></svg>
-<span>Search</span>
-</a>
-</li>
-<li id=dark-mode-toggle><svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-toggle-left" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentcolor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z"/><circle cx="8" cy="12" r="2"/><rect x="2" y="6" width="20" height="12" rx="6"/></svg><svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-toggle-right" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentcolor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z"/><circle cx="16" cy="12" r="2"/><rect x="2" y="6" width="20" height="12" rx="6"/></svg>
-<span>暗色模式</span>
-</li>
-</ol>
-</aside>
-<main class="main full-width">
-<div id=article-toolbar>
-<a href=https://hitian.info class=back-home><svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-chevron-left" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentcolor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z"/><polyline points="15 6 9 12 15 18"/></svg>
-<span>Back</span>
-</a>
-</div>
-<article class=main-article>
-<header class=article-header>
-<div class=article-details>
-<header class=article-category>
-<a href=/categories/notes/>
-notes
-</a>
-</header>
-<h2 class=article-title>
-<a href=/post/my-first-game/>我的第一个游戏开发历程</a>
-</h2>
-<footer class=article-time><svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-clock" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentcolor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z"/><circle cx="12" cy="12" r="9"/><polyline points="12 7 12 12 15 15"/></svg>
-<time class=article-time--published>Jan 22, 2015</time>
-</footer></div>
-</header>
-<section class=article-content>
-<p>到今天为止, 折腾了10个月的游戏终于结束了, 虽然google play store的版本已经上架有一段时间了, iOS的还正在审核中, 不过后续的版本应该已经不会再开发了. 也算是这10个月的努力没有白费.</p>
-<p>###2013年3月###</p>
-<p>正在维护后端的游戏进入了最后阶段, 虽然每天都还有不少的收入, 但对于一个不算小的游戏公司来说跨国的运营已经太费力了. 于是决定一段时间后就不在进行更新了, 等玩家流失,然后关服. 项目组的人员开始慢慢的调到其他的项目组. 然后, leader问我愿不愿意跟他去开发个新游戏, 然后就去了.</p>
-<p>话说从大三起就一直在进行web开发, 毕业后的3年也是, 对手机端游戏开发毫无概念, 老大们决定要用js作为主要的开发语言, 然后就突然想换一下口味, 正好公司也允许我们边学边做, 然后就开始转到客户端开发了.</p>
-<p>###cocos2d-x + javascript###</p>
-<p>做web时也一直在接触js, 这方面不算陌生. cocos2d-x游戏引擎对我来说是个新的事物, 但是学习新的事物如果有一套自己的学习方式其实也是很快的, 游戏ui画面的组织其实和大学时课设做的java图形界面有点类似, 把所有的元素添加到一个树状的UI树上去, 然后在scene上显示出来, 不同的是游戏有一个主循环, 在里面进行必要的动画操作, 响应用户的操作或者是服务器的返回值对UI树进行更改.</p>
-<p>从0开始, 在伟大的google的帮助下, 仅仅第10天第一个demo就出来了, 虽然只有一个场景, 但是核心的消除逻辑已经可以初步使用了. 然后就立即有信心了. 项目也就正式开始了.</p>
-<p>###坑的开始…###</p>
-<p>Facebook, 因为是要在台湾发行的游戏, 决定深度整合Facebook. 由于某些原因, 即使有专线,和Facebook服务的通讯通畅度也根本就是个悲剧, 开发和测试过程中各种调用异常, 一句话, 不要在国内做这方面的开发.</p>
-<p>js作为开发语言是很方便, 但是如果和第三方sdk的交互比较多, 想象一下操作链: js => js解释器 => c++ => jni => java, 特别是js和c++ 是完全不同的语言类型, 我们需要做好多的接口和回调, 又是在android上运行, 互相调用时会发生各种各样的崩溃问题. 要特别感谢一下iOS没让我们在这方便花费太多的时间.</p>
-<p>###人永远都是很缺的###</p>
-<p>说起来程序应该是很多的, 但是感觉一直招不到人, 整个项目程序最多的时候也就3个正式员工加两个实习生. 大部分时间都只有两个程序, 而且服务端和客户端都要做. 还好只是不指望赚多少钱的休闲类游戏, 大部分时间也没有那么赶进度. 另外, 因为招不到正式员工, 就招很多实习生来补空缺其实挺不道德的, 根本算不上培养, 对别人的阅历其实也没什么作用. 另外, 人少就意味着各个方面都要自己动手做, 积累经验确实是快.</p>
-<p>###说到底还是要赚钱###</p>
-<p>虽然一开始立项就说没指望赚多少钱, 尝试一下新游戏类型, 积累用户. 其实公司还是很在乎钱的问题, 毕竟开发是要成本的. 开始还是很开心的, 关注的都是如何提高游戏核心玩法的品质, 然后慢慢的慢慢的关注的问题就变成了怎么赚钱, 周边的内容各种改动, 商店, 道具改了又改. 算了一下, 其实游戏的核心内容开发的时间加起来4个月都不到, 我们到底在做什么? 现实和理想的区别还是比较大的. 我也一直在纳闷为什么国人就做不出像纪念碑谷这样的游戏…</p>
-<p>###In the end,###</p>
-<p>游戏cbt之后, 其实能感觉到策划同学心不在焉已经有一段时间了. 这就意味着游戏的开发也要告一段落了. 只是没想到会这么快到来. android版本上线之后的数据并不是很理想(其实是赚的钱不是很理想), 不推广游戏是肯定是不行的, 但是推广的的成本能不能赚回来就是个问题了, 不赚钱是个硬伤啊.. 然后就没有然后了&mldr;</p>
-<p>对于公司来说, 几个人做了一把尝试, 也培养了人才, 没什么损失, 对于我们来说也是, 从0开始学了不少东西, 也积累了不少经验. 没有像其他项目组有kpi追着经常没日没夜的加班. 日子过的还算逍遥. 只是就这样匆匆的结束了, 难免有些凄凉. 毕竟这是我开发的第一个游戏, 总想着有始有终. 我们是玩着游戏长大的一代人, 小时候也总想着有一天能自己亲自开发一个游戏, 也算实现了一个心愿吧.</p>
-<p>好吧, 就到这里了. 这就是我的第一个游戏的开发历程了.</p>
-<p>附上游戏的下载链接:</p>
-<p>Google Play Store(台湾地区): <a class=link href="https://play.google.com/store/apps/details?id=tw.mobage.g22000019" target=_blank rel=noopener>link</a></p>
-<p>话说google的分区太恶心了, 给个apk链接吧 <a class=link href=http://pan.baidu.com/s/1mgzbOqG target=_blank rel=noopener>link</a></p>
-<p>App Store: <a class=link href="https://itunes.apple.com/tw/app/yi-qi-fa/id907047131?l=zh&ls=1&mt=8" target=_blank rel=noopener>link</a></p>
-</section>
-<footer class=article-footer>
-<section class=article-tags>
-<a href=/tags/game/>game</a>
-<a href=/tags/me/>me</a>
-</section>
-<section class=article-copyright><svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-copyright" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentcolor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z"/><circle cx="12" cy="12" r="9"/><path d="M14.5 9a3.5 4 0 100 6"/></svg>
-<span>Licensed under CC BY-NC-SA 4.0</span>
-</section>
-</footer>
-</article>
-<aside class=related-contents--wrapper>
-<h2 class=section-title>相关文章</h2>
-<div class=related-contents>
-<div class="flex article-list--tile">
-<article>
-<a href=/post/cocos2d-x-note/>
-<div class=article-details>
-<h2 class=article-title>cocos2d-x 入门笔记</h2>
-</div>
-</a>
-</article>
-<article>
-<a href=/post/setup-ubuntu-for-microsoft-remote-desktop/>
-<div class=article-details>
-<h2 class=article-title>Setup Ubuntu for Microsoft Remote Desktop</h2>
-</div>
-</a>
-</article>
-<article>
-<a href=/post/macos-developer-tips/>
-<div class=article-details>
-<h2 class=article-title>macOS tips for developer</h2>
-</div>
-</a>
-</article>
-<article>
-<a href=/post/fix-firefox-macos-full-sceen/>
-<div class=article-details>
-<h2 class=article-title>修复macOS上的Firefox在全屏时会隐藏所有屏幕菜单栏的问题</h2>
-</div>
-</a>
-</article>
-<article>
-<a href=/post/raspberry-pi-note/>
-<div class=article-details>
-<h2 class=article-title>Raspberry Pi note</h2>
-</div>
-</a>
-</article>
-</div>
-</div>
-</aside>
-<div class=disqus-container>
-<div id=disqus_thread></div>
-<script type=application/javascript>var disqus_config=function(){};(function(){if(["localhost","127.0.0.1"].indexOf(window.location.hostname)!=-1){document.getElementById('disqus_thread').innerHTML='Disqus comments not available by default when the website is previewed locally.';return}var b=document,a=b.createElement('script');a.async=!0,a.src='//hitian.disqus.com/embed.js',a.setAttribute('data-timestamp',+new Date),(b.head||b.body).appendChild(a)})()</script>
-<noscript>Please enable JavaScript to view the <a href=https://disqus.com/?ref_noscript>comments powered by Disqus.</a></noscript>
-<a href=https://disqus.com class=dsq-brlink>comments powered by <span class=logo-disqus>Disqus</span></a>
-</div>
-<style>.disqus-container{background-color:var(--card-background);border-radius:var(--card-border-radius);box-shadow:var(--shadow-l1);padding:var(--card-padding)}</style>
-<script>window.addEventListener('onColorSchemeChange',a=>{DISQUS&&DISQUS.reset({reload:!0})})</script>
-<footer class=site-footer>
-<section class=copyright>
-&copy;
+js作为开发语言是很方便, 但是如果和第三方sdk的交互比较多, 想象一下操作链: js =&amp;gt; js解释器 =&amp;gt; c++ =&amp;gt; jni =&amp;gt; java, 特别是js和c++ 是完全不同的语言类型, 我们需要做好多的接口和回调, 又是在android上运行, 互相调用时会发生各种各样的崩溃问题."><script async src="https://www.googletagmanager.com/gtag/js?id=G-MZ35160LM3"></script>
+<script>var doNotTrack=!1;if(!doNotTrack){window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments)}gtag("js",new Date),gtag("config","G-MZ35160LM3",{anonymize_ip:!1})}</script></head><body><script>(function(){const e="StackColorScheme";localStorage.getItem(e)||localStorage.setItem(e,"auto")})()</script><script>(function(){const t="StackColorScheme",e=localStorage.getItem(t),n=window.matchMedia("(prefers-color-scheme: dark)").matches===!0;e=="dark"||e==="auto"&&n?document.body.dataset.scheme="dark":document.body.dataset.scheme="light"})()</script><div class="container main-container flex on-phone--column extended article-page with-toolbar"><aside class="sidebar left-sidebar sticky"><button class="hamburger hamburger--spin" type=button id=toggle-menu aria-label=切换菜单>
+<span class=hamburger-box><span class=hamburger-inner></span></span></button><header class=site-info><figure class=site-avatar><img src=/assets/avatar.jpg width=300 height=300 class=site-logo loading=lazy alt=Avatar>
+<span class=emoji>🌎</span></figure><h1 class=site-name><a href=https://hitian.info>哈哈哈</a></h1><h2 class=site-description>折腾笔记</h2></header><ol class=menu id=main-menu><li><a href=/><svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-home" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentcolor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z"/><polyline points="5 12 3 12 12 3 21 12 19 12"/><path d="M5 12v7a2 2 0 002 2h10a2 2 0 002-2v-7"/><path d="M9 21v-6a2 2 0 012-2h2a2 2 0 012 2v6"/></svg><span>Home</span></a></li><li><a href=/about/><svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-user" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentcolor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z"/><circle cx="12" cy="7" r="4"/><path d="M6 21v-2a4 4 0 014-4h4a4 4 0 014 4v2"/></svg><span>About</span></a></li><li><a href=/archives/><svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-archive" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentcolor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z"/><rect x="3" y="4" width="18" height="4" rx="2"/><path d="M5 8v10a2 2 0 002 2h10a2 2 0 002-2V8"/><line x1="10" y1="12" x2="14" y2="12"/></svg><span>Archives</span></a></li><li><a href=/search/><svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-search" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentcolor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z"/><circle cx="10" cy="10" r="7"/><line x1="21" y1="21" x2="15" y2="15"/></svg><span>Search</span></a></li><li id=dark-mode-toggle><svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-toggle-left" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentcolor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z"/><circle cx="8" cy="12" r="2"/><rect x="2" y="6" width="20" height="12" rx="6"/></svg><svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-toggle-right" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentcolor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z"/><circle cx="16" cy="12" r="2"/><rect x="2" y="6" width="20" height="12" rx="6"/></svg><span>暗色模式</span></li></ol></aside><main class="main full-width"><div id=article-toolbar><a href=https://hitian.info class=back-home><svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-chevron-left" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentcolor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z"/><polyline points="15 6 9 12 15 18"/></svg><span>Back</span></a></div><article class=main-article><header class=article-header><div class=article-details><header class=article-category><a href=/categories/notes/>notes</a></header><h2 class=article-title><a href=/post/my-first-game/>我的第一个游戏开发历程</a></h2><footer class=article-time><svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-clock" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentcolor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z"/><circle cx="12" cy="12" r="9"/><polyline points="12 7 12 12 15 15"/></svg><time class=article-time--published>Jan 22, 2015</time></footer></div></header><section class=article-content><p>到今天为止, 折腾了10个月的游戏终于结束了, 虽然google play store的版本已经上架有一段时间了, iOS的还正在审核中, 不过后续的版本应该已经不会再开发了. 也算是这10个月的努力没有白费.</p><p>###2013年3月###</p><p>正在维护后端的游戏进入了最后阶段, 虽然每天都还有不少的收入, 但对于一个不算小的游戏公司来说跨国的运营已经太费力了. 于是决定一段时间后就不在进行更新了, 等玩家流失,然后关服. 项目组的人员开始慢慢的调到其他的项目组. 然后, leader问我愿不愿意跟他去开发个新游戏, 然后就去了.</p><p>话说从大三起就一直在进行web开发, 毕业后的3年也是, 对手机端游戏开发毫无概念, 老大们决定要用js作为主要的开发语言, 然后就突然想换一下口味, 正好公司也允许我们边学边做, 然后就开始转到客户端开发了.</p><p>###cocos2d-x + javascript###</p><p>做web时也一直在接触js, 这方面不算陌生. cocos2d-x游戏引擎对我来说是个新的事物, 但是学习新的事物如果有一套自己的学习方式其实也是很快的, 游戏ui画面的组织其实和大学时课设做的java图形界面有点类似, 把所有的元素添加到一个树状的UI树上去, 然后在scene上显示出来, 不同的是游戏有一个主循环, 在里面进行必要的动画操作, 响应用户的操作或者是服务器的返回值对UI树进行更改.</p><p>从0开始, 在伟大的google的帮助下, 仅仅第10天第一个demo就出来了, 虽然只有一个场景, 但是核心的消除逻辑已经可以初步使用了. 然后就立即有信心了. 项目也就正式开始了.</p><p>###坑的开始…###</p><p>Facebook, 因为是要在台湾发行的游戏, 决定深度整合Facebook. 由于某些原因, 即使有专线,和Facebook服务的通讯通畅度也根本就是个悲剧, 开发和测试过程中各种调用异常, 一句话, 不要在国内做这方面的开发.</p><p>js作为开发语言是很方便, 但是如果和第三方sdk的交互比较多, 想象一下操作链: js => js解释器 => c++ => jni => java, 特别是js和c++ 是完全不同的语言类型, 我们需要做好多的接口和回调, 又是在android上运行, 互相调用时会发生各种各样的崩溃问题. 要特别感谢一下iOS没让我们在这方便花费太多的时间.</p><p>###人永远都是很缺的###</p><p>说起来程序应该是很多的, 但是感觉一直招不到人, 整个项目程序最多的时候也就3个正式员工加两个实习生. 大部分时间都只有两个程序, 而且服务端和客户端都要做. 还好只是不指望赚多少钱的休闲类游戏, 大部分时间也没有那么赶进度. 另外, 因为招不到正式员工, 就招很多实习生来补空缺其实挺不道德的, 根本算不上培养, 对别人的阅历其实也没什么作用. 另外, 人少就意味着各个方面都要自己动手做, 积累经验确实是快.</p><p>###说到底还是要赚钱###</p><p>虽然一开始立项就说没指望赚多少钱, 尝试一下新游戏类型, 积累用户. 其实公司还是很在乎钱的问题, 毕竟开发是要成本的. 开始还是很开心的, 关注的都是如何提高游戏核心玩法的品质, 然后慢慢的慢慢的关注的问题就变成了怎么赚钱, 周边的内容各种改动, 商店, 道具改了又改. 算了一下, 其实游戏的核心内容开发的时间加起来4个月都不到, 我们到底在做什么? 现实和理想的区别还是比较大的. 我也一直在纳闷为什么国人就做不出像纪念碑谷这样的游戏…</p><p>###In the end,###</p><p>游戏cbt之后, 其实能感觉到策划同学心不在焉已经有一段时间了. 这就意味着游戏的开发也要告一段落了. 只是没想到会这么快到来. android版本上线之后的数据并不是很理想(其实是赚的钱不是很理想), 不推广游戏是肯定是不行的, 但是推广的的成本能不能赚回来就是个问题了, 不赚钱是个硬伤啊.. 然后就没有然后了&mldr;</p><p>对于公司来说, 几个人做了一把尝试, 也培养了人才, 没什么损失, 对于我们来说也是, 从0开始学了不少东西, 也积累了不少经验. 没有像其他项目组有kpi追着经常没日没夜的加班. 日子过的还算逍遥. 只是就这样匆匆的结束了, 难免有些凄凉. 毕竟这是我开发的第一个游戏, 总想着有始有终. 我们是玩着游戏长大的一代人, 小时候也总想着有一天能自己亲自开发一个游戏, 也算实现了一个心愿吧.</p><p>好吧, 就到这里了. 这就是我的第一个游戏的开发历程了.</p><p>附上游戏的下载链接:</p><p>Google Play Store(台湾地区): <a class=link href="https://play.google.com/store/apps/details?id=tw.mobage.g22000019" target=_blank rel=noopener>link</a></p><p>话说google的分区太恶心了, 给个apk链接吧 <a class=link href=http://pan.baidu.com/s/1mgzbOqG target=_blank rel=noopener>link</a></p><p>App Store: <a class=link href="https://itunes.apple.com/tw/app/yi-qi-fa/id907047131?l=zh&ls=1&mt=8" target=_blank rel=noopener>link</a></p></section><footer class=article-footer><section class=article-tags><a href=/tags/game/>game</a>
+<a href=/tags/me/>me</a></section><section class=article-copyright><svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-copyright" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentcolor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z"/><circle cx="12" cy="12" r="9"/><path d="M14.5 9a3.5 4 0 100 6"/></svg><span>Licensed under CC BY-NC-SA 4.0</span></section></footer></article><aside class=related-contents--wrapper><h2 class=section-title>相关文章</h2><div class=related-contents><div class="flex article-list--tile"><article><a href=/post/cocos2d-x-note/><div class=article-details><h2 class=article-title>cocos2d-x 入门笔记</h2></div></a></article><article><a href=/post/arch-linux-install/><div class=article-details><h2 class=article-title>arch linux install note</h2></div></a></article><article><a href=/post/setup-ubuntu-for-microsoft-remote-desktop/><div class=article-details><h2 class=article-title>Setup Ubuntu for Microsoft Remote Desktop</h2></div></a></article><article><a href=/post/macos-developer-tips/><div class=article-details><h2 class=article-title>macOS tips for developer</h2></div></a></article><article><a href=/post/fix-firefox-macos-full-sceen/><div class=article-details><h2 class=article-title>修复macOS上的Firefox在全屏时会隐藏所有屏幕菜单栏的问题</h2></div></a></article></div></div></aside><div class=disqus-container><div id=disqus_thread></div><script type=application/javascript>window.disqus_config=function(){},function(){if(["localhost","127.0.0.1"].indexOf(window.location.hostname)!=-1){document.getElementById("disqus_thread").innerHTML="Disqus comments not available by default when the website is previewed locally.";return}var t=document,e=t.createElement("script");e.async=!0,e.src="//hitian.disqus.com/embed.js",e.setAttribute("data-timestamp",+new Date),(t.head||t.body).appendChild(e)}()</script><noscript>Please enable JavaScript to view the <a href=https://disqus.com/?ref_noscript>comments powered by Disqus.</a></noscript><a href=https://disqus.com class=dsq-brlink>comments powered by <span class=logo-disqus>Disqus</span></a></div><style>.disqus-container{background-color:var(--card-background);border-radius:var(--card-border-radius);box-shadow:var(--shadow-l1);padding:var(--card-padding)}</style><script>window.addEventListener("onColorSchemeChange",e=>{DISQUS&&DISQUS.reset({reload:!0})})</script><footer class=site-footer><section class=copyright>&copy;
 2011 -
-2022 不折腾不舒服
-</section>
-<section class=powerby>
-Built with <a href=https://gohugo.io/ target=_blank rel=noopener>Hugo</a> <br>
-Theme <b><a href=https://github.com/CaiJimmy/hugo-theme-stack target=_blank rel=noopener data-version=2.3.0>Stack</a></b> designed by <a href=https://jimmycai.com target=_blank rel=noopener>Jimmy</a>
-</section>
-</footer>
-<div class=pswp tabindex=-1 role=dialog aria-hidden=true>
-<div class=pswp__bg></div>
-<div class=pswp__scroll-wrap>
-<div class=pswp__container>
-<div class=pswp__item></div>
-<div class=pswp__item></div>
-<div class=pswp__item></div>
-</div>
-<div class="pswp__ui pswp__ui--hidden">
-<div class=pswp__top-bar>
-<div class=pswp__counter></div>
-<button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+2022 哈哈哈</section><section class=powerby>Built with <a href=https://gohugo.io/ target=_blank rel=noopener>Hugo</a><br>Theme <b><a href=https://github.com/CaiJimmy/hugo-theme-stack target=_blank rel=noopener data-version=2.3.0>Stack</a></b> designed by <a href=https://jimmycai.com target=_blank rel=noopener>Jimmy</a></section></footer><div class=pswp tabindex=-1 role=dialog aria-hidden=true><div class=pswp__bg></div><div class=pswp__scroll-wrap><div class=pswp__container><div class=pswp__item></div><div class=pswp__item></div><div class=pswp__item></div></div><div class="pswp__ui pswp__ui--hidden"><div class=pswp__top-bar><div class=pswp__counter></div><button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
 <button class="pswp__button pswp__button--share" title=Share></button>
 <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
-<button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
-<div class=pswp__preloader>
-<div class=pswp__preloader__icn>
-<div class=pswp__preloader__cut>
-<div class=pswp__preloader__donut></div>
-</div>
-</div>
-</div>
-</div>
-<div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
-<div class=pswp__share-tooltip></div>
-</div>
-<button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
-</button>
-<button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)">
-</button>
-<div class=pswp__caption>
-<div class=pswp__caption__center></div>
-</div>
-</div>
-</div>
-</div><script src=https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.min.js integrity="sha256-ePwmChbbvXbsO02lbM3HoHbSHTHFAeChekF1xKJdleo=" crossorigin=anonymous defer></script><script src=https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe-ui-default.min.js integrity="sha256-UKkzOn/w1mBxRmLLGrSeyB4e1xbrp4xylgAWb3M42pU=" crossorigin=anonymous defer></script><link rel=stylesheet href=https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/default-skin/default-skin.css integrity="sha256-c0uckgykQ9v5k+IqViZOZKc47Jn7KQil4/MP3ySA3F8=" crossorigin=anonymous><link rel=stylesheet href=https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.css integrity="sha256-SBLU4vv6CA6lHsZ1XyTdhyjJxCjPif/TRkjnsyGAGnE=" crossorigin=anonymous>
-</main>
-</div>
-<script src=https://cdn.jsdelivr.net/npm/node-vibrant@3.1.5/dist/vibrant.min.js integrity="sha256-5NovOZc4iwiAWTYIFiIM7DxKUXKWvpVEuMEPLzcm5/g=" crossorigin=anonymous defer></script><script type=text/javascript src=/ts/main.js defer></script>
-<script>(function(){const a=document.createElement('link');a.href="https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700&display=swap",a.type="text/css",a.rel="stylesheet",document.head.appendChild(a)})()</script>
-</body>
-</html>
+<button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button><div class=pswp__preloader><div class=pswp__preloader__icn><div class=pswp__preloader__cut><div class=pswp__preloader__donut></div></div></div></div></div><div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap"><div class=pswp__share-tooltip></div></div><button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)"></button>
+<button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)"></button><div class=pswp__caption><div class=pswp__caption__center></div></div></div></div></div><script src=https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.min.js integrity="sha256-ePwmChbbvXbsO02lbM3HoHbSHTHFAeChekF1xKJdleo=" crossorigin=anonymous defer></script><script src=https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe-ui-default.min.js integrity="sha256-UKkzOn/w1mBxRmLLGrSeyB4e1xbrp4xylgAWb3M42pU=" crossorigin=anonymous defer></script><link rel=stylesheet href=https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/default-skin/default-skin.css integrity="sha256-c0uckgykQ9v5k+IqViZOZKc47Jn7KQil4/MP3ySA3F8=" crossorigin=anonymous><link rel=stylesheet href=https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.css integrity="sha256-SBLU4vv6CA6lHsZ1XyTdhyjJxCjPif/TRkjnsyGAGnE=" crossorigin=anonymous></main></div><script src=https://cdn.jsdelivr.net/npm/node-vibrant@3.1.5/dist/vibrant.min.js integrity="sha256-5NovOZc4iwiAWTYIFiIM7DxKUXKWvpVEuMEPLzcm5/g=" crossorigin=anonymous defer></script><script type=text/javascript src=/ts/main.js defer></script>
+<script>(function(){const e=document.createElement("link");e.href="https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700&display=swap",e.type="text/css",e.rel="stylesheet",document.head.appendChild(e)})()</script></body></html>

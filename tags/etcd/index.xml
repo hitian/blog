@@ -1,15 +1,15 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>etcd on 不折腾不舒服</title><link>https://hitian.info/tags/etcd/</link><description>Recent content in etcd on 不折腾不舒服</description><generator>Hugo -- gohugo.io</generator><language>zh-cn</language><lastBuildDate>Sun, 08 Jul 2018 00:00:00 +0000</lastBuildDate><atom:link href="https://hitian.info/tags/etcd/index.xml" rel="self" type="application/rss+xml"/><item><title>Deploying an etcd cluster as a standalone cluster on docker</title><link>https://hitian.info/post/docker-run-etcd/</link><pubDate>Sun, 08 Jul 2018 00:00:00 +0000</pubDate><guid>https://hitian.info/post/docker-run-etcd/</guid><description>&lt;p>docker host ip addr &lt;code>192.168.5.170&lt;/code>&lt;/p>
-&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">
-docker run &lt;span class="se">\
-&lt;/span>&lt;span class="se">&lt;/span> -p 2379:2379 &lt;span class="se">\
-&lt;/span>&lt;span class="se">&lt;/span> -p 2380:2380 &lt;span class="se">\
-&lt;/span>&lt;span class="se">&lt;/span> --volume&lt;span class="o">=&lt;/span>/dir/for/etcd/data:/etcd-data &lt;span class="se">\
-&lt;/span>&lt;span class="se">&lt;/span> --name etcd --rm -d quay.io/coreos/etcd:latest &lt;span class="se">\
-&lt;/span>&lt;span class="se">&lt;/span> /usr/local/bin/etcd &lt;span class="se">\
-&lt;/span>&lt;span class="se">&lt;/span> --data-dir&lt;span class="o">=&lt;/span>/etcd-data --name node1 &lt;span class="se">\
-&lt;/span>&lt;span class="se">&lt;/span> --initial-advertise-peer-urls http://192.168.5.170:2380 &lt;span class="se">\
-&lt;/span>&lt;span class="se">&lt;/span> --listen-peer-urls http://0.0.0.0:2380 &lt;span class="se">\
-&lt;/span>&lt;span class="se">&lt;/span> --advertise-client-urls http://192.168.5.170:2379 &lt;span class="se">\
-&lt;/span>&lt;span class="se">&lt;/span> --listen-client-urls http://0.0.0.0:2379 &lt;span class="se">\
-&lt;/span>&lt;span class="se">&lt;/span> --initial-cluster &lt;span class="nv">node1&lt;/span>&lt;span class="o">=&lt;/span>http://192.168.5.170:2380
-&lt;/code>&lt;/pre>&lt;/div></description></item></channel></rss>
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>etcd on 哈哈哈</title><link>https://hitian.info/tags/etcd/</link><description>Recent content in etcd on 哈哈哈</description><generator>Hugo -- gohugo.io</generator><language>zh-cn</language><lastBuildDate>Sun, 08 Jul 2018 00:00:00 +0000</lastBuildDate><atom:link href="https://hitian.info/tags/etcd/index.xml" rel="self" type="application/rss+xml"/><item><title>Deploying an etcd cluster as a standalone cluster on docker</title><link>https://hitian.info/post/docker-run-etcd/</link><pubDate>Sun, 08 Jul 2018 00:00:00 +0000</pubDate><guid>https://hitian.info/post/docker-run-etcd/</guid><description>&lt;p>docker host ip addr &lt;code>192.168.5.170&lt;/code>&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">docker run &lt;span class="se">\
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="se">&lt;/span> -p 2379:2379 &lt;span class="se">\
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="se">&lt;/span> -p 2380:2380 &lt;span class="se">\
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="se">&lt;/span> --volume&lt;span class="o">=&lt;/span>/dir/for/etcd/data:/etcd-data &lt;span class="se">\
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="se">&lt;/span> --name etcd --rm -d quay.io/coreos/etcd:latest &lt;span class="se">\
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="se">&lt;/span> /usr/local/bin/etcd &lt;span class="se">\
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="se">&lt;/span> --data-dir&lt;span class="o">=&lt;/span>/etcd-data --name node1 &lt;span class="se">\
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="se">&lt;/span> --initial-advertise-peer-urls http://192.168.5.170:2380 &lt;span class="se">\
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="se">&lt;/span> --listen-peer-urls http://0.0.0.0:2380 &lt;span class="se">\
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="se">&lt;/span> --advertise-client-urls http://192.168.5.170:2379 &lt;span class="se">\
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="se">&lt;/span> --listen-client-urls http://0.0.0.0:2379 &lt;span class="se">\
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="se">&lt;/span> --initial-cluster &lt;span class="nv">node1&lt;/span>&lt;span class="o">=&lt;/span>http://192.168.5.170:2380
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div></description></item></channel></rss>

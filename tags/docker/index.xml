@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>docker on 不折腾不舒服</title><link>https://hitian.info/tags/docker/</link><description>Recent content in docker on 不折腾不舒服</description><generator>Hugo -- gohugo.io</generator><language>zh-cn</language><lastBuildDate>Sat, 10 Aug 2019 00:00:00 +0000</lastBuildDate><atom:link href="https://hitian.info/tags/docker/index.xml" rel="self" type="application/rss+xml"/><item><title>在docker中编译openwrt</title><link>https://hitian.info/post/openwrt-build-docker/</link><pubDate>Sat, 10 Aug 2019 00:00:00 +0000</pubDate><guid>https://hitian.info/post/openwrt-build-docker/</guid><description>在docker中编译openwrt build docker image Docker file
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>docker on 哈哈哈</title><link>https://hitian.info/tags/docker/</link><description>Recent content in docker on 哈哈哈</description><generator>Hugo -- gohugo.io</generator><language>zh-cn</language><lastBuildDate>Sat, 10 Aug 2019 00:00:00 +0000</lastBuildDate><atom:link href="https://hitian.info/tags/docker/index.xml" rel="self" type="application/rss+xml"/><item><title>在docker中编译openwrt</title><link>https://hitian.info/post/openwrt-build-docker/</link><pubDate>Sat, 10 Aug 2019 00:00:00 +0000</pubDate><guid>https://hitian.info/post/openwrt-build-docker/</guid><description>在docker中编译openwrt build docker image Docker file
 {% gist 88ff8a7cad5deffad51d8c29d5c47d75 Dockerfile %}
 docker build --no-cache -t ubuntu-openwrt-build .
 build clone openwrt source code
@@ -52,33 +52,38 @@ git clone https://git.openwrt.org/openwrt/openwrt.git
 &lt;p>以下可以参照Docker 官网的文档
 &lt;a class="link" href="https://docs.docker.com/install/linux/docker-ce/ubuntu/" target="_blank" rel="noopener"
 >https://docs.docker.com/install/linux/docker-ce/ubuntu/&lt;/a>&lt;/p>
-&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">
-&lt;span class="c1"># 安装依赖&lt;/span>
-apt-get install -y &lt;span class="se">\
-&lt;/span>&lt;span class="se">&lt;/span> apt-transport-https &lt;span class="se">\
-&lt;/span>&lt;span class="se">&lt;/span> ca-certificates &lt;span class="se">\
-&lt;/span>&lt;span class="se">&lt;/span> curl &lt;span class="se">\
-&lt;/span>&lt;span class="se">&lt;/span> software-properties-common
-&lt;span class="c1"># Add Docker’s official GPG key:&lt;/span>
-curl -fsSL https://download.docker.com/linux/ubuntu/gpg &lt;span class="p">|&lt;/span> sudo apt-key add -
-&lt;span class="c1"># 添加Docker 的 apt repository.&lt;/span>
-add-apt-repository &lt;span class="se">\
-&lt;/span>&lt;span class="se">&lt;/span> &lt;span class="s2">&amp;#34;deb [arch=amd64] https://download.docker.com/linux/ubuntu \
-&lt;/span>&lt;span class="s2"> &lt;/span>&lt;span class="k">$(&lt;/span>lsb_release -cs&lt;span class="k">)&lt;/span>&lt;span class="s2"> \
-&lt;/span>&lt;span class="s2"> stable&amp;#34;&lt;/span>
-&lt;span class="c1"># 更新APT 并安装Docker&lt;/span>
-apt-get update -y &lt;span class="o">&amp;amp;&amp;amp;&lt;/span> apt-get install -y docker-ce
-&lt;/code>&lt;/pre>&lt;/div>&lt;h3 id="安装-kubernetes-相关的工具">安装 Kubernetes 相关的工具&lt;/h3>
-&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">
-&lt;span class="c1"># Add Google’s official GPG key:&lt;/span>
-curl -s https://packages.cloud.google.com/apt/doc/apt-key.gpg &lt;span class="p">|&lt;/span> apt-key add -
-&lt;span class="c1"># 添加 APT repository.&lt;/span>
-cat &lt;span class="s">&amp;lt;&amp;lt;EOF &amp;gt;/etc/apt/sources.list.d/kubernetes.list
-&lt;/span>&lt;span class="s">deb http://apt.kubernetes.io/ kubernetes-xenial main
-&lt;/span>&lt;span class="s">EOF&lt;/span>
-&lt;span class="c1"># 更新APT 并安装&lt;/span>
-apt-get update -y &lt;span class="o">&amp;amp;&amp;amp;&lt;/span> apt-get install -y kubelet kubeadm kubectl
-&lt;/code>&lt;/pre>&lt;/div>&lt;p>&lt;em>到这里基础环境就准备好了， 下来开始初始化， 注意下面的部分在Master主机上操作&lt;/em>&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1"># 安装依赖&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">apt-get install -y &lt;span class="se">\
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="se">&lt;/span> apt-transport-https &lt;span class="se">\
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="se">&lt;/span> ca-certificates &lt;span class="se">\
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="se">&lt;/span> curl &lt;span class="se">\
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="se">&lt;/span> software-properties-common
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1"># Add Docker’s official GPG key:&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">curl -fsSL https://download.docker.com/linux/ubuntu/gpg &lt;span class="p">|&lt;/span> sudo apt-key add -
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1"># 添加Docker 的 apt repository.&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">add-apt-repository &lt;span class="se">\
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="se">&lt;/span> &lt;span class="s2">&amp;#34;deb [arch=amd64] https://download.docker.com/linux/ubuntu \
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="s2"> &lt;/span>&lt;span class="k">$(&lt;/span>lsb_release -cs&lt;span class="k">)&lt;/span>&lt;span class="s2"> \
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="s2"> stable&amp;#34;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1"># 更新APT 并安装Docker&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">apt-get update -y &lt;span class="o">&amp;amp;&amp;amp;&lt;/span> apt-get install -y docker-ce
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;h3 id="安装-kubernetes-相关的工具">安装 Kubernetes 相关的工具&lt;/h3>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1"># Add Google’s official GPG key:&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">curl -s https://packages.cloud.google.com/apt/doc/apt-key.gpg &lt;span class="p">|&lt;/span> apt-key add -
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1"># 添加 APT repository.&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">cat &lt;span class="s">&amp;lt;&amp;lt;EOF &amp;gt;/etc/apt/sources.list.d/kubernetes.list
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="s">deb http://apt.kubernetes.io/ kubernetes-xenial main
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="s">EOF&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1"># 更新APT 并安装&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">apt-get update -y &lt;span class="o">&amp;amp;&amp;amp;&lt;/span> apt-get install -y kubelet kubeadm kubectl
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>&lt;em>到这里基础环境就准备好了， 下来开始初始化， 注意下面的部分在Master主机上操作&lt;/em>&lt;/p>
 &lt;h2 id="初始化-kubernetes">初始化 Kubernetes&lt;/h2>
 &lt;h3 id="启动-master">启动 Master&lt;/h3>
 &lt;h3 id="可选-先pull一下初始化过程中需要的docker-image-加速安装过程">(可选) 先pull一下初始化过程中需要的docker image， 加速安装过程&lt;/h3>
@@ -89,17 +94,17 @@ apt-get update -y &lt;span class="o">&amp;amp;&amp;amp;&lt;/span> apt-get instal
 &lt;p>如果报错
 &lt;code>if [ERROR Swap]: running with swap on is not supported. Please disable swap&lt;/code>&lt;/p>
 &lt;p>swap 没有关闭， 使用&lt;code>swapoff -a&lt;/code>命令关闭swap再重新运行init&lt;/p></description></item><item><title>Deploying an etcd cluster as a standalone cluster on docker</title><link>https://hitian.info/post/docker-run-etcd/</link><pubDate>Sun, 08 Jul 2018 00:00:00 +0000</pubDate><guid>https://hitian.info/post/docker-run-etcd/</guid><description>&lt;p>docker host ip addr &lt;code>192.168.5.170&lt;/code>&lt;/p>
-&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">
-docker run &lt;span class="se">\
-&lt;/span>&lt;span class="se">&lt;/span> -p 2379:2379 &lt;span class="se">\
-&lt;/span>&lt;span class="se">&lt;/span> -p 2380:2380 &lt;span class="se">\
-&lt;/span>&lt;span class="se">&lt;/span> --volume&lt;span class="o">=&lt;/span>/dir/for/etcd/data:/etcd-data &lt;span class="se">\
-&lt;/span>&lt;span class="se">&lt;/span> --name etcd --rm -d quay.io/coreos/etcd:latest &lt;span class="se">\
-&lt;/span>&lt;span class="se">&lt;/span> /usr/local/bin/etcd &lt;span class="se">\
-&lt;/span>&lt;span class="se">&lt;/span> --data-dir&lt;span class="o">=&lt;/span>/etcd-data --name node1 &lt;span class="se">\
-&lt;/span>&lt;span class="se">&lt;/span> --initial-advertise-peer-urls http://192.168.5.170:2380 &lt;span class="se">\
-&lt;/span>&lt;span class="se">&lt;/span> --listen-peer-urls http://0.0.0.0:2380 &lt;span class="se">\
-&lt;/span>&lt;span class="se">&lt;/span> --advertise-client-urls http://192.168.5.170:2379 &lt;span class="se">\
-&lt;/span>&lt;span class="se">&lt;/span> --listen-client-urls http://0.0.0.0:2379 &lt;span class="se">\
-&lt;/span>&lt;span class="se">&lt;/span> --initial-cluster &lt;span class="nv">node1&lt;/span>&lt;span class="o">=&lt;/span>http://192.168.5.170:2380
-&lt;/code>&lt;/pre>&lt;/div></description></item></channel></rss>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">docker run &lt;span class="se">\
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="se">&lt;/span> -p 2379:2379 &lt;span class="se">\
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="se">&lt;/span> -p 2380:2380 &lt;span class="se">\
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="se">&lt;/span> --volume&lt;span class="o">=&lt;/span>/dir/for/etcd/data:/etcd-data &lt;span class="se">\
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="se">&lt;/span> --name etcd --rm -d quay.io/coreos/etcd:latest &lt;span class="se">\
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="se">&lt;/span> /usr/local/bin/etcd &lt;span class="se">\
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="se">&lt;/span> --data-dir&lt;span class="o">=&lt;/span>/etcd-data --name node1 &lt;span class="se">\
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="se">&lt;/span> --initial-advertise-peer-urls http://192.168.5.170:2380 &lt;span class="se">\
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="se">&lt;/span> --listen-peer-urls http://0.0.0.0:2380 &lt;span class="se">\
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="se">&lt;/span> --advertise-client-urls http://192.168.5.170:2379 &lt;span class="se">\
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="se">&lt;/span> --listen-client-urls http://0.0.0.0:2379 &lt;span class="se">\
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="se">&lt;/span> --initial-cluster &lt;span class="nv">node1&lt;/span>&lt;span class="o">=&lt;/span>http://192.168.5.170:2380
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div></description></item></channel></rss>

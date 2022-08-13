@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>sql on 不折腾不舒服</title><link>https://hitian.info/tags/sql/</link><description>Recent content in sql on 不折腾不舒服</description><generator>Hugo -- gohugo.io</generator><language>zh-cn</language><lastBuildDate>Sun, 29 Apr 2012 00:00:00 +0000</lastBuildDate><atom:link href="https://hitian.info/tags/sql/index.xml" rel="self" type="application/rss+xml"/><item><title>注入风险提醒</title><link>https://hitian.info/post/sql-injection-risk/</link><pubDate>Sun, 29 Apr 2012 00:00:00 +0000</pubDate><guid>https://hitian.info/post/sql-injection-risk/</guid><description>前几天发现的数据库注入总结一下
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>sql on 哈哈哈</title><link>https://hitian.info/tags/sql/</link><description>Recent content in sql on 哈哈哈</description><generator>Hugo -- gohugo.io</generator><language>zh-cn</language><lastBuildDate>Sun, 29 Apr 2012 00:00:00 +0000</lastBuildDate><atom:link href="https://hitian.info/tags/sql/index.xml" rel="self" type="application/rss+xml"/><item><title>注入风险提醒</title><link>https://hitian.info/post/sql-injection-risk/</link><pubDate>Sun, 29 Apr 2012 00:00:00 +0000</pubDate><guid>https://hitian.info/post/sql-injection-risk/</guid><description>前几天发现的数据库注入总结一下
 发生问题的过滤:
 &amp;lt;?php $type = ( in_array($_GET[&amp;#39;t&amp;#39;],array(1,2,3)) )?$_GET[&amp;#39;t&amp;#39;]:0; 这个过滤实际不严格, 当传进来的变量以 1,2,3中的任意数字开头时过滤将失败
 当用户 传 t=1' or '1'='1 时, $type获取到的变量将维持原样, 直接传到数据库进行查询时会有注入危险
@@ -8,14 +8,14 @@
 但是在数据统计汇总运算的时候就麻烦了, 往往需要查好多张表才能得到需要的数据.
 如果查询很复杂的时候一次join好多张表会导致查询速度巨慢.
 当然用php等动态语言把数据取出来进行运算也不错,就是需要写代码.
- 能在数据库内完成的运算 当然想要直接在库内完成
+能在数据库内完成的运算 当然想要直接在库内完成
 使用临时表存储计算过程中的中间数据时隔不错的选择
 使用临时表进行数据统计， 避免出现超过3个以上的join操作
 &amp;ndash;以防万一先删除表
 drop table if exists tmp_table;
 &amp;ndash;创建临时表的时候加上temporary 关键字就行了
 create temporary table tmp_table(uid bigint not null primary key, cityid int(10) unsigned, prov varchar(50), city varchar(50), group_id tinyint );
- &amp;ndash;把多个表中需要的数据组合在一起插入临时表中, 暂时没有的数据插入空字符串
+&amp;ndash;把多个表中需要的数据组合在一起插入临时表中, 暂时没有的数据插入空字符串
 insert into tmp_table select a.uid as uid, a.cityid as cityid,'','',0 from my_city a inner join my_op b on a.uid=b.uid where a.reg_date='2012-04-10' and b.ctime&amp;gt;0;
 &amp;ndash;联合多表更新
 update tmp_table a, my_city b set a.</description></item></channel></rss>
