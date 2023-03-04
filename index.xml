@@ -521,16 +521,16 @@
 &lt;p>Vmware Official &lt;a class="link" href="https://my.vmware.com/group/vmware/patch#search" target="_blank" rel="noopener"
 >https://my.vmware.com/group/vmware/patch#search&lt;/a>&lt;/p>
 &lt;p>or&lt;/p>
-&lt;p>VMware ESXi Patch Tracker &lt;a class="link" href="https://esxi-patches.v-front.de/ESXi-6.7.0.html" target="_blank" rel="noopener"
->https://esxi-patches.v-front.de/ESXi-6.7.0.html&lt;/a>&lt;/p>
+&lt;p>VMware ESXi Patch Tracker &lt;a class="link" href="https://esxi-patches.v-front.de/ESXi-7.0.0.html" target="_blank" rel="noopener"
+>https://esxi-patches.v-front.de/ESXi-7.0.0.html&lt;/a>&lt;/p>
 &lt;h1 id="install">Install&lt;/h1>
-&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">&lt;span class="c1"># From https://esxi-patches.v-front.de/ESXi-6.7.0.html&lt;/span>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">&lt;span class="c1"># From https://esxi-patches.v-front.de/ESXi-7.0.0.html&lt;/span>
 &lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
 &lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1"># Cut and paste these commands into an ESXi shell to update your host with this Imageprofile&lt;/span>
 &lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1"># See the Help page for more instructions&lt;/span>
 &lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">#&lt;/span>
 &lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">esxcli network firewall ruleset &lt;span class="nb">set&lt;/span> -e &lt;span class="nb">true&lt;/span> -r httpClient
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">esxcli software profile update -p ESXi-6.7.0-20181104001-standard &lt;span class="se">\
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">esxcli software profile update -p ESXi-7.0U3k-21313628-standard &lt;span class="se">\
 &lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="se">&lt;/span>-d https://hostupdate.vmware.com/software/VUM/PRODUCTION/main/vmw-depot-index.xml
 &lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">esxcli network firewall ruleset &lt;span class="nb">set&lt;/span> -e &lt;span class="nb">false&lt;/span> -r httpClient
 &lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">#&lt;/span>
