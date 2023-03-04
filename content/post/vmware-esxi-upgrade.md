@@ -16,18 +16,18 @@ Vmware Official  [https://my.vmware.com/group/vmware/patch#search](https://my.vm
 
 or
 
-VMware ESXi Patch Tracker  [https://esxi-patches.v-front.de/ESXi-6.7.0.html](https://esxi-patches.v-front.de/ESXi-6.7.0.html)
+VMware ESXi Patch Tracker  [https://esxi-patches.v-front.de/ESXi-7.0.0.html](https://esxi-patches.v-front.de/ESXi-7.0.0.html)
 
 # Install
 
 ```bash
-# From https://esxi-patches.v-front.de/ESXi-6.7.0.html
+# From https://esxi-patches.v-front.de/ESXi-7.0.0.html
 
 # Cut and paste these commands into an ESXi shell to update your host with this Imageprofile
 # See the Help page for more instructions
 #
 esxcli network firewall ruleset set -e true -r httpClient
-esxcli software profile update -p ESXi-6.7.0-20181104001-standard \
+esxcli software profile update -p ESXi-7.0U3k-21313628-standard \
 -d https://hostupdate.vmware.com/software/VUM/PRODUCTION/main/vmw-depot-index.xml
 esxcli network firewall ruleset set -e false -r httpClient
 #
